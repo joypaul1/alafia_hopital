@@ -2,10 +2,12 @@
 
 namespace App\Models\Bed;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\AutoTimeStamp;
+use App\Traits\GlobalScope;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class BedCabin extends Model
 {
-    use HasFactory;
+    use GlobalScope, AutoTimeStamp,SoftDeletes;
+    protected $guarded =['id'];
 }
