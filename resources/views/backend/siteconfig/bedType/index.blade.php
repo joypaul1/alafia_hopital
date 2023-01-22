@@ -20,8 +20,8 @@
                 <div class="body">
                     <div class="d-flex justify-content-between aling-items-center mb-4">
                         <h4 class="card-title mb-0">Bed Type List</h4>
-                        <a id="create_data" data-href="{{ route('backend.siteconfig.bedType.create') }}" class="btn btn-info btn-md">
-                            <i class="fa fa-plus-circle me-2"></i> Create  Type
+                        <a id="create_data" data-href="{{ route('backend.siteconfig.bedType.create') }}" class="btn btn-info btn-md text-white">
+                            <i class="fa fa-plus-circle me-2"></i> Create Type
                         </a>
                     </div>
 

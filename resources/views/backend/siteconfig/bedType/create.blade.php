@@ -5,7 +5,7 @@
         @method('POST')
         @csrf
         <div class="modal-header">
-            <h4 class="title" id="">Bed Type Add</h4>
+            <h4 class="title" id="">BedType Add</h4>
         </div>
         <div class="modal-body">
             <div class="form-validation">
