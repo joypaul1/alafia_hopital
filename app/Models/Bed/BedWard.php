@@ -7,7 +7,7 @@ use App\Traits\GlobalScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class BedWord extends Model
+class BedWard extends Model
 {
     use GlobalScope, AutoTimeStamp,SoftDeletes;
     protected $guarded =['id'];

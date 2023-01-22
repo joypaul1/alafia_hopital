@@ -13,13 +13,14 @@
                     @include('components.backend.forms.input.input-type',[ 'name' => 'name', 'placeholder' => 'name will be here...', 'required'=>true ])
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                 </div>
-               
+                
+
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" name="status" id="active_check">
                     <label class="form-check-label" for="active_check">Active ?</label>
                 </div>
-               
-                
+
+
             </div>
         </div>
         <div class="modal-footer">
@@ -36,7 +37,7 @@
         var registerForm = $("form#category_add_form");
         var formData = registerForm.serialize();
         $('.save_category_button').attr('disabled',true);
-        
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -68,8 +69,8 @@
                         positionClass: $positionClass
                     });
                 }
-                
-            },error:function(res){ 
+
+            },error:function(res){
                 var errors =res;
                 console.log(errors.responseJSON.errors, 'errors');
                 var myObject = errors.responseJSON.errors;
@@ -86,12 +87,12 @@
                             positionClass: $positionClass
                         });
                     }
-                    
+
                 }
-            
+
 
             }
         });
     });
-    
+
 </script> --}}

@@ -4,15 +4,17 @@ namespace App\Http\Controllers\Backend\Bed;
 
 use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
-use App\Models\Item\Category;
+use App\Models\Bed\Bed;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use App\Http\Requests\BedGroup\StoreRequest;
+use App\Http\Requests\BedGroup\UpdateRequest;
 
 class BedController extends Controller
 {
     public function index(Request $request)
     {
-         $data = Category::select(['id', 'name', 'slug', 'image', 'status'])->latest();
+         $data = Bed::select(['id', 'name', 'status'])->latest();
         if($request->status){
             $data = $data->active();
         }elseif($request->status == '0'){
@@ -63,7 +65,7 @@ class BedController extends Controller
      */
     public function create()
     {
-        return view('backend.item.category.create');
+        return view('backend.siteconfig.bed.create');
     }
 
     /**
@@ -76,8 +78,7 @@ class BedController extends Controller
     {
         $returnData = $request->storeData($request);
         if($returnData->getData()->status){
-            $this->catSession();
-            (new LogActivity)::addToLog('Category Created');
+            (new LogActivity)::addToLog('Bed Created');
             return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
         }
         return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
@@ -101,9 +102,9 @@ class BedController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category )
+    public function edit(Bed $bed )
     {
-        return view('backend.item.category.edit',compact('category'));
+        return view('backend.siteconfig.bed.edit',compact('bed'));
     }
 
     /**
@@ -113,12 +114,11 @@ class BedController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, Category $category)
+    public function update(UpdateRequest $request, Bed $bed)
     {
-        $returnData = $request->updateData($request, $category);
+        $returnData = $request->updateData($request, $bed);
         if($returnData->getData()->status){
-            (new LogActivity)::addToLog('Category Updated');
-            $this->catSession();
+            (new LogActivity)::addToLog('Bed Updated');
             return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
         }
         return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
@@ -131,15 +131,15 @@ class BedController extends Controller
      * @return \Illuminate\Http\Response
     */
 
-    public function destroy(Category $category)
+    public function destroy(Bed $bed)
     {
         try {
-            $category->delete();
-            $this->catSession();
+            $bed->delete();
+
         } catch (\Exception $ex) {
             return response()->json(['status' => false, 'mes' =>$ex->getMessage()]);
         }
-        (new LogActivity)::addToLog('Category Deleted');
+        (new LogActivity)::addToLog('Bed Deleted');
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
 

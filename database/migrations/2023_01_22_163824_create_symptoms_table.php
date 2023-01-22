@@ -13,16 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('beds', function (Blueprint $table) {
+        Schema::create('symptoms', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->boolean('status')->default(0);
-            $table->decimal('price', 15, 4)->default(0);
-            $table->foreignId('bed_group_id')->nullable()->constrained('bed_groups');
-            $table->foreignId('bed_type_id')->nullable()->constrained('bed_types');
-            $table->foreignId('bed_ward_id')->nullable()->constrained('bed_wards');
-            $table->foreignId('bed_cabin_id')->nullable()->constrained('bed_cabins');
-            $table->foreignId('floor_id')->nullable()->constrained('floors');
+            $table->foreignId('symptom_type_id')->constrained('symptom_types');
             $table->foreignId('created_by')->nullable()->constrained('admins');
             $table->foreignId('updated_by')->nullable()->constrained('admins');
             $table->foreignId('deleted_by')->nullable()->constrained('admins');
@@ -38,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('beds');
+        Schema::dropIfExists('symptoms');
     }
 };

@@ -5,13 +5,13 @@ namespace App\Models;
 use App\Models\Ledger\SupplierLedger;
 use App\Traits\AutoTimeStamp;
 use App\Traits\GlobalScope;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Supplier extends Model
 {
-    use AutoTimeStamp, GlobalScope;
+    use AutoTimeStamp, GlobalScope,SoftDeletes;
 
     protected $guarded = ['id'];
 

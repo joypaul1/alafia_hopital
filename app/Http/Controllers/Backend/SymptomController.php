@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Bed;
+namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class BedWordController extends Controller
+class SymptomController extends Controller
 {
     /**
      * Display a listing of the resource.
