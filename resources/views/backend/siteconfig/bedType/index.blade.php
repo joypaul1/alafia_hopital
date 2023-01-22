@@ -3,7 +3,7 @@
 
 
 @section('page-header')
-    <i class="fa fa-list"></i> Bed Config
+    <i class="fa fa-list"></i> Bed Type Config
 @stop
 
 @section('content')
@@ -72,10 +72,10 @@
             destroy: true,
             pagingType: 'numbers',
             pageLength: 10,
-            ajax: "{{ route('backend.siteconfig.bed.index') }}",
+            ajax: "{{ route('backend.siteconfig.bedType.index') }}",
             ajax: {
                 method:'GET',
-                url : "{{ route('backend.siteconfig.bed.index') }}",
+                url : "{{ route('backend.siteconfig.bedType.index') }}",
                 data : function ( d ) {
                     d.status = $('select#status').val()||true;
                 },

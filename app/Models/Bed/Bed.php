@@ -2,10 +2,13 @@
 
 namespace App\Models\Bed;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\AutoTimeStamp;
+use App\Traits\GlobalScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Bed extends Model
 {
-    use HasFactory;
+    use GlobalScope, AutoTimeStamp;
+
+    protected $guarded =['id'];
 }

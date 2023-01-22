@@ -52,8 +52,8 @@ class BedController extends Controller
                 ->make(true);
 
         }
-        $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
-        return view('backend.siteconfig.bed.index', compact('banners'));
+        // $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
+        return view('backend.siteconfig.bed.index');
     }
 
       /**
