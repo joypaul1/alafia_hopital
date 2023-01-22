@@ -19,9 +19,9 @@
             <div class="card">
                 <div class="body">
                     <div class="d-flex justify-content-between aling-items-center mb-4">
-                        <h4 class="card-title mb-0">Bed List</h4>
-                        <a href="#" class="btn btn-info btn-md">
-                            <i class="fa fa-plus-circle me-2"></i> Create Bed
+                        <h4 class="card-title mb-0">Bed Type List</h4>
+                        <a id="create_data" data-href="{{ route('backend.siteconfig.bedType.create') }}" class="btn btn-info btn-md">
+                            <i class="fa fa-plus-circle me-2"></i> Create  Type
                         </a>
                     </div>
 
@@ -47,7 +47,13 @@
         </div>
     </div>
 
+<!-- Modal HTML -->
 
+<div class="modal fade bedType_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md" role=" document">
+
+    </div>
+</div>
 
 @endsection
 
@@ -55,7 +61,7 @@
 
 <script>
     let table_name ;
-    var modal = ".category_modal";
+    var modal = ".bedType_modal";
     $(function() {
         table_name =$("#bed_table").DataTable({
             dom: "Bfrtip",
@@ -105,8 +111,9 @@
 
     $('#create_data').click(function(e) {
         e.preventDefault();
-        var modal = ".category_modal";
+        var modal = ".bedType_modal";
         var href = $(this).data('href');
+        console.log(href);
         // AJAX request
         $.ajax({
             url: href,
@@ -142,11 +149,11 @@
         table_name.ajax.reload();
     }
 
-    $(document).on('submit', 'form#category_edit_form', function(e) {
+    $(document).on('submit', 'form#bedType_edit_form', function(e) {
         e.preventDefault();
-        var registerForm = $("form#category_edit_form");
+        var registerForm = $("form#bedType_edit_form");
         var formData = registerForm.serialize();
-        $('.edit_category_button').attr('disabled',true);
+        $('.edit_bedType_button').attr('disabled',true);
 
         $.ajaxSetup({
             headers: {
@@ -205,11 +212,11 @@
     });
 
 
-    $(document).on('submit', 'form#category_add_form', function(e) {
+    $(document).on('submit', 'form#bedType_add_form', function(e) {
         e.preventDefault();
-        var registerForm = $("form#category_add_form");
+        var registerForm = $("form#bedType_add_form");
         var formData = registerForm.serialize();
-        $('.save_category_button').attr('disabled',true);
+        $('.save_bedType_button').attr('disabled',true);
 
         $.ajaxSetup({
             headers: {

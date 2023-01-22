@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class BedType extends Model
 {
     use GlobalScope, AutoTimeStamp;
-
     protected $guarded =['id'];
 
 }

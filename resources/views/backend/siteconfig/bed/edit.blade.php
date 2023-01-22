@@ -1,5 +1,5 @@
 <div class="modal-content">
-    <form class="needs-validation" id="category_edit_form" action="{{ route('backend.itemconfig.category.update', $category) }}" method="Post"
+    <form class="needs-validation" id="category_edit_form" action="{{ route('backend.siteconfig.bedupdate', $category) }}" method="Post"
         enctype="multipart/form-data">
         @method('POST')
         @csrf

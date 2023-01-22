@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Backend\Bed;
 
+use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use App\Models\Bed\BedType;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-
+use App\Http\Requests\BedType\StoreRequest;
+use App\Http\Requests\BedType\UpdateRequest;
 class BedTypeController extends Controller
 {
     /**
@@ -31,15 +33,15 @@ class BedTypeController extends Controller
            return DataTables::of($data)
                ->addIndexColumn()
                ->addColumn('action', function ($row) {
-                   $action ='<div class="dropdown">
+                   $action ='<div class="dropdown text-center">
                    <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                       <div class="dropdown-menu" >
+                       <div class="dropdown-menu" style="min-width:auto !important">
                        <a data-href="'.route('backend.siteconfig.bedType.edit', $row).'" class="dropdown-item edit_check"
-                           data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit mr-2" aria-hidden="true"></i> Edit
+                           data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit" aria-hidden="true"></i>
                        </a>
                        <div class="dropdown-divider"></div>
                        <a data-href="'.route('backend.siteconfig.bedType.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
-                           data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash mr-2" aria-hidden="true"></i> Delete
+                           data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash" aria-hidden="true"></i>
                        </a>
                    </div></div>';
                    return $action;
@@ -60,14 +62,14 @@ class BedTypeController extends Controller
        return view('backend.siteconfig.bedType.index');
     }
 
-    /**
+      /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('backend.siteconfig.bedType.create');
     }
 
     /**
@@ -76,9 +78,15 @@ class BedTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $returnData = $request->storeData($request);
+        if($returnData->getData()->status){
+            (new LogActivity)::addToLog('BedType Created');
+            return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
+        }
+        return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
+
     }
 
     /**
@@ -98,9 +106,9 @@ class BedTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(BedType $bedType )
     {
-        //
+        return view('backend.siteconfig.bedType.edit',compact('bedType'));
     }
 
     /**
@@ -110,9 +118,14 @@ class BedTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, BedType $bedType)
     {
-        //
+        $returnData = $request->updateData($request, $bedType);
+        if($returnData->getData()->status){
+            (new LogActivity)::addToLog('BedType Updated');
+            return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
+        }
+        return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
     }
 
     /**
@@ -120,9 +133,18 @@ class BedTypeController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    */
+
+    public function destroy(BedType $bedType)
     {
-        //
+        try {
+            $bedType->delete();
+
+        } catch (\Exception $ex) {
+            return response()->json(['status' => false, 'mes' =>$ex->getMessage()]);
+        }
+        (new LogActivity)::addToLog('BedType Deleted');
+        return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
+
 }
