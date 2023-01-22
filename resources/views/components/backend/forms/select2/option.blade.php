@@ -1,0 +1,60 @@
+@push('css')
+<link rel="stylesheet" href="{{ asset('assets/backend') }}/vendor/select2/select2.css" />
+<link rel="stylesheet" href="{{ asset('assets/backend') }}/css/main.css">
+@endpush
+
+@php
+$str = ['_','[', ']'];
+$rplc =[' ',' ', ' '];
+$upName = ucfirst(str_replace($str,$rplc, $name));
+if(isset($label)){
+    $label = ucfirst(str_replace($str,$rplc, $label));
+}
+
+@endphp
+{{-- label end here --}}
+{{-- @if(isset($label) || isset($name)) --}}
+<label class="col-form-label" @isset($name) for="{{ $name }}" @endisset>
+    {{ $label??$upName}}
+    @isset($required)
+    <span class="text-danger">*</span>
+    @endisset
+</label>
+{{-- @endif --}}
+{{-- label end here --}}
+
+
+<select class="form-control show-tick ms select2" id="{{ $name }}" @isset($name) name="{{ $name  }}" @endisset @isset($multiple) multiple @endisset
+@isset($onclick)
+    onclick="dataBaseCall()"
+@endisset
+@isset($onchange)
+onchange="dataBaseCall()"
+@endisset
+@isset($required)
+required
+@endisset
+>
+    <option value=" "  >- select {{ $label??$name }} -</option>
+        @forelse ($optionDatas as $data)
+            <option value="{{ $data['id'] }}" @isset($selectedKey) {{ ( $selectedKey == $data['id']) ? 'selected': ' ' }} @endisset>
+                {{ $data['name'] }}
+            </option>
+        @empty
+        @endforelse
+</select>
+
+@push('js')
+<script src="{{ asset('assets/backend') }}/vendor/select2/select2.min.js"></script>
+@if (isset($name))
+<script>
+    $("#{{$name}}").select2();
+</script>
+@else
+<script>
+    $(".select2").select2();
+</script>
+
+@endif
+
+@endpush
