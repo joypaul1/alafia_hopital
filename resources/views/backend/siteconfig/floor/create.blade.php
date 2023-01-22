@@ -1,11 +1,11 @@
 
 <div class="modal-content">
-    <form class="needs-validation" id="bedGroup_add_form" action="{{ route('backend.siteconfig.bedGroup.store') }}" method="Post"
+    <form class="needs-validation" id="floor_add_form" action="{{ route('backend.siteconfig.floor.store') }}" method="Post"
         enctype="multipart/form-data">
         @method('POST')
         @csrf
         <div class="modal-header">
-            <h4 class="title" id="">BedGroup Add</h4>
+            <h4 class="title" id="">Floor Add</h4>
         </div>
         <div class="modal-body">
             <div class="form-validation">
@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-outline-primary save_bedGroup_button">SAVE</button>
+            <button type="submit" class="btn btn-outline-primary save_floor_button">SAVE</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
         </div>
     </form>

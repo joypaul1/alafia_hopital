@@ -46,9 +46,7 @@ class BedGroupController extends Controller
                    </div></div>';
                    return $action;
                })
-               ->editColumn('image', function($row){
-                   return  asset($row->image);
-               })
+
                ->editColumn('status', function($row){
                    return view('components.backend.forms.input.input-switch', ['status' => $row->status ]);
 

@@ -3,7 +3,7 @@
 
 
 @section('page-header')
-    <i class="fa fa-list"></i> BedGroup Config
+    <i class="fa fa-list"></i> Floor Config
 @stop
 
 @section('content')
@@ -19,14 +19,14 @@
             <div class="card">
                 <div class="body">
                     <div class="d-flex justify-content-between aling-items-center mb-4">
-                        <h4 class="card-title mb-0">BedGroup List</h4>
-                        <a id="create_data" data-href="{{ route('backend.siteconfig.bedGroup.create') }}" class="btn btn-info btn-md text-white">
-                            <i class="fa fa-plus-circle me-2"></i> Create Group
+                        <h4 class="card-title mb-0">Floor List</h4>
+                        <a id="create_data" data-href="{{ route('backend.siteconfig.floor.create') }}" class="btn btn-info btn-md text-white">
+                            <i class="fa fa-plus-circle me-2"></i> Create Floor
                         </a>
                     </div>
 
                     <div class="table-responsive">
-                        <table  class="table table-bordered " id="bed_table">
+                        <table  class="table table-bordered" id="floor_table">
                             <thead>
                                 <tr>
                                     <th class="text-center">Sl.</th>
@@ -49,7 +49,7 @@
 
 <!-- Modal HTML -->
 
-<div class="modal fade bedGroup_modal" tabindex="-1" role="dialog">
+<div class="modal fade floor_modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-md" role=" document">
 
     </div>
@@ -61,9 +61,9 @@
 
 <script>
     let table_name ;
-    var modal = ".bedGroup_modal";
+    var modal = ".floor_modal";
     $(function() {
-        table_name =$("#bed_table").DataTable({
+        table_name =$("#floor_table").DataTable({
             dom: "Bfrtip",
             buttons: ["colvis","copy", "csv", "excel", "pdf", "print",
                 {
@@ -78,10 +78,10 @@
             destroy: true,
             pagingType: 'numbers',
             pageLength: 10,
-            ajax: "{{ route('backend.siteconfig.bedGroup.index') }}",
+            ajax: "{{ route('backend.siteconfig.floor.index') }}",
             ajax: {
                 method:'GET',
-                url : "{{ route('backend.siteconfig.bedGroup.index') }}",
+                url : "{{ route('backend.siteconfig.floor.index') }}",
                 data : function ( d ) {
                     d.status = $('select#status').val()||true;
                 },
@@ -93,7 +93,6 @@
                     data: 'name',
                     name: 'name'
                 },
-
                  {
                     data: 'status',
                     name: 'status',
@@ -111,7 +110,7 @@
 
     $('#create_data').click(function(e) {
         e.preventDefault();
-        var modal = ".bedGroup_modal";
+        var modal = ".floor_modal";
         var href = $(this).data('href');
         console.log(href);
         // AJAX request
@@ -149,11 +148,11 @@
         table_name.ajax.reload();
     }
 
-    $(document).on('submit', 'form#bedGroup_edit_form', function(e) {
+    $(document).on('submit', 'form#floor_edit_form', function(e) {
         e.preventDefault();
-        var registerForm = $("form#bedGroup_edit_form");
+        var registerForm = $("form#floor_edit_form");
         var formData = registerForm.serialize();
-        $('.edit_bedGroup_button').attr('disabled',true);
+        $('.edit_floor_button').attr('disabled',true);
 
         $.ajaxSetup({
             headers: {
@@ -212,11 +211,11 @@
     });
 
 
-    $(document).on('submit', 'form#bedGroup_add_form', function(e) {
+    $(document).on('submit', 'form#floor_add_form', function(e) {
         e.preventDefault();
-        var registerForm = $("form#bedGroup_add_form");
+        var registerForm = $("form#floor_add_form");
         var formData = registerForm.serialize();
-        $('.save_bedGroup_button').attr('disabled',true);
+        $('.save_floor_button').attr('disabled',true);
 
         $.ajaxSetup({
             headers: {

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Floor;
 
 use App\Models\Bed\BedGroup;
+use App\Models\Floor;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +16,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize()
     {
-    return true;
+        return true;
     }
 
     /**
@@ -37,7 +38,7 @@ class StoreRequest extends FormRequest
             DB::beginTransaction();
             $data = $request->validated();
             $data['status'] = $this->status == 'on'? true:false;
-            BedGroup::create($data);
+            Floor::create($data);
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();

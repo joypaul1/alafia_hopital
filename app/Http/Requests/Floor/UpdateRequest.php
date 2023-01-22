@@ -30,12 +30,12 @@ class UpdateRequest extends FormRequest
         ];
     }
 
-    public function updateData($request,$bedGroup)
+    public function updateData($request,$floor)
     {
         try {
             DB::beginTransaction();
             $data = $request->validated();
-            $bedGroup->update($data);
+            $floor->update($data);
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();
