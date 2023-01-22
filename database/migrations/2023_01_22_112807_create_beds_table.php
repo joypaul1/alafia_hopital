@@ -15,6 +15,16 @@ return new class extends Migration
     {
         Schema::create('beds', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->boolean('status')->default(0);
+            $table->decimal('price', 15, 4)->default(0);
+            $table->foreignId('bed_group_id')->nullable()->constrained('bed_groups');
+            $table->foreignId('bed_type_id')->nullable()->constrained('bed_types');
+            $table->foreignId('floor_id')->nullable()->constrained('floors');
+            $table->foreignId('created_by')->nullable()->constrained('admins');
+            $table->foreignId('updated_by')->nullable()->constrained('admins');
+            $table->foreignId('deleted_by')->nullable()->constrained('admins');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

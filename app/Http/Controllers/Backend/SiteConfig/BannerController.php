@@ -19,8 +19,8 @@ class BannerController extends Controller
      */
     public function index()
     {
-    $banners = Banner::select('id', 'position', 'image')->paginate(10);
-       return view('backend.siteconfig.banner.index', compact('banners'));
+        $banners = Banner::select('id', 'position', 'image')->paginate(10);
+        return view('backend.siteconfig.banner.index', compact('banners'));
     }
 
     /**
@@ -47,7 +47,7 @@ class BannerController extends Controller
             return back()->with(['success' => $returnData->getData()->msg  ]);
         }
         return back()->with(['error' =>$returnData->getData()->msg ]);
-      
+
     }
 
     /**
@@ -106,7 +106,7 @@ class BannerController extends Controller
         }
         (new LogActivity)::addToLog('Banner Deleted');
 
-        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);   
+        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);
     }
 }
 

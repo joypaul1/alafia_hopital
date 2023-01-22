@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bed_types', function (Blueprint $table) {
+        Schema::create('bed_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->boolean('status')->default(0);
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bed_types');
+        Schema::dropIfExists('bed_groups');
     }
 };

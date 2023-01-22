@@ -12,6 +12,10 @@
     font-style: normal;
 }
 
+a{
+    color: inherit;
+}
+
 [data-icon]:before {
     font-family: simple-line-icons;
     content: attr(data-icon);

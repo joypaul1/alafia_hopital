@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('floors', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->boolean('status')->default(0);
+            $table->foreignId('created_by')->nullable()->constrained('admins');
+            $table->foreignId('updated_by')->nullable()->constrained('admins');
+            $table->foreignId('deleted_by')->nullable()->constrained('admins');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

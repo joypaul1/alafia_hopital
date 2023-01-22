@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Backend\Bed\BedController;
+use App\Http\Controllers\Backend\Bed\BedGroupController;
+use App\Http\Controllers\Backend\Bed\BedTypeController;
+use App\Http\Controllers\Backend\Bed\FloorController;
 use App\Http\Controllers\Backend\SiteConfig\BarcodeController;
 use App\Http\Controllers\Backend\File\FileManagerController;
 use App\Http\Controllers\Backend\SiteConfig\PrefixController;
@@ -35,18 +39,31 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin/site-config' , 'as'=>'b
 
         // Meta-tag-Configuration
     Route::resource('meta-tag', MetatagController::class);
-        
+
         // Barcode-method
     Route::resource('barcode-method', BarcodeController::class);
         // prefix-system
     Route::resource('prefix-system', PrefixController::class);
-        
+
     // tax-rate
     Route::resource('tax-rate', TaxController::class);
-    
-        // filemanager-Configuration
+
+    //bed
+    Route::resource('bed', BedController::class);
+
+    //bedGroup
+    Route::resource('bedGroup', BedGroupController::class);
+
+    //bedtype
+    Route::resource('bedType', BedTypeController::class);
+
+    //floor
+    Route::resource('floor', FloorController::class);
+
+
+    // filemanager-Configuration
     Route::get('filemanager', [FileManagerController::class, 'index'])->name('filemanager');
 
 
-      
+
 });
