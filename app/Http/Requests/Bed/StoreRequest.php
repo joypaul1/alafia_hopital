@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Floor;
+namespace App\Http\Requests\Bed;
 
-
-use App\Models\Floor;
+use App\Models\Bed\Bed;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 
@@ -16,7 +15,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+    return true;
     }
 
     /**
@@ -26,8 +25,17 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
-            'name' => 'required|string|unique:floors,name',
+            'name' => 'required|string|unique:beds,name',
+            'description' => 'nullable|string|',
+            'price' => 'required|numeric',
+            'bed_group_id' => 'nullable|exists:bed_groups,id',
+            'bed_type_id' => 'nullable|exists:bed_types,id',
+            'bed_cabin_id' => 'nullable|exists:bed_cabins,id',
+            'bed_floor_id' => 'nullable|exists:bed_floors,id',
+            'bed_ward_id' => 'nullable|exists:bed_wards,id',
+
         ];
     }
 
@@ -38,7 +46,7 @@ class StoreRequest extends FormRequest
             DB::beginTransaction();
             $data = $request->validated();
             $data['status'] = $this->status == 'on'? true:false;
-            Floor::create($data);
+            Bed::create($data);
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();

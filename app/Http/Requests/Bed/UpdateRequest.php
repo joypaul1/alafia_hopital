@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Floor;
+namespace App\Http\Requests\Bed;
 
-
-use App\Models\Floor;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
-class StoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,24 +26,21 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:floors,name',
+            'name' => ['required','string', Rule::unique('bed_groups')->ignore($this->Bed->id)],
         ];
     }
 
-    public function storeData($request)
+    public function updateData($request,$Bed)
     {
-
         try {
             DB::beginTransaction();
             $data = $request->validated();
-            $data['status'] = $this->status == 'on'? true:false;
-            Floor::create($data);
+            $Bed->update($data);
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();
             return response()->json(['status' => false, 'msg' =>$ex->getMessage()]);
         }
-        return response()->json(['status' => true, 'msg' =>'Data Created Successfully.']);
+        return response()->json(['status' => true, 'msg' => 'Data Updated Successfully']);
     }
 }
-

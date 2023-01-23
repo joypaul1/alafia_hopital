@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string', Rule::unique('bed_groups')->ignore($this->bedGroup->id)],
+            'name' => ['required','string', Rule::unique('floors')->ignore($this->floor->id)],
         ];
     }
 

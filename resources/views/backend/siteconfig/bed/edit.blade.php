@@ -1,5 +1,5 @@
 <div class="modal-content">
-    <form class="needs-validation" id="bed_edit_form" action="{{ route('backend.siteconfig.bedupdate', $bed) }}" method="Post"
+    <form class="needs-validation" id="bed_edit_form" action="{{ route('backend.siteconfig.bed.update', $bed) }}" method="Post"
         enctype="multipart/form-data">
         @method('POST')
         @csrf
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary edit_bed_button">SAVE</button>
+            <button type="submit" class="btn btn-outline-primary  edit_bed_button">SAVE</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
         </div>
     </form>

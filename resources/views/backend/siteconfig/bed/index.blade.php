@@ -20,7 +20,7 @@
                 <div class="body">
                     <div class="d-flex justify-content-between aling-items-center mb-4">
                         <h4 class="card-title mb-0">Bed List</h4>
-                        <a id="create_data" data-href="{{ route('backend.siteconfig.bed.create') }}"class="btn btn-info btn-md">
+                        <a id="create_data" data-href="{{ route('backend.siteconfig.bed.create') }}"class="btn btn-info btn-md text-white">
                             <i class="fa fa-plus-circle me-2"></i> Create Bed
                         </a>
                     </div>
@@ -37,7 +37,6 @@
                             </thead>
 
                             <tbody>
-
 
                             </tbody>
                         </table>
@@ -90,11 +89,11 @@
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
-                }, {
+                },
+                {
                     data: 'name',
                     name: 'name'
                 },
-
                  {
                     data: 'status',
                     name: 'status',
