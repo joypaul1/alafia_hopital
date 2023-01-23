@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Backend\Bed\BedCabinController;
 use App\Http\Controllers\Backend\Bed\BedController;
 use App\Http\Controllers\Backend\Bed\BedGroupController;
 use App\Http\Controllers\Backend\Bed\BedTypeController;
+use App\Http\Controllers\Backend\Bed\BedWardController;
 use App\Http\Controllers\Backend\Bed\FloorController;
 use App\Http\Controllers\Backend\SiteConfig\BarcodeController;
 use App\Http\Controllers\Backend\File\FileManagerController;
@@ -59,6 +61,12 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin/site-config' , 'as'=>'b
 
     //floor
     Route::resource('floor', FloorController::class);
+
+    //cabin
+    Route::resource('bedCabin', BedCabinController::class);
+
+    //bedWard
+    Route::resource('bedWard', BedWardController::class);
 
 
     // filemanager-Configuration

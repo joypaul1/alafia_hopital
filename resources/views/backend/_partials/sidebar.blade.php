@@ -30,7 +30,7 @@
 
 
                         {{-- order Panel --}}
-                        <li class="{{ strpos($strpos, 'backend.order') === 0 ? 'active' : ' ' }}">
+                        {{-- <li class="{{ strpos($strpos, 'backend.order') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
                                 <span>Order Panel</span>
@@ -42,12 +42,12 @@
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'order-list' ? 'active' : ' ' }}"                name="Paid" link='backend.order.order-list.index' icon='#' />
 
                             </ul>
-                        </li>
+                        </li> --}}
                         {{-- End order Panel --}}
 
 
                         {{-- purchase Panel --}}
-                        <li class="{{ strpos($strpos, 'backend.purchase') === 0 ? 'active' : ' ' }}">
+                        {{-- <li class="{{ strpos($strpos, 'backend.purchase') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
                                 <span>Purchase Panel</span>
@@ -60,11 +60,11 @@
                                     link='backend.purchase.create' icon='#' />
 
                             </ul>
-                        </li>
+                        </li> --}}
                         {{-- End purchase Panel --}}
 
                         {{-- Pos Panel --}}
-                        <li
+                        {{-- <li
                             class="{{ strpos($strpos, 'backend.outlet') === 0 ? 'active' : ' ' }}{{ strpos($strpos, 'backend.register') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
@@ -78,11 +78,11 @@
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'register' ? 'active' : ' ' }}"
                                     name="Register" link='backend.register.index' icon='#' />
                             </ul>
-                        </li>
+                        </li> --}}
                         {{-- End Pos Panel --}}
 
                         {{-- production Panel --}}
-                        <li class="{{ strpos($strpos, 'backend.production') === 0 ? 'active' : ' ' }}">
+                        {{-- <li class="{{ strpos($strpos, 'backend.production') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
                                 <span>Production Panel</span>
@@ -92,11 +92,11 @@
                                     name="production" link='backend.production.index' icon='#' />
 
                             </ul>
-                        </li>
+                        </li> --}}
                         {{-- End production Panel --}}
 
                         {{-- Inventory Panel --}}
-                        <li class="{{ strpos($strpos, 'backend.inventory') === 0 ? 'active' : ' ' }}">
+                        {{-- <li class="{{ strpos($strpos, 'backend.inventory') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
                                 <span>Inventory Panel</span>
@@ -108,11 +108,11 @@
                                     name="Warehouse" link='backend.inventory.warehouse.index' icon='#' />
 
                             </ul>
-                        </li>
+                        </li> --}}
                         {{-- End Inventory Panel --}}
 
                         {{-- Employee Panel --}}
-                        <li class="{{ strpos($strpos, 'backend.employee') === 0 ? 'active' : ' ' }}">
+                        {{-- <li class="{{ strpos($strpos, 'backend.employee') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
                                 <span>Employee Panel</span>
@@ -128,11 +128,11 @@
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'shift' ? 'active' : ' ' }}"
                                     name="Shift" link='backend.employee.shift.index' icon='#' />
                             </ul>
-                        </li>
+                        </li> --}}
                         {{-- End Employee Panel --}}
 
                         {{-- supplier Panel --}}
-                        <li class="{{ strpos($strpos, 'backend.supplier') === 0 ? 'active' : ' ' }}">
+                        {{-- <li class="{{ strpos($strpos, 'backend.supplier') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
                                 <span>Supplier Panel</span>
@@ -142,7 +142,7 @@
                                     name="Supplier" link='backend.supplier.index' icon='#' />
 
                             </ul>
-                        </li>
+                        </li> --}}
                         {{-- End supplier Panel --}}
 
                         {{-- Admin Panel --}}
@@ -173,7 +173,7 @@
                         </li>
                         {{-- End user Panel --}}
                         {{-- Item Config --}}
-                        <li class="{{ strpos($strpos, 'backend.itemconfig') === 0 ? 'active' : ' ' }}">
+                        {{-- <li class="{{ strpos($strpos, 'backend.itemconfig') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-settings"></i>
                                 <span>Item Config</span>
@@ -201,10 +201,10 @@
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'row' ? 'active' : ' ' }}"
                                     name="Row" link='backend.itemconfig.row.index' icon='#' />
                             </ul>
-                        </li>
+                        </li> --}}
                         {{-- End Item Config --}}
                         {{-- Account Panel --}}
-                        <li class="{{ strpos($strpos, 'backend.account') === 0 ? 'active' : ' ' }}">
+                        {{-- <li class="{{ strpos($strpos, 'backend.account') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
                                 <span>Accounting Panel</span>
@@ -220,10 +220,10 @@
                                     class="{{ request()->segment(2) == 'transaction' ? 'active' : ' ' }}"
                                     name="Transaction" link='backend.account.transaction.index' icon='#' />
                             </ul>
-                        </li>
+                        </li> --}}
                         {{-- End Admin Panel --}}
                         {{-- Report Panel --}}
-                        <li class="{{ strpos($strpos, 'backend.report') === 0 ? 'active' : ' ' }}">
+                        {{-- <li class="{{ strpos($strpos, 'backend.report') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
                                 <span>Report Panel</span>
@@ -247,7 +247,7 @@
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'profit-report' ? 'active' : ' ' }}"
                                     name="Profit Report" link='backend.report.profitReport' icon='#' />
                             </ul>
-                        </li>
+                        </li> --}}
                         {{-- End Report Panel --}}
 
                         {{-- Site Configuration --}}
@@ -259,6 +259,8 @@
                             <ul>
                                 <x-backend.side-bar class="{{ request()->is('admin/site-config' ? 'active' : ' ') }}"
                                     name="Site Info" link='backend.siteconfig.index' icon='#' />
+                                 <x-backend.side-bar class="{{ request()->is('admin/site-config' ? 'active' : ' ') }}"
+                                    name="Bed Config" link='backend.siteconfig.bed.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'slider' ? 'active' : ' ' }}"
                                     name="Slider" link='backend.siteconfig.slider.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'banner' ? 'active' : ' ' }}"

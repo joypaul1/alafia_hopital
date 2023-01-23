@@ -3,7 +3,7 @@
 
 
 @section('page-header')
-    <i class="fa fa-list"></i> Floor Config
+    <i class="fa fa-list"></i> Ward Config
 @stop
 
 @section('content')
@@ -19,14 +19,14 @@
             <div class="card">
                 <div class="body">
                     <div class="d-flex justify-content-between aling-items-center mb-4">
-                        <h4 class="card-title mb-0">Floor List</h4>
-                        <a id="create_data" data-href="{{ route('backend.siteconfig.bedWord.create') }}" class="btn btn-info btn-md text-white">
-                            <i class="fa fa-plus-circle me-2"></i> Create Floor
+                        <h4 class="card-title mb-0">Ward List</h4>
+                        <a id="create_data" data-href="{{ route('backend.siteconfig.bedWard.create') }}" class="btn btn-info btn-md text-white">
+                            <i class="fa fa-plus-circle me-2"></i> Create Ward
                         </a>
                     </div>
 
                     <div class="table-responsive">
-                        <table  class="table table-bordered" id="bedWord_table">
+                        <table  class="table table-bordered" id="bedWard_table">
                             <thead>
                                 <tr>
                                     <th class="text-center">Sl.</th>
@@ -49,7 +49,7 @@
 
 <!-- Modal HTML -->
 
-<div class="modal fade bedWord_modal" tabindex="-1" role="dialog">
+<div class="modal fade bedWard_modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-md" role=" document">
 
     </div>
@@ -61,9 +61,9 @@
 
 <script>
     let table_name ;
-    var modal = ".bedWord_modal";
+    var modal = ".bedWard_modal";
     $(function() {
-        table_name =$("#bedWord_table").DataTable({
+        table_name =$("#bedWard_table").DataTable({
             dom: "Bfrtip",
             buttons: ["colvis","copy", "csv", "excel", "pdf", "print",
                 {
@@ -78,10 +78,10 @@
             destroy: true,
             pagingType: 'numbers',
             pageLength: 10,
-            ajax: "{{ route('backend.siteconfig.bedWord.index') }}",
+            ajax: "{{ route('backend.siteconfig.bedWard.index') }}",
             ajax: {
                 method:'GET',
-                url : "{{ route('backend.siteconfig.bedWord.index') }}",
+                url : "{{ route('backend.siteconfig.bedWard.index') }}",
                 data : function ( d ) {
                     d.status = $('select#status').val()||true;
                 },
@@ -110,7 +110,7 @@
 
     $('#create_data').click(function(e) {
         e.preventDefault();
-        var modal = ".bedWord_modal";
+        var modal = ".bedWard_modal";
         var href = $(this).data('href');
         console.log(href);
         // AJAX request
@@ -148,11 +148,11 @@
         table_name.ajax.reload();
     }
 
-    $(document).on('submit', 'form#bedWord_edit_form', function(e) {
+    $(document).on('submit', 'form#bedWard_edit_form', function(e) {
         e.preventDefault();
-        var registerForm = $("form#bedWord_edit_form");
+        var registerForm = $("form#bedWard_edit_form");
         var formData = registerForm.serialize();
-        $('.edit_bedWord_button').attr('disabled',true);
+        $('.edit_bedWard_button').attr('disabled',true);
 
         $.ajaxSetup({
             headers: {
@@ -211,11 +211,11 @@
     });
 
 
-    $(document).on('submit', 'form#bedWord_add_form', function(e) {
+    $(document).on('submit', 'form#bedWard_add_form', function(e) {
         e.preventDefault();
-        var registerForm = $("form#bedWord_add_form");
+        var registerForm = $("form#bedWard_add_form");
         var formData = registerForm.serialize();
-        $('.save_bedWord_button').attr('disabled',true);
+        $('.save_bedWard_button').attr('disabled',true);
 
         $.ajaxSetup({
             headers: {

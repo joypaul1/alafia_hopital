@@ -50,7 +50,7 @@
 
 <!-- Modal HTML -->
 
-<div class="modal fade bedGroup_modal" tabindex="-1" role="dialog">
+<div class="modal fade bed_modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-md" role=" document">
 
     </div>

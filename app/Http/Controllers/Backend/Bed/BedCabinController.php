@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Backend\Bed;
 
 use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Requests\Ward\StoreRequest;
-use App\Http\Requests\Ward\UpdateRequest;
-use App\Models\Bed\BedWard;
+use App\Http\Requests\Cabin\StoreRequest;
+use App\Http\Requests\Cabin\UpdateRequest;
+use App\Models\Bed\BedCabin;
 
-class BedWardController extends Controller
+class BedCabinController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +19,7 @@ class BedWardController extends Controller
      */
     public function index(Request $request)
     {
-        $data = BedWard::select(['id', 'name', 'status'])->latest();
+        $data = BedCabin::select(['id', 'name', 'status'])->latest();
        if($request->status){
            $data = $data->active();
        }elseif($request->status == '0'){
@@ -38,11 +37,11 @@ class BedWardController extends Controller
                    $action ='<div class="dropdown text-center">
                    <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                        <div class="dropdown-menu" style="min-width:auto !important">
-                       <a data-href="'.route('backend.siteconfig.bedWard.edit', $row).'" class="dropdown-item edit_check"
+                       <a data-href="'.route('backend.siteconfig.bedCabin.edit', $row).'" class="dropdown-item edit_check"
                            data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit" aria-hidden="true"></i>
                        </a>
                        <div class="dropdown-divider"></div>
-                       <a data-href="'.route('backend.siteconfig.bedWard.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
+                       <a data-href="'.route('backend.siteconfig.bedCabin.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
                            data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash" aria-hidden="true"></i>
                        </a>
                    </div></div>';
@@ -59,7 +58,7 @@ class BedWardController extends Controller
 
        }
        // $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
-       return view('backend.siteconfig.ward.index');
+       return view('backend.siteconfig.cabin.index');
     }
 
       /**
@@ -69,7 +68,7 @@ class BedWardController extends Controller
      */
     public function create()
     {
-        return view('backend.siteconfig.ward.create');
+        return view('backend.siteconfig.cabin.create');
     }
 
     /**
@@ -82,7 +81,7 @@ class BedWardController extends Controller
     {
         $returnData = $request->storeData($request);
         if($returnData->getData()->status){
-            (new LogActivity)::addToLog('Bedward Created');
+            (new LogActivity)::addToLog('BedCabin Created');
             return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
         }
         return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
@@ -106,9 +105,9 @@ class BedWardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(BedWard $bedWard )
+    public function edit(BedCabin $bedCabin )
     {
-        return view('backend.siteconfig.ward.edit',compact('floor'));
+        return view('backend.siteconfig.cabin.edit',compact('bedCabin'));
     }
 
     /**
@@ -118,11 +117,11 @@ class BedWardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, BedWard $bedWard )
+    public function update(UpdateRequest $request, BedCabin $bedCabin)
     {
-        $returnData = $request->updateData($request, $bedWard);
+        $returnData = $request->updateData($request, $bedCabin);
         if($returnData->getData()->status){
-            (new LogActivity)::addToLog('BedWard Updated');
+            (new LogActivity)::addToLog('BedCabin Updated');
             return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
         }
         return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
@@ -135,15 +134,15 @@ class BedWardController extends Controller
      * @return \Illuminate\Http\Response
     */
 
-    public function destroy(BedWard $bedWard)
+    public function destroy(BedCabin $bedCabin)
     {
         try {
-            $bedWard->delete();
+            $bedCabin->delete();
 
         } catch (\Exception $ex) {
             return response()->json(['status' => false, 'mes' =>$ex->getMessage()]);
         }
-        (new LogActivity)::addToLog('BedWard Deleted');
+        (new LogActivity)::addToLog('BedCabin Deleted');
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
 

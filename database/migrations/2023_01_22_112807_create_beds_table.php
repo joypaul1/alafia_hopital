@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('status')->default(0);
+            $table->text('description')->nullable();
             $table->decimal('price', 15, 4)->default(0);
             $table->foreignId('bed_group_id')->nullable()->constrained('bed_groups');
             $table->foreignId('bed_type_id')->nullable()->constrained('bed_types');

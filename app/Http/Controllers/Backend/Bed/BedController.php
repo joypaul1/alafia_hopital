@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\BedGroup\StoreRequest;
 use App\Http\Requests\BedGroup\UpdateRequest;
+use App\Models\Bed\BedCabin;
+use App\Models\Bed\BedGroup;
+use App\Models\Bed\BedType;
+use App\Models\Bed\BedWard;
+use App\Models\Floor;
 
 class BedController extends Controller
 {
@@ -65,7 +70,13 @@ class BedController extends Controller
      */
     public function create()
     {
-        return view('backend.siteconfig.bed.create');
+        $group = BedGroup::active()->select(['id', 'name'])->get();
+        $type = BedType::active()->select(['id', 'name'])->get();
+        $ward = BedWard::active()->select(['id', 'name'])->get();
+        $cabin = BedCabin::active()->select(['id', 'name'])->get();
+        $floor = Floor::active()->select(['id', 'name'])->get();
+        return view('backend.siteconfig.bed.create',
+        compact('group', 'type', 'ward', 'cabin', 'floor'));
     }
 
     /**
