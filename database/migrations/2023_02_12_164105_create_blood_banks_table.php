@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('type')->nullable();
             $table->boolean('status')->default(0);
+            $table->foreignId('type_id')->constrained('blood_banks');
             $table->foreignId('created_by')->nullable()->constrained('admins');
             $table->foreignId('updated_by')->nullable()->constrained('admins');
             $table->foreignId('deleted_by')->nullable()->constrained('admins');

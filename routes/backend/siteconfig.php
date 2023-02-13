@@ -10,7 +10,8 @@ use App\Http\Controllers\Backend\SiteConfig\BarcodeController;
 use App\Http\Controllers\Backend\File\FileManagerController;
 use App\Http\Controllers\Backend\SiteConfig\PrefixController;
 use App\Http\Controllers\Backend\SiteConfig\BannerController;
-use App\Http\Controllers\Backend\SiteConfig\BloodBankController;
+use App\Http\Controllers\Backend\SiteConfig\Blood\BloodBankController;
+use App\Http\Controllers\Backend\SiteConfig\Blood\BloodBankTypeController;
 use App\Http\Controllers\Backend\SiteConfig\EmailConfigurationController;
 use App\Http\Controllers\Backend\SiteConfig\MetatagController;
 use App\Http\Controllers\Backend\SiteConfig\QuickPageController;
@@ -79,6 +80,10 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin/site-config' , 'as'=>'b
 
     //blood
     Route::resource('bloodBank', BloodBankController::class);
+
+    //bloodType
+    Route::resource('bloodBankType', BloodBankTypeController::class);
+
 
 
     // filemanager-Configuration

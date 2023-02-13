@@ -1,25 +1,27 @@
 <?php
 
-namespace App\Http\Controllers\Backend\SiteConfig;
+namespace App\Http\Controllers\Backend\SiteConfig\Blood;
+
 use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Requests\BloodBank\StoreRequest;
-use App\Http\Requests\BloodBank\UpdateRequest;
-use App\Models\SiteConfig\BloodBank;
+use App\Http\Requests\BloodBankType\StoreRequest;
+use App\Http\Requests\BloodBankType\UpdateRequest;
+use App\Models\SiteConfig\BloodBankType;
 
-class BloodBankController extends Controller
+class BloodBankTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index(Request $request)
     {
-        $data = BloodBank::select(['id', 'name', 'status','type'])->latest();
+        // dd(3432);
+        $data = BloodBankType::select(['id', 'name', 'status'])->latest();
        if($request->status){
            $data = $data->active();
        }elseif($request->status == '0'){
@@ -37,11 +39,11 @@ class BloodBankController extends Controller
                    $action ='<div class="dropdown text-center">
                    <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                        <div class="dropdown-menu" style="min-width:auto !important">
-                       <a data-href="'.route('backend.siteconfig.bloodBank.edit', $row).'" class="dropdown-item edit_check"
+                       <a data-href="'.route('backend.siteconfig.bloodBankType.edit', $row).'" class="dropdown-item edit_check"
                            data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit" aria-hidden="true"></i>
                        </a>
                        <div class="dropdown-divider"></div>
-                       <a data-href="'.route('backend.siteconfig.bloodBank.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
+                       <a data-href="'.route('backend.siteconfig.bloodBankType.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
                            data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash" aria-hidden="true"></i>
                        </a>
                    </div></div>';
@@ -52,15 +54,13 @@ class BloodBankController extends Controller
                    return view('components.backend.forms.input.input-switch', ['status' => $row->status ]);
 
                })
-               ->editColumn('bloodBank_type_id', function($row){
-                   return optional($row->bloodBankType)->name??' ';
-               })
                ->removeColumn(['id'])
                ->rawColumns(['action'])
                ->make(true);
 
        }
-       return view('backend.siteconfig.bloodBank.index');
+       // $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
+       return view('backend.siteconfig.bloodBankType.index');
     }
 
       /**
@@ -70,8 +70,7 @@ class BloodBankController extends Controller
      */
     public function create()
     {
-        $type =  (object)[['name' =>'Blood Group', 'id' =>'group' ],['name' =>'Blood component', 'id' => 'component' ]];
-        return view('backend.siteconfig.bloodBank.create', compact('type'));
+        return view('backend.siteconfig.bloodBankType.create');
     }
 
     /**
@@ -84,7 +83,7 @@ class BloodBankController extends Controller
     {
         $returnData = $request->storeData($request);
         if($returnData->getData()->status){
-            (new LogActivity)::addToLog('BloodBank Created');
+            (new LogActivity)::addToLog('BloodBankType Created');
             return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
         }
         return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
@@ -108,11 +107,9 @@ class BloodBankController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(BloodBank $bloodBank )
+    public function edit(BloodBankType $bloodBankType )
     {
-        $type = BloodBank::select(['id', 'name'])->get();
-
-        return view('backend.siteconfig.bloodBank.edit',compact('bloodBank', 'type'));
+        return view('backend.siteconfig.bloodBankType.edit',compact('bloodBankType'));
     }
 
     /**
@@ -122,11 +119,11 @@ class BloodBankController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, BloodBank $bloodBank)
+    public function update(UpdateRequest $request, BloodBankType $bloodBankType)
     {
-        $returnData = $request->updateData($request, $bloodBank);
+        $returnData = $request->updateData($request, $bloodBankType);
         if($returnData->getData()->status){
-            (new LogActivity)::addToLog('BloodBank Updated');
+            (new LogActivity)::addToLog('BloodBankType Updated');
             return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
         }
         return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
@@ -139,15 +136,15 @@ class BloodBankController extends Controller
      * @return \Illuminate\Http\Response
     */
 
-    public function destroy(BloodBank $bloodBank)
+    public function destroy(BloodBankType $bloodBankType)
     {
         try {
-            $bloodBank->delete();
+            $bloodBankType->delete();
 
         } catch (\Exception $ex) {
             return response()->json(['status' => false, 'mes' =>$ex->getMessage()]);
         }
-        (new LogActivity)::addToLog('BloodBank Deleted');
+        (new LogActivity)::addToLog('BloodBankType Deleted');
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
 
