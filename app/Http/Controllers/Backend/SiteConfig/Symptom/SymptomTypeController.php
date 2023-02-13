@@ -1,35 +1,30 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Bed;
+namespace App\Http\Controllers\Backend\SiteConfig\Symptom;
 
 use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
-use App\Models\Bed\Bed;
+use App\Models\SymptomType;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Requests\Bed\StoreRequest;
-use App\Http\Requests\Bed\UpdateRequest;
-use App\Models\Bed\BedCabin;
-use App\Models\Bed\BedGroup;
-use App\Models\Bed\BedType;
-use App\Models\Bed\BedWard;
-use App\Models\Floor;
 
-class BedController extends Controller
+class SymptomTypeController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
-        $data = Bed::
-        // select('beds.*', 'bed_cabin_id.name as bedCabin', 'bed_groups.name as bedGroup', 'bed_types.name as bedType', 'bed_wards.name as bedWard', 'floors.name as floor')
-        with('bedCabin', 'bedGroup', 'bedType', 'bedWard', 'floor')
-        ->latest();
+        $data = SymptomType::select(['id', 'name', 'status'])->latest();
        if($request->status){
            $data = $data->active();
        }elseif($request->status == '0'){
            $data = $data->inactive();
        }
 
-        $data = $data->get();
+       $data = $data->get();
        if($request->optionData) {
            return response()->json(['data' =>$data]);
        }
@@ -40,11 +35,11 @@ class BedController extends Controller
                    $action ='<div class="dropdown text-center">
                    <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                        <div class="dropdown-menu" style="min-width:auto !important">
-                       <a data-href="'.route('backend.siteconfig.bedCabin.edit', $row).'" class="dropdown-item edit_check"
+                       <a data-href="'.route('backend.siteconfig.symptomType.edit', $row).'" class="dropdown-item edit_check"
                            data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit" aria-hidden="true"></i>
                        </a>
                        <div class="dropdown-divider"></div>
-                       <a data-href="'.route('backend.siteconfig.bedCabin.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
+                       <a data-href="'.route('backend.siteconfig.symptomType.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
                            data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash" aria-hidden="true"></i>
                        </a>
                    </div></div>';
@@ -53,50 +48,25 @@ class BedController extends Controller
 
                ->editColumn('status', function($row){
                    return view('components.backend.forms.input.input-switch', ['status' => $row->status ]);
-               })
-                ->editColumn('bed_cabin_id', function($row){
-                     return $row->bedCabin->name;
-                })
-                ->editColumn('bed_group_id', function($row){
-                    return $row->bedGroup->name;
-                })
-                ->editColumn('bed_type_id', function($row){
-                    return $row->bedType->name;
-                })
-                ->editColumn('bed_ward_id', function($row){
-                    return $row->bedWard->name;
-                })
-                // ->editColumn('floor_id', function($row){
-                //     return $row->floor->name;
-                // })
-                // ->editColumn('price', function($row){
-                //     return number_format($row->price, 2);
-                // })
 
+               })
                ->removeColumn(['id'])
                ->rawColumns(['action'])
                ->make(true);
 
        }
-        // $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
-        return view('backend.siteconfig.bed.index');
+       // $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
+       return view('backend.siteconfig.symptomType.index');
     }
 
       /**
-       * Show the form for creating a new resource.
-       *$data = Bed::select(['id', 'name', 'status', ''])->latest();
+     * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $group = BedGroup::active()->select(['id', 'name'])->get();
-        $type = BedType::active()->select(['id', 'name'])->get();
-        $ward = BedWard::active()->select(['id', 'name'])->get();
-        $cabin = BedCabin::active()->select(['id', 'name'])->get();
-        $floor = Floor::active()->select(['id', 'name'])->get();
-        return view('backend.siteconfig.bed.create',
-        compact('group', 'type', 'ward', 'cabin', 'floor'));
+        return view('backend.siteconfig.symptomType.create');
     }
 
     /**
@@ -107,10 +77,9 @@ class BedController extends Controller
      */
     public function store(StoreRequest $request)
     {
-
         $returnData = $request->storeData($request);
         if($returnData->getData()->status){
-            (new LogActivity)::addToLog('Bed Created');
+            (new LogActivity)::addToLog('SymptomType Created');
             return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
         }
         return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
@@ -134,9 +103,9 @@ class BedController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bed $bed )
+    public function edit(SymptomType $bedType )
     {
-        return view('backend.siteconfig.bed.edit',compact('bed'));
+        return view('backend.siteconfig.symptomType.edit',compact('bedType'));
     }
 
     /**
@@ -146,11 +115,11 @@ class BedController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, Bed $bed)
+    public function update(UpdateRequest $request, SymptomType $bedType)
     {
-        $returnData = $request->updateData($request, $bed);
+        $returnData = $request->updateData($request, $bedType);
         if($returnData->getData()->status){
-            (new LogActivity)::addToLog('Bed Updated');
+            (new LogActivity)::addToLog('SymptomType Updated');
             return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
         }
         return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
@@ -163,19 +132,16 @@ class BedController extends Controller
      * @return \Illuminate\Http\Response
     */
 
-    public function destroy(Bed $bed)
+    public function destroy(SymptomType $bedType)
     {
         try {
-            $bed->delete();
+            $bedType->delete();
 
         } catch (\Exception $ex) {
             return response()->json(['status' => false, 'mes' =>$ex->getMessage()]);
         }
-        (new LogActivity)::addToLog('Bed Deleted');
+        (new LogActivity)::addToLog('SymptomType Deleted');
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
-
-
-
 
 }

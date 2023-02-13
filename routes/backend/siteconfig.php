@@ -17,6 +17,8 @@ use App\Http\Controllers\Backend\SiteConfig\SiteInfoController;
 use App\Http\Controllers\Backend\SiteConfig\SliderController;
 use App\Http\Controllers\Backend\SiteConfig\SocialMediaController;
 use App\Http\Controllers\Backend\SiteConfig\TaxController;
+use App\Http\Controllers\Backend\SiteConfig\Symptom\SymptomTypeController;
+use App\Http\Controllers\Backend\SiteConfig\Symptom\SymptomController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -67,6 +69,15 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin/site-config' , 'as'=>'b
 
     //bedWard
     Route::resource('bedWard', BedWardController::class);
+
+    //symptomstye
+    Route::resource('symptomType', SymptomTypeController::class);
+
+    //symptoms
+    Route::resource('symptom', SymptomController::class);
+
+    //blood
+    Route::resource('blood', BedWardController::class);
 
 
     // filemanager-Configuration

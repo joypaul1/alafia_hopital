@@ -259,8 +259,12 @@
                             <ul>
                                 <x-backend.side-bar class="{{ request()->is('admin/site-config' ? 'active' : ' ') }}"
                                     name="Site Info" link='backend.siteconfig.index' icon='#' />
-                                 <x-backend.side-bar class="{{ request()->is('admin/site-config' ? 'active' : ' ') }}"
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'bed' ? 'active' : ' ' }}"
                                     name="Bed Config" link='backend.siteconfig.bed.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'symptom' ? 'active' : ' ' }}"
+                                        name="Symptom Config" link='backend.siteconfig.symptom.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'blood' ? 'active' : ' ' }}"
+                                        name="Blood Config" link='backend.siteconfig.blood.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'slider' ? 'active' : ' ' }}"
                                     name="Slider" link='backend.siteconfig.slider.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'banner' ? 'active' : ' ' }}"
