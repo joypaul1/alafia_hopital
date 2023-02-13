@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('symptoms', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->text('description')->nullable();
             $table->boolean('status')->default(0);
             $table->foreignId('symptom_type_id')->constrained('symptom_types');
             $table->foreignId('created_by')->nullable()->constrained('admins');

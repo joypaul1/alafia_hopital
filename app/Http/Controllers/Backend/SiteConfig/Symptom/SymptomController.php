@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Symptom;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use App\Http\Requests\Symptom\StoreRequest;
+use App\Http\Requests\Symptom\UpdateRequest;
+use App\Models\SymptomType;
 
 class SymptomController extends Controller
 {
@@ -17,7 +20,7 @@ class SymptomController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Symptom::select(['id', 'name', 'status'])->latest();
+        $data = Symptom::select(['id', 'name', 'status','description','symptom_type_id'])->latest();
        if($request->status){
            $data = $data->active();
        }elseif($request->status == '0'){
@@ -50,6 +53,9 @@ class SymptomController extends Controller
                    return view('components.backend.forms.input.input-switch', ['status' => $row->status ]);
 
                })
+               ->editColumn('symptom_type_id', function($row){
+                   return optional($row->symptomType)->name??' ';
+               })
                ->removeColumn(['id'])
                ->rawColumns(['action'])
                ->make(true);
@@ -66,7 +72,8 @@ class SymptomController extends Controller
      */
     public function create()
     {
-        return view('backend.siteconfig.symptom.create');
+        $type = SymptomType::select(['id', 'name'])->get();
+        return view('backend.siteconfig.symptom.create', compact('type'));
     }
 
     /**
@@ -103,9 +110,11 @@ class SymptomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Symptom $bedType )
+    public function edit(Symptom $symptom )
     {
-        return view('backend.siteconfig.symptom.edit',compact('bedType'));
+        $type = SymptomType::select(['id', 'name'])->get();
+
+        return view('backend.siteconfig.symptom.edit',compact('symptom', 'type'));
     }
 
     /**
@@ -115,9 +124,9 @@ class SymptomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, Symptom $bedType)
+    public function update(UpdateRequest $request, Symptom $symptom)
     {
-        $returnData = $request->updateData($request, $bedType);
+        $returnData = $request->updateData($request, $symptom);
         if($returnData->getData()->status){
             (new LogActivity)::addToLog('Symptom Updated');
             return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
@@ -132,10 +141,10 @@ class SymptomController extends Controller
      * @return \Illuminate\Http\Response
     */
 
-    public function destroy(Symptom $bedType)
+    public function destroy(Symptom $symptom)
     {
         try {
-            $bedType->delete();
+            $symptom->delete();
 
         } catch (\Exception $ex) {
             return response()->json(['status' => false, 'mes' =>$ex->getMessage()]);

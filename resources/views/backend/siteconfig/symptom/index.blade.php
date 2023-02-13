@@ -31,6 +31,8 @@
                                 <tr>
                                     <th class="text-center">Sl.</th>
                                     <th class="text-center">Name</th>
+                                    <th class="text-center">Type</th>
+                                    <th class="text-center">Desciption</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -89,9 +91,16 @@
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
-                }, {
+                },
+                {
                     data: 'name',
                     name: 'name'
+                },{
+                    data: 'symptom_type_id',
+                    name: 'symptom_type_id'
+                },{
+                    data: 'description',
+                    name: 'description'
                 },
 
                  {

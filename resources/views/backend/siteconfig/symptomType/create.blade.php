@@ -5,7 +5,7 @@
         @method('POST')
         @csrf
         <div class="modal-header">
-            <h4 class="title" id="">BedType Add</h4>
+            <h4 class="title" id="">SymptomType Add</h4>
         </div>
         <div class="modal-body">
             <div class="form-validation">
@@ -23,8 +23,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-outline-primary save_symptomType_button">SAVE</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
+            <button type="submit" class="btn btn-outline-primary save_symptomType_button">SAVE</button>
         </div>
     </form>
 </div>

@@ -3,7 +3,7 @@
 
 
 @section('page-header')
-    <i class="fa fa-list"></i> Bed Type Config
+    <i class="fa fa-list"></i> Symptom Type Config
 @stop
 
 @section('content')
@@ -19,14 +19,14 @@
             <div class="card">
                 <div class="body">
                     <div class="d-flex justify-content-between aling-items-center mb-4">
-                        <h4 class="card-title mb-0">Bed Type List</h4>
+                        <h4 class="card-title mb-0">Symptom Type List</h4>
                         <a id="create_data" data-href="{{ route('backend.siteconfig.symptomType.create') }}" class="btn btn-info btn-md text-white">
                             <i class="fa fa-plus-circle me-2"></i> Create Type
                         </a>
                     </div>
 
                     <div class="table-responsive">
-                        <table  class="table table-bordered " id="symptom_table">
+                        <table  class="table table-bordered " id="symptomType_table">
                             <thead>
                                 <tr>
                                     <th class="text-center">Sl.</th>
@@ -63,7 +63,7 @@
     let table_name ;
     var modal = ".symptomType_modal";
     $(function() {
-        table_name =$("#symptom_table").DataTable({
+        table_name =$("#symptomType_table").DataTable({
             dom: "Bfrtip",
             buttons: ["colvis","copy", "csv", "excel", "pdf", "print",
                 {

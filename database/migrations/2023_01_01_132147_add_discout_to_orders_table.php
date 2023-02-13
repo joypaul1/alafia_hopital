@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->string('discount_type')->nullable();
-            $table->decimal('discount_amount',15,4)->default(0.00);
-        });
+        // Schema::table('orders', function (Blueprint $table) {
+        //     $table->string('discount_type')->nullable();
+        //     $table->decimal('discount_amount',15,4)->default(0.00);
+        // });
     }
 
     /**

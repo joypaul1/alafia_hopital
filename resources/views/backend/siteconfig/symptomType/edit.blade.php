@@ -4,7 +4,7 @@
         @method('POST')
         @csrf
         <div class="modal-header">
-            <h4 class="title" id="">BedType Edit</h4>
+            <h4 class="title" id="">SymptomType Edit</h4>
         </div>
         <div class="modal-body">
             <div class="form-validation">
@@ -15,7 +15,7 @@
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" name="status" {{$symptomType->status == true ? 'Checked': ' '}} id="active_check">
                     <label class="form-check-label" for="active_check">Active ?</label>
-                </div>
+            </div>
 
 
             </div>

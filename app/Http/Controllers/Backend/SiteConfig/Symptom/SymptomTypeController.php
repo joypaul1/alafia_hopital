@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\SymptomType;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use App\Http\Requests\SymptomType\StoreRequest;
+use App\Http\Requests\SymptomType\UpdateRequest;
+
 
 class SymptomTypeController extends Controller
 {
@@ -103,9 +106,9 @@ class SymptomTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(SymptomType $bedType )
+    public function edit(SymptomType $symptomType )
     {
-        return view('backend.siteconfig.symptomType.edit',compact('bedType'));
+        return view('backend.siteconfig.symptomType.edit',compact('symptomType'));
     }
 
     /**
