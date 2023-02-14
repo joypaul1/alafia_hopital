@@ -24,14 +24,14 @@
                         @method('PUT')
                         @csrf
                         <div class="mb-3 row">
-                            <label class="col-lg-4 col-form-label" for="text">Name </label>
+                            {{-- <label class="col-lg-4 col-form-label" for="text">Name </label> --}}
                             <div class="col-lg-8">
                                 @include('components.backend.forms.input.input-type',[ 'name' => 'name', 'value' => old('name',$shift->name), 'placeholder' => 'text will be here...' ])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label class="col-lg-4 col-form-label" for="start_time">Start Time </label>
+                            {{-- <label class="col-lg-4 col-form-label" for="start_time">Start Time </label> --}}
                             <div class="col-lg-8">
                                 <div class="input-group demo-masked-input">
                                     <div class="input-group-prepend">

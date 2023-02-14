@@ -56,21 +56,4 @@ Route::get('/',[LoginController::class, 'showLoginForm'])->name('home');
 
 // Route::get('pdfView', [HomeController::class, 'pdfView'])->name('pdfView');
 
-Route::get('testpdf', function(){
 
-    $order = Order::with('orderItems.item:id,name', 'paymentHistories', 'orderTables')->latest()->first();
-
-    return view('backend.pos.pos-pdf',compact('order'));
-});
-
-Route::get('posVat', function(){
-    $order = Order::latest()->get();
-    // dd( $order->sub_total*15/100);
-    foreach ($order as $key => $value) {
-        $value->update([
-            'vat' => $value->sub_total*15/100,
-        ]);
-    }
-
-
-});

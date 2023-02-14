@@ -7,7 +7,7 @@ use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Employee\StoreRequest;
 use App\Http\Requests\Employee\UpdateRequest;
-use App\Models\Employee;
+use App\Models\Employee\Employee;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -20,7 +20,7 @@ class EmployeeController extends Controller
     public function index()
     {
         $employees = Employee::paginate(10);
-        return view('backend.employee.index', compact('employees'));
+        return view('backend.employee.home.index', compact('employees'));
     }
 
     /**
@@ -30,7 +30,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('backend.employee.create');
+        return view('backend.employee.home.create');
     }
 
     /**

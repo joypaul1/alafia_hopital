@@ -1,14 +1,6 @@
 @extends('backend.layout.app')
 @push('css')
 
-
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
-
-{{-- <link rel="stylesheet" href="{{ asset('assets/backend') }}/vendor/jquery-datatable/dataTables.bootstrap4.min.css">
-<link rel="stylesheet"
-    href="{{ asset('assets/backend') }}/vendor/jquery-datatable/fixedeader/dataTables.fixedcolumns.bootstrap4.min.css">
-<link rel="stylesheet"
-         href="{{ asset('assets/backend') }}/vendor/jquery-datatable/fixedeader/dataTables.fixedheader.bootstrap4.min.css"> --}}
 @endpush
 
 @section('page-header')

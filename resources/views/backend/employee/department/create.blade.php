@@ -12,7 +12,7 @@
 'name' => 'Department List',
 'route' => route('backend.employee.department.index')
 ])
-  
+
 
 <div class="row">
     <div class="col-lg-8">
@@ -23,7 +23,6 @@
                         @method('POST')
                         @csrf
                         <div class="mb-3 row">
-                            <label class="col-lg-4 col-form-label" for="name">Name  <span class="text-danger">*</span></label>
                             <div class="col-lg-8">
                                 @include('components.backend.forms.input.input-type',[ 'name' => 'name', 'placeholder' => 'name will be here...', 'required'=> 'yes' ])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
@@ -31,9 +30,8 @@
                         </div>
 
                         <div class="mb-3 row">
-                            <label class="col-lg-4 col-form-label" for="name">Category  <span class="text-danger">*</span> </label>
                             <div class="col-lg-8">
-                                @include('components.backend.forms.select2.option', ['name' =>'designation_id[]', 'multiple'=>true, 'optionDatas' =>$designations ])
+                                @include('components.backend.forms.select2.option', ['name' =>'designation_id[]', 'label'=>'designation' ,'multiple'=>true, 'optionDatas' =>$designations ])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('designation_id')])
                             </div>
                         </div>

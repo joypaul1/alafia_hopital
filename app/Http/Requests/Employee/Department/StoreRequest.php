@@ -34,7 +34,7 @@ class StoreRequest extends FormRequest
 
     public function storeData($request)
     {
-      
+
         try {
             DB::beginTransaction();
             $data = $request->validated();

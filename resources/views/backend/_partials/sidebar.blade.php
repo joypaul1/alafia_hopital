@@ -112,7 +112,7 @@
                         {{-- End Inventory Panel --}}
 
                         {{-- Employee Panel --}}
-                        {{-- <li class="{{ strpos($strpos, 'backend.employee') === 0 ? 'active' : ' ' }}">
+                        <li class="{{ strpos($strpos, 'backend.employee') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
                                 <span>Employee Panel</span>
@@ -128,7 +128,7 @@
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'shift' ? 'active' : ' ' }}"
                                     name="Shift" link='backend.employee.shift.index' icon='#' />
                             </ul>
-                        </li> --}}
+                        </li>
                         {{-- End Employee Panel --}}
 
                         {{-- supplier Panel --}}
@@ -162,7 +162,7 @@
                         {{-- End Admin Panel --}}
 
                         {{-- user Panel --}}
-                        <li class="{{ strpos($strpos, 'backend.user') === 0 ? 'active' : ' ' }}">
+                        {{-- <li class="{{ strpos($strpos, 'backend.user') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
                                 <span>Customer Panel</span>
@@ -170,7 +170,7 @@
                             <ul>
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'user' ? 'active' : ' ' }}"  name="Customer" link='backend.user.index' icon='#' />
                             </ul>
-                        </li>
+                        </li> --}}
                         {{-- End user Panel --}}
                         {{-- Item Config --}}
                         {{-- <li class="{{ strpos($strpos, 'backend.itemconfig') === 0 ? 'active' : ' ' }}">

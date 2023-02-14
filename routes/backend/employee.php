@@ -11,10 +11,11 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], f
 
     Route::group(['as'=>'employee.'], function(){
         Route::resource('designation', DesignationController::class);
+        Route::resource('designation', DesignationController::class);
         Route::resource('department', DepartmentController::class);
         Route::resource('shift', ShiftController::class);
     });
-   
     Route::resource('employee', EmployeeController::class);
+   
 
 });
