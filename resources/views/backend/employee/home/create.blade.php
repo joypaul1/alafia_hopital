@@ -28,13 +28,13 @@
     </style>
 @endpush
 @section('page-header')
-    <i class="fa fa-plus-circle"></i> Slider Create
+    <i class="fa fa-plus-circle"></i> Doctor Create
 @stop
 
 @section('content')
     @include('backend._partials.page_header', [
         'fa' => 'fa fa-list',
-        'name' => 'Slider List',
+        'name' => 'Doctor List',
         'route' => route('backend.siteconfig.slider.index'),
     ])
 
