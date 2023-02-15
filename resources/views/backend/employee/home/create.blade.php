@@ -59,19 +59,19 @@
                     <div class="row clearfix">
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="First Name">
+                                <input type="text" class="form-control" name="first_name" placeholder="First Name">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Last Name">
+                                <input type="text" class="form-control" name="last_name" placeholder="Last Name">
                             </div>
                             <div class="form-group">
                                 <div>
                                     <label class="fancy-radio">
-                                        <input name="gender2" value="male" type="radio" checked="">
+                                        <input name="gender" value="male" type="radio" checked="">
                                         <span><i></i>Male</span>
                                     </label>
                                     <label class="fancy-radio">
-                                        <input name="gender2" value="female" type="radio">
+                                        <input name="gender" value="female" type="radio">
                                         <span><i></i>Female</span>
                                     </label>
                                 </div>
@@ -84,15 +84,48 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-calendar"></i></span>
                                     </div>
-                                    <input type="date" data-provide="datepicker" data-date-autoclose="true"
-                                        class="form-control" placeholder="Birthdate">
+                                    <input type="date" name="dob" data-provide="datepicker"
+                                        data-date-autoclose="true" class="form-control" placeholder="Birthdate">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="number" class="form-control" placeholder="Phone Number">
+                                <input type="number" class="form-control" name="mobile" placeholder="Mobile Number">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Contact Email">
+                                <input type="text" class="form-control" name="email" placeholder="Contact Email">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="number" class="form-control" name="emergency_mobile"
+                                    placeholder="Emergency Mobile Number">
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" name="depertment">
+                                    <option value="" hidden>-- Select Depertment</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" name="designation">
+                                    <option value="" hidden>-- Select Designation</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" class="form-control" name="license_number"
+                                    placeholder="License number">
+                            </div>
+                            <div class="form-group">
+                                <input type="number" class="form-control" name="nid_number" placeholder="NID number">
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" name="marital_status">
+                                    <option value="single">Single</option>
+                                    <option value="married">Married</option>
+                                    <option value="divorced">Divorced</option>
+                                    <option value="widowed">Widowed</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="date" class="form-control" name="joining_date">
                             </div>
                         </div>
                     </div>
@@ -102,16 +135,19 @@
 
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Address Line 1">
+                                <input type="text" class="form-control" name="pre_address_line_one"
+                                    placeholder="Address Line 1">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Address Line 2">
+                                <input type="text" class="form-control" name="pre_address_line_two"
+                                    placeholder="Address Line 2">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="City">
+                                <input type="text" class="form-control" name="pre_city" placeholder="City">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="State/Province">
+                                <input type="text" class="form-control" name="pre_state"
+                                    placeholder="State/Province">
                             </div>
                         </div>
                     </div>
@@ -121,22 +157,25 @@
 
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Address Line 1">
+                                <input type="text" class="form-control" name="par_address_line_one"
+                                    placeholder="Address Line 1">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Address Line 2">
+                                <input type="text" class="form-control" name="par_address_line_one"
+                                    placeholder="Address Line 2">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="City">
+                                <input type="text" class="form-control" name="par_city" placeholder="City">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="State/Province">
+                                <input type="text" class="form-control" name="par_state"
+                                    placeholder="State/Province">
                             </div>
                         </div>
                     </div>
 
                     <div class="col-12 text-center">
-                        <button type="button" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </div>
             </div>
@@ -148,36 +187,27 @@
                         <div class="body">
                             <div class="row clearfix">
                                 <div class="col-lg-12 col-md-12">
-                                    <h6>Account Data</h6>
+                                    <h6>Login Account Data</h6>
+
                                     <div class="form-group">
-                                        <input type="text" class="form-control" value="alizeethomas" disabled=""
-                                            placeholder="Username">
+                                        <input type="email" name="login_email" class="form-control"
+                                            value="alizee.info@yourdomain.com" placeholder="Email">
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" class="form-control" value="alizee.info@yourdomain.com"
-                                            placeholder="Email">
+                                        <input type="password" name="password" autocomplete="off" class="form-control"
+                                            placeholder="New Password">
                                     </div>
                                     <div class="form-group">
-                                        <input type="number" class="form-control" placeholder="Phone Number">
+                                        <input type="password" autocomplete="off" name="confirm_password" class="form-control"
+                                            placeholder="Confirm New Password">
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12 col-md-12">
-                                    <h6>Change Password</h6>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Current Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="New Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Confirm New Password">
-                                    </div>
-                                </div>
+
                                 <div class="col-lg-12 col-md-12">
                                     <h6>Define User Role</h6>
                                     <div class="form-group">
-                                        <select class="form-control show-tick">
+                                        <select class="form-control show-tick" name="role_id">
                                             <option value="">-- Please select --</option>
                                             <option value="10">Admin</option>
                                             <option value="20">Doctor</option>
@@ -187,7 +217,7 @@
                                 </div>
                             </div>
                             <div class="col-12 text-center">
-                                <button type="button" class="btn btn-primary">Save</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </div>
                     </div>
@@ -204,7 +234,8 @@
                                     <div class="d-flex align-items-center mb-3">
                                         <div class="col-5 p-0">
                                             <div class="form-group mb-0">
-                                                <input type="text" class="form-control" readonly value="First Visit">
+                                                <input type="text" class="form-control" name="consultation_name[]"
+                                                    readonly value="1st">
                                             </div>
                                         </div>
                                         <div class="col-1 p-0 text-center">
@@ -212,14 +243,17 @@
                                         </div>
                                         <div class="col-6 p-0">
                                             <div class="form-group mb-0">
-                                                <input type="text" class="form-control" placeholder="Visit Charge">
+                                                <input type="text" class="form-control" name="consultation_value[]"
+                                                    placeholder="Visit Charge">
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="d-flex align-items-center ">
                                         <div class="col-5 p-0">
                                             <div class="form-group mb-0">
-                                                <input type="text" class="form-control" placeholder="Next Visit Day">
+                                                <input type="text" class="form-control" name="consultation_name[]"
+                                                    placeholder="Next Visit Day">
                                             </div>
                                         </div>
                                         <div class="col-1 p-0 text-center">
@@ -227,7 +261,8 @@
                                         </div>
                                         <div class="col-6 p-0">
                                             <div class="form-group mb-0">
-                                                <input type="text" class="form-control" placeholder="Visit Charge">
+                                                <input type="text" class="form-control" name="consultation_value[]"
+                                                    placeholder="Visit Charge">
                                             </div>
                                         </div>
 
@@ -243,17 +278,43 @@
                                 </div>
 
                                 <div class="col-lg-12 col-md-12">
-                                    <h6>Service Fee</h6>
                                     <div class="form-group">
-                                        <select type="password" class="form-control">
+                                        <input type="number" class="form-control" name="consultation_duration"
+                                            placeholder="Consultation Duration">
+                                    </div>
+                                    {{-- <h6>Service Fee</h6>
+                                    <div class="form-group">
+                                        <select class="form-control">
                                             <option value="">-- Please select --</option>
                                             <option value="1">Service 1</option>
                                             <option value="2">Service 2</option>
                                             <option value="3">Service 3</option>
                                         </select>
                                     </div>
+
                                     <div class="form-group">
                                         <input type="text" class="form-control" placeholder="Charge">
+                                    </div> --}}
+
+                                    <h6>Doctor Commission</h6>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="col-5 p-0">
+                                            <div class="form-group mb-0">
+                                                <select class="form-control">
+                                                    <option value="1">Parcent</option>
+                                                    <option value="1">Fixed</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-1 p-0 text-center">
+                                            =
+                                        </div>
+                                        <div class="col-6 p-0">
+                                            <div class="form-group mb-0">
+                                                <input type="text" class="form-control" name="commission_amount"
+                                                    placeholder="Amount">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -310,7 +371,8 @@
                             </div>
                         </div>
                     </div>
-                </div><div class="col-12">
+                </div>
+                <div class="col-12">
                     <div class="card">
                         <div class="body">
                             <h6>Petaint Visit Schedule</h6>

@@ -115,7 +115,7 @@
                         <li class="{{ strpos($strpos, 'backend.employee') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
-                                <span>Employee Panel</span>
+                                <span>Doctor Panel</span>
                             </a>
                             <ul>
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'employee' ? 'active' : ' ' }}"
