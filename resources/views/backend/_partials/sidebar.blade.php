@@ -111,11 +111,38 @@
                         </li> --}}
                         {{-- End Inventory Panel --}}
 
-                        {{-- Employee Panel --}}
-                        <li class="{{ strpos($strpos, 'backend.employee') === 0 ? 'active' : ' ' }}">
+                        {{-- appointment Panel --}}
+                        <li class="{{ strpos($strpos, 'backend.appointment') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
-                                <span>Doctor Panel</span>
+                                <span>Appointment Panel</span>
+                            </a>
+                            <ul>
+                                <x-backend.side-bar class="{{ request()->segment(2) == 'appointment' ? 'active' : ' ' }}"
+                                    name="Appointment" link='backend.appointment.index' icon='#' />
+
+                            </ul>
+                        </li>
+                        {{-- End appointment Panel --}}
+                         {{-- patient Panel --}}
+                        <li class="{{ strpos($strpos, 'backend.patient') === 0 ? 'active' : ' ' }}">
+                            <a href="javascript:void(0)" class="has-arrow">
+                                <i class="icon-user-following"></i>
+                                <span>Patient Panel</span>
+                            </a>
+                            <ul>
+                                <x-backend.side-bar class="{{ request()->segment(2) == 'patient' ? 'active' : ' ' }}"
+                                    name="Patient" link='backend.patient.index' icon='#' />
+
+                            </ul>
+                        </li>
+                        {{-- End patient Panel --}}
+
+                        {{-- Employee Panel --}}
+                        {{-- <li class="{{ strpos($strpos, 'backend.employee') === 0 ? 'active' : ' ' }}">
+                            <a href="javascript:void(0)" class="has-arrow">
+                                <i class="icon-user-following"></i>
+                                <span>Employee Panel</span>
                             </a>
                             <ul>
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'employee' ? 'active' : ' ' }}"
@@ -128,7 +155,7 @@
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'shift' ? 'active' : ' ' }}"
                                     name="Shift" link='backend.employee.shift.index' icon='#' />
                             </ul>
-                        </li>
+                        </li> --}}
                         {{-- End Employee Panel --}}
 
                         {{-- supplier Panel --}}

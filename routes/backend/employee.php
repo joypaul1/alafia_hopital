@@ -30,3 +30,8 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], f
 Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], function(){
     Route::resource('appointment', AppointmentController::class);
 });
+
+// // Doctor
+// Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], function(){
+//     Route::resource('doctor', AppointmentController::class);
+// });
