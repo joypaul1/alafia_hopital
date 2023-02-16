@@ -139,7 +139,7 @@
                         {{-- End patient Panel --}}
 
                         {{-- Employee Panel --}}
-                        {{-- <li class="{{ strpos($strpos, 'backend.employee') === 0 ? 'active' : ' ' }}">
+                        <li class="{{ strpos($strpos, 'backend.employee') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
                                 <span>Employee Panel</span>
@@ -155,7 +155,7 @@
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'shift' ? 'active' : ' ' }}"
                                     name="Shift" link='backend.employee.shift.index' icon='#' />
                             </ul>
-                        </li> --}}
+                        </li>
                         {{-- End Employee Panel --}}
 
                         {{-- supplier Panel --}}

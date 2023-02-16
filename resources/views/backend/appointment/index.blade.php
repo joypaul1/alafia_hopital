@@ -9,11 +9,17 @@
 @stop
 @section('content')
 
-@include('backend._partials.page_header', [
+{{-- @include('backend._partials.page_header', [
     'fa' => 'fa fa-plus-circle',
     'name' => 'Create Appointment',
     'route' => route('backend.appointment.create')
- ])
+ ]) --}}
+ @include('backend._partials.modal_page_header', [
+'fa' => 'fa fa-plus-circle',
+'name' => 'Create Appointment',
+'modelName' => 'create_data',
+'route' => route('backend.appointment.create')
+])
 
 <div class="row">
     <div class="col-lg-12">
@@ -46,7 +52,80 @@
     </div>
 </div>
 
+{{-- modal --}}
+<div class="modal fade appointment_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg"" role=" document">
+        <div class="modal-content">
+            <form class="needs-validation" id="category_add_form" action="{{ route('backend.itemconfig.category.store') }}" method="Post"
+                enctype="multipart/form-data">
+                @method('POST')
+                @csrf
+                <div class="modal-header">
+                    <h4 class="title" id="">Category Add</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-validation">
+                        <div class="row">
+                            <div class="col-3">
+                                @include('components.backend.forms.select2.option', [
+                                    'name' => 'Doctor',
+                                    'optionDatas' => [],
+                                ])
+                            </div>
+                            <div class="col-3">
+                                @include('components.backend.forms.input.input-type', [
+                                    'name' => 'Doctor Fees',
+                                    'readonly' => 'true',
+                                    'value' => 500,
+                                ])
+                            </div>
+                            <div class="col-3">
+                                @include('components.backend.forms.input.input-type', [
+                                    'name' => 'Appointment Date',
+                                    'type' => 'date',
+                                ])
+                            </div>
+                            <div class="col-3">
+                                @include('components.backend.forms.select2.option', [
+                                    'name' => 'Slot',
+                                    'optionDatas' => [],
+                                    'required' => 'true',
+                                ])
+                            </div>
+                            <div class="col-3">
+                                @include('components.backend.forms.select2.option', [
+                                    'name' => 'Appointment Priority',
+                                    'optionDatas' => [],
+                                    'required' => 'true',
+                                ])
+                            </div>
+                            <div class="col-3">
+                                @include('components.backend.forms.select2.option', [
+                                    'name' => 'Payment Method',
+                                    'optionDatas' => [],
+                                    'required' => 'true',
+                                ])
+                            </div>
+                            <div class="col-3">
+                                @include('components.backend.forms.select2.option', [
+                                    'name' => 'Status',
+                                    'optionDatas' => [],
+                                    'required' => 'true',
+                                ])
+                            </div>
+                        </div>
 
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary save_category_button">SAVE</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @endsection
 
@@ -54,32 +133,23 @@
 
 
     <script>
-        function changeStatus(here){
-
-            var $id = $(here).data('id');
-            // console.log($(here).data('id'),"{{ route('backend.employee.department.show',"+id+") }}" );
-          $.get('{{ route("backend.employee.department.show",'+$id+') }}',
-                function (data, textStatus, jqXHR) {
-                 console.log(data, textStatus, jqXHR);
-                }, 'dataType');
-        }
-
-        function delete_check(id) {
-            Swal.fire({
-                title: 'Are you sure?',
-                html: "<b>You will delete it permanently!</b>",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!',
-                width: 400,
-            }).then((result) => {
-                if (result.value) {
-                    $('#deleteCheck_' + id).submit();
-                }
-            })
-        }
+         $('#create_data').click(function(e) {
+            e.preventDefault();
+            var modal = ".appointment_modal";
+            $(modal).modal('show');
+            // var href = $(this).data('href');
+            // AJAX request
+            // $.ajax({
+            //     url: href,
+            //     type: 'GET',
+            //     dataType: "html",
+            //     success: function(response) {
+            //         $(modal).modal('show');
+            //         $(modal).find('.modal-dialog').html('');
+            //         $(modal).find('.modal-dialog').html(response); // Add response in Modal body
+            //     }
+            // });
+        });
 
     </script>
 
