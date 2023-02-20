@@ -20,4 +20,12 @@ class Permission extends Model
      
         return $this->belongsToMany(Admin::class,'admins_permissions');
     }
+    public function modules()
+    {
+        return $this->belongsTo(Module::class, 'module_id', 'id');
+    }
+    public function submodules()
+    {
+        return $this->belongsTo(Submodule::class, 'submodule_id', 'id');
+    }
 }

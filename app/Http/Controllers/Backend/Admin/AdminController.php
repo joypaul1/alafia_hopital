@@ -36,7 +36,9 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('backend.admin.create');
+        $roles=Role::all();
+        return view('backend.admin.create',compact('roles'));
+
     }
 
     /**

@@ -13,14 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('permissions', function (Blueprint $table) {
+        Schema::create('submodules', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->unsignedBigInteger('module_id');
+            $table->foreign('module_id')->references('id')->on('modules');
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('admins');
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('updated_by')->references('id')->on('admins');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -32,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissions');
+        Schema::dropIfExists('submodules');
     }
 };
