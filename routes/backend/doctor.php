@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\Backend\Production\ProductionController;
+use App\Http\Controllers\Backend\Doctor\DoctorController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], function(){
 
-    Route::resource('production', ProductionController::class);
+    Route::resource('doctor', DoctorController::class);
 
 });

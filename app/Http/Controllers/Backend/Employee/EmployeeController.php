@@ -19,7 +19,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::paginate(10);
+        $employees = Employee::get();
         return view('backend.employee.home.index', compact('employees'));
     }
 
@@ -47,7 +47,7 @@ class EmployeeController extends Controller
             return back()->with(['success' => $returnData->getData()->msg  ]);
         }
         return back()->with(['error' =>$returnData->getData()->msg ]);
-      
+
     }
 
     /**
@@ -81,7 +81,7 @@ class EmployeeController extends Controller
      */
     public function update(UpdateRequest $request, Employee $employee)
     {
-      
+
         $returnData = $request->updateData($request, $employee);
         if($returnData->getData()->status){
 		    (new LogActivity)::addToLog('Employee Updated');
@@ -105,6 +105,6 @@ class EmployeeController extends Controller
             return back()->with(['status' => false, 'error' =>$ex->getMessage()]);
         }
 		(new LogActivity)::addToLog('Employee Deleted');
-        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);   
+        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);
     }
 }

@@ -139,6 +139,18 @@
                         {{-- End patient Panel --}}
 
                         {{-- Employee Panel --}}
+                        <li class="{{ strpos($strpos, 'backend.doctor') === 0 ? 'active' : ' ' }}">
+                            <a href="javascript:void(0)" class="has-arrow">
+                                <i class="icon-user-following"></i>
+                                <span>Doctor Panel</span>
+                            </a>
+                            <ul>
+                                <x-backend.side-bar class="{{ request()->segment(2) == 'doctor' ? 'active' : ' ' }}"name="Doctor" link='backend.doctor.index' icon='#' />
+
+                            </ul>
+                        </li>
+                        {{-- End Employee Panel --}}
+                         {{-- Employee Panel --}}
                         <li class="{{ strpos($strpos, 'backend.employee') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>

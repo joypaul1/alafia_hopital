@@ -23,5 +23,5 @@ require_once __DIR__ . '/purchase.php';
 require_once __DIR__ . '/account.php';
 require_once __DIR__ . '/report.php';
 require_once __DIR__ . '/order.php';
-require_once __DIR__ . '/production.php';
+require_once __DIR__ . '/doctor.php';
 

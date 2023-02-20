@@ -44,14 +44,13 @@ class DepartmentController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        // dd($request->all());
         $returnData = $request->storeData($request);
         if($returnData->getData()->status){
             (new LogActivity)::addToLog('Department Created');
             return back()->with(['success' => $returnData->getData()->msg  ]);
         }
         return back()->with(['error' =>$returnData->getData()->msg ]);
-      
+
     }
 
     /**
@@ -72,7 +71,7 @@ class DepartmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Department $department )
-    { 
+    {
         $designations = Designation::select('id', 'name')->get();
         return view('backend.employee.department.edit',compact('department', 'designations'));
     }
@@ -109,7 +108,7 @@ class DepartmentController extends Controller
         }
         (new LogActivity)::addToLog('Department Deleted');
 
-        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);   
+        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);
     }
 }
 
