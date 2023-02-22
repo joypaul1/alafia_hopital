@@ -11,4 +11,9 @@ class BloodBankType extends Model
     use AutoTimeStamp,GlobalScope;
 
     protected $guarded = ['id'];
+
+    public function type()
+    {
+        return $this->belongsTo(BloodBankType::class, 'type_id', 'id');
+    }
 }

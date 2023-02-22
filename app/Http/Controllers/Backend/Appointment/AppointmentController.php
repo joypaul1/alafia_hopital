@@ -16,14 +16,13 @@ class AppointmentController extends Controller
     public function index()
     {
         $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
-        //
         //gender option create
         $gender = (object)[
             ['name' => 'male', 'id' => 'male'],
             ['name' => 'female', 'id' => 'female'],
             ['name' => 'others', 'id' => 'others'],
         ];
-        //blood group option create
+        //blood group
         $blood_group = BloodBank::where('type_id', 1)->all();
 
         return view('backend.appointment.index');
