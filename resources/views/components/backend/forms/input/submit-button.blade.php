@@ -1,3 +1,7 @@
+
+{{-- @include('components.backend.forms.input.submit-button',
+[ 'type' => 'button/submit', 'class' => 'class', 'name' => 'button name']) --}}
+
 <div class="col-lg-12
 @isset($positon)
 {{$positon}}

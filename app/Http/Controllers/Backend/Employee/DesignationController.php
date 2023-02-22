@@ -18,7 +18,7 @@ class DesignationController extends Controller
      */
     public function index()
     {
-    
+
         $designations = Designation::select('id', 'name','status')->paginate(20);
         return view('backend.employee.designation.index', compact('designations'));
     }
@@ -46,9 +46,9 @@ class DesignationController extends Controller
             (new LogActivity)::addToLog('Designation Created');
             return back()->with(['success' => $returnData->getData()->msg  ]);
         }
-      
+
         return back()->with(['error' =>$returnData->getData()->msg ]);
-      
+
     }
 
     /**
@@ -59,7 +59,10 @@ class DesignationController extends Controller
      */
     public function show($id)
     {
-        //
+        // single value show for ajax request
+        $designation = Designation::select('id', 'name',)->where('id',$id)->first();
+        return response()->json($designation);
+
     }
 
     /**
@@ -106,6 +109,6 @@ class DesignationController extends Controller
         }
         (new LogActivity)::addToLog('Designation Deleted');
 
-        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);   
+        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);
     }
 }

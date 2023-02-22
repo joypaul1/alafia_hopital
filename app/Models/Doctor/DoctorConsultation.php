@@ -2,10 +2,12 @@
 
 namespace App\Models\Doctor;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\AutoTimeStamp;
+use App\Traits\GlobalScope; 
 use Illuminate\Database\Eloquent\Model;
 
 class DoctorConsultation extends Model
 {
-    use HasFactory;
+    use AutoTimeStamp, GlobalScope;
+    protected $guarded =['id'];
 }

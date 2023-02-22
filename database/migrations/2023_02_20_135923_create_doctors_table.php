@@ -48,7 +48,6 @@ return new class extends Migration
             $table->foreign('department_id')->references('id')->on('departments');
             $table->unsignedBigInteger('designation_id')->nullable();
             $table->foreign('designation_id')->references('id')->on('designations');
-            
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('admins');
             $table->unsignedBigInteger('updated_by')->nullable();

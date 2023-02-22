@@ -24,22 +24,22 @@
                         @method('PUT')
                         @csrf
                         <div class="mb-3 row">
-                            {{-- <label class="col-lg-4 col-form-label" for="text">Name </label> --}}
                             <div class="col-lg-8">
+                                <label class="form-label" for="text">Name </label>
                                 @include('components.backend.forms.input.input-type',[ 'name' => 'name', 'value' => old('name',$shift->name), 'placeholder' => 'text will be here...' ])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            {{-- <label class="col-lg-4 col-form-label" for="start_time">Start Time </label> --}}
                             <div class="col-lg-8">
+                                <label class="form-label" for="start_time">Start Time </label>
                                 <div class="input-group demo-masked-input">
                                     <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-clock"></i></span>
                                     </div>
                                     <input type="text"name="start_time" value="{{ $shift->start_time??'-' }}" class="form-control time12" placeholder="Ex: 10:00 am">
                                 </div>
-                               
+
                                 @include('components.backend.forms.input.errorMessage', ['message' =>  $errors->first('start_time')])
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                 @include('components.backend.forms.input.errorMessage', ['message' =>  $errors->first('end_time')])
                             </div>
                         </div>
-                 
+
                         <div class="mb-3 row">
                             <div class="col-lg-12 text-right">
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -66,7 +66,7 @@
             </div>
         </div>
     </div>
-   
+
 </div>
 
 
@@ -74,7 +74,7 @@
 @endsection
 
 @push('js')
-<script src="{{ asset('assets/backend') }}/vendor/jquery-inputmask/jquery.inputmask.bundle.js"></script> 
+<script src="{{ asset('assets/backend') }}/vendor/jquery-inputmask/jquery.inputmask.bundle.js"></script>
 <script src="{{ asset('assets/backend') }}/vendor/jquery.maskedinput/jquery.maskedinput.min.js"></script>
 <script src="{{ asset('assets/backend') }}/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 
@@ -94,7 +94,7 @@ $(function () {
             alias: "time12",
             hourFormat: "12",
         });
-   
+
 });
 
 

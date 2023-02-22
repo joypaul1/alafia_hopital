@@ -31,30 +31,30 @@
 
                                 @include('components.backend.forms.input.input-type',[ 'name' => 'name', 'value' => old('name',$department->name), 'placeholder' => 'text will be here...' ])
                                 @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('name')])
-                               
+
                             </div>
                         </div>
-                        {{-- @dd($department->designations) --}}
-                        @php
+
+                        {{-- @php
                             $selectedId = [];
                             foreach ($department->designations as $key => $value) {
                                 array_push($selectedId,$value->id);
                             }
-                            // dd( $selectedId );
+
                         @endphp
-                      
+
                         <div class="mb-3 row">
                             <label class="col-lg-4 col-form-label" for="name">Category  <span class="text-danger">*</span> </label>
-                            
+
                             <div class="col-lg-8">
-                               
+
                                 @include('components.backend.forms.select2.option', ['name' =>'designation_id[]', 'multiple'=>true, 'selectedKey'=>$selectedId, 'optionDatas' =>$designations ])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('designation_id')])
-                                
-                            </div>
-                        </div>
 
-                        
+                            </div>
+                        </div> --}}
+
+
                         <div class="mb-3 row">
                             <div class="col-lg-12 text-right">
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -65,7 +65,7 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 
 

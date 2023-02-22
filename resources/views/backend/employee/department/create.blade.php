@@ -29,12 +29,12 @@
                             </div>
                         </div>
 
-                        <div class="mb-3 row">
+                        {{-- <div class="mb-3 row">
                             <div class="col-lg-8">
-                                @include('components.backend.forms.select2.option', ['name' =>'designation_id[]', 'label'=>'designation' ,'multiple'=>true, 'optionDatas' =>$designations ])
+                                @include('components.backend.forms.select2.option', ['name' =>'designation_id[]', 'label'=>'designation', 'optionDatas' =>$designations ])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('designation_id')])
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="mb-3 row">
                             <div class="col-lg-12 text-right">
                                 <button type="submit" class="btn btn-primary">Submit</button>

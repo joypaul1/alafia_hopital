@@ -36,7 +36,7 @@ class UpdateRequest extends FormRequest
                             ->where('designation_id', $this->designation_id);
                     })
                 ],
-            'designation_id' => 'nullable|array|exists:designations,id',
+            // 'designation_id' => 'nullable|array|exists:designations,id',
         ];
     }
 
@@ -46,9 +46,9 @@ class UpdateRequest extends FormRequest
             DB::beginTransaction();
             $data = $request->validated();
             unset($data['designation_id']);
-            if(!empty($this->designation_id)){
-                $department->designations()->sync($this->designation_id);
-            }
+            // if(!empty($this->designation_id)){
+            //     $department->designations()->sync($this->designation_id);
+            // }
             $department->update($data);
             DB::commit();
         } catch (\Exception $ex) {

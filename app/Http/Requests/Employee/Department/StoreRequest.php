@@ -40,9 +40,9 @@ class StoreRequest extends FormRequest
             $data = $request->validated();
             unset($data['designation_id']);
             $department= Department::create($data);
-            if(!empty($this->designation_id)){
-                $department->designations()->attach($this->designation_id);
-            }
+            // if(!empty($this->designation_id)){
+            //     $department->designations()->attach($this->designation_id);
+            // }
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();
