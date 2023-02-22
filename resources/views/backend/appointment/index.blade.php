@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="modal-body">
@@ -151,14 +151,15 @@
 <div class="modal fade patient_modal" id="patient_modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role=" document">
         <div class="modal-content">
-            <form class="needs-validation" id="category_add_form" action="{{ route('backend.itemconfig.category.store') }}" method="Post"
+            <form class="needs-validation" id="patient_add_form"
+            action="{{ route('backend.patient.store') }}" method="Post"
                 enctype="multipart/form-data">
                 @method('POST')
                 @csrf
                 <div class="modal-header">
                     <h4 class="title" id="">New Patient</h4>
-                    
                 </div>
+
                 <div class="modal-body">
                     <div class="form-validation">
                         <div class="row">
@@ -169,49 +170,49 @@
                                     'placeholder' => 'Enter Name'
                                 ])
                             </div>
-            
+
                             <div class="col-4">
                                 @include('components.backend.forms.input.input-type', [
-                                    'name' => 'Mobile ',
+                                    'name' => 'mobile ',
                                     'required' => 'true',
+                                    'number' => true,
                                     'placeholder' => 'Enter Mobile'
                                 ])
                             </div>
                             <div class="col-4">
                                 @include('components.backend.forms.input.input-type', [
-                                    'name' => 'Email ',
-                                    'required' => 'true',
+                                    'name' => 'email ',
                                     'placeholder' => 'Enter Email'
                                 ])
                             </div>
                             <div class="col-4">
                                 @include('components.backend.forms.input.input-type', [
-                                    'name' => 'Emergency Contact',
+                                    'name' => 'emergency_contact',
                                     'placeholder' => 'Enter Emergency Contact'
                                 ])
                             </div>
                             <div class="col-4">
                                 @include('components.backend.forms.input.input-type', [
-                                    'name' => 'Guardian Name',
+                                    'name' => 'guardian_name',
                                     'placeholder' => 'Enter Guardian Name'
 
                                 ])
                             </div>
                             <div class="col-4">
                                 @include('components.backend.forms.select2.option', [
-                                    'name' => 'Gender',
-                                    'optionDatas' => [],
+                                    'name' => 'gender',
+                                    'optionDatas' => $gender,
                                 ])
                             </div>
-            
+
                             <div class="col-4">
                                 @include('components.backend.forms.input.input-type', [
-                                    'name' => 'Date Of Birth',
+                                    'name' => 'dob',
                                     'type' => 'date',
                                     'id' => 'date_of_birth',
                                 ])
                             </div>
-                            <div class="col-4">
+                            {{-- <div class="col-4">
                                 @include('components.backend.forms.input.input-type', [
                                     'name' => 'Age ',
                                     'readonly' => 'true',
@@ -224,7 +225,7 @@
                                     'optionDatas' => [],
                                     'required' => 'true',
                                 ])
-                            </div>
+                            </div>--}}
                             <div class="col-4">
                                 @include('components.backend.forms.select2.option', [
                                     'name' => 'blood_group',
@@ -251,7 +252,7 @@
                                     'placeholder' => 'Enter Any Known Allergies'
                                 ])
                             </div>
-                            <div class="col-4">
+                            {{-- <div class="col-4">
                                 @include('components.backend.forms.input.input-type', [
                                     'name' => 'Weight',
                                     'placeholder' => 'Enter Weight'
@@ -262,7 +263,7 @@
                                     'name' => 'Blood Pressure',
                                     'placeholder' => 'Ex: 120/80'
                                 ])
-                            </div>
+                            </div> --}}
                         </div>
 
 
