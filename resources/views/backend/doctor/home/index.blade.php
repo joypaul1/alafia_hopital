@@ -1,7 +1,5 @@
 @extends('backend.layout.app')
-@push('css')
-
-@endpush
+@include('backend._partials.datatable__delete')
 
 @section('page-header')
     <i class="fa fa-list"></i> Doctor List
@@ -17,10 +15,46 @@
 
 <div class="row">
     <div class="col-lg-12">
+
         <div class="card">
             <div class="body">
+                <h4 class="pointer text-info" id="toggleFilter">
+                    <i class="fa fa-filter"></i> Filter
+                </h4>
+                <div id="filterContainer">
+                    <hr>
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group">
+                                @include('components.backend.forms.select2.option',[ 'label'=> 'status', 'name' => 'status','onchange'=>true,  'optionDatas' => $status ])
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card border-top">
+            @yield('table_header')
+            <div class="body">
                 <div class="table-responsive">
+                    <table class="table table-bordered text-center dataTable" id="category_table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Sl.</th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Department</th>
+                                <th class="text-center">Designation</th>
+                                <th class="text-center">Image</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
 
+                        <tbody>
+
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -32,38 +66,69 @@
 @endsection
 
 @push('js')
-
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
-
     <script>
-        function delete_check(id) {
-            Swal.fire({
-                title: 'Are you sure?',
-                html: "<b>You will delete it permanently!</b>",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!',
-                width: 400,
-            }).then((result) => {
-                if (result.value) {
-                    $('#deleteCheck_' + id).submit();
+        $(function() {
+        table_name =$("#category_table").DataTable({
+            dom: "Bfrtip",
+            buttons: ["colvis","copy", "csv", "excel", "pdf", "print",
+                {
+                    text: 'Reload',
+                    action: function ( e, dt, node, config ) {
+                        dataBaseCall();
+                    }
                 }
-            })
-        }
-        // $(function () {
+            ],
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            pagingType: 'numbers',
+            pageLength: 10,
+            ajax: "{{ route('backend.doctor.index') }}",
+            ajax: {
+                method:'GET',
+                url : "{{ route('backend.doctor.index') }}",
+                data : function ( d ) {
+                    d.status = $('select#status').val()||true;
+                },
+            },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                 {
+                    data: 'full_name',
+                    name: 'full_name'
+                },
+                {
+                    data: 'department_id',
+                    name: 'department_id'
+                },
+                {
+                    data: 'designation_id',
+                    name: 'designation_id',
+                },
 
-        //     $(".js-exportable").DataTable({
-        //         dom: "Bfrtip",
-        //         buttons: ["copy", "csv", "excel", "pdf", "print"],
-        //         order: [[0, 'desc']],
-        //         // processing: true,
-        //         // serverSide: true,
-
-        //     });
-        // });
+                {
+                    data: "image",
+                    render: function(img) {
+                        return '<img src="' + img + '" alt="no-image" height="100px" width="100" >';
+                    },
+                    orderable: false,
+                    searchable: false
+                }, {
+                    data: 'status',
+                    name: 'status',
+                    orderable: false,
+                    searchable: false
+                }, {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ],
+        });
+    });
     </script>
 
 

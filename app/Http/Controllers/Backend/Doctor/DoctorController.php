@@ -11,6 +11,7 @@ use App\Models\Employee\Shift;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests\Doctor\StoreRequest;
+use Yajra\DataTables\Facades\DataTables;
 
 class DoctorController extends Controller
 {
@@ -19,12 +20,60 @@ class DoctorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $doctors = Doctor::get();
         $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
 
-        return view('backend.doctor.home.index', compact('doctors', 'status'));
+        if($request->optionData) {
+            $data = Doctor::latest()->get();
+            return response()->json(['data' =>$data]);
+        }
+        if (request()->ajax()) {
+            $data = Doctor::latest();
+            if($request->status){
+                $data = $data->active();
+            }elseif($request->status == '0'){
+                $data = $data->inactive();
+            }
+            $data = $data->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $action ='<div class="dropdown">
+                    <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                        <div class="dropdown-menu" >
+                        <a data-href="'.route('backend.doctor.edit', $row).'" class="dropdown-item edit_check"
+                            data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit mr-2" aria-hidden="true"></i> Edit
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a data-href="'.route('backend.doctor.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
+                            data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash mr-2" aria-hidden="true"></i> Delete
+                        </a>
+                    </div></div>';
+                    return $action;
+                })
+                ->editColumn('image', function($row){
+                    return  asset($row->image);
+                })
+                ->editColumn('status', function($row){
+                    return view('components.backend.forms.input.input-switch', ['status' => $row->status ]);
+                })
+                ->editColumn('department_id', function($row){
+                    return optional($row->department)->name??' ';
+                })
+                ->editColumn('designation_id', function($row){
+                    return optional($row->designation)->name??' ';
+                })
+                ->addColumn('full_name', function($row){
+                    return $row->first_name.' '.$row->last_name;
+                })
+                ->removeColumn(['id'])
+                ->rawColumns(['action'])
+                ->make(true);
+
+        }
+
+        return view('backend.doctor.home.index', compact( 'status'));
     }
 
     /**

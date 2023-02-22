@@ -2,6 +2,8 @@
 
 namespace App\Models\Doctor;
 
+use App\Models\Employee\Department;
+use App\Models\Employee\Designation;
 use App\Traits\AuthScopes;
 use App\Traits\AutoTimeStamp;
 use App\Traits\GlobalScope;
@@ -43,4 +45,16 @@ class Doctor extends Model
     {
         return $this->hasMany(DoctorVisitSchedule::class, 'doctor_id', 'id');
     }
+
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id', 'id');
+    }
+
+    public function designation()
+    {
+        return $this->belongsTo(Designation::class, 'designation_id', 'id');
+    }
+
 }
