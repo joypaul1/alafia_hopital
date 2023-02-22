@@ -2,9 +2,12 @@
 
 namespace App\Http\Requests\Doctor;
 
+use App\Helpers\Image;
+use App\Models\Admin;
 use App\Models\Doctor\Doctor;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class StoreRequest extends FormRequest
 {
@@ -63,7 +66,7 @@ class StoreRequest extends FormRequest
     }
 
 
-    public function storeRequest()
+    public function storeData()
     {
         // $data = $this->validated();
         $docData['first_name'] = $this->first_name;
@@ -85,30 +88,64 @@ class StoreRequest extends FormRequest
         $docData['permanent_address_2'] = $this->permanent_address_2;
         $docData['permanent_address_city'] = $this->permanent_address_city;
         $docData['permanent_address_state'] = $this->permanent_address_state;
-        // $data['login_email'] = $this->login_email;
+        $docData['commission_type'] = $this->commission_type;
+        $docData['commission_amount'] = $this->commission_amount;
 
         try {
             DB::beginTransaction();
-            $doc = Doctor::create($docData);
-            dd($doc);
+            if($this->hasFile('userProfileImage')){
+                $image =  (new Image)->dirName('category')->file($this->userProfileImage)
+                ->resizeImage(250, 250)
+                ->save();
+                $docData['image'] = $image;
+            }
+            $doctor = Doctor::create($docData);
+
+
+            //consultation_name and consultation_fee added query
+            foreach ($this->consultation_name as $key => $value) {
+                $consultations=$doctor->consultations()->create([
+                    'consultation_day' => $this->consultation_name[$key],
+                    'consultation_fee' => $this->consultation_fee[$key],
+                ]);
+            }
+
+            // doctor appointment schedule with start time and end time query
+            foreach ($this->appointment_days as $index => $value) {
+                $schedules=$doctor->doctorAppointmentSchedules()->create([
+                    'day'           => $this->appointment_days[$index]??null,
+                    'start_time'    => $this->appointment_day_start_time[$index]??null,
+                    'end_time'      => $this->appointment_day_end_time[$index]??null,
+                ]);
+
+            }
+
+            // doctor visiting schedule with start time and end time query
+            foreach ($this->visit_schedule_days as $index => $value) {
+                $visitingSchedules=$doctor->doctorVisitingSchedules()->create([
+                    'day'           => $this->visit_schedule_days[$index]??null,
+                    'start_time'    => $this->visit_schedule_day_start_time[$index]??null,
+                    'end_time'      => $this->visit_schedule_day_end_time[$index]??null,
+                ]);
+
+            }
+           // doctor auth login query
+            $admin  =Admin::updateOrCreate([
+                'email' => $this->login_email,
+                'mobile' => $this->mobile,
+            ],[
+                'name' => $this->first_name,
+                'password' => Hash::make($this->password),
+                'role_id' => $this->role_id,
+            ]);
+            // dd($admin);
+
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();
-            dd($ex->getMessage());
+            return response()->json(['status' => false, 'msg' =>$ex->getMessage()]);
         }
-
-
-
-        // $data['password'] = bcrypt($data['password']);
-        // $data['status'] = 1;
-
-        // $data['consultation_duration'] = $data['consultation_duration'] ?? 0;
-        // $data['commission_type'] = $data['commission_type'] ?? 0;
-        // $data['commission_amount'] = $data['commission_amount'] ?? 0;
-        // $data['consultation_name'] = json_encode($data['consultation_name']);
-        // $data['consultation_fee'] = json_encode($data['consultation_fee']);
-        // dd($data);
-        // return $data;
+        return response()->json(['status' => true, 'msg' => 'Data Created Successfully']);
 
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend\Doctor;
 
+use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use App\Models\Doctor\Doctor;
 use App\Models\Employee\Department;
@@ -51,7 +52,14 @@ class DoctorController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        dd($request->storeRequest());
+        // dd($request->storeRequest());
+        $returnData = $request->storeData($request);
+        if($returnData->getData()->status){
+            (new LogActivity)::addToLog('Doctor Created');
+            return back()->with('success' , $returnData->getData()->msg) ;
+        }
+        return back()->with('error' , $returnData->getData()->msg) ;
+
     }
 
     /**

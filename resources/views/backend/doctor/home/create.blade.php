@@ -38,7 +38,7 @@
         'route' => route('backend.doctor.index'),
     ])
 
-<form action="{{ route('backend.doctor.store') }}" method="post">
+<form action="{{ route('backend.doctor.store') }}" method="post" enctype="multipart/form-data">
     @csrf
     @method('POST')
     <div class="row clearfix">
