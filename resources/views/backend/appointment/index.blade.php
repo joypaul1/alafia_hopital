@@ -155,7 +155,6 @@
     <div class="modal-dialog modal-lg" role=" document">
         <div class="modal-content">
             <form class="needs-validation" id="patient_add_form"
-            action="{{ route('backend.patient.store') }}" method="Post"
                 enctype="multipart/form-data">
                 @method('POST')
                 @csrf
@@ -191,8 +190,8 @@
                             </div>
                             <div class="col-4">
                                 @include('components.backend.forms.input.input-type', [
-                                    'name' => 'emergency_contact',
-                                    'placeholder' => 'Enter Emergency Contact'
+                                    'name' => 'emargency_contact',
+                                    'placeholder' => 'Enter Emargency Contact'
                                 ])
                             </div>
                             <div class="col-4">
@@ -382,6 +381,38 @@
 
         });
 
+        $(document).on('submit' , '#patient_add_form' , function(e){
+            e.preventDefault();
+            var form = $(this);
+            var url = "{{ route('backend.patient.store') }}";
+            var method = "POST";
+            var data = {
+                name: form.find('#name').val(),
+                mobile: form.find('#mobile').val(),
+                email: form.find('#email').val(),
+                address: form.find('#address').val(),
+                blood_group: form.find('#blood_group').val(),
+                marital_status: form.find('#marital_status').val(),
+                emergency_contact: form.find('#emargency_contact').val(),
+                guardian_name: form.find('#guardian_name').val(),
+                gender: form.find('#gender').val(),
+                dob: form.find('#date_of_birth').val(),
+            };
+            $.ajax({
+                url: url,
+                type: method,
+                data: data,
+                success: function(response) {
+                    if(response.status_code == 200){
+                        $('#patientId').val(response.data.name);
+                        $('#patient_Id').val(response.data.id);
+                        $('.patient_modal').modal('hide');
+                    }
+                },
+                error: function(response) {
+                }
+            });
+        });
 
     </script>
 
