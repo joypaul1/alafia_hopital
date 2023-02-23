@@ -24,8 +24,9 @@ class PatientController extends Controller
                 whereLike($request->optionData, 'mobile')->whereLike($request->optionData, 'name')->whereLike($request->optionData, 'patientId')->whereLike($request->optionData, 'email')->take(15)
                 ->get()]);
         }
+        $patients =Patient::latest()->get();
 
-        return view('backend.patient.index');
+        return view('backend.patient.index', compact('patients'));
     }
 
     /**
