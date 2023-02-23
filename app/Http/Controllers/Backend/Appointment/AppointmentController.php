@@ -58,9 +58,10 @@ class AppointmentController extends Controller
             ['name' => 'Pending', 'id' => 'pending'],
         ];
 
-
+        $appointments =Appointment::with('patient', 'doctor')->latest()->get();
         return view('backend.appointment.index',
         compact('blood_group', 'genders','marital_status','appointment_status',
+        'appointments',
          'appointment_priority', 'doctors', 'paymentSystems'));
 
     }
