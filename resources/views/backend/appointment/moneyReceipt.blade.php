@@ -67,7 +67,7 @@
 <body>
     <div class="mt-3 prescription">
         <div class="d-flex justify-content-center align-items-center">
-            <img src="./logo.png" width="50" alt="">
+            <img src="{{ asset("assets/moneyReceipt/logo.png") }}" width="50" alt="">
             <h4 class="py-2">
                 Al-Afiyah Dialyses Center
             </h4>
@@ -77,10 +77,10 @@
                 MONEY RECEIPT
             </span>
         </div>
-        <div class="d-flex justify-content-between">
-            <img src="./code.png" style="width: 100px;" alt="">
-            <img src="./code.png" style="width: 100px;" alt="">
-        </div>
+        {{-- <div class="d-flex justify-content-between">
+            <img src="{{ asset("assets/moneyReceipt/code.png") }}" style="width: 100px;" alt="">
+            <img src="{{ asset("assets/moneyReceipt/code.png") }}" style="width: 100px;" alt="">
+        </div> --}}
         <table class="table table-borderless my-2" style="font-size: 12px;">
             <tbody>
                 <tr>
@@ -89,6 +89,12 @@
                             Invoice No.
                         </Strong>
                         AP-{{ $appointment->invoice_number }}
+                    </td>
+                    <td rowspan="4">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialyses-Center# AP-'.$appointment->invoice_number.' PID-'.optional($appointment->patient)->patientId , 'QRCODE')}}" alt="barcode"style="width: 100px;" />
+                            {{-- <img src="{{ asset("assets/moneyReceipt/code.png") }}" style="width: 100px;" alt=""> --}}
+                        </div>
                     </td>
                     <td style="text-align: right;">
                         <strong>Bill Date</strong> : {{ date('d-m-Y', strtotime($appointment->created_at)) }}
@@ -257,13 +263,13 @@
 
         <div class="d-flex justify-content-between align-items-center" style="font-size: 12px;">
             <strong>
-                Hotline : 01700000000
+                Hotline : 01833-181126
             </strong>
 
             <p style="text-align: right;">
                 78, Satmasjid Road, Dhanmondi, Dhaka-1207
                 <br>
-                Call : 01700000000 | Email : info@test.com | Web : www.test.com
+                Call : 01833-181126 | Email : support@alafiyah.com | Web : www.alafiyah.com
             </p>
         </div>
 
