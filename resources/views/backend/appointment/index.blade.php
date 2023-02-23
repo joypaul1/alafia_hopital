@@ -56,7 +56,8 @@
 <div class="modal fade appointment_modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role=" document">
         <div class="modal-content">
-            <form class="needs-validation" id="appointment_add_form" action="{{ route('backend.itemconfig.category.store') }}" method="Post"
+            <form class="needs-validation" id="appointment_add_form"
+            action="{{ route('backend.appointment.store') }}" method="Post"
                 enctype="multipart/form-data">
                 @method('POST')
                 @csrf
@@ -142,8 +143,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary save_category_button">SAVE</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
+                    <button type="submit" class="btn btn-primary save_category_button">SAVE</button>
                 </div>
             </form>
         </div>
@@ -338,21 +339,27 @@
             });
 
             // get slot time on change date by ajax request
-            $(document).on('change', '#date', function() {
+            $(document).on('change', '#appointment_date', function() {
                 var date = $(this).val();
                 var doctor_id = $('#doctorID').val();
-                var url = "{{ route('backend.doctor.show', [':date', ':doctor_id']) }}";
+                var url = "{{ route('backend.doctor.show',':doctor_id') }}";
                 url = url.replace(':date', date);
                 url = url.replace(':doctor_id', doctor_id);
                 $.ajax({
                     url: url,
                     type: 'GET',
                     dataType: "json",
+                    data    : {
+                        'date' : date,
+                        'slot' : true,
+                    },
                     success: function(response) {
-                        $('#slot_time').empty();
-                        $.each(response, function(key, value) {
-                            $('#slot_time').append('<option value="' + key + '">' + value + '</option>');
-                        });
+                        console.log(response);
+                        $('#appointment_schedule').empty();
+                        response.data.forEach(element => {
+                            $('#appointment_schedule').append('<option value="' + element.id + '">' + element.start_time +' -- '+ element.end_time + '</option>')}).trigger('change');
+
+
                     }
                 });
             });

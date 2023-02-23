@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Backend\Appointment;
 
+use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
+use App\Models\Appointment\Appointment;
 use App\Models\Doctor\Doctor;
 use App\Models\PaymentSystem;
 use App\Models\SiteConfig\BloodBank;
 use Illuminate\Http\Request;
+use App\Http\Requests\Appointment\StoreRequest;
+use App\Http\Requests\Appointment\UpdateRequest;
 
 class AppointmentController extends Controller
 {
@@ -78,9 +82,15 @@ class AppointmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $returnData = $request->storeData($request);
+        if($returnData->getData()->status){
+            $this->catSession();
+            (new LogActivity)::addToLog('Appointment Created');
+            return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
+        }
+        return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
     }
 
     /**

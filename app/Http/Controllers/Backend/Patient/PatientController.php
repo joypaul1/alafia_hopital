@@ -47,7 +47,7 @@ class PatientController extends Controller
         if (!Patient::latest()->first()) {
             return 1;
         } else {
-            return Patient::latest()->first()->invoice_number + 1;
+            return Patient::latest()->first()->patientId + 1;
         }
     }
 

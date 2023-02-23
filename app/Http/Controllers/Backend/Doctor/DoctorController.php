@@ -11,6 +11,7 @@ use App\Models\Employee\Shift;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests\Doctor\StoreRequest;
+use App\Models\Doctor\DoctorAppointmentSchedule;
 use Yajra\DataTables\Facades\DataTables;
 
 class DoctorController extends Controller
@@ -120,10 +121,21 @@ class DoctorController extends Controller
     public function show($id)
     {
         if (request()->slot) {
-            $data = Doctor::whereId(request()->doctor_id)->select('id')->with('consultations:id,doctor_id,consultation_day,consultation_fee')
+            $timeSlot = [];
+            $data = Doctor::whereId($id)->select('id')
+            ->with('doctorAppointmentSchedules')
             ->first();
-            $consultation_fee= $data->consultations->first()->consultation_fee ;
-            return response()->json($consultation_fee);
+            //php date wise day show
+            $day = date('l', strtotime(request()->date));
+            $timeSlot = $data->doctorAppointmentSchedules()->where('day', $day)->get()->map(function($query){
+                return [
+                    'start_time' => date("h.i A", strtotime($query->start_time)),
+                    'end_time' => date("h.i A", strtotime($query->end_time)),
+                    'id'    => $query->id,
+                ];
+            });
+            return response()->json(['data'=> $timeSlot]);
+
         }
         // get ajax request for single data show
         if (request()->ajax()) {
