@@ -30,6 +30,7 @@ trait GlobalScope
 
     public function scopeWhereLike(Builder $query, $searchTerm = null, $field ='name' )
     {
+        dd($searchTerm);
         return  $query->orWhere($field, 'LIKE', "%{$searchTerm}%");
     }
 

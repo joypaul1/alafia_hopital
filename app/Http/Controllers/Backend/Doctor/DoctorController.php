@@ -83,12 +83,12 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        $doctors = Doctor::select('id', 'first_name')->get();
-        $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
-        $departments = Department::select('id', 'name')->get();
-        $designations = Designation::select('id', 'name')->get();
-        $roles = Role::select('id', 'name')->get();
-        $shifts = Shift::select('id', 'name')->get();
+        $doctors        = Doctor::select('id', 'first_name')->get();
+        $status         =  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
+        $departments    = Department::select('id', 'name')->get();
+        $designations   = Designation::select('id', 'name')->get();
+        $roles          = Role::select('id', 'name')->get();
+        $shifts         = Shift::select('id', 'name')->get();
         return view('backend.doctor.home.create', compact('doctors', 'status',
          'departments', 'designations', 'roles', 'shifts'));
     }
@@ -119,7 +119,15 @@ class DoctorController extends Controller
      */
     public function show($id)
     {
-        //
+        // get ajax request for single data show
+        // if (request()->ajax()) {
+            $data = Doctor::select('id')->with('consultations:id,doctor_id,consultation_day,consultation_fee')->whereId($id)->first();
+            $consultation_fee= $data->consultations->first()->consultation_fee ;
+
+            return response()->json($consultation_fee);
+        // }
+
+
     }
 
     /**

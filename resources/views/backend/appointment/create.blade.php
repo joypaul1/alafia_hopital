@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-3">
                     @include('components.backend.forms.select2.option', [
-                        'name' => 'Doctor',
+                        'name' => 'doctor',
                         'optionDatas' => [],
                     ])
                 </div>

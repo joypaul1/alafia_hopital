@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend\Appointment;
 
 use App\Http\Controllers\Controller;
+use App\Models\Doctor\Doctor;
+use App\Models\PaymentSystem;
 use App\Models\SiteConfig\BloodBank;
 use Illuminate\Http\Request;
 
@@ -17,15 +19,45 @@ class AppointmentController extends Controller
     {
         $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
         //gender option create
-        $gender = (object)[
+        $genders = (object)[
             ['name' => 'male', 'id' => 'male'],
             ['name' => 'female', 'id' => 'female'],
             ['name' => 'others', 'id' => 'others'],
         ];
-        //blood group
-        $blood_group = BloodBank::where('type_id', 1)->all();
+        //marital_status option create
+        $marital_status = (object)[
+            ['name' => 'married', 'id' => 'married'],
+            ['name' => 'unmarried', 'id' => 'unmarried'],
+            ['name' => 'divorced', 'id' => 'divorced'],
+        ];
 
-        return view('backend.appointment.index');
+        //blood group
+        $blood_group = BloodBank::where('type_id', 1)->get();
+
+        // appointment_priority select option create
+        $appointment_priority = (object)[
+            ['name' => 'Normal', 'id' => 'Normal'],
+            ['name' => 'Urgent', 'id' => 'Urgent'],
+            ['name' => 'Emergency', 'id' => 'Emergency'],
+        ];
+        $doctors = Doctor::select('id', 'first_name', 'last_name')->get()->map(function ($doctor) {
+            $data['id'] = $doctor->id;
+            $data['name'] = $doctor->first_name . ' ' . $doctor->last_name;
+            return $data;
+        });
+
+        $paymentSystems =PaymentSystem::select('id', 'name')->get();
+
+        //appointment status option create
+        $appointment_status = (object)[
+            ['name' => 'Approved', 'id' => 'approved'],
+            ['name' => 'Pending', 'id' => 'pending'],
+        ];
+
+
+        return view('backend.appointment.index',
+        compact('blood_group', 'genders','marital_status','appointment_status',
+         'appointment_priority', 'doctors', 'paymentSystems'));
 
     }
 

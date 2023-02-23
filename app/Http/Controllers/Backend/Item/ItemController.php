@@ -30,7 +30,7 @@ class ItemController extends Controller
         if($request->optionData){
             return response()->json(['data' => Item::whereLike($request->optionData)
             ->select(['id','name','sku', 'unit_id', 'sell_price'])->with('unit:id,name')->take(15)->get()]);
-           }
+        }
         $data = Item::select(['id','name','category_id','subcategory_id','childcategory_id','sku','unit_id','brand_id','status', 'sell_price'])
         ->with('category:id,name')->with('subcategory:id,name')
         ->when($request->category_id, function($query) use ($request){
