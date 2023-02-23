@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Patient\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Termwind\Components\Dd;
 
 class PatientController extends Controller
 {
@@ -17,15 +18,11 @@ class PatientController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->optionData){
+        if ($request->optionData) {
             return response()->json(['data' => Patient::
-            // where('name', 'LIKE', "%{$request->optionData}%")->
-            whereLike($request->optionData, 'mobile')->
-            whereLike($request->optionData, 'name')->
-            whereLike($request->optionData, 'patientId')->
-            whereLike($request->optionData, 'email')->
-            take(15)
-            ->get()]);
+                // where('name', 'LIKE', "%{$request->optionData}%")->
+                whereLike($request->optionData, 'mobile')->whereLike($request->optionData, 'name')->whereLike($request->optionData, 'patientId')->whereLike($request->optionData, 'email')->take(15)
+                ->get()]);
         }
 
         return view('backend.patient.index');
@@ -60,6 +57,7 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         try {
+            // dd($request->all());
             DB::beginTransaction();
             $data['patientId']          = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
             $data['name']               = $request->name;
@@ -72,13 +70,14 @@ class PatientController extends Controller
             $data['blood_group']        = $request->blood_group;
             $data['marital_status']     = $request->marital_status;
             $data['address']            = $request->address;
-            $patient =Patient::create($data);
+            $patient = Patient::create($data);
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollback();
-            return back()->with('error',  $ex->getMessage());
+            return response()->json(['error' => $ex->getMessage(), 'success' => false, 'status_code' => 400]);
         }
-            return back()->with('success', 'Patient Created Successfully');
+
+        return response()->json(['success' => 'Patient Created Successfully', 'success' => true, 'status_code' => 200, 'data' => $patient]);
     }
 
     /**
