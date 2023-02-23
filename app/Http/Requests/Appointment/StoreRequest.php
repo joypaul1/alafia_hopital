@@ -3,10 +3,14 @@
 namespace App\Http\Requests\Appointment;
 
 use App\Helpers\InvoiceNumber;
+use App\Models\Account\AccountLedger;
 use App\Models\Appointment\Appointment;
+use App\Models\FinancialYearHistory;
+use App\Models\LedgerTransition;
 use App\Models\PaymentSystem;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class StoreRequest extends FormRequest
 {
@@ -27,10 +31,11 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
+        // return [];
         return [
             'patient_Id'=> 'required|exists:patients,id',
             'doctorID'=> 'required|exists:doctors,id',
-            'doctor_fee'=> 'required',
+            'doctor_fees'=> 'required',
             'appointment_date'=> 'required',
             'appointment_schedule'=> 'required',
             'appointment_priority'=> 'required',
@@ -50,6 +55,7 @@ class StoreRequest extends FormRequest
 
     public function storeData()
     {
+        // dd($this->all());
         try {
             DB::beginTransaction();
                 $data = $this->all();
@@ -64,12 +70,70 @@ class StoreRequest extends FormRequest
                 $data['appointment_status'] = $this->status;
                 $data['payment_status'] = 'Paid';
                 $appointment = Appointment::create($data);
+                // $appointment = Appointment::first();
+            // dd($appointment,$appointment['doctor_fee']);
+                // appointment paymentHistories
+                $v = $appointment->paymentHistories()->create([
+                    'ledger_id' => AccountLedger::first()->id,
+                    'payment_method'=> PaymentSystem::find($this->payment_method)->name ,
+                    'payment_system_id' =>$this->payment_method,
+                    'date' =>$appointment['appointment_date'],
+                    'note' =>$this->payment_note,
+                    'paid_amount' =>Str::replace(',', '', $appointment['doctor_fee']),
+                    'payment_received_id' => auth('admin')->id(),
+                ]);
+                // dd($v);
+
+                 //<----start of cash flow Transition------->
+                $cashflowTransition= $appointment->cashflowTransactions()->create([
+                    'url'               => "Backend\Appointment\AppointmentController@show,['id' =>".$appointment->id."]",
+                    'cashflow_type'     => 'Payment',
+                    'description'       => 'Patient Payment',
+                    'date'              => $appointment['appointment_date'],
+                    'ledger_id'         => AccountLedger::first()->id,
+                    'payment_method'    => $this->payment_method,
+                ]);
+                // dd($cashflowTransition);
+                // cashflowHistories
+                $cashflowTransition->cashflowHistory()->create([
+                    'debit' => Str::replace(',', '', $appointment['doctor_fee'])
+                ]);
+                //<----end of cash flow Transition------->
+
+                //<----start of dailyTransition book transaction------->
+                $dailyTransition = $appointment->dailyTransactions()->create([
+                    'url'               =>  "Backend\Appointment\AppointmentController@show,['id' =>".$appointment->id."]",
+                    'description'       => 'Patient Payment',
+                    'transaction_type'  => 'Payment',
+                    'date'              =>  $appointment['appointment_date'],
+                    'reference_no'      =>  $appointment->invoice_number,
+                ]);
+
+                //credit transactionHistories // sell increase
+                $dailyTransition->transactionHistories()->create([
+                    'entry_name' => 'Patient Payment',
+                    'credit'      => Str::replace(',', '', $appointment['doctor_fee']),
+                ]);
+
+                //debit transactionHistories // amount increase
+                $dailyTransition->transactionHistories()->create([
+                    'entry_name' => AccountLedger::find(AccountLedger::first()->id)->name,
+                    'debit' => Str::replace(',', '', $appointment['doctor_fee']),
+                ]);
+
+                // LedgerTransition --->increment costing
+                LedgerTransition::updateOrCreate([
+                    'ledger_id'=> AccountLedger::first()->id,
+                    'date'     => FinancialYearHistory::latest()->first()->start_date
+                ],[
+                    'debit' => DB::raw('debit+'. Str::replace(',', '', $appointment['doctor_fee']))
+                ]);
 
             DB::commit();
         } catch (\Exception $ex) {
-            DB::rollBack();
-            throw $ex->getMessage();
+            return response()->json(['status' => false, 'msg' =>$ex->getMessage() ]);
         }
+        return response()->json(['status' => true, 'msg' => 'Data Created Successfully', 'data' => $appointment->id]);
 
 
 

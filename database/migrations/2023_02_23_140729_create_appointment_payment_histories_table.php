@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('order_payment_histories', function (Blueprint $table) {
+        Schema::create('appointment_payment_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained('orders');
+            $table->foreignId('appointment_id')->constrained('appointments');
             $table->date('date');
-            $table->decimal('amount', 15, 4);
             $table->unsignedBigInteger('ledger_id');
             $table->foreign('ledger_id')->references('id')->on('account_ledgers');
             $table->decimal('paid_amount', 15,4)->default(0.00);
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_payment_histories');
+        Schema::dropIfExists('appointment_payment_histories');
     }
 };

@@ -65,6 +65,8 @@ class AppointmentController extends Controller
 
     }
 
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -84,14 +86,24 @@ class AppointmentController extends Controller
      */
     public function store(StoreRequest $request)
     {
+        // dd($request->all());
         $returnData = $request->storeData($request);
+        // dd(  $returnData );
         if($returnData->getData()->status){
-            $this->catSession();
             (new LogActivity)::addToLog('Appointment Created');
-            return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
+            return redirect()->route('backend.appointment.show',$returnData->getData()->data);
+            // $this->moneyReceipt($returnData->getData()->data);
+            // return back()->with('success', $returnData->getData()->msg);
+            // return redirect()->to('admin/appointment/money-receipt',  $returnData->getData()->data);
+            // return redirect(route("backend.appointment.moneyReceipt")."?id=".$returnData->getData()->data);
+            // return redirect()->route('admin/appointment/money-receipt',  $returnData->getData()->data);
+            // ->with('success', $returnData->getData()->msg);
+            // return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
         }
-        return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
+        return back()->with('error', $returnData->getData()->msg);
+        // return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
     }
+
 
     /**
      * Display the specified resource.
@@ -101,7 +113,9 @@ class AppointmentController extends Controller
      */
     public function show($id)
     {
-        //
+        $appointment = Appointment::whereId($id)->with('doctor', 'patient', 'paymentHistories')->first();
+        return view('backend.appointment.moneyReceipt', compact('appointment'));
+
     }
 
     /**

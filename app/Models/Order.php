@@ -30,15 +30,15 @@ class Order extends Model
     }
 
 
-   /**
-    * Get all of the paymentHistories for the Order
-    *
-    * @return \Illuminate\Database\Eloquent\Relations\HasMany
-    */
-   public function paymentHistories(): HasMany
-   {
-       return $this->hasMany(OrderPaymentHistory::class, 'order_id', 'id');
-   }
+    /**
+        * Get all of the paymentHistories for the Order
+        *
+        * @return \Illuminate\Database\Eloquent\Relations\HasMany
+        */
+    public function paymentHistories(): HasMany
+    {
+        return $this->hasMany(OrderPaymentHistory::class, 'order_id', 'id');
+    }
     /**
      * Get all of the orderStatus for the Order
      *
@@ -48,6 +48,7 @@ class Order extends Model
     {
         return $this->hasOne(OrderStatus::class, 'order_id', 'id')->latest();
     }
+
     public function orderLastStatus(): HasMany
     {
         return $this->hasMany(OrderStatus::class, 'order_id', 'id')->latest();
