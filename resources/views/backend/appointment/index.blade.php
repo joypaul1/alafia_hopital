@@ -390,15 +390,12 @@
                 guardian_name: form.find('#guardian_name').val(),
                 gender: form.find('#gender').val(),
                 dob: form.find('#date_of_birth').val(),
-                
-            }
-            console.log(data)
+            };
             $.ajax({
                 url: url,
                 type: method,
                 data: data,
                 success: function(response) {
-                    console.log(response)
                     if(response.status_code == 200){
                         $('#patientId').val(response.data.name);
                         $('#patient_Id').val(response.data.id);
