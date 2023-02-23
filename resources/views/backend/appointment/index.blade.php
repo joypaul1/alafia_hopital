@@ -331,13 +331,31 @@
                     // item data
                     // ui.item.value_id,
                     $('#patient_Id').val(ui.item.value_id);
-                    console.log($('#patient_Id'));
+                    // console.log($('#patient_Id'));
 
 
                 }
             });
 
-            // supplier data
+            // get slot time on change date by ajax request
+            $(document).on('change', '#date', function() {
+                var date = $(this).val();
+                var doctor_id = $('#doctorID').val();
+                var url = "{{ route('backend.doctor.show', [':date', ':doctor_id']) }}";
+                url = url.replace(':date', date);
+                url = url.replace(':doctor_id', doctor_id);
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    dataType: "json",
+                    success: function(response) {
+                        $('#slot_time').empty();
+                        $.each(response, function(key, value) {
+                            $('#slot_time').append('<option value="' + key + '">' + value + '</option>');
+                        });
+                    }
+                });
+            });
             // $.ajax({
             //     type: "GET",
             //     url:"{{ route('backend.supplier.index') }}",

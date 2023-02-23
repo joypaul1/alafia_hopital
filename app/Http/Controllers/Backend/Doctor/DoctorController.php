@@ -119,13 +119,19 @@ class DoctorController extends Controller
      */
     public function show($id)
     {
-        // get ajax request for single data show
-        // if (request()->ajax()) {
-            $data = Doctor::select('id')->with('consultations:id,doctor_id,consultation_day,consultation_fee')->whereId($id)->first();
+        if (request()->slot) {
+            $data = Doctor::whereId(request()->doctor_id)->select('id')->with('consultations:id,doctor_id,consultation_day,consultation_fee')
+            ->first();
             $consultation_fee= $data->consultations->first()->consultation_fee ;
-
             return response()->json($consultation_fee);
-        // }
+        }
+        // get ajax request for single data show
+        if (request()->ajax()) {
+            $data = Doctor::whereId($id)->select('id')->with('consultations:id,doctor_id,consultation_day,consultation_fee')
+            ->first();
+            $consultation_fee= $data->consultations->first()->consultation_fee ;
+            return response()->json($consultation_fee);
+        }
 
 
     }
