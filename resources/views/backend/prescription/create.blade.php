@@ -23,11 +23,214 @@
             @method("POST")
             <div class="card">
                 <div class="body">
-                    {{-- <h3 class="mb-3 text-center">Restaurant</h3>
-                    <hr> --}}
+                    <h4>
+                        Patient Information
+                    </h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-2">
+                            @include('components.backend.forms.input.input-type2',[ 'name' => 'pid', 'number' =>true, 'placeholder' => 'Patient ID', 'required'=> 'yes' ])
+                        </div>
+                        <div class="col-4">
+                            @include('components.backend.forms.input.input-type2',[ 'name' => 'name', 'placeholder' => 'Patient Name', 'required'=> 'yes' ])
+                        </div>
+                        <div class="col-4">
+                            @include('components.backend.forms.input.input-type2',[ 'name' => 'mobile', 'number' =>true, 'placeholder' => 'Patient Mobile', 'required'=> 'yes' ])
+                        </div>
+                        <div class="col-2">
+                            @include('components.backend.forms.input.input-type2',[ 'name' => 'age', 'number' =>true, 'placeholder' => 'Age', 'required'=> 'yes' ])
+                        </div>
+                        <div class="col-12 mt-3">
+                            <div class="row">
+                                <div class="col-5">
+                                    @include('components.backend.forms.input.input-type2',[ 'name' => 'age', 'placeholder' => 'Additional informarion (eg. Blood Pressure)', 'required'=> 'yes' ])
+                                </div>
+                                <div class="col-5">
+                                    @include('components.backend.forms.input.input-type2',[ 'name' => 'value', 'placeholder' => 'Enter Value (eg. 120/80)', 'required'=> 'yes' ])
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn btn-info">
+                                        +
+                                    </button>
+                                    <button class="btn btn-danger">
+                                        -
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
+            <div class="card">
+                <div class="body">
+                    <h4>
+                        Chief Complaints
+                    </h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-10">
+                            @include('components.backend.forms.input.input-type2',[ 'name' => 'symptoms_name', 'placeholder' => 'Complaint', 'required'=> 'yes' ])
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-info">
+                                +
+                            </button>
+                            <button class="btn btn-danger">
+                                -
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="body">
+                    <h4>
+                        Any Test Required ?
+                    </h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-5">
+                            @include('components.backend.forms.input.input-type2',[ 'name' => 'test_name', 'placeholder' => 'Test Name', 'required'=> 'yes' ])
+                        </div>
+                        <div class="col-5">
+                            @include('components.backend.forms.input.input-type2',[ 'name' => 'spacifications', 'placeholder' => 'Any Spacifications ?', 'required'=> 'yes' ])
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-info">
+                                +
+                            </button>
+                            <button class="btn btn-danger">
+                                -
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="body">
+                    <h4>
+                        Select Medicine
+                    </h4>
+                    <hr>
+                    <div class="row justify-content-center mb-4">
+                        <div class="col-10">
+                            @include('components.backend.forms.input.input-type2',[ 'name' => 'search_medicine', 'placeholder' => 'Search Medicine by Name / Type / Group', 'required'=> 'yes' ])
+                        </div>
+                    </div>
+                    <table class="table table-bordered text-center">
+                        <thead>
+                            <tr>
+                                <th>Sl.</th>
+                                <th>Name</th>
+                                <th>MG</th>
+                                <th>Group</th>
+                                <th>Type</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Paracetamol</td>
+                                <td>500</td>
+                                <td>Analgesic</td>
+                                <td>Tablet</td>
+                                <td>
+                                    <button class="btn btn-info">
+                                        Add
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <hr>
+
+                    <h5 class="text-center">
+                        Selected Medicine
+                    </h5>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <h6 class="text-info">
+                            <strong>
+                                1.
+                            </strong>
+                            Paracetamol 500mg
+                        </h6>
+                        <button class="btn btn-sm btn-danger">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+
+                    <table class="table table-bordered my-3">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @include('components.backend.forms.input.input-type2',[ 'name' => 'take_time', 'placeholder' => 'How many times a day ?', 'required'=> 'yes' ])
+                                </td>
+                                <td>
+                                    @include('components.backend.forms.input.input-type2',[ 'name' => 'medicine_quantity', 'placeholder' => 'Medicine Quantity (eg, 1 + 1 + 1)', 'required'=> 'yes' ])
+                                </td>
+                                <td>
+                                    @include('components.backend.forms.input.input-type2',[ 'name' => 'take_time', 'placeholder' => 'How many days ?', 'required'=> 'yes' ])
+                                </td>
+                                <td>
+                                    <p class="m-0">
+                                        <input type="radio" name="eat_time" id="before_meal">
+                                        <label for="before_meal">
+                                            Before Meal
+                                        </label>
+                                    </p>
+                                    <p class="m-0">
+                                        <input type="radio" name="eat_time" id="after_meal">
+                                        <label for="after_meal">
+                                            After Meal
+                                        </label>
+                                    </p>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <textarea name="note" id="note" rows="2" class="form-control" placeholder="Any Note ? (eg. Take medicine when you feel pain)"></textarea>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="body">
+                    <h4>
+                        Next Visit
+                    </h4>
+                    <hr>
+                    @include('components.backend.forms.input.input-type2',[ 'name' => 'next_visit', 'placeholder' => 'Next Visit Time (eg. 7 days / 1 month)', 'required'=> 'yes' ])
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="body">
+                    <h4>
+                        Any Advice ?
+                    </h4>
+                    <hr>
+                    <textarea name="advice" id="advice" rows="2" class="form-control" placeholder="Any Advice ?"></textarea>
+
+                </div>
+            </div>
+
+            <p class="text-right">
+                <button class="btn btn-info">
+                    Submit
+                </button>
+            </p>
+
 
 
         </form>
