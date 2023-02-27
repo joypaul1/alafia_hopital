@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Symptom;
 
 use App\Traits\AutoTimeStamp;
 use App\Traits\GlobalScope;
@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SymptomType extends Model
 {
-    use AutoTimeStamp, GlobalScope,SoftDeletes;
+    use AutoTimeStamp, GlobalScope, SoftDeletes;
 
     protected $guarded = ['id'];
 }

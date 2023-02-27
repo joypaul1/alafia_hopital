@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('prescription_tests', function (Blueprint $table) {
+        Schema::create('service_types', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('prescription_id');
-            $table->foreign('prescription_id')->references('id')->on('prescriptions');
-            $table->unsignedBigInteger('test_id');
-        $table->foreign('test_id')->references('id')->on('tests');
-            $table->string('test_note')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prescription_tests');
+        Schema::dropIfExists('service_types');
     }
 };

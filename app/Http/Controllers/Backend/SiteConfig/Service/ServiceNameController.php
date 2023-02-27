@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Backend\SiteConfig\Symptom;
+namespace App\Http\Controllers\Backend\SiteConfig\Service;
 
 use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
-use App\Models\Symptom\Symptom;
+use App\Models\Service\ServiceName;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Requests\Symptom\StoreRequest;
-use App\Http\Requests\Symptom\UpdateRequest;
-use App\Models\Symptom\SymptomType;
+use App\Http\Requests\ServiceName\StoreRequest;
+use App\Http\Requests\ServiceName\UpdateRequest;
+use App\Models\Service\ServiceType;
 
-class ServiceController extends Controller
+class ServiceNameController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class ServiceController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Symptom::select(['id', 'name', 'status', 'description', 'symptom_type_id'])->latest();
+        $data = ServiceName::select(['id', 'name', 'status', 'description', 'symptom_type_id'])->latest();
         if ($request->status) {
             $data = $data->active();
         } elseif ($request->status == '0') {
@@ -70,7 +70,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $type = SymptomType::select(['id', 'name'])->get();
+        $type = ServiceType::select(['id', 'name'])->get();
         return view('backend.siteconfig.symptom.create', compact('type'));
     }
 
@@ -84,7 +84,7 @@ class ServiceController extends Controller
     {
         $returnData = $request->storeData($request);
         if ($returnData->getData()->status) {
-            (new LogActivity)::addToLog('Symptom Created');
+            (new LogActivity)::addToLog('ServiceName Created');
             return response()->json(['success' => $returnData->getData()->msg, 'status' => true], 200);
         }
         return response()->json(['error' => $returnData->getData()->msg, 'status' => false], 400);
@@ -107,9 +107,9 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Symptom $symptom)
+    public function edit(ServiceName $symptom)
     {
-        $type = SymptomType::select(['id', 'name'])->get();
+        $type = ServiceNameType::select(['id', 'name'])->get();
 
         return view('backend.siteconfig.symptom.edit', compact('symptom', 'type'));
     }
@@ -121,11 +121,11 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, Symptom $symptom)
+    public function update(UpdateRequest $request, ServiceName $symptom)
     {
         $returnData = $request->updateData($request, $symptom);
         if ($returnData->getData()->status) {
-            (new LogActivity)::addToLog('Symptom Updated');
+            (new LogActivity)::addToLog('ServiceName Updated');
             return response()->json(['success' => $returnData->getData()->msg, 'status' => true], 200);
         }
         return response()->json(['error' => $returnData->getData()->msg, 'status' => false], 400);
@@ -138,14 +138,14 @@ class ServiceController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy(Symptom $symptom)
+    public function destroy(ServiceName $symptom)
     {
         try {
             $symptom->delete();
         } catch (\Exception $ex) {
             return response()->json(['status' => false, 'mes' => $ex->getMessage()]);
         }
-        (new LogActivity)::addToLog('Symptom Deleted');
+        (new LogActivity)::addToLog('ServiceName Deleted');
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
 }

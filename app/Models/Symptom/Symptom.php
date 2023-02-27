@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Symptom;
 
 use App\Traits\AutoTimeStamp;
 use App\Traits\GlobalScope;
