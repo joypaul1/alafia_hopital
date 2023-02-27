@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Backend\SiteConfig\Symptom;
 
 use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
-use App\Models\SymptomType;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\SymptomType\StoreRequest;
 use App\Http\Requests\SymptomType\UpdateRequest;
-
+use App\Models\Symptom\SymptomType;
 
 class SymptomTypeController extends Controller
 {

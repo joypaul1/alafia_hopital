@@ -1,7 +1,5 @@
-
 <div class="modal-content">
-    <form class="needs-validation" id="symptom_add_form" action="{{ route('backend.siteconfig.Service.store') }}" method="Post"
-        enctype="multipart/form-data">
+    <form class="needs-validation" id="symptom_add_form" action="{{ route('backend.siteconfig.Service.store') }}" method="Post" enctype="multipart/form-data">
         @method('POST')
         @csrf
         <div class="modal-header">
@@ -14,7 +12,7 @@
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.select2.option',['label'=>'Service Type', 'name' =>'symptom_type_id', 'optionDatas'=>$type  , 'required'=>true])
+                    @include('components.backend.forms.select2.option',['label'=>'Service Type', 'name' =>'symptom_type_id', 'optionDatas'=>$type , 'required'=>true])
                     @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('symptom_type_id')])
                 </div>
 
@@ -37,4 +35,3 @@
         </div>
     </form>
 </div>
-

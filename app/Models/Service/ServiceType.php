@@ -2,10 +2,15 @@
 
 namespace App\Models\Service;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\AutoTimeStamp;
+use App\Traits\GlobalScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ServiceType extends Model
 {
-    use HasFactory;
+    use AutoTimeStamp, GlobalScope, SoftDeletes;
+
+    protected $guarded = ['id'];
 }

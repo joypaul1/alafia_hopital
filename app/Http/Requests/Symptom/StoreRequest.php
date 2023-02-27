@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Symptom;
 
-use App\Models\Symptom;
+use App\Models\Symptom\Symptom;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 

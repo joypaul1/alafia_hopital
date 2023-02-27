@@ -1,6 +1,5 @@
 <div class="modal-content">
-    <form class="needs-validation" id="symptom_edit_form" action="{{ route('backend.siteconfig.service.update', $service) }}" method="Post"
-        enctype="multipart/form-data">
+    <form class="needs-validation" id="symptom_edit_form" action="{{ route('backend.siteconfig.service.update', $service) }}" method="Post" enctype="multipart/form-data">
         @method('POST')
         @csrf
         <div class="modal-header">
@@ -19,9 +18,7 @@
 
                 <div class=" form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control"  name="description" id="description" rows="3">
-                        {{$service->description??' '}}
-                    </textarea>
+                    <textarea class="form-control" name="description" id="description" rows="3">{{$service->description??' '}}</textarea>
                 </div>
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" name="status" {{$service->status == true ? 'Checked': ' '}} id="active_check">
@@ -37,7 +34,7 @@
         </div>
     </form>
 </div>
-<script >
+<script>
 
 
 </script>

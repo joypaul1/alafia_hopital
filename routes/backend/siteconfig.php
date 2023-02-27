@@ -23,6 +23,7 @@ use App\Http\Controllers\Backend\SiteConfig\Symptom\ServiceController;
 use App\Http\Controllers\Backend\SiteConfig\TaxController;
 use App\Http\Controllers\Backend\SiteConfig\Symptom\SymptomTypeController;
 use App\Http\Controllers\Backend\SiteConfig\Symptom\SymptomController;
+use App\Models\Service\ServiceType;
 use Illuminate\Support\Facades\Route;
 
 
@@ -79,6 +80,9 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin/site-config', 'as' => 
 
     //symptoms
     Route::resource('symptom', SymptomController::class);
+
+    //servicetype
+    Route::resource('serviceType', ServiceType::class);
 
     //service
     Route::resource('service', ServiceNameController::class);

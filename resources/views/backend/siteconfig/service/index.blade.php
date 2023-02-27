@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table  class="table table-bordered " id="bed_table">
+                        <table  class="table table-bordered " id="service_table">
                             <thead>
                                 <tr>
                                     <th class="text-center">Sl.</th>
@@ -65,7 +65,7 @@
     let table_name ;
     var modal = ".symptom_modal";
     $(function() {
-        table_name =$("#bed_table").DataTable({
+        table_name =$("#service_table").DataTable({
             dom: "Bfrtip",
             buttons: ["colvis","copy", "csv", "excel", "pdf", "print",
                 {
@@ -96,13 +96,12 @@
                     data: 'name',
                     name: 'name'
                 },{
-                    data: 'symptom_type_id',
-                    name: 'symptom_type_id'
+                    data: 'service_type_id',
+                    name: 'service_type_id'
                 },{
                     data: 'description',
                     name: 'description'
                 },
-
                  {
                     data: 'status',
                     name: 'status',
