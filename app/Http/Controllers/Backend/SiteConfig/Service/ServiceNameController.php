@@ -20,7 +20,7 @@ class ServiceNameController extends Controller
      */
     public function index(Request $request)
     {
-        $data = ServiceName::select(['id', 'name', 'status', 'description', 'service_type_id'])->latest();
+        $data = ServiceName::select(['id', 'name', 'status', 'service_price', 'service_type_id'])->latest();
         if ($request->status) {
             $data = $data->active();
         } elseif ($request->status == '0') {
@@ -32,32 +32,35 @@ class ServiceNameController extends Controller
             return response()->json(['data' => $data]);
         }
         if (request()->ajax()) {
-        return DataTables::of($data)    
-            ->addIndexColumn()
-            ->addColumn('action', function ($row) {
-                $action = '<div class="dropdown text-center">
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $action = '<div class="dropdown text-center">
                    <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                        <div class="dropdown-menu" style="min-width:auto !important">
-                       <a data-href="' . route('backend.siteconfig.service.edit', $row) . '" class="dropdown-item edit_check"
+                       <a data-href="' . route('backend.siteconfig.serviceName.edit', $row) . '" class="dropdown-item edit_check"
                            data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit" aria-hidden="true"></i>
                        </a>
                        <div class="dropdown-divider"></div>
-                       <a data-href="' . route('backend.siteconfig.service.destroy', $row) . '"class="dropdown-item delete_check"  data-toggle="tooltip"
+                       <a data-href="' . route('backend.siteconfig.serviceName.destroy', $row) . '"class="dropdown-item delete_check"  data-toggle="tooltip"
                            data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash" aria-hidden="true"></i>
                        </a>
                    </div></div>';
-                return $action;
-            })
+                    return $action;
+                })
 
-            ->editColumn('status', function ($row) {
-                return view('components.backend.forms.input.input-switch', ['status' => $row->status]);
-            })
-            ->editColumn('service_type_id', function ($row) {
-                return optional($row->serviceType)->name ?? ' ';
-            })
-            ->removeColumn(['id'])
-            ->rawColumns(['action'])
-            ->make(true);
+                ->editColumn('status', function ($row) {
+                    return view('components.backend.forms.input.input-switch', ['status' => $row->status]);
+                })
+                ->editColumn('service_type_id', function ($row) {
+                    return optional($row->serviceType)->name ?? ' ';
+                })
+                ->editColumn('service_price', function ($row) {
+                    return number_format($row->service_price, 2) . ' TK';
+                })
+                ->removeColumn(['id'])
+                ->rawColumns(['action'])
+                ->make(true);
             // ->json();
         }
         // $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
@@ -108,11 +111,11 @@ class ServiceNameController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ServiceName $service)
+    public function edit(ServiceName $serviceName)
     {
-        $type = ServiceNameType::select(['id', 'name'])->get();
+        $type = ServiceType::select(['id', 'name'])->get();
 
-        return view('backend.siteconfig.service.edit', compact('service', 'type'));
+        return view('backend.siteconfig.service.edit', compact('serviceName', 'type'));
     }
 
     /**
@@ -122,9 +125,9 @@ class ServiceNameController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, ServiceName $service)
+    public function update(UpdateRequest $request, ServiceName $serviceName)
     {
-        $returnData = $request->updateData($request, $service);
+        $returnData = $request->updateData($request, $serviceName);
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('ServiceName Updated');
             return response()->json(['success' => $returnData->getData()->msg, 'status' => true], 200);

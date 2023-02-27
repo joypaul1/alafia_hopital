@@ -15,6 +15,6 @@ class ServiceName extends Model
 
     public function serviceType(): HasOne
     {
-        return $this->hasOne(SymptomType::class, 'id', 'service_type_id');
+        return $this->hasOne(ServiceType::class, 'id', 'service_type_id');
     }
 }

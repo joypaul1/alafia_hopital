@@ -3,7 +3,7 @@
 
 
 @section('page-header')
-<i class="fa fa-list"></i> Symptom Config
+<i class="fa fa-list"></i> Service Type Config
 @stop
 
 @section('content')
@@ -13,26 +13,24 @@
 
 <div class="row">
     <div class="col-3">
-        @include('backend.siteconfig.symptom.sidebar')
+        @include('backend.siteconfig.service.sidebar')
     </div>
     <div class="col-9">
         <div class="card">
             <div class="body">
                 <div class="d-flex justify-content-between aling-items-center mb-4">
-                    <h4 class="card-title mb-0">Symptom List</h4>
-                    <a id="create_data" data-href="{{ route('backend.siteconfig.symptom.create') }}" class="btn btn-info btn-md text-white">
+                    <h4 class="card-title mb-0">Service Type List</h4>
+                    <a id="create_data" data-href="{{ route('backend.siteconfig.serviceType.create') }}" class="btn btn-info btn-md text-white">
                         <i class="fa fa-plus-circle me-2"></i> Create Type
                     </a>
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-bordered " id="bed_table">
+                    <table class="table table-bordered " id="serviceType_table">
                         <thead>
                             <tr>
                                 <th class="text-center">Sl.</th>
                                 <th class="text-center">Name</th>
-                                <th class="text-center">Type</th>
-                                <th class="text-center">Desciption</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Action</th>
                             </tr>
@@ -51,7 +49,7 @@
 
 <!-- Modal HTML -->
 
-<div class="modal fade symptom_modal" tabindex="-1" role="dialog">
+<div class="modal fade serviceType_modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-md" role=" document">
 
     </div>
@@ -63,9 +61,9 @@
 
 <script>
     let table_name;
-    var modal = ".symptom_modal";
+    var modal = ".serviceType_modal";
     $(function() {
-        table_name = $("#bed_table").DataTable({
+        table_name = $("#serviceType_table").DataTable({
             dom: "Bfrtip"
             , buttons: ["colvis", "copy", "csv", "excel", "pdf", "print"
                 , {
@@ -80,10 +78,10 @@
             , destroy: true
             , pagingType: 'numbers'
             , pageLength: 10
-            , ajax: "{{ route('backend.siteconfig.symptom.index') }}"
+            , ajax: "{{ route('backend.siteconfig.serviceType.index') }}"
             , ajax: {
                 method: 'GET'
-                , url: "{{ route('backend.siteconfig.symptom.index') }}"
+                , url: "{{ route('backend.siteconfig.serviceType.index') }}"
                 , data: function(d) {
                     d.status = $('select#status').val() || true;
                 }
@@ -91,18 +89,10 @@
             , columns: [{
                     data: 'DT_RowIndex'
                     , name: 'DT_RowIndex'
-                }
-                , {
+                }, {
                     data: 'name'
                     , name: 'name'
                     , "className": "text-center"
-                }, {
-                    data: 'symptom_type_id'
-                    , name: 'symptom_type_id'
-                    , "className": "text-center"
-                }, {
-                    data: 'description'
-                    , name: 'description'
                 },
 
                 {
@@ -122,7 +112,7 @@
 
     $('#create_data').click(function(e) {
         e.preventDefault();
-        var modal = ".symptom_modal";
+        var modal = ".serviceType_modal";
         var href = $(this).data('href');
         console.log(href);
         // AJAX request
@@ -161,11 +151,11 @@
         table_name.ajax.reload();
     }
 
-    $(document).on('submit', 'form#symptom_edit_form', function(e) {
+    $(document).on('submit', 'form#serviceType_edit_form', function(e) {
         e.preventDefault();
-        var registerForm = $("form#symptom_edit_form");
+        var registerForm = $("form#serviceType_edit_form");
         var formData = registerForm.serialize();
-        $('.edit_symptom_button').attr('disabled', true);
+        $('.edit_serviceType_button').attr('disabled', true);
 
         $.ajaxSetup({
             headers: {
@@ -225,11 +215,11 @@
     });
 
 
-    $(document).on('submit', 'form#symptom_add_form', function(e) {
+    $(document).on('submit', 'form#serviceType_add_form', function(e) {
         e.preventDefault();
-        var registerForm = $("form#symptom_add_form");
+        var registerForm = $("form#serviceType_add_form");
         var formData = registerForm.serialize();
-        $('.save_symptom_button').attr('disabled', true);
+        $('.save_serviceType_button').attr('disabled', true);
 
         $.ajaxSetup({
             headers: {

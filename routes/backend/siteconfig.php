@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\SiteConfig\EmailConfigurationController;
 use App\Http\Controllers\Backend\SiteConfig\MetatagController;
 use App\Http\Controllers\Backend\SiteConfig\QuickPageController;
 use App\Http\Controllers\Backend\SiteConfig\Service\ServiceNameController;
+use App\Http\Controllers\Backend\SiteConfig\Service\ServiceTypeController;
 use App\Http\Controllers\Backend\SiteConfig\SiteInfoController;
 use App\Http\Controllers\Backend\SiteConfig\SliderController;
 use App\Http\Controllers\Backend\SiteConfig\SocialMediaController;
@@ -82,10 +83,10 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin/site-config', 'as' => 
     Route::resource('symptom', SymptomController::class);
 
     //servicetype
-    Route::resource('serviceType', ServiceType::class);
+    Route::resource('serviceType', ServiceTypeController::class);
 
     //service
-    Route::resource('service', ServiceNameController::class);
+    Route::resource('serviceName', ServiceNameController::class);
 
     //blood
     Route::resource('bloodBank', BloodBankController::class);
