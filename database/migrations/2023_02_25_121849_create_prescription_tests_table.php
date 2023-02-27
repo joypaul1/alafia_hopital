@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedBigInteger('prescription_id');
             $table->foreign('prescription_id')->references('id')->on('prescriptions');
             $table->unsignedBigInteger('service_id');
-            // $table->foreign('test_id')->references('id')->on('tests');
             $table->string('note')->nullable();
             $table->timestamps();
         });

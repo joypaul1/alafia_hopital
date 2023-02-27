@@ -19,7 +19,10 @@ return new class extends Migration
             $table->date('date');
             $table->unsignedBigInteger('ledger_id');
             $table->foreign('ledger_id')->references('id')->on('account_ledgers');
-            $table->decimal('paid_amount', 15,4)->default(0.00);
+            $table->decimal('paid_amount', 15, 4)->default(0.00);
+            $table->string('payment_method');
+            $table->unsignedBigInteger('payment_system_id')->nullable();
+            $table->foreign('payment_system_id')->references('id')->on('payment_systems');
             $table->string('note')->nullable();
             $table->timestamps();
         });

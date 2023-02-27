@@ -13,6 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::table('appointments', function (Blueprint $table) {
+            $table->dateTime('date');
+        });
         Schema::create('prescriptions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('patient_id');

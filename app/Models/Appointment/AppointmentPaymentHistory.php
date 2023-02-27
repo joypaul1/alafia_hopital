@@ -12,5 +12,14 @@ class AppointmentPaymentHistory extends Model
 {
     use AuthScopes,AutoTimeStamp,GlobalScope;
     protected $guarded =['id'];
-    
+
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class, 'appointment_id', 'id');
+    }
+
+    public function paymentSystem()
+    {
+        return $this->belongsTo(PaymentSystem::class, 'payment_system_id', 'id');
+    }
 }

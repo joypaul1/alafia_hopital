@@ -31,23 +31,28 @@
                         <thead>
                             <tr>
                                 <th class="text-center">Sl.</th>
+                                <th class="text-center">Invoice No.</th>
+                                <th class="text-center">App. Date</th>
                                 <th class="text-center">Patient</th>
                                 <th class="text-center">Doctor</th>
-                                <th class="text-center">Doctor Fee</th>
                                 <th class="text-center">Status</th>
-                                {{-- <th class="text-center">Action</th> --}}
+                                <th class="text-center">Doctor Fee</th>
+                                <th class="text-center">Payment Method</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach($appointments as $key => $value)
+                            @foreach($appointmentDatas as $key => $appointmentData)
                             <tr class="text-center">
                                 <td>{{ $key+1 }}</td>
-                                <td>{{ optional($value->patient)->name }}</td>
-                                <td>{{ optional($value->doctor)->first_name }}</td>
-                                <td>{{ number_format($value->doctor_fee, 2) }}</td>
-                                <td>{{ ($value->appointment_status) }}</td>
-                                {{-- <td>{{ ($value->appointment_status) }}</td> --}}
+                                <td>{{  $appointmentData->invoice_number }}</td>
+                                <td>{{  date('d-m-Y', strtotime($appointmentData->appointment_date)) }}</td>
+                                <td>{{ optional($appointmentData->patient)->name }}</td>
+                                <td>{{ optional($appointmentData->doctor)->first_name }}</td>
+                                <td>{{ ($appointmentData->appointment_status) }}</td>
+                                <td>{{ number_format($appointmentData->doctor_fee, 2) }}</td>
+                                <td>{{ ($appointmentData->paymentHistories()->pluck('payment_method')) }}</td>
+
                             </tr>
                             @endforeach
 
@@ -104,7 +109,7 @@
                             </div>
                             <div class="col-4">
                                 @include('components.backend.forms.input.input-type', [
-                                'name' => 'doctor_fees',
+                                'name' => 'doctor_feesss',
                                 'readonly' => 'true',
                                 ])
                             </div>
@@ -310,7 +315,7 @@
         });
     });
 
-    $(function() {
+    // $(function() {
         $("#patientId").autocomplete({
             source: function(request, response) {
                 var optionData = request.term;
@@ -334,10 +339,8 @@
             }
             , minLength: 3
             , select: function(event, ui) {
-                // item data
-                // ui.item.value_id,
+                // patient_Id data
                 $('#patient_Id').val(ui.item.value_id);
-                // console.log($('#patient_Id'));
 
 
             }
@@ -369,24 +372,9 @@
                 }
             });
         });
-        // $.ajax({
-        //     type: "GET",
-        //     url:"{{ route('backend.supplier.index') }}",
-        //     dataType: 'JSON',
-        //     data: {
-        //         optionData: true
-        //     },
-        //     success: function(res) {
-        //         $.map(res.data, function(val, i) {
-        //             var newOption = new Option(val.name+' ('+val.mobile+')', val.id, false, false);
-        //             $('#supplier_id').append(newOption).trigger('change');
-        //         });
-        //     }
-        // });
 
 
-
-    });
+    // });
 
     $(document).on('submit', '#patient_add_form', function(e) {
         e.preventDefault();

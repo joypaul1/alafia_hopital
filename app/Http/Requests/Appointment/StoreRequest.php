@@ -69,6 +69,7 @@ class StoreRequest extends FormRequest
                 $data['payment_mode'] = PaymentSystem::find($this->payment_method)->name; //payment method name
                 $data['appointment_status'] = $this->status;
                 $data['payment_status'] = 'Paid';
+                $data['date'] = now();
                 $appointment = Appointment::create($data);
                 // $appointment = Appointment::first();
             // dd($appointment,$appointment['doctor_fee']);

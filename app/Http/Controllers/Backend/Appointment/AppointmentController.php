@@ -21,7 +21,7 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
+        $status =  (object)[['name' => 'Active', 'id' => 1], ['name' => 'Inactive', 'id' => 0]];
         //gender option create
         $genders = (object)[
             ['name' => 'male', 'id' => 'male'],
@@ -50,7 +50,7 @@ class AppointmentController extends Controller
             return $data;
         });
 
-        $paymentSystems =PaymentSystem::select('id', 'name')->get();
+        $paymentSystems = PaymentSystem::select('id', 'name')->get();
 
         //appointment status option create
         $appointment_status = (object)[
@@ -58,12 +58,20 @@ class AppointmentController extends Controller
             ['name' => 'Pending', 'id' => 'pending'],
         ];
 
-        $appointments =Appointment::with('patient', 'doctor')->latest()->get();
-        return view('backend.appointment.index',
-        compact('blood_group', 'genders','marital_status','appointment_status',
-        'appointments',
-         'appointment_priority', 'doctors', 'paymentSystems'));
-
+        $appointmentDatas = Appointment::with('patient', 'doctor')->latest()->get();
+        return view(
+            'backend.appointment.index',
+            compact(
+                'blood_group',
+                'genders',
+                'marital_status',
+                'appointment_status',
+                'appointmentDatas',
+                'appointment_priority',
+                'doctors',
+                'paymentSystems'
+            )
+        );
     }
 
 
@@ -76,7 +84,6 @@ class AppointmentController extends Controller
     public function create()
     {
         return view('backend.appointment.create');
-
     }
 
     /**
@@ -90,9 +97,9 @@ class AppointmentController extends Controller
         // dd($request->all());
         $returnData = $request->storeData($request);
         // dd(  $returnData );
-        if($returnData->getData()->status){
+        if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('Appointment Created');
-            return redirect()->route('backend.appointment.show',$returnData->getData()->data);
+            return redirect()->route('backend.appointment.show', $returnData->getData()->data);
             // $this->moneyReceipt($returnData->getData()->data);
             // return back()->with('success', $returnData->getData()->msg);
             // return redirect()->to('admin/appointment/money-receipt',  $returnData->getData()->data);
@@ -116,7 +123,6 @@ class AppointmentController extends Controller
     {
         $appointment = Appointment::whereId($id)->with('doctor', 'patient', 'paymentHistories')->first();
         return view('backend.appointment.moneyReceipt', compact('appointment'));
-
     }
 
     /**
