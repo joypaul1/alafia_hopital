@@ -15,6 +15,13 @@ return new class extends Migration
     {
         Schema::create('prescription_diseases_symptoms', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('prescription_id');
+            $table->foreign('prescription_id')->references('id')->on('prescriptions');
+            $table->unsignedBigInteger('symptom_id');
+            $table->foreign('symptom_id')->references('id')->on('symptoms');
+            $table->string('note')->nullable();
+            $table->boolean('status')->default(1);
+
             $table->timestamps();
         });
     }

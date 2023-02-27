@@ -112,7 +112,7 @@
                             </ul>
                         </li>
                         {{-- End appointment Panel --}}
-                        
+
                         {{-- prescription Panel --}}
                         <li class="{{ strpos($strpos, 'backend.prescription') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
@@ -266,6 +266,7 @@
                                 <x-backend.side-bar class="{{ request()->is('admin/site-config' ? 'active' : ' ') }}" name="Site Info" link='backend.siteconfig.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'bed' ? 'active' : ' ' }}" name="Bed Config" link='backend.siteconfig.bed.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'symptom' ? 'active' : ' ' }}" name="Symptom Config" link='backend.siteconfig.symptom.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'service' ? 'active' : ' ' }}" name="Service Config" link='backend.siteconfig.service.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'bloodBank' ? 'active' : ' ' }}" name="Blood Config" link='backend.siteconfig.bloodBank.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'slider' ? 'active' : ' ' }}" name="Slider" link='backend.siteconfig.slider.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'banner' ? 'active' : ' ' }}" name="Banner" link='backend.siteconfig.banner.index' icon='#' />

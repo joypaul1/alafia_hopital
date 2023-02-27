@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('appointment_id');
             $table->foreign('appointment_id')->references('id')->on('appointments');
             $table->string('prescription_type')->default('general');
+            $table->date('date');
             $table->boolean('status')->default(true);
             $table->string('prescription_note')->nullable();
             $table->unsignedBigInteger('created_by');

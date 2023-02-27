@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreign('item_id')->references('id')->on('items');
             $table->string('how_many_times');
             $table->string('how_many_days');
-            $table->string('how_many_quantity');
+            $table->json('how_many_quantity');
             $table->string('before_after_meal');
             $table->string('medicine_note')->nullable();
             $table->timestamps();

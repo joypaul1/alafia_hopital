@@ -20,7 +20,7 @@ class ServiceController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Symptom::select(['id', 'name', 'status', 'description', 'symptom_type_id'])->latest();
+        $data = Symptom::select(['id', 'name', 'status', 'description', 'service_type_id'])->latest();
         if ($request->status) {
             $data = $data->active();
         } elseif ($request->status == '0') {
@@ -38,11 +38,11 @@ class ServiceController extends Controller
                     $action = '<div class="dropdown text-center">
                    <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                        <div class="dropdown-menu" style="min-width:auto !important">
-                       <a data-href="' . route('backend.siteconfig.symptom.edit', $row) . '" class="dropdown-item edit_check"
+                       <a data-href="' . route('backend.siteconfig.service.edit', $row) . '" class="dropdown-item edit_check"
                            data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit" aria-hidden="true"></i>
                        </a>
                        <div class="dropdown-divider"></div>
-                       <a data-href="' . route('backend.siteconfig.symptom.destroy', $row) . '"class="dropdown-item delete_check"  data-toggle="tooltip"
+                       <a data-href="' . route('backend.siteconfig.service.destroy', $row) . '"class="dropdown-item delete_check"  data-toggle="tooltip"
                            data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash" aria-hidden="true"></i>
                        </a>
                    </div></div>';
@@ -52,15 +52,15 @@ class ServiceController extends Controller
                 ->editColumn('status', function ($row) {
                     return view('components.backend.forms.input.input-switch', ['status' => $row->status]);
                 })
-                ->editColumn('symptom_type_id', function ($row) {
-                    return optional($row->symptomType)->name ?? ' ';
+                ->editColumn('service_type_id', function ($row) {
+                    return optional($row->serviceType)->name ?? ' ';
                 })
                 ->removeColumn(['id'])
                 ->rawColumns(['action'])
                 ->make(true);
         }
         // $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
-        return view('backend.siteconfig.symptom.index');
+        return view('backend.siteconfig.service.index');
     }
 
     /**
@@ -71,7 +71,7 @@ class ServiceController extends Controller
     public function create()
     {
         $type = SymptomType::select(['id', 'name'])->get();
-        return view('backend.siteconfig.symptom.create', compact('type'));
+        return view('backend.siteconfig.service.create', compact('type'));
     }
 
     /**
@@ -107,11 +107,11 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Symptom $symptom)
+    public function edit(Symptom $service)
     {
         $type = SymptomType::select(['id', 'name'])->get();
 
-        return view('backend.siteconfig.symptom.edit', compact('symptom', 'type'));
+        return view('backend.siteconfig.service.edit', compact('service', 'type'));
     }
 
     /**
@@ -121,9 +121,9 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, Symptom $symptom)
+    public function update(UpdateRequest $request, Symptom $service)
     {
-        $returnData = $request->updateData($request, $symptom);
+        $returnData = $request->updateData($request, $service);
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('Symptom Updated');
             return response()->json(['success' => $returnData->getData()->msg, 'status' => true], 200);
@@ -138,10 +138,10 @@ class ServiceController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy(Symptom $symptom)
+    public function destroy(Symptom $service)
     {
         try {
-            $symptom->delete();
+            $service->delete();
         } catch (\Exception $ex) {
             return response()->json(['status' => false, 'mes' => $ex->getMessage()]);
         }

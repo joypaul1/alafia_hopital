@@ -15,18 +15,20 @@ use App\Http\Controllers\Backend\SiteConfig\Blood\BloodBankTypeController;
 use App\Http\Controllers\Backend\SiteConfig\EmailConfigurationController;
 use App\Http\Controllers\Backend\SiteConfig\MetatagController;
 use App\Http\Controllers\Backend\SiteConfig\QuickPageController;
+use App\Http\Controllers\Backend\SiteConfig\Service\ServiceNameController;
 use App\Http\Controllers\Backend\SiteConfig\SiteInfoController;
 use App\Http\Controllers\Backend\SiteConfig\SliderController;
 use App\Http\Controllers\Backend\SiteConfig\SocialMediaController;
+use App\Http\Controllers\Backend\SiteConfig\Symptom\ServiceController;
 use App\Http\Controllers\Backend\SiteConfig\TaxController;
 use App\Http\Controllers\Backend\SiteConfig\Symptom\SymptomTypeController;
 use App\Http\Controllers\Backend\SiteConfig\Symptom\SymptomController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['middleware' => 'admin', 'prefix' =>'admin/site-config' , 'as'=>'backend.siteconfig.'], function(){
+Route::group(['middleware' => 'admin', 'prefix' => 'admin/site-config', 'as' => 'backend.siteconfig.'], function () {
 
-        // site-config
+    // site-config
     Route::get('/', [SiteInfoController::class, 'index'])->name('index');;
     Route::POST('/update', [SiteInfoController::class, 'update'])->name('update');
 
@@ -35,20 +37,20 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin/site-config' , 'as'=>'b
 
     // slider
     Route::resource('slider', SliderController::class);
-        // banner
+    // banner
     Route::resource('banner', BannerController::class);
-        // quick-page
+    // quick-page
     Route::resource('quick-page', QuickPageController::class);
 
-        // Email-Configuration
+    // Email-Configuration
     Route::resource('email-configuration', EmailConfigurationController::class);
 
-        // Meta-tag-Configuration
+    // Meta-tag-Configuration
     Route::resource('meta-tag', MetatagController::class);
 
-        // Barcode-method
+    // Barcode-method
     Route::resource('barcode-method', BarcodeController::class);
-        // prefix-system
+    // prefix-system
     Route::resource('prefix-system', PrefixController::class);
 
     // tax-rate
@@ -78,17 +80,15 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin/site-config' , 'as'=>'b
     //symptoms
     Route::resource('symptom', SymptomController::class);
 
+    //service
+    Route::resource('service', ServiceNameController::class);
+
     //blood
     Route::resource('bloodBank', BloodBankController::class);
 
     //bloodType
     Route::resource('bloodBankType', BloodBankTypeController::class);
 
-
-
     // filemanager-Configuration
     Route::get('filemanager', [FileManagerController::class, 'index'])->name('filemanager');
-
-
-
 });
