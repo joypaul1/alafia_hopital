@@ -2,7 +2,7 @@
 @include('backend._partials.datatable__delete')
 
 @section('page-header')
-    <i class="fa fa-list"></i> Appointment List
+    <i class="fa fa-list"></i> Presription List
 @stop
 @section('content')
 
