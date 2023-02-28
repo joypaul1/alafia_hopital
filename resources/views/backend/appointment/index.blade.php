@@ -45,8 +45,8 @@
                             @foreach($appointmentDatas as $key => $appointmentData)
                             <tr class="text-center">
                                 <td>{{ $key+1 }}</td>
-                                <td>{{  $appointmentData->invoice_number }}</td>
-                                <td>{{  date('d-m-Y', strtotime($appointmentData->appointment_date)) }}</td>
+                                <td>{{ $appointmentData->invoice_number }}</td>
+                                <td>{{ date('d-m-Y', strtotime($appointmentData->appointment_date)) }}</td>
                                 <td>{{ optional($appointmentData->patient)->name }}</td>
                                 <td>{{ optional($appointmentData->doctor)->first_name }}</td>
                                 <td>{{ ($appointmentData->appointment_status) }}</td>
@@ -109,7 +109,7 @@
                             </div>
                             <div class="col-4">
                                 @include('components.backend.forms.input.input-type', [
-                                'name' => 'doctor_feesss',
+                                'name' => 'doctor_fees',
                                 'readonly' => 'true',
                                 ])
                             </div>
@@ -316,65 +316,72 @@
     });
 
     // $(function() {
-        $("#patientId").autocomplete({
-            source: function(request, response) {
-                var optionData = request.term;
-                $.ajax({
-                    method: 'GET'
-                    , url: "{{ route('backend.patient.index') }}"
-                    , data: {
-                        'optionData': optionData
-                    }
-                    , success: function(res) {
-                        var resArray = $.map(res.data, function(obj) {
-                            return {
-                                value: obj.name, //Fillable in input field
-                                value_id: obj.id, //Fillable in input field
-                                label: 'Name:' + obj.name + ' mobile:' + obj.mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
-                            }
-                        })
-                        response(resArray);
-                    }
-                });
-            }
-            , minLength: 3
-            , select: function(event, ui) {
-                // patient_Id data
-                $('#patient_Id').val(ui.item.value_id);
-
-
-            }
-        });
-
-        // get slot time on change date by ajax request
-        $(document).on('change', '#appointment_date', function() {
-            var date = $(this).val();
-            var doctor_id = $('#doctorID').val();
-            var url = "{{ route('backend.doctor.show',':doctor_id') }}";
-            url = url.replace(':date', date);
-            url = url.replace(':doctor_id', doctor_id);
+    $("#patientId").autocomplete({
+        source: function(request, response) {
+            var optionData = request.term;
             $.ajax({
-                url: url
-                , type: 'GET'
-                , dataType: "json"
+                method: 'GET'
+                , url: "{{ route('backend.patient.index') }}"
                 , data: {
-                    'date': date
-                    , 'slot': true
-                , }
-                , success: function(response) {
-                    console.log(response);
-                    $('#appointment_schedule').empty();
+                    'optionData': optionData
+                }
+                , success: function(res) {
+                    var resArray = $.map(res.data, function(obj) {
+                        return {
+                            value: obj.name, //Fillable in input field
+                            value_id: obj.id, //Fillable in input field
+                            label: 'Name:' + obj.name + ' mobile:' + obj.mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                        }
+                    })
+                    response(resArray);
+                }
+            });
+        }
+        , minLength: 3
+        , select: function(event, ui) {
+            // patient_Id data
+            $('#patient_Id').val(ui.item.value_id);
+
+
+        }
+    });
+
+    // get slot time on change date by ajax request
+    $(document).on('change', '#appointment_date', function() {
+        slot();
+    });
+
+    // get slot time on change date by ajax request
+
+    function slot() {
+        $('#appointment_schedule').empty().trigger('change');
+        $('#appointment_schedule').val(null).trigger('change');
+        var date = $('#appointment_date').val();
+        var doctor_id = $('#doctorID').val();
+        var url = "{{ route('backend.doctor.show',':doctor_id') }}";
+        url = url.replace(':date', date);
+        url = url.replace(':doctor_id', doctor_id);
+        $.ajax({
+            url: url
+            , type: 'GET'
+            , dataType: "json"
+            , data: {
+                'date': date
+                , 'slot': true
+            , }
+            , success: function(response) {
+                if (response.data.length != 0) {
                     response.data.forEach(element => {
                         $('#appointment_schedule').append('<option value="' + element.id + '">' + element.start_time + ' -- ' + element.end_time + '</option>')
                     }).trigger('change');
-
-
+                } else {
+                    $('#appointment_schedule').append('<option value="">No Slot Available</option>')
                 }
-            });
+
+
+            }
         });
-
-
-    // });
+    }
 
     $(document).on('submit', '#patient_add_form', function(e) {
         e.preventDefault();
