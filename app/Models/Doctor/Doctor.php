@@ -10,10 +10,11 @@ use App\Traits\GlobalScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Doctor extends Model
 {
-   use AuthScopes,AutoTimeStamp,GlobalScope;
+   use AuthScopes,AutoTimeStamp,GlobalScope,SoftDeletes;
    protected $guarded =['id'];
 
    /**
