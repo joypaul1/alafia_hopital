@@ -101,13 +101,14 @@
                         {{-- End Inventory Panel --}}
 
                         {{-- appointment Panel --}}
-                        <li class="{{ strpos($strpos, 'backend.appointment') === 0 ? 'active' : ' ' }}">
+                        <li class="{{ strpos($strpos, 'backend.appointment') === 0 ? 'active' : ' ' }} {{ strpos($strpos, 'backend.dialysis-appointment') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
                                 <span>Appointment Panel</span>
                             </a>
                             <ul>
-                                <x-backend.side-bar class="{{ request()->segment(2) == 'appointment' ? 'active' : ' ' }}" name="Appointment" link='backend.appointment.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(2) == 'appointment' ? 'active' : ' ' }}" name="Doctor Appoint." link='backend.appointment.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(2) == 'dialysis-appointment' ? 'active' : ' ' }}" name="Dailyses Appoint." link='backend.dialysis-appointment.index' icon='#' />
 
                             </ul>
                         </li>

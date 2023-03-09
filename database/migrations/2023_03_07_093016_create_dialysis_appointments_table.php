@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('dialyses_appointments', function (Blueprint $table) {
+        Schema::create('dialysis_appointments', function (Blueprint $table) {
             $table->id();
             $table->string('serial_number');
             $table->unsignedBigInteger('patient_id');
@@ -45,6 +45,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dialyses_appointments');
+        Schema::dropIfExists('dialysis_appointments');
     }
 };

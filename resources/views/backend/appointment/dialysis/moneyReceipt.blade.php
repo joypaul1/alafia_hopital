@@ -69,7 +69,7 @@
         <div class="d-flex justify-content-center align-items-center">
             <img src="{{ asset("assets/moneyReceipt/logo.png") }}" width="50" alt="">
             <h4 class="py-2">
-                Al-Afiyah Dialyses Center
+                Al-Afiyah Dialysis Unit Center
             </h4>
         </div>
         <div class="text-center my-3">
@@ -92,7 +92,7 @@
                     </td>
                     <td rowspan="4">
                         <div class="d-flex justify-content-center align-items-center">
-                            <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialyses-Center# AP-'.$appointment->invoice_number.' PID-'.optional($appointment->patient)->patientId , 'QRCODE')}}" alt="barcode"style="width: 100px;" />
+                            <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-'.$appointment->invoice_number.' PID-'.optional($appointment->patient)->patientId , 'QRCODE')}}" alt="barcode"style="width: 100px;" />
                             {{-- <img src="{{ asset("assets/moneyReceipt/code.png") }}" style="width: 100px;" alt=""> --}}
                         </div>
                     </td>

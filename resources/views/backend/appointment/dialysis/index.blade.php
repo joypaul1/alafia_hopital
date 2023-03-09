@@ -11,7 +11,7 @@
 @endpush
 
 @section('page-header')
-<i class="fa fa-list"></i> Appointment List
+<i class="fa fa-list"></i>Dialysis Appointment List
 @stop
 @section('content')
 
@@ -100,43 +100,48 @@
                 <div class="modal-body">
                     <div class="form-validation">
                         <div class="row">
-                            <div class="col-4">
-                                @include('components.backend.forms.select2.option', [
-                                'label' => 'doctor',
-                                'name' => 'doctorID',
-                                'optionDatas' => $doctors,
-                                ])
-                            </div>
+
                             <div class="col-4">
                                 @include('components.backend.forms.input.input-type', [
-                                'name' => 'doctor_fees',
+                                'name' => 'fee',
                                 'readonly' => 'true',
+                                'value'=> 5000
                                 ])
                             </div>
                             <div class="col-4">
                                 @include('components.backend.forms.input.input-type', [
                                 'name' => 'appointment_date',
                                 'type' => 'date',
+                                'value' => date("Y-m-d")
                                 ])
                             </div>
                             <div class="col-4">
                                 @include('components.backend.forms.select2.option', [
-                                'name' => 'appointment_schedule',
-                                'optionDatas' => [],
+                                'name' => 'schedule',
+                                'optionDatas' => $appointment_schedule,
                                 'required' => 'true',
                                 ])
                             </div>
                             <div class="col-4">
                                 @include('components.backend.forms.select2.option', [
-                                'name' => 'appointment_priority',
-                                'optionDatas' => $appointment_priority,
+                                'label' => 'Asign To',
+                                'name' => 'employee_id',
+                                'optionDatas' => $employees,
                                 ])
                             </div>
+                            {{-- <div class="col-4">
+                                @include('components.backend.forms.select2.option', [
+                                'name' => 'appointment_priority',
+                                'optionDatas' => $appointment_priority,
+                                'selectedKey' => "Normal"
+                                ])
+                            </div> --}}
                             <div class="col-4">
                                 @include('components.backend.forms.select2.option', [
                                 'name' => 'payment_method',
                                 'optionDatas' => $paymentSystems,
                                 'required' => 'true',
+                                'selectedKey'=> 1
                                 ])
                             </div>
                             <div class="col-4">
@@ -145,6 +150,7 @@
                                 'optionDatas' => $appointment_status,
                                 'selectedKey' => '1',
                                 'required' => 'true',
+                                'selectedKey' => 'approved'
                                 ])
                             </div>
                         </div>
@@ -280,8 +286,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">SAVE</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
+                    <button type="submit" class="btn btn-primary">SAVE</button>
                 </div>
             </form>
         </div>

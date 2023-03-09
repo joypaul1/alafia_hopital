@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Appointment;
+namespace App\Http\Requests\Appointment\Doctor;
 
 use App\Helpers\InvoiceNumber;
 use App\Models\Account\AccountLedger;
@@ -34,8 +34,8 @@ class StoreRequest extends FormRequest
         // return [];
         return [
             'patient_Id' => 'required|exists:patients,id',
-            'doctorID' => 'required|exists:doctors,id',
-            'doctor_fees' => 'required',
+            'employee_id' => 'nullable|exists:employees,id',
+            'fees' => 'required',
             'appointment_date' => 'required',
             'appointment_schedule' => 'required',
             'appointment_priority' => 'required',
@@ -60,7 +60,7 @@ class StoreRequest extends FormRequest
             $data = $this->all();
             $data['invoice_number'] = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
             $data['patient_id'] = $this->patient_Id;
-            $data['doctor_id'] = $this->doctorID;
+            $data['emoloyee_id'] = $this->emoloyee_id;
             $data['doctor_fee'] = $this->doctor_fees;
             $data['appointment_date'] = $this->appointment_date . ' ' . date("h:i:s");
             $data['doctor_appointment_schedule_id'] = $this->appointment_schedule;
@@ -90,7 +90,7 @@ class StoreRequest extends FormRequest
                 'ledger_id'         => AccountLedger::first()->id,
                 'payment_method'    => $this->payment_method,
             ]);
-           
+
             // cashflowHistories
             $cashflowTransition->cashflowHistory()->create([
                 'debit' => Str::replace(',', '', $appointment['doctor_fee'])

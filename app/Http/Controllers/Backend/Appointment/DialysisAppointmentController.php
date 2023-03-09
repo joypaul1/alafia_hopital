@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Backend\Appointment;
-
 use App\Helpers\LogActivity;
-use App\Http\Controllers\Controller;
 use App\Models\Appointment\Appointment;
 use App\Models\Doctor\Doctor;
 use App\Models\PaymentSystem;
@@ -11,8 +9,10 @@ use App\Models\SiteConfig\BloodBank;
 use Illuminate\Http\Request;
 use App\Http\Requests\Appointment\StoreRequest;
 use App\Http\Requests\Appointment\UpdateRequest;
+use App\Http\Controllers\Controller;
+use App\Models\Employee\Employee;
 
-class AppointmentController extends Controller
+class DialysisAppointmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -43,11 +43,8 @@ class AppointmentController extends Controller
             ['name' => 'Normal', 'id' => 'Normal'],
             ['name' => 'Urgent', 'id' => 'Urgent'],
         ];
-        $doctors = Doctor::select('id', 'first_name', 'last_name')->get()->map(function ($doctor) {
-            $data['id'] = $doctor->id;
-            $data['name'] = $doctor->first_name . ' ' . $doctor->last_name;
-            return $data;
-        });
+
+        $employees = Employee::select('id', 'name')->get();
 
         $paymentSystems = PaymentSystem::select('id', 'name')->get();
 
@@ -56,9 +53,14 @@ class AppointmentController extends Controller
             ['name' => 'Approved', 'id' => 'approved'],
             ['name' => 'Pending', 'id' => 'pending'],
         ];
+        $appointment_schedule = (object)[
+            ['name' => '8am-12am', 'id' => '8am-12am'],
+            ['name' => '1pm-4pm', 'id' => '1pm-4pm'],
+            ['name' => '6pm-10pm', 'id' => '6pm-10pm'],
+        ];
 
         $appointmentDatas = Appointment::with('patient', 'doctor')->latest()->get();
-        return view('backend.appointment.doctor.index',
+        return view('backend.appointment.dailyses.index',
             compact(
                 'blood_group',
                 'genders',
@@ -66,8 +68,9 @@ class AppointmentController extends Controller
                 'appointment_status',
                 'appointmentDatas',
                 'appointment_priority',
-                'doctors',
-                'paymentSystems'
+                'employees',
+                'paymentSystems',
+                'appointment_schedule'
             )
         );
     }
@@ -81,7 +84,7 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        return view('backend.appointment.create');
+        return view('backend.appointment.dailyses.create');
     }
 
     /**
@@ -120,7 +123,7 @@ class AppointmentController extends Controller
     public function show($id)
     {
         $appointment = Appointment::whereId($id)->with('doctor', 'patient', 'paymentHistories')->first();
-        return view('backend.appointment.doctor.moneyReceipt', compact('appointment'));
+        return view('backend.appointment.moneyReceipt', compact('appointment'));
     }
 
     /**
