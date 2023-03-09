@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Appointment\Doctor;
+namespace App\Http\Requests\Appointment\Dialysis;
 
 use App\Helpers\InvoiceNumber;
 use App\Models\Account\AccountLedger;
 use App\Models\Appointment\Appointment;
+use App\Models\Appointment\DialysisAppointment;
 use App\Models\FinancialYearHistory;
 use App\Models\LedgerTransition;
 use App\Models\PaymentSystem;
@@ -35,10 +36,9 @@ class StoreRequest extends FormRequest
         return [
             'patient_Id' => 'required|exists:patients,id',
             'employee_id' => 'nullable|exists:employees,id',
-            'fees' => 'required',
+            'fee' => 'required',
             'appointment_date' => 'required',
-            'appointment_schedule' => 'required',
-            'appointment_priority' => 'required',
+            'schedule' => 'required',
             'payment_method' => 'required',
             'status' => 'required',
         ];
@@ -46,10 +46,10 @@ class StoreRequest extends FormRequest
 
     public function getInvoiceNumber()
     {
-        if (!Appointment::latest()->first()) {
+        if (!DialysisAppointment::latest()->first()) {
             return 1;
         } else {
-            return Appointment::latest()->first()->invoice_number + 1;
+            return DialysisAppointment::latest()->first()->invoice_number + 1;
         }
     }
 
@@ -61,15 +61,16 @@ class StoreRequest extends FormRequest
             $data['invoice_number'] = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
             $data['patient_id'] = $this->patient_Id;
             $data['emoloyee_id'] = $this->emoloyee_id;
-            $data['doctor_fee'] = $this->doctor_fees;
+            $data['fee'] = $this->fee;
             $data['appointment_date'] = $this->appointment_date . ' ' . date("h:i:s");
-            $data['doctor_appointment_schedule_id'] = $this->appointment_schedule;
-            $data['appointment_priority'] = $this->appointment_priority;
+            $data['appointment_priority'] = "Normal";
             $data['payment_mode'] = PaymentSystem::find($this->payment_method)->name; //payment method name
             $data['appointment_status'] = $this->status;
             $data['payment_status'] = 'Paid';
             $data['date'] = now();
-            $appointment = Appointment::create($data);
+
+            $appointment = DialysisAppointment::create($data);
+            // dd($appointment);
             // appointment paymentHistories
             $appointment->paymentHistories()->create([
                 'ledger_id' => AccountLedger::first()->id,
@@ -77,13 +78,13 @@ class StoreRequest extends FormRequest
                 'payment_system_id' => $this->payment_method,
                 'date' => $appointment['appointment_date'],
                 'note' => $this->payment_note,
-                'paid_amount' => Str::replace(',', '', $appointment['doctor_fee']),
+                'paid_amount' => Str::replace(',', '', $appointment['fee']),
                 'payment_received_id' => auth('admin')->id(),
             ]);
 
             //<----start of cash flow Transition------->
             $cashflowTransition = $appointment->cashflowTransactions()->create([
-                'url'               => "Backend\Appointment\AppointmentController@show,['id' =>" . $appointment->id . "]",
+                'url'               => "Backend\Appointment\DialysisAppointmentController@show,['id' =>" . $appointment->id . "]",
                 'cashflow_type'     => 'Payment',
                 'description'       => 'Patient Payment',
                 'date'              => $appointment['appointment_date'],
@@ -93,42 +94,42 @@ class StoreRequest extends FormRequest
 
             // cashflowHistories
             $cashflowTransition->cashflowHistory()->create([
-                'debit' => Str::replace(',', '', $appointment['doctor_fee'])
+                'debit' => Str::replace(',', '', $appointment['fee'])
             ]);
             //<----end of cash flow Transition------->
 
             //<----start of dailyTransition book transaction------->
             $dailyTransition = $appointment->dailyTransactions()->create([
-                'url'               =>  "Backend\Appointment\AppointmentController@show,['id' =>" . $appointment->id . "]",
+                'url'               =>  "Backend\Appointment\DialysisAppointmentController@show,['id' =>" . $appointment->id . "]",
                 'description'       => 'Patient Payment',
                 'transaction_type'  => 'Payment',
                 'date'              =>  $appointment['appointment_date'],
                 'reference_no'      =>  $appointment->invoice_number,
             ]);
 
-            //credit transactionHistories // sell increase
+            //credit transactionHistories // Payment increase
             $dailyTransition->transactionHistories()->create([
                 'entry_name' => 'Patient Payment',
-                'credit'      => Str::replace(',', '', $appointment['doctor_fee']),
+                'credit'      => Str::replace(',', '', $appointment['fee']),
             ]);
 
             //debit transactionHistories // amount increase
             $dailyTransition->transactionHistories()->create([
                 'entry_name' => AccountLedger::find(AccountLedger::first()->id)->name,
-                'debit' => Str::replace(',', '', $appointment['doctor_fee']),
+                'debit' => Str::replace(',', '', $appointment['fee']),
             ]);
 
-            // LedgerTransition --->increment costing
+            // LedgerTransition --->increment payment
             LedgerTransition::updateOrCreate([
                 'ledger_id' => AccountLedger::first()->id,
                 'date'     => FinancialYearHistory::latest()->first()->start_date
             ], [
-                'debit' => DB::raw('debit+' . Str::replace(',', '', $appointment['doctor_fee']))
+                'debit' => DB::raw('debit+' . Str::replace(',', '', $appointment['fee']))
             ]);
 
             DB::commit();
         } catch (\Exception $ex) {
-            return response()->json(['status' => false, 'msg' => $ex->getMessage()]);
+            return response()->json(['status' => false, 'msg' => $ex->getMessage(), $ex->getLine()]);
         }
         return response()->json(['status' => true, 'msg' => 'Data Created Successfully', 'data' => $appointment->id]);
     }

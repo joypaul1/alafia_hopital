@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers\Backend\Appointment;
 use App\Helpers\LogActivity;
+use App\Helpers\NumbertoWordsConvertor;
 use App\Models\Appointment\Appointment;
-use App\Models\Doctor\Doctor;
 use App\Models\PaymentSystem;
 use App\Models\SiteConfig\BloodBank;
 use Illuminate\Http\Request;
-use App\Http\Requests\Appointment\StoreRequest;
-use App\Http\Requests\Appointment\UpdateRequest;
+use App\Http\Requests\Appointment\Dialysis\StoreRequest;
+use App\Http\Requests\Appointment\Dialysis\UpdateRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Appointment\DialysisAppointment;
 use App\Models\Employee\Employee;
 
 class DialysisAppointmentController extends Controller
 {
+    // use ConvertNumber;
+
+
     /**
      * Display a listing of the resource.
      *
@@ -21,6 +25,7 @@ class DialysisAppointmentController extends Controller
      */
     public function index()
     {
+        // return NumtoWordCon::convertor(1232);
         $status =  (object)[['name' => 'Active', 'id' => 1], ['name' => 'Inactive', 'id' => 0]];
         //gender option create
         $genders = (object)[
@@ -60,8 +65,7 @@ class DialysisAppointmentController extends Controller
         ];
 
         $appointmentDatas = Appointment::with('patient', 'doctor')->latest()->get();
-        return view('backend.appointment.dailyses.index',
-            compact(
+        return view('backend.appointment.dialysis.index',compact(
                 'blood_group',
                 'genders',
                 'marital_status',
@@ -84,7 +88,7 @@ class DialysisAppointmentController extends Controller
      */
     public function create()
     {
-        return view('backend.appointment.dailyses.create');
+        return view('backend.appointment.dialysis.create');
     }
 
     /**
@@ -95,12 +99,12 @@ class DialysisAppointmentController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        // dd($request->all());
+        // dd($request->all(),AccountLedger::first());
         $returnData = $request->storeData($request);
         // dd(  $returnData );
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('Appointment Created');
-            return redirect()->route('backend.appointment.show', $returnData->getData()->data);
+            return redirect()->route('backend.dialysis-appointment.show', $returnData->getData()->data);
             // $this->moneyReceipt($returnData->getData()->data);
             // return back()->with('success', $returnData->getData()->msg);
             // return redirect()->to('admin/appointment/money-receipt',  $returnData->getData()->data);
@@ -122,8 +126,8 @@ class DialysisAppointmentController extends Controller
      */
     public function show($id)
     {
-        $appointment = Appointment::whereId($id)->with('doctor', 'patient', 'paymentHistories')->first();
-        return view('backend.appointment.moneyReceipt', compact('appointment'));
+        $appointment = DialysisAppointment::whereId($id)->with('asignEmp', 'patient', 'paymentHistories')->first();
+        return view('backend.appointment.dialysis.moneyReceipt', compact('appointment'));
     }
 
     /**

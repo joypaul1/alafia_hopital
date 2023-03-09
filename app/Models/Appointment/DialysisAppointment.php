@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class DialysisAppointment extends Model
 {
-    use AuthScopes,AutoTimeStamp,GlobalScope;
-    protected $guarded =['id'];
+    use AuthScopes, AutoTimeStamp, GlobalScope;
+    protected $guarded = ['id'];
 
     public function patient()
     {
@@ -28,17 +28,15 @@ class DialysisAppointment extends Model
     }
 
 
-
-
     /**
-        * Get all of the paymentHistories for the appointment
-        *
-        * @return \Illuminate\Database\Eloquent\Relations\HasMany
-        */
-        public function paymentHistories(): HasMany
-        {
-            return $this->hasMany(AppointmentPaymentHistory::class, 'appointment_id', 'id');
-        }
+     * Get all of the paymentHistories for the appointment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function paymentHistories(): HasMany
+    {
+        return $this->hasMany(DialysisAppointmentPaymentHistory::class, 'appointment_id', 'id');
+    }
 
 
     /**

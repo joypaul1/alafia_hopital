@@ -19,7 +19,7 @@
 'fa' => 'fa fa-plus-circle',
 'name' => 'Create Appointment',
 'modelName' => 'create_data',
-'route' => route('backend.appointment.create')
+'route' => route('backend.dialysis-appointment.create')
 ])
 
 <div class="row">
@@ -69,7 +69,7 @@
 <div class="modal fade appointment_modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role=" document">
         <div class="modal-content">
-            <form class="needs-validation" id="appointment_add_form" action="{{ route('backend.appointment.store') }}" method="Post" enctype="multipart/form-data">
+            <form class="needs-validation" id="appointment_add_form" action="{{ route('backend.dialysis-appointment.store') }}" method="Post" enctype="multipart/form-data">
                 @method('POST')
                 @csrf
                 <div class="modal-header">
@@ -105,21 +105,24 @@
                                 @include('components.backend.forms.input.input-type', [
                                 'name' => 'fee',
                                 'readonly' => 'true',
-                                'value'=> 5000
+                                'value'=> 5000,
+                                'required' => true
                                 ])
                             </div>
                             <div class="col-4">
                                 @include('components.backend.forms.input.input-type', [
                                 'name' => 'appointment_date',
                                 'type' => 'date',
-                                'value' => date("Y-m-d")
+                                'value' => date("Y-m-d"),
+                                'required' => true,
+
                                 ])
                             </div>
                             <div class="col-4">
                                 @include('components.backend.forms.select2.option', [
                                 'name' => 'schedule',
                                 'optionDatas' => $appointment_schedule,
-                                'required' => 'true',
+                                'required' => true
                                 ])
                             </div>
                             <div class="col-4">
@@ -141,7 +144,8 @@
                                 'name' => 'payment_method',
                                 'optionDatas' => $paymentSystems,
                                 'required' => 'true',
-                                'selectedKey'=> 1
+                                'selectedKey'=> 1,
+                                'required' => true
                                 ])
                             </div>
                             <div class="col-4">
@@ -150,7 +154,8 @@
                                 'optionDatas' => $appointment_status,
                                 'selectedKey' => '1',
                                 'required' => 'true',
-                                'selectedKey' => 'approved'
+                                'selectedKey' => 'approved',
+                                'required' => true
                                 ])
                             </div>
                         </div>

@@ -108,9 +108,9 @@
                         </Strong>
                         : {{ optional($appointment->patient)->patientId  }}
                     </td>
-                    <td style="text-align: right;">
+                    {{-- <td style="text-align: right;">
                         <strong>Appt. No</strong> : {{ ($appointment->id)  }}
-                    </td>
+                    </td> --}}
                 </tr>
                 <tr>
                     <td>
@@ -129,12 +129,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <Strong>
-                            Consultant
-                        </Strong>
-                        :  {{  optional($appointment->doctor)->first_name.' '. optional($appointment->doctor)->last_name}} ({{  optional(optional($appointment->doctor)->designation)->name}})
-                    </td>
+                    {{-- @if (optional($appointment->asignEmp)->name) --}}
+                        <td>
+                            <Strong>
+                                Asign To
+                            </Strong>
+                            :  {{  optional($appointment->asignEmp)->name}} ({{  optional(optional($appointment->asignEmp)->designation)->name??' '}})
+                        </td>
+                    {{-- @endif --}}
+
                     <td style="text-align: right;">
                         <strong>Appt. Time </strong> : {{  date('d-m-Y h.i A', strtotime($appointment->appointment_date))  }}
 
@@ -154,19 +157,19 @@
                     <th>
                         Particulars
                     </th>
-                    <th>
+                    <th class="text-center">
                         Amount
                     </th>
                 </tr>
-                <tr>
+                <tr >
                     <td>
                         1
                     </td>
                     <td>
-                        Consultation Fee
+                        Dialysis Fee
                     </td>
-                    <td>
-                        {{ number_format($appointment->doctor_fee, 2) }}
+                    <td class="text-right">
+                        {{ number_format($appointment->fee, 2) }}
                     </td>
                 </tr>
             </tbody>
@@ -175,21 +178,21 @@
         <div class="row">
             <div class="col-6"></div>
             <div class="col-6">
-                <table class="table table-bordered" style="font-size: 12px;">
+                <table class="table table-bordered " style="font-size: 12px;">
                     <tbody>
                         <tr>
                             <td>
                                 Bill Amount
                             </td>
-                            <td>
-                                {{ number_format($appointment->doctor_fee, 2) }}
+                            <td class="text-right">
+                                {{ number_format($appointment->fee, 2) }}
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 Discount Amount
                             </td>
-                            <td>
+                            <td class="text-right">
                                 00.00
                             </td>
                         </tr>
@@ -197,7 +200,7 @@
                             <td>
                                 Vat Amount
                             </td>
-                            <td>
+                            <td class="text-right">
                                 00.00
                             </td>
                         </tr>
@@ -205,16 +208,16 @@
                             <td>
                                 Payable Amount
                             </td>
-                            <td>
-                                {{ number_format($appointment->doctor_fee, 2) }}
+                            <td class="text-right">
+                                {{ number_format($appointment->fee, 2) }}
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 Cash Paid
                             </td>
-                            <td>
-                                {{ number_format($appointment->doctor_fee, 2) }}
+                            <td class="text-right">
+                                {{ number_format($appointment->fee, 2) }}
                             </td>
                         </tr>
                     </tbody>
@@ -225,7 +228,7 @@
                                     Due Amount
                                 </strong>
                             </td>
-                            <td>
+                            <td class="text-right">
                                 <strong>
                                     0.00
                                 </strong>
@@ -239,7 +242,7 @@
         <p class="text-center">
             <i style="color: #727272;">
                 <small>
-                    Received with thanks : Five Hundred Fifty Taka Only
+                    Received with thanks : {!! Helper::wordConvertor($appointment->fee,)!!} Only
                 </small>
             </i>
         </p>

@@ -9,8 +9,8 @@ use App\Models\Doctor\Doctor;
 use App\Models\PaymentSystem;
 use App\Models\SiteConfig\BloodBank;
 use Illuminate\Http\Request;
-use App\Http\Requests\Appointment\StoreRequest;
-use App\Http\Requests\Appointment\UpdateRequest;
+use App\Http\Requests\Appointment\Doctor\StoreRequest;
+use App\Http\Requests\Appointment\Doctor\UpdateRequest;
 
 class AppointmentController extends Controller
 {

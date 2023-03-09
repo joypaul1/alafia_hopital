@@ -35,7 +35,7 @@ onchange="dataBaseCall()"
 required
 @endisset
 >
-    <option value=" "  >- select {{ $label??$name }} -</option>
+    <option value="{{ null }}"  >- select {{ $label??$name }} -</option>
         @forelse ($optionDatas as $data)
             <option value="{{ $data['id'] }}" @isset($selectedKey) {{ ( $selectedKey == $data['id']) ? 'selected': ' ' }} @endisset>
                 {{ $data['name'] }}

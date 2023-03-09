@@ -77,10 +77,6 @@
                 MONEY RECEIPT
             </span>
         </div>
-        {{-- <div class="d-flex justify-content-between">
-            <img src="{{ asset("assets/moneyReceipt/code.png") }}" style="width: 100px;" alt="">
-            <img src="{{ asset("assets/moneyReceipt/code.png") }}" style="width: 100px;" alt="">
-        </div> --}}
         <table class="table table-borderless my-2" style="font-size: 12px;">
             <tbody>
                 <tr>
@@ -154,7 +150,7 @@
                     <th>
                         Particulars
                     </th>
-                    <th>
+                    <th class="text-center">
                         Amount
                     </th>
                 </tr>
@@ -165,7 +161,7 @@
                     <td>
                         Consultation Fee
                     </td>
-                    <td>
+                    <td class="text-right">
                         {{ number_format($appointment->doctor_fee, 2) }}
                     </td>
                 </tr>
@@ -181,7 +177,7 @@
                             <td>
                                 Bill Amount
                             </td>
-                            <td>
+                            <td class="text-right">
                                 {{ number_format($appointment->doctor_fee, 2) }}
                             </td>
                         </tr>
@@ -189,7 +185,7 @@
                             <td>
                                 Discount Amount
                             </td>
-                            <td>
+                            <td class="text-right">
                                 00.00
                             </td>
                         </tr>
@@ -197,7 +193,7 @@
                             <td>
                                 Vat Amount
                             </td>
-                            <td>
+                            <td class="text-right">
                                 00.00
                             </td>
                         </tr>
@@ -205,7 +201,7 @@
                             <td>
                                 Payable Amount
                             </td>
-                            <td>
+                            <td class="text-right">
                                 {{ number_format($appointment->doctor_fee, 2) }}
                             </td>
                         </tr>
@@ -213,7 +209,7 @@
                             <td>
                                 Cash Paid
                             </td>
-                            <td>
+                            <td class="text-right">
                                 {{ number_format($appointment->doctor_fee, 2) }}
                             </td>
                         </tr>
@@ -225,7 +221,7 @@
                                     Due Amount
                                 </strong>
                             </td>
-                            <td>
+                            <td class="text-right">
                                 <strong>
                                     0.00
                                 </strong>
@@ -239,7 +235,7 @@
         <p class="text-center">
             <i style="color: #727272;">
                 <small>
-                    Received with thanks : Five Hundred Fifty Taka Only
+                    Received with thanks : {!! Helper::wordConvertor($appointment->doctor_fee)!!}
                 </small>
             </i>
         </p>
