@@ -11,6 +11,8 @@ use App\Models\SiteConfig\BloodBank;
 use Illuminate\Http\Request;
 use App\Http\Requests\Appointment\Doctor\StoreRequest;
 use App\Http\Requests\Appointment\Doctor\UpdateRequest;
+use App\Models\Employee\Designation;
+use FontLib\Table\Type\name;
 
 class AppointmentController extends Controller
 {
@@ -23,51 +25,46 @@ class AppointmentController extends Controller
     {
         $status =  (object)[['name' => 'Active', 'id' => 1], ['name' => 'Inactive', 'id' => 0]];
         //gender option create
-        $genders = (object)[
-            ['name' => 'male', 'id' => 'male'],
-            ['name' => 'female', 'id' => 'female'],
-            ['name' => 'others', 'id' => 'others'],
-        ];
+        // $genders = (object)[
+        //     ['name' => 'male', 'id' => 'male'],
+        //     ['name' => 'female', 'id' => 'female'],
+        //     ['name' => 'others', 'id' => 'others'],
+        // ];
         //marital_status option create
-        $marital_status = (object)[
-            ['name' => 'married', 'id' => 'married'],
-            ['name' => 'unmarried', 'id' => 'unmarried'],
-            ['name' => 'divorced', 'id' => 'divorced'],
-        ];
+        // $marital_status = (object)[
+        //     ['name' => 'married', 'id' => 'married'],
+        //     ['name' => 'unmarried', 'id' => 'unmarried'],
+        //     ['name' => 'divorced', 'id' => 'divorced'],
+        // ];
 
         //blood group
-        $blood_group = BloodBank::where('type_id', 1)->get();
+        // $blood_group = BloodBank::where('type_id', 1)->get();
 
         // appointment_priority select option create
-        $appointment_priority = (object)[
-            ['name' => 'Normal', 'id' => 'Normal'],
-            ['name' => 'Urgent', 'id' => 'Urgent'],
-        ];
-        $doctors = Doctor::select('id', 'first_name', 'last_name')->get()->map(function ($doctor) {
-            $data['id'] = $doctor->id;
-            $data['name'] = $doctor->first_name . ' ' . $doctor->last_name;
-            return $data;
-        });
+        // $appointment_priority = (object)[
+        //     ['name' => 'Normal', 'id' => 'Normal'],
+        //     ['name' => 'Urgent', 'id' => 'Urgent'],
+        // ];
 
-        $paymentSystems = PaymentSystem::select('id', 'name')->get();
 
-        //appointment status option create
-        $appointment_status = (object)[
-            ['name' => 'Approved', 'id' => 'approved'],
-            ['name' => 'Pending', 'id' => 'pending'],
-        ];
+        // $paymentSystems = PaymentSystem::select('id', 'name')->get();
+
+        // //appointment status option create
+        // $appointment_status = (object)[
+        //     ['name' => 'Approved', 'id' => 'approved'],
+        //     ['name' => 'Pending', 'id' => 'pending'],
+        // ];
 
         $appointmentDatas = Appointment::with('patient', 'doctor')->latest()->get();
-        return view('backend.appointment.doctor.index',
+        return view(
+            'backend.appointment.doctor.index',
             compact(
-                'blood_group',
-                'genders',
-                'marital_status',
-                'appointment_status',
-                'appointmentDatas',
-                'appointment_priority',
-                'doctors',
-                'paymentSystems'
+                'appointmentDatas'
+
+                // 'appointment_status',
+                // 'appointmentDatas',
+                // 'appointment_priority',
+                // 'paymentSystems'
             )
         );
     }
@@ -81,7 +78,42 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        return view('backend.appointment.create');
+
+        $appointment_priority = (object)[
+            ['name' => 'Normal', 'id' => 'Normal'],
+            ['name' => 'Urgent', 'id' => 'Urgent'],
+        ];
+
+        $paymentSystems = PaymentSystem::select('id', 'name')->get();
+
+        //appointment status option create
+        $appointment_status = (object)[
+            ['name' => 'Approved', 'id' => 'approved'],
+            ['name' => 'Pending', 'id' => 'pending'],
+        ];
+
+        $paymentSystems = PaymentSystem::select('id', 'name')->get();
+
+        //appointment status option create
+        $appointment_status = (object)[
+            ['name' => 'Approved', 'id' => 'approved'],
+            ['name' => 'Pending', 'id' => 'pending'],
+        ];
+
+        $doctors = Doctor::active()->select('id', 'first_name', 'last_name')->get()->map(function ($doctor) {
+            $data['id'] = $doctor->id;
+            $data['name'] = $doctor->first_name . ' ' . $doctor->last_name;
+            return $data;
+        });
+        $designation = Designation::active()->select('id', 'name')->get();
+
+        return view('backend.appointment.doctor.create', compact(
+            'doctors',
+            'designation',
+            'appointment_status',
+            'appointment_priority',
+            'paymentSystems'
+        ));
     }
 
     /**

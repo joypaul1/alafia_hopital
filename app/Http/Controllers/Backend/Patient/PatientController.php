@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Patient;
 use App\Helpers\InvoiceNumber;
 use App\Http\Controllers\Controller;
 use App\Models\Patient\Patient;
+use App\Models\SiteConfig\BloodBank;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Termwind\Components\Dd;
@@ -36,8 +37,26 @@ class PatientController extends Controller
      */
     public function create()
     {
-        //
-        return view('backend.patient.create');
+        //gender option create
+        $genders = (object)[
+            ['name' => 'male', 'id' => 'male'],
+            ['name' => 'female', 'id' => 'female'],
+            ['name' => 'others', 'id' => 'others'],
+        ];
+        //marital_status option create
+        $marital_status = (object)[
+            ['name' => 'married', 'id' => 'married'],
+            ['name' => 'unmarried', 'id' => 'unmarried'],
+            ['name' => 'divorced', 'id' => 'divorced'],
+        ];
+
+        //blood group
+        $blood_group = BloodBank::where('type_id', 1)->get();
+        return view('backend.patient.create',compact(
+            'blood_group',
+            'genders',
+            'marital_status'
+        ));
     }
 
     public function getInvoiceNumber()
