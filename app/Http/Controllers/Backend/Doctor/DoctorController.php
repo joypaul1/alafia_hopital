@@ -29,6 +29,22 @@ class DoctorController extends Controller
             $data = Doctor::latest()->get();
             return response()->json(['data' =>$data]);
         }
+        if($request->designation_id) {
+            $data = Doctor::active()->where('designation_id', $request->designation_id)->select('id', 'first_name', 'last_name')->get()->map(function ($doctor) {
+                $data['id'] = $doctor->id;
+                $data['name'] = $doctor->first_name . ' ' . $doctor->last_name;
+                return $data;
+            });;
+            return response()->json(['data' =>$data]);
+        }
+        if($request->department_id) {
+            $data = Doctor::active()->where('department_id', $request->department_id)->select('id', 'first_name', 'last_name')->get()->map(function ($doctor) {
+                $data['id'] = $doctor->id;
+                $data['name'] = $doctor->first_name . ' ' . $doctor->last_name;
+                return $data;
+            });;
+            return response()->json(['data' =>$data]);
+        }
         if (request()->ajax()) {
             $data = Doctor::latest();
             if($request->status){

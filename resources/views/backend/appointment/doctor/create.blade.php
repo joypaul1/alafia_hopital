@@ -34,8 +34,8 @@
                 <div class="row">
                     <div class="col-4">
                         @include('components.backend.forms.select2.option', [
-                            'label' => 'designation',
-                            'name' => 'designation_id',
+                            'label' => 'department',
+                            'name' => 'department_id',
                             'optionDatas' => $designation,
                         ])
                     </div>

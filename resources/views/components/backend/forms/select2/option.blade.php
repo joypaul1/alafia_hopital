@@ -14,7 +14,7 @@ if(isset($label)){
 @endphp
 {{-- label end here --}}
 {{-- @if(isset($label) || isset($name)) --}}
-<label class="col-form-label" @isset($name) for="{{ $name }}" @endisset>
+<label class="col-form-label for="{{ $name }}">
     {{ $label??$upName}}
     @isset($required)
     <span class="text-danger">*</span>
@@ -24,7 +24,7 @@ if(isset($label)){
 {{-- label end here --}}
 
 
-<select class="form-control show-tick ms select2" id="{{ $name }}" @isset($name) name="{{ $name  }}" @endisset @isset($multiple) multiple @endisset
+<select class="form-control show-tick ms select2" id="{{ $name }}" name="{{ $name  }}" @isset($multiple) multiple @endisset
 @isset($onclick)
     onclick="dataBaseCall()"
 @endisset
@@ -48,6 +48,11 @@ required
 <script src="{{ asset('assets/backend') }}/vendor/select2/select2.min.js"></script>
 @if (isset($name))
 <script>
+    // $(document).ready(function(){
+    //     $('#{{$name}}').select2({
+    //         dropdownParent: $('.patient_modal')
+    //     });
+    // });
     $("#{{$name}}").select2();
 </script>
 @else
@@ -56,5 +61,6 @@ required
 </script>
 
 @endif
+
 
 @endpush

@@ -1,5 +1,5 @@
 @extends('backend.layout.app')
-
+@include('backend._partials.datatable__delete')
 @push('css')
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <style>
@@ -26,7 +26,7 @@
             <div class="card">
                 <div class="body">
                     <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered text-center dataTable" id="appointment_table">
                             <thead>
                                 <tr>
                                     <th class="text-center">Sl.</th>
@@ -37,11 +37,12 @@
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Doctor Fee</th>
                                     <th class="text-center">Payment Method</th>
+                                    <th class="text-center">Actiion</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach ($appointmentDatas as $key => $appointmentData)
+                                {{-- @foreach ($appointmentDatas as $key => $appointmentData)
                                     <tr class="text-center">
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $appointmentData->invoice_number }}</td>
@@ -53,7 +54,7 @@
                                         <td>{{ $appointmentData->paymentHistories()->pluck('payment_method') }}</td>
 
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
 
 
                             </tbody>
@@ -67,102 +68,7 @@
     {{-- Appointment modal --}}
     <div class="modal fade appointment_modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role=" document">
-            {{-- <div class="modal-content">
-                <form class="needs-validation" id="appointment_add_form" action="{{ route('backend.appointment.store') }}"
-                    method="Post" enctype="multipart/form-data">
-                    @method('POST')
-                    @csrf
-                    <div class="modal-header">
-                        <div class="row w-100 justify-content-between">
-                            <div class="col-md-6">
-                                <h4 class="title" id="">Appointment</h4>
-                            </div>
-                            <input type="hidden" name="patient_Id" id="patient_Id" value="">
-                            <div class="col-md-6">
-                                <div class="row align-items-center">
-                                    <div class="col-9">
-                                        @include('components.backend.forms.input.input-type2', [
-                                            'name' => 'patientId',
-                                            'required' => 'true',
-                                            'placeholder' => 'Select Patient By Name/ID/Mobile...',
-                                        ])
-                                    </div>
-                                    <div class="col-3">
-                                        <button class="btn btn-info" data-href="{{ route('backend.patient.create') }}"
-                                            id="create_patient">
-                                            New Patient
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
 
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-validation">
-                            <div class="row">
-                                <div class="col-4">
-                                    @include('components.backend.forms.select2.option', [
-                                        'label' => 'doctor',
-                                        'name' => 'doctorID',
-                                        'optionDatas' => $doctors,
-                                    ])
-                                </div>
-                                <div class="col-4">
-                                    @include('components.backend.forms.input.input-type', [
-                                        'name' => 'doctor_fees',
-                                        'readonly' => 'true',
-                                    ])
-                                </div>
-                                <div class="col-4">
-                                    @include('components.backend.forms.input.input-type', [
-                                        'name' => 'appointment_date',
-                                        'type' => 'date',
-                                        'value' => date('Y-m-d'),
-                                    ])
-                                </div>
-                                <div class="col-4">
-                                    @include('components.backend.forms.select2.option', [
-                                        'name' => 'appointment_schedule',
-                                        'optionDatas' => [],
-                                        'required' => 'true',
-                                    ])
-                                </div>
-                                <div class="col-4">
-                                    @include('components.backend.forms.select2.option', [
-                                        'name' => 'appointment_priority',
-                                        'optionDatas' => $appointment_priority,
-                                        'selectedKey' => 'Normal',
-                                    ])
-                                </div>
-                                <div class="col-4">
-                                    @include('components.backend.forms.select2.option', [
-                                        'name' => 'payment_method',
-                                        'optionDatas' => $paymentSystems,
-                                        'required' => 'true',
-                                        'selectedKey' => 1,
-                                    ])
-                                </div>
-                                <div class="col-4">
-                                    @include('components.backend.forms.select2.option', [
-                                        'name' => 'status',
-                                        'optionDatas' => $appointment_status,
-                                        'selectedKey' => '1',
-                                        'required' => 'true',
-                                        'selectedKey' => 'approved',
-                                    ])
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
-                        <button type="submit" class="btn btn-primary save_category_button">SAVE</button>
-                    </div>
-                </form>
-            </div> --}}
         </div>
     </div>
     {{-- Patient modal --}}
@@ -178,11 +84,118 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script>
-        // $(document).on('load')
-        // $(".select2").select2();
+        let table_name;
+        $(function() {
+            table_name = $("#appointment_table").DataTable({
+                dom: "Bfrtip",
+                buttons: ["colvis", "copy", "csv", "excel", "pdf", "print",
+                    {
+                        text: 'Reload',
+                        action: function(e, dt, node, config) {
+                            dataBaseCall();
+                        }
+                    }
+                ],
+                processing: true,
+                serverSide: true,
+                destroy: true,
+                pagingType: 'numbers',
+                pageLength: 10,
+                ajax: "{{ route('backend.appointment.index') }}",
+                ajax: {
+                    method: 'GET',
+                    url: "{{ route('backend.appointment.index') }}",
+                    data: function(d) {
+                        d.status = $('select#status').val() || true;
+                    },
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'invoice_number',
+                        name: 'invoice_number'
+                    },
+                    {
+                        data: 'appointment_date',
+                        name: 'appointment_date'
+                    },
+                    {
+                        data: 'patient_id',
+                        name: 'patient_id'
+                    },
+                    {
+                        data: 'doctor_id',
+                        name: 'doctor_id'
+                    },
 
-        $(document).on('click', '#create_patient', function (e) {
-              e.preventDefault();
+                    {
+                        data: 'appointment_status',
+                        name: 'appointment_status',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'doctor_fee',
+                        name: 'doctor_fee'
+                    },
+                    {
+                        data: 'paymentHistories',
+                        name: 'paymentHistories'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ],
+            });
+        });
+
+        $(document).on('change', '#department_id', function(e) {
+            e.preventDefault();
+            var department_id = $(this).val();
+            $.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "Json",
+                url: "{{ route('backend.doctor.index') }}",
+                data: {
+                    department_id: department_id
+                },
+                success: function(res) {
+                    $('#doctorID').html(' ');
+                    $.map(res.data, function(val, i) {
+                        var newOption = new Option(val.name, val.id, false, false);
+                        $('#doctorID').append(newOption);
+                    });
+                },
+                error: function(jqXHR, exception) {
+                    var msg = '';
+                    if (jqXHR.status === 0) {
+                        msg = 'Not connect.\n Verify Network.';
+                    } else if (jqXHR.status == 404) {
+                        msg = 'Requested page not found. [404]';
+                    } else if (jqXHR.status == 500) {
+                        msg = 'Internal Server Error [500].';
+                    } else if (exception === 'parsererror') {
+                        msg = 'Requested JSON parse failed.';
+                    } else if (exception === 'timeout') {
+                        msg = 'Time out error.';
+                    } else if (exception === 'abort') {
+                        msg = 'Ajax request aborted.';
+                    } else {
+                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                    }
+                    console.log(msg);
+                },
+            });
+        })
+        // create_patient modal
+        $(document).on('click', '#create_patient', function(e) {
+            e.preventDefault();
             var modal = ".patient_modal";
             var href = $(this).data('href');
             // AJAX request
@@ -250,7 +263,7 @@
                                 value: obj.name, //Fillable in input field
                                 value_id: obj.id, //Fillable in input field
                                 label: 'Name:' + obj.name + ' mobile:' + obj
-                                .mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                                    .mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
                             }
                         })
                         response(resArray);

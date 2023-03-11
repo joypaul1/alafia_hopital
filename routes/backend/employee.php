@@ -26,12 +26,7 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], f
 });
 
 // appointment
-Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], function(){
-    Route::resource('appointment', AppointmentController::class);
-    Route::get('appointment/money-receipt/{$id}', [AppointmentController::class, 'moneyReceipt'])->name('appointment.moneyReceipt');
-});
-
-// // Doctor
 // Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], function(){
-//     Route::resource('doctor', AppointmentController::class);
+//     Route::resource('appointment', AppointmentController::class);
+//     Route::get('appointment/money-receipt/{$id}', [AppointmentController::class, 'moneyReceipt'])->name('appointment.moneyReceipt');
 // });

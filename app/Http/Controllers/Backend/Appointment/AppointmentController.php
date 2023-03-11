@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend\Appointment;
 
+use App\Helpers\Image;
 use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment\Appointment;
@@ -13,6 +14,7 @@ use App\Http\Requests\Appointment\Doctor\StoreRequest;
 use App\Http\Requests\Appointment\Doctor\UpdateRequest;
 use App\Models\Employee\Designation;
 use FontLib\Table\Type\name;
+use Yajra\DataTables\Facades\DataTables;
 
 class AppointmentController extends Controller
 {
@@ -55,9 +57,55 @@ class AppointmentController extends Controller
         //     ['name' => 'Pending', 'id' => 'pending'],
         // ];
 
-        $appointmentDatas = Appointment::with('patient', 'doctor')->latest()->get();
-        return view(
-            'backend.appointment.doctor.index',
+        $appointmentDatas = Appointment::
+        select('id', 'invoice_number', 'appointment_date', 'patient_id', 'doctor_id', 'doctor_fee','appointment_status' )
+        ->with('patient:id,name,patientId', 'doctor:id,first_name,last_name')->latest()->get();
+
+        if (request()->ajax()) {
+            return DataTables::of($appointmentDatas)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $action ='<div class="dropdown">
+                    <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                        <div class="dropdown-menu" >
+                        <a data-href="'.route('backend.appointment.edit', $row).'" class="dropdown-item edit_check"
+                            data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit mr-2" aria-hidden="true"></i> Edit
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a data-href="'.route('backend.appointment.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
+                            data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash mr-2" aria-hidden="true"></i> Delete
+                        </a>
+                    </div></div>';
+                    return $action;
+                })
+                // ->editColumn('image', function($row){
+                //     return  asset($row->image);
+                // })
+                // ->editColumn('status', function($row){
+                //     return view('components.backend.forms.input.input-switch', ['status' => $row->status ]);
+
+                // })
+                ->editColumn('appointment_date', function($row) {
+                    return date('d-m-Y', strtotime($row->appointment_date));
+                })
+                ->editColumn('patient_id', function($row) {
+                    return optional($row->patient)->name ;
+                })
+                ->editColumn('doctor_id', function($row) {
+                    return optional($row->doctor)->first_name;
+                })
+                ->editColumn('doctor_fee', function($row) {
+                    return  number_format($row->doctor_fee, 2);
+                })
+                ->addColumn('paymentHistories', function($row) {
+                    return implode(' ,', $row->paymentHistories()->pluck('payment_method')->toArray());
+                })
+                ->removeColumn(['id'])
+                ->rawColumns(['action', 'paymentHistories'])
+                ->make(true);
+
+        }
+        return view('backend.appointment.doctor.index',
             compact(
                 'appointmentDatas'
 
@@ -152,7 +200,7 @@ class AppointmentController extends Controller
     public function show($id)
     {
         $appointment = Appointment::whereId($id)->with('doctor', 'patient', 'paymentHistories')->first();
-        return view('backend.appointment.doctor.moneyReceipt', compact('appointment'));
+        return view('backend.appointment.moneyReceipt', compact('appointment'));
     }
 
     /**
@@ -184,8 +232,16 @@ class AppointmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Appointment $appointment)
     {
-        //
+        try {
+            // (new Image)->deleteIfExists($category->image);
+            $appointment->delete();
+
+        } catch (\Exception $ex) {
+            return response()->json(['status' => false, 'mes' =>$ex->getMessage()]);
+        }
+        (new LogActivity)::addToLog('Category Deleted');
+        return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
 }

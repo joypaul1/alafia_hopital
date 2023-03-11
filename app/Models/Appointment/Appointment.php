@@ -15,8 +15,27 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Appointment extends Model
 {
-    use AuthScopes,AutoTimeStamp,GlobalScope;
-    protected $guarded =['id'];
+    use AuthScopes, AutoTimeStamp, GlobalScope;
+    protected $guarded = ['id'];
+
+
+    // this is a recommended way to declare event handlers
+    public static function boot()
+    {
+        parent::boot();
+        self::deleting(function ($appointment) { // before delete() method call this
+            // $appointment->schedule()->delete();
+            $appointment->paymentHistories()->each(function ($paymentHistory) {
+                $paymentHistory->delete(); // <-- direct deletion
+            });
+            $appointment->dailyTransactions()->each(function ($dailyTransaction) {
+                $dailyTransaction->delete(); // <-- direct deletion
+            });
+            $appointment->cashflowTransactions()->each(function ($cashflowTransaction) {
+                $cashflowTransaction->delete(); // <-- direct deletion
+            });
+        });
+    }
 
     public function patient()
     {
@@ -35,14 +54,14 @@ class Appointment extends Model
 
 
     /**
-        * Get all of the paymentHistories for the appointment
-        *
-        * @return \Illuminate\Database\Eloquent\Relations\HasMany
-        */
-        public function paymentHistories(): HasMany
-        {
-            return $this->hasMany(AppointmentPaymentHistory::class, 'appointment_id', 'id');
-        }
+     * Get all of the paymentHistories for the appointment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function paymentHistories(): HasMany
+    {
+        return $this->hasMany(AppointmentPaymentHistory::class, 'appointment_id', 'id');
+    }
 
 
     /**
