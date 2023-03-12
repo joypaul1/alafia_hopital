@@ -206,27 +206,27 @@
                         </li> --}}
                         {{-- End user Panel --}}
                         {{-- Item Config --}}
-                        {{-- <li class="{{ strpos($strpos, 'backend.itemconfig') === 0 ? 'active' : ' ' }}">
+                        <li class="{{ strpos($strpos, 'backend.itemconfig') === 0 ? 'active' : ' ' }}">
                         <a href="javascript:void(0)" class="has-arrow">
                             <i class="icon-settings"></i>
-                            <span>Item Config</span>
+                            <span>Medicine Panel</span>
                         </a>
                         <ul>
-                            <x-backend.side-bar class="{{ request()->segment(3) == 'item' ? 'active' : ' ' }}" name="Item" link='backend.itemconfig.item.index' icon='#' />
+                            <x-backend.side-bar class="{{ request()->segment(3) == 'item' ? 'active' : ' ' }}" name="Medicine" link='backend.itemconfig.item.index' icon='#' />
                             <x-backend.side-bar class="{{ request()->segment(3) == 'category' ? 'active' : ' ' }}" name="Category" link='backend.itemconfig.category.index' icon='#' />
-                            <x-backend.side-bar class="{{ request()->segment(3) == 'subcategory' ? 'active' : ' ' }}" name="Subcategory" link='backend.itemconfig.subcategory.index' icon='#' />
-                            <x-backend.side-bar class="{{ request()->segment(3) == 'childcategory' ? 'active' : ' ' }}" name="Childcategory" link='backend.itemconfig.childcategory.index' icon='#' />
-                            <x-backend.side-bar class="{{ request()->segment(3) == 'brand' ? 'active' : ' ' }}" name="Brand" link='backend.itemconfig.brand.index' icon='#' />
-                            <x-backend.side-bar class="{{ request()->segment(3) == 'unit' ? 'active' : ' ' }}" name="Unit" link='backend.itemconfig.unit.index' icon='#' />
+                            {{-- <x-backend.side-bar class="{{ request()->segment(3) == 'subcategory' ? 'active' : ' ' }}" name="Subcategory" link='backend.itemconfig.subcategory.index' icon='#' /> --}}
+                            {{-- <x-backend.side-bar class="{{ request()->segment(3) == 'childcategory' ? 'active' : ' ' }}" name="Childcategory" link='backend.itemconfig.childcategory.index' icon='#' /> --}}
+                            <x-backend.side-bar class="{{ request()->segment(3) == 'brand' ? 'active' : ' ' }}" name="Manufacturer" link='backend.itemconfig.brand.index' icon='#' />
                             <x-backend.side-bar class="{{ request()->segment(3) == 'strenght' ? 'active' : ' ' }}" name="Strenght" link='backend.itemconfig.strenght.index' icon='#' />
-
+                            <x-backend.side-bar class="{{ request()->segment(3) == 'unit' ? 'active' : ' ' }}" name="Unit" link='backend.itemconfig.unit.index' icon='#' />
+                            <x-backend.side-bar class="{{ request()->segment(3) == 'unit' ? 'active' : ' ' }}" name="Unit" link='backend.itemconfig.unit.index' icon='#' />
                             <x-backend.side-bar class="{{ request()->segment(3) == 'rack' ? 'active' : ' ' }}" name="Rack" link='backend.itemconfig.rack.index' icon='#' />
                             <x-backend.side-bar class="{{ request()->segment(3) == 'row' ? 'active' : ' ' }}" name="Row" link='backend.itemconfig.row.index' icon='#' />
                         </ul>
-                        </li> --}}
+                        </li> 
                         {{-- End Item Config --}}
                         {{-- Account Panel --}}
-                        {{-- <li class="{{ strpos($strpos, 'backend.account') === 0 ? 'active' : ' ' }}">
+                        <li class="{{ strpos($strpos, 'backend.account') === 0 ? 'active' : ' ' }}">
                         <a href="javascript:void(0)" class="has-arrow">
                             <i class="icon-user-following"></i>
                             <span>Accounting Panel</span>
@@ -234,27 +234,27 @@
                         <ul>
                             <x-backend.side-bar class="{{ request()->segment(2) == 'accountgroup' ? 'active' : ' ' }}" name="Account Group" link='backend.account.accountgroup.index' icon='#' />
                             <x-backend.side-bar class="{{ request()->segment(2) == 'accountledger' ? 'active' : ' ' }}" name="Account Ledger" link='backend.account.accountledger.index' icon='#' />
-                            <x-backend.side-bar class="{{ request()->segment(2) == 'transaction' ? 'active' : ' ' }}" name="Transaction" link='backend.account.transaction.index' icon='#' />
+                            {{-- <x-backend.side-bar class="{{ request()->segment(2) == 'transaction' ? 'active' : ' ' }}" name="Transaction" link='backend.account.transaction.index' icon='#' /> --}}
                         </ul>
-                        </li> --}}
+                        </li>
                         {{-- End Admin Panel --}}
                         {{-- Report Panel --}}
-                        {{-- <li class="{{ strpos($strpos, 'backend.report') === 0 ? 'active' : ' ' }}">
+                        <li class="{{ strpos($strpos, 'backend.report') === 0 ? 'active' : ' ' }}">
                         <a href="javascript:void(0)" class="has-arrow">
                             <i class="icon-user-following"></i>
                             <span>Report Panel</span>
                         </a>
                         <ul>
-                            <x-backend.side-bar class="{{ request()->segment(2) == 'supplier-ledger' ? 'active' : ' ' }}" name="Supplier ledger" link='backend.report.supplierledgerReport' icon='#' />
+                            {{-- <x-backend.side-bar class="{{ request()->segment(2) == 'supplier-ledger' ? 'active' : ' ' }}" name="Supplier ledger" link='backend.report.supplierledgerReport' icon='#' /> --}}
                             <x-backend.side-bar class="{{ request()->segment(2) == 'day-book' ? 'active' : ' ' }}" name="Day book" link='backend.report.dayBook' icon='#' />
                             <x-backend.side-bar class="{{ request()->segment(2) == 'cash-flow' ? 'active' : ' ' }}" name="Cash Flow" link='backend.report.cashFlow' icon='#' />
-                            <x-backend.side-bar class="{{ request()->segment(2) == 'sell-report' ? 'active' : ' ' }}" name="Sell Report" link='backend.report.sellReport' icon='#' />
-                            <x-backend.side-bar class="{{ request()->segment(2) == 'purchase-report' ? 'active' : ' ' }}" name="Purchase Report" link='backend.report.purchaseReport' icon='#' />
+                            {{-- <x-backend.side-bar class="{{ request()->segment(2) == 'sell-report' ? 'active' : ' ' }}" name="Sell Report" link='backend.report.sellReport' icon='#' /> --}}
+                            {{-- <x-backend.side-bar class="{{ request()->segment(2) == 'purchase-report' ? 'active' : ' ' }}" name="Purchase Report" link='backend.report.purchaseReport' icon='#' /> --}}
                             <x-backend.side-bar class="{{ request()->segment(2) == 'income-report' ? 'active' : ' ' }}" name="Income Report" link='backend.report.incomeReport' icon='#' />
                             <x-backend.side-bar class="{{ request()->segment(2) == 'expense-report' ? 'active' : ' ' }}" name="Expence Report" link='backend.report.expenseReport' icon='#' />
                             <x-backend.side-bar class="{{ request()->segment(2) == 'profit-report' ? 'active' : ' ' }}" name="Profit Report" link='backend.report.profitReport' icon='#' />
                         </ul>
-                        </li> --}}
+                        </li>
                         {{-- End Report Panel --}}
 
                         {{-- Site Configuration --}}

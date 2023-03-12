@@ -3,13 +3,13 @@
 <link rel="stylesheet" href="{{ asset('assets/backend') }}/vendor/dropify/css/dropify.min.css">
 @endpush
 @section('page-header')
-<i class="fa fa-pencil"></i> Brand Edit
+<i class="fa fa-pencil"></i> Manufacturer Edit
 @stop
 
 @section('content')
 @include('backend._partials.page_header', [
 'fa' => 'fa fa-list',
-'name' => 'Brand List',
+'name' => 'Manufacturer List',
 'route' => route('backend.itemconfig.brand.index')
 ])
 
@@ -43,49 +43,14 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Uploaded Document</h4>
-            </div>
-            <div class="card-body">
-                <a href="#"   onClick="javascript:showMyModalImage('{{asset($brand->image)}}')">
-                    <img class="card-img-top img-fluid" src="{{asset($brand->image)}}" alt="Current Image">
-                </a>
-            </div>
-        </div>
-    </div>
+   
 </div>
 
-<div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header"> 
-                <h4 class="title" id="defaultModalLabel">Brand Image View</h4>
-            </div>
-            <div class="modal-body">
-                <img src="#" alt="" id="outputImage" width='100%' height="50%">
-            </div>
-            <div class="modal-footer">
-               
-                <button type="button" class="btn btn-danger" data-dismiss="modal">X</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 @endsection
 
-@push('js')
-<script src="{{ asset('assets/backend') }}/vendor/dropify/js/dropify.min.js"></script>
-<script src="{{ asset('assets/backend') }}/js/pages/forms/dropify.js"></script>
-<script>
-    function showMyModalImage(imgsrc) {
-        $("#outputImage").attr("src", imgsrc);
-        $('#defaultModal').modal('show');
-    }
-</script>
 
 
 
-@endpush
+

@@ -49,8 +49,8 @@
                             <tr>
                                 <th class="text-center">Sl.</th>
                                 <th class="text-center">Name</th>
-                                <th class="text-center">Slug</th>
-                                <th class="text-center">Image</th>
+                                {{-- <th class="text-center">Slug</th> --}}
+                                {{-- <th class="text-center">Image</th> --}}
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Action</th>
                             </tr>
@@ -116,19 +116,21 @@
                 }, {
                     data: 'name',
                     name: 'name'
-                }, {
-                    data: 'slug',
-                    name: 'slug'
-                },
+                }, 
+                // {
+                //     data: 'slug',
+                //     name: 'slug'
+                // },
 
+                // {
+                //     data: "image",
+                //     render: function(img) {
+                //         return '<img src="' + img + '" alt="no-image" height="100px" width="100" >';
+                //     },
+                //     orderable: false,
+                //     searchable: false
+                // }, 
                 {
-                    data: "image",
-                    render: function(img) {
-                        return '<img src="' + img + '" alt="no-image" height="100px" width="100" >';
-                    },
-                    orderable: false,
-                    searchable: false
-                }, {
                     data: 'status',
                     name: 'status',
                     orderable: false,

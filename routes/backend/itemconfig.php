@@ -23,6 +23,8 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin/item-config' , 'as'=>'b
     Route::resource('subcategory', SubcategoryController::class);
     // childcategory
     Route::resource('childcategory', ChildcategoryController::class);
+    // manufacturer
+    Route::resource('generic-name', ChildcategoryController::class);
      // brand
     Route::resource('brand', BrandController::class);
         // color

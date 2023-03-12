@@ -2,13 +2,13 @@
 @include('backend._partials.datatable__delete')
 
 @section('page-header')
-    <i class="fa fa-list"></i> Brand List
+    <i class="fa fa-list"></i> Manufacturer List
 @stop
 @section('content')
 
 @include('backend._partials.page_header', [
     'fa' => 'fa fa-plus-circle',
-    'name' => 'Create Brand',
+    'name' => 'Create Manufacturer',
     'route' => route('backend.itemconfig.brand.create')
  ])
 
@@ -23,7 +23,7 @@
                             <tr>
                                 <th >Sl.</th>
                                 <th >Name</th>
-                                <th >Image</th>
+                                {{-- <th >Image</th> --}}
                                 <th >Action</th>
                             </tr>
                         </thead>
@@ -50,10 +50,11 @@
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                 { data: 'name', name: 'name' },
-                { data: "image",
-                        render: function (img) {
-                        return '<img src="' + img + '" alt="no-image" height="100px" width="100" >';
-                },  orderable: false, searchable: false},
+                // { data: "image",
+                //         render: function (img) {
+                //         return '<img src="' + img + '" alt="no-image" height="100px" width="100" >';
+                // },  orderable: false, searchable: false},
+
                 { data: 'action', name: 'action', orderable: false, searchable: false },  
             ],
         });
