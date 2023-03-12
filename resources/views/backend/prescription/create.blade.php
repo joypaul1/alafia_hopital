@@ -564,6 +564,8 @@
             return total;
         }
 
+        // Something for test
+
         function approximateProfit() {
             $('#approximateProfit').text(approximateSellPrice() - approximateCost());
             console.log(approximateSellPrice() - approximateCost(), 'profile');
