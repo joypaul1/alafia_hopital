@@ -21,8 +21,11 @@ class PatientController extends Controller
     {
         if ($request->optionData) {
             return response()->json(['data' => Patient::
-                // where('name', 'LIKE', "%{$request->optionData}%")->
-                whereLike($request->optionData, 'mobile')->whereLike($request->optionData, 'name')->whereLike($request->optionData, 'patientId')->whereLike($request->optionData, 'email')->take(15)
+                whereLike($request->optionData, 'mobile')
+                ->whereLike($request->optionData, 'name')
+                ->whereLike($request->optionData, 'patientId')
+                ->whereLike($request->optionData, 'email')
+                ->take(15)
                 ->get()]);
         }
         $patients =Patient::latest()->get();

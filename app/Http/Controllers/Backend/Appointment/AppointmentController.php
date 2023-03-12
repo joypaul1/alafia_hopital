@@ -108,11 +108,6 @@ class AppointmentController extends Controller
         return view('backend.appointment.doctor.index',
             compact(
                 'appointmentDatas'
-
-                // 'appointment_status',
-                // 'appointmentDatas',
-                // 'appointment_priority',
-                // 'paymentSystems'
             )
         );
     }

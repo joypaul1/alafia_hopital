@@ -58,7 +58,6 @@ class PrescriptionController extends Controller
     public function store(Request $request)
     {
         try {
-            // dd($request->all());
             DB::beginTransaction();
             $data['patientId']          = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
             $data['name']               = $request->name;
@@ -71,7 +70,7 @@ class PrescriptionController extends Controller
             $data['blood_group']        = $request->blood_group;
             $data['marital_status']     = $request->marital_status;
             $data['address']            = $request->address;
-            $prescription = Prescription::create($data);
+            $prescription               = Prescription::create($data);
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollback();
