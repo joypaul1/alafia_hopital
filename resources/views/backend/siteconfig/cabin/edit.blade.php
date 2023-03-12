@@ -1,6 +1,6 @@
 <div class="modal-content">
     <form class="needs-validation" id="bedCabin_edit_form"
-        action="{{ route('backend.siteconfig.bedCabin.update', $bedCabin) }}" method="Post" enctype="multipart/form-data">
+        action="{{ route('backend.siteConfig.bedCabin.update', $bedCabin) }}" method="Post" enctype="multipart/form-data">
         @method('POST')
         @csrf
         <div class="modal-header">

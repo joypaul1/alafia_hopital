@@ -20,7 +20,7 @@ class BannerController extends Controller
     public function index()
     {
         $banners = Banner::select('id', 'position', 'image')->paginate(10);
-        return view('backend.siteconfig.banner.index', compact('banners'));
+        return view('backend.siteConfig.banner.index', compact('banners'));
     }
 
     /**
@@ -30,7 +30,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        return view('backend.siteconfig.banner.create');
+        return view('backend.siteConfig.banner.create');
     }
 
     /**
@@ -69,7 +69,7 @@ class BannerController extends Controller
      */
     public function edit(Banner $banner )
     {
-        return view('backend.siteconfig.banner.edit',compact('banner'));
+        return view('backend.siteConfig.banner.edit',compact('banner'));
     }
 
     /**

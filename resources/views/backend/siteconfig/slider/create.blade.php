@@ -8,7 +8,7 @@
 @include('backend._partials.page_header', [
 'fa' => 'fa fa-list',
 'name' => 'Slider List',
-'route' => route('backend.siteconfig.slider.index')
+'route' => route('backend.siteConfig.slider.index')
 ])
 
 
@@ -17,7 +17,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-validation">
-                    <form action="{{ route('backend.siteconfig.slider.store') }}" method="Post"
+                    <form action="{{ route('backend.siteConfig.slider.store') }}" method="Post"
                         enctype="multipart/form-data">
                         @method('POST')
                         @csrf

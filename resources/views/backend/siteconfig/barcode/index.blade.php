@@ -18,11 +18,11 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-validation">
-                    <form class="needs-validation" action="{{ route('backend.siteconfig.barcode-method.store') }}" method="Post" enctype="multipart/form-data">
+                    <form class="needs-validation" action="{{ route('backend.siteConfig.barcode-method.store') }}" method="Post" enctype="multipart/form-data">
                         @method('POST')
                         @csrf
                         <div class="row align-items-end">
-                           
+
                             <div class="col-md-3">
                                 <div class="form-group">
                                     @include('components.backend.forms.select2.option',[ 'name' => 'type','optionDatas'=>$datas , 'required'=> true ])
@@ -48,13 +48,13 @@
                         class="table table-bordered text-center">
                         <thead>
                             <tr>
-                              
+
                                 <th>Name</th>
                                 <th>Type </th>
-                              
+
                             </tr>
                         </thead>
-                    
+
                         <tbody>
                             <tr>
                                 <td>QRCODE</td>
@@ -78,14 +78,14 @@
                             </tr> --}}
                             {{-- <tr>
                                 <td>RMS4CC</td>
-                                <td>{!! DNS2D::getBarcodeHTML('4445645656', 'RMS4CC') !!}</td> 
+                                <td>{!! DNS2D::getBarcodeHTML('4445645656', 'RMS4CC') !!}</td>
                             </tr> --}}
                             {{-- <tr>
                                 <td>UPCA</td>
                                 <td>{!! DNS1D::getBarcodeHTML('4445645656', 'UPCA') !!}</td>
                             </tr>  --}}
-                       
-                        
+
+
                         </tbody>
                     </table>
                 </div>

@@ -35,7 +35,7 @@
     @include('backend._partials.page_header', [
         'fa' => 'fa fa-list',
         'name' => 'Doctor List',
-        'route' => route('backend.siteconfig.slider.index'),
+        'route' => route('backend.siteConfig.slider.index'),
     ])
 
     <div class="row clearfix">

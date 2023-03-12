@@ -21,7 +21,7 @@ class SliderController extends Controller
     public function index()
     {
         $sliders = Slider::select('id', 'text','position', 'image')->paginate(10);
-        return view('backend.siteconfig.slider.index', compact('sliders'));
+        return view('backend.siteConfig.slider.index', compact('sliders'));
     }
 
     /**
@@ -31,7 +31,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        return view('backend.siteconfig.slider.create');
+        return view('backend.siteConfig.slider.create');
     }
 
     /**
@@ -48,7 +48,7 @@ class SliderController extends Controller
             return back()->with(['success' => $returnData->getData()->msg  ]);
         }
         return back()->with(['error' =>$returnData->getData()->msg ]);
-      
+
     }
 
     /**
@@ -70,7 +70,7 @@ class SliderController extends Controller
      */
     public function edit(Slider $slider )
     {
-        return view('backend.siteconfig.slider.edit',compact('slider'));
+        return view('backend.siteConfig.slider.edit',compact('slider'));
     }
 
     /**
@@ -82,7 +82,7 @@ class SliderController extends Controller
      */
     public function update(UpdateRequest $request, Slider $slider)
     {
-      
+
         $returnData = $request->updateData($request, $slider);
         if($returnData->getData()->status){
 		    (new LogActivity)::addToLog('Slider Updated');
@@ -106,6 +106,6 @@ class SliderController extends Controller
             return back()->with(['status' => false, 'error' =>$ex->getMessage()]);
         }
 		(new LogActivity)::addToLog('Slider Deleted');
-        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);   
+        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);
     }
 }

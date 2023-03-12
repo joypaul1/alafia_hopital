@@ -22,7 +22,7 @@ class TaxController extends Controller
             return TaxSetting::select('id', 'type', 'rate')->get();
         }
         $datas=  (object)[['name' =>'Percent', 'id' =>'percent' ],['name' =>'Flat', 'id' =>'flat' ]];
-        return view('backend.siteconfig.tax.index',compact('datas', 'taxDatas'));
+        return view('backend.siteConfig.tax.index',compact('datas', 'taxDatas'));
     }
 
     /**
@@ -32,7 +32,7 @@ class TaxController extends Controller
      */
     public function create()
     {
-        return view('backend.siteconfig.tax.index');
+        return view('backend.siteConfig.tax.index');
     }
 
     /**

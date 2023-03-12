@@ -21,7 +21,7 @@
                     </a>
                 </li>
                   <li>
-                      <a href="{{ route('backend.siteconfig.filemanager')}}" class="icon-menu d-none d-sm-block d-md-none d-lg-block"><i class="fa fa-folder-open-o"></i></a>
+                      <a href="{{ route('backend.siteConfig.filemanager')}}" class="icon-menu d-none d-sm-block d-md-none d-lg-block"><i class="fa fa-folder-open-o"></i></a>
                   </li>
                   <li>
                       <a href="{{ route('backend.personal-locker.index')}}"  class="icon-menu d-none d-sm-block d-md-none d-lg-block"><i class="icon-drawer"></i></a>

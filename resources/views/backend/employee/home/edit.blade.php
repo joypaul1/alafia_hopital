@@ -11,7 +11,7 @@
 @include('backend._partials.page_header', [
 'fa' => 'fa fa-list',
 'name' => 'Slider List',
-'route' => route('backend.siteconfig.slider.index')
+'route' => route('backend.siteConfig.slider.index')
 ])
 
 
@@ -21,7 +21,7 @@
 
             <div class="card-body">
                 <div class="form-validation">
-                    <form  action="{{ route('backend.siteconfig.slider.update', $slider) }}" method="Post" enctype="multipart/form-data">
+                    <form  action="{{ route('backend.siteConfig.slider.update', $slider) }}" method="Post" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
                         <div class="mb-3 row">
@@ -91,14 +91,14 @@
 <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header"> 
+            <div class="modal-header">
                 <h4 class="title" id="defaultModalLabel">Slider Image View</h4>
             </div>
             <div class="modal-body">
                 <img src="#" alt="" id="outputImage" width='100%' height="50%">
             </div>
             <div class="modal-footer">
-               
+
                 <button type="button" class="btn btn-danger" data-dismiss="modal">X</button>
             </div>
         </div>

@@ -26,7 +26,7 @@
 @include('backend._partials.page_header', [
 'fa' => 'fa fa-list',
 'name' => 'QuickPage List',
-'route' => route('backend.siteconfig.quick-page.index')
+'route' => route('backend.siteConfig.quick-page.index')
 ])
 
 
@@ -36,7 +36,7 @@
 
             <div class="card-body">
                 <div class="form-validation">
-                    <form class="needs-validation" action="{{ route('backend.siteconfig.quick-page.update',$quickPage ) }}" method="Post" enctype="multipart/form-data">
+                    <form class="needs-validation" action="{{ route('backend.siteConfig.quick-page.update',$quickPage ) }}" method="Post" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
 

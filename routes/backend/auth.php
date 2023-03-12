@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 // });
 require_once __DIR__ . '/dashboard.php';
-require_once __DIR__ . '/siteconfig.php';
+require_once __DIR__ . '/siteConfig.php';
 require_once __DIR__ . '/itemconfig.php';
 require_once __DIR__ . '/employee.php';
 require_once __DIR__ . '/contact.php';

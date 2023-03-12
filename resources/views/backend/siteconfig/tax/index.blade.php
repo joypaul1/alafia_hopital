@@ -17,7 +17,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-validation">
-                    <form class="needs-validation" action="{{ route('backend.siteconfig.tax-rate.store') }}" method="Post" enctype="multipart/form-data">
+                    <form class="needs-validation" action="{{ route('backend.siteConfig.tax-rate.store') }}" method="Post" enctype="multipart/form-data">
                         @method('POST')
                         @csrf
 
@@ -76,12 +76,12 @@
                                 <td>{{ $item->rate??'-' }}</td>
                                 <td>{{ $item->type??'-' }}</td>
                                 <td>
-                                    <a href="{{ route('backend.siteconfig.tax-rate.edit', $item) }}" class="btn btn-sm btn-icon btn-warning  m-r-5" data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i>
+                                    <a href="{{ route('backend.siteConfig.tax-rate.edit', $item) }}" class="btn btn-sm btn-icon btn-warning  m-r-5" data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i>
                                     </a>
                                     <button   type="button"  onclick="delete_check({{$item->id}})"
                                     class="btn btn-sm btn-icon btn-danger  button-remove" data-toggle="tooltip" data-original-title="Remove" aria-describedby="tooltip64483"><i class="icon-trash" aria-hidden="true"></i>
                                     </button >
-                                    <form action="{{ route('backend.siteconfig.tax-rate.destroy', $item)}}"
+                                    <form action="{{ route('backend.siteConfig.tax-rate.destroy', $item)}}"
                                             id="deleteCheck_{{ $item->id }}" method="POST">
                                             @method('delete')
                                         @csrf

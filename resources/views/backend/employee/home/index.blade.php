@@ -11,7 +11,7 @@
 @include('backend._partials.page_header', [
     'fa' => 'fa fa-plus-circle',
     'name' => 'Create Slider',
-    'route' => route('backend.siteconfig.slider.create')
+    'route' => route('backend.siteConfig.slider.create')
  ])
 
 

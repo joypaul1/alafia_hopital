@@ -28,7 +28,7 @@ use App\Models\Service\ServiceType;
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['middleware' => 'admin', 'prefix' => 'admin/site-config', 'as' => 'backend.siteconfig.'], function () {
+Route::group(['middleware' => 'admin', 'prefix' => 'admin/site-config', 'as' => 'backend.siteConfig.'], function () {
 
     // site-config
     Route::get('/', [SiteInfoController::class, 'index'])->name('index');;

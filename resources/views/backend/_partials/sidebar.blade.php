@@ -264,20 +264,20 @@
                                 <span>Site Configuration</span>
                             </a>
                             <ul>
-                                <x-backend.side-bar class="{{ request()->is('admin/site-config' ? 'active' : ' ') }}" name="Site Info" link='backend.siteconfig.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'bed' ? 'active' : ' ' }}" name="Bed Config" link='backend.siteconfig.bed.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'symptom' ? 'active' : ' ' }}" name="Symptom Config" link='backend.siteconfig.symptom.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'serviceName' ? 'active' : ' ' }}" name="Service Config" link='backend.siteconfig.serviceName.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'bloodBank' ? 'active' : ' ' }}" name="Blood Config" link='backend.siteconfig.bloodBank.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'slider' ? 'active' : ' ' }}" name="Slider" link='backend.siteconfig.slider.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'banner' ? 'active' : ' ' }}" name="Banner" link='backend.siteconfig.banner.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'quick-page' ? 'active' : ' ' }}" name="Quick Page" link='backend.siteconfig.quick-page.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'email-configuration' ? 'active' : ' ' }}" name="Email Config" link='backend.siteconfig.email-configuration.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'meta-tag' ? 'active' : ' ' }}" name="SEO Meta Config" link='backend.siteconfig.meta-tag.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'socialmedia' ? 'active' : ' ' }}" name="Socail Media Config" link='backend.siteconfig.socialmedia.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'barcode-method' ? 'active' : ' ' }}" name="Barcode Config" link='backend.siteconfig.barcode-method.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'prefix-system' ? 'active' : ' ' }}" name="Invoice Prefix Config" link='backend.siteconfig.prefix-system.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'tax-rate' ? 'active' : ' ' }}" name="Taxt Config" link='backend.siteconfig.tax-rate.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->is('admin/site-config' ? 'active' : ' ') }}" name="Site Info" link='backend.siteConfig.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'bed' ? 'active' : ' ' }}" name="Bed Config" link='backend.siteConfig.bed.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'symptom' ? 'active' : ' ' }}" name="Symptom Config" link='backend.siteConfig.symptom.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'serviceName' ? 'active' : ' ' }}" name="Service Config" link='backend.siteConfig.serviceName.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'bloodBank' ? 'active' : ' ' }}" name="Blood Config" link='backend.siteConfig.bloodBank.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'slider' ? 'active' : ' ' }}" name="Slider" link='backend.siteConfig.slider.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'banner' ? 'active' : ' ' }}" name="Banner" link='backend.siteConfig.banner.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'quick-page' ? 'active' : ' ' }}" name="Quick Page" link='backend.siteConfig.quick-page.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'email-configuration' ? 'active' : ' ' }}" name="Email Config" link='backend.siteConfig.email-configuration.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'meta-tag' ? 'active' : ' ' }}" name="SEO Meta Config" link='backend.siteConfig.meta-tag.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'socialmedia' ? 'active' : ' ' }}" name="Socail Media Config" link='backend.siteConfig.socialmedia.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'barcode-method' ? 'active' : ' ' }}" name="Barcode Config" link='backend.siteConfig.barcode-method.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'prefix-system' ? 'active' : ' ' }}" name="Invoice Prefix Config" link='backend.siteConfig.prefix-system.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'tax-rate' ? 'active' : ' ' }}" name="Taxt Config" link='backend.siteConfig.tax-rate.index' icon='#' />
                             </ul>
                         </li>
                         {{-- End Site Configuration --}}

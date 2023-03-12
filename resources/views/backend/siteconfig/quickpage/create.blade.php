@@ -24,17 +24,17 @@
 @include('backend._partials.page_header', [
 'fa' => 'fa fa-list',
 'name' => 'QuickPage List',
-'route' => route('backend.siteconfig.quick-page.index')
+'route' => route('backend.siteConfig.quick-page.index')
 ])
-  
+
 
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
-           
+
             <div class="card-body">
                 <div class="form-validation">
-                    <form class="needs-validation" action="{{ route('backend.siteconfig.quick-page.store') }}" method="Post" enctype="multipart/form-data">
+                    <form class="needs-validation" action="{{ route('backend.siteConfig.quick-page.store') }}" method="Post" enctype="multipart/form-data">
                         @method('POST')
                         @csrf
 
@@ -42,21 +42,21 @@
                             @include('components.backend.forms.input.input-type',[ 'name' => 'name', 'placeholder' => 'page name will be here...' ])
                             @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                         </div>
-                        
+
                         <div class="form-group">
                             @include('components.backend.forms.input.input-type',[ 'name' => 'position', 'placeholder' => 'position will be here...(1,2,3..)' ])
                             @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('position')])
                         </div>
-                     
+
                         <div class="form-group">
                             <label class="col-form-label" for="image">Description
                                 <span class="text-danger">*</span>
                             </label>
                                 <textarea class="form-control" id="editor" placeholder="Enter the Description" name="description"></textarea>
                                 @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('description')])
-                                
+
                         </div>
-                     
+
                         <div class="form-group">
                             <div class="col-lg-12 text-right">
                                 <button type="submit" class="btn btn-primary">Submit</button>

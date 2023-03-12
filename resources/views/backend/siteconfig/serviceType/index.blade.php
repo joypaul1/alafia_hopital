@@ -13,14 +13,14 @@
 
 <div class="row">
     <div class="col-3">
-        @include('backend.siteconfig.service.sidebar')
+        @include('backend.siteConfig.service.sidebar')
     </div>
     <div class="col-9">
         <div class="card">
             <div class="body">
                 <div class="d-flex justify-content-between aling-items-center mb-4">
                     <h4 class="card-title mb-0">Service Type List</h4>
-                    <a id="create_data" data-href="{{ route('backend.siteconfig.serviceType.create') }}" class="btn btn-info btn-md text-white">
+                    <a id="create_data" data-href="{{ route('backend.siteConfig.serviceType.create') }}" class="btn btn-info btn-md text-white">
                         <i class="fa fa-plus-circle me-2"></i> Create Type
                     </a>
                 </div>
@@ -78,10 +78,10 @@
             , destroy: true
             , pagingType: 'numbers'
             , pageLength: 10
-            , ajax: "{{ route('backend.siteconfig.serviceType.index') }}"
+            , ajax: "{{ route('backend.siteConfig.serviceType.index') }}"
             , ajax: {
                 method: 'GET'
-                , url: "{{ route('backend.siteconfig.serviceType.index') }}"
+                , url: "{{ route('backend.siteConfig.serviceType.index') }}"
                 , data: function(d) {
                     d.status = $('select#status').val() || true;
                 }

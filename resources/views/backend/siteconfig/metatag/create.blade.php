@@ -11,7 +11,7 @@
 @include('backend._partials.page_header', [
 'fa' => 'fa fa-list',
 'name' => ' ',
-'route' => route('backend.siteconfig.meta-tag.index')
+'route' => route('backend.siteConfig.meta-tag.index')
 ])
 
 
@@ -20,11 +20,11 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-validation">
-                    <form action="{{ route('backend.siteconfig.meta-tag.store') }}" method="Post" enctype="multipart/form-data">
+                    <form action="{{ route('backend.siteConfig.meta-tag.store') }}" method="Post" enctype="multipart/form-data">
                         @method('POST')
                         @csrf
                         @forelse ($metatags as $data)
-                        
+
                         <section class="meta_section mb-1" style="border:1px solid gray;padding:1%">
 
                             <div class="form-group">
@@ -40,7 +40,7 @@
                                 <textarea class="form-control" name="description[]" id="description" cols="10" rows="5">{{ $data->description??old('description') }}</textarea>
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('description')])
                             </div>
-                            
+
                             <div class="form-group">
                                 <div class="col-lg-12 " style="display: block;text-align:right">
                                     <button type="button" class="btn btn-outline-success" id="add">+</button>
@@ -68,8 +68,8 @@
                             </div>
                         </section>
                         @endforelse
-                        
-                        
+
+
                         <div class="form-group">
                             @include('components.backend.forms.input.submit-button')
                         </div>
@@ -91,7 +91,7 @@
         e.preventDefault();
         var $clone = $('.meta_section:first').clone().find('[name^="name"],  [name^="description"], [name^="ids"]').val("").end();
         $('.meta_section:last').after($clone);
-       
+
     })
     $(document).on('click','#delete', function(e){
         e.preventDefault();
@@ -106,8 +106,8 @@
                 positionClass: $positionClass
             });
         }
-      
+
     })
-    
+
 </script>
 @endpush

@@ -36,11 +36,11 @@ class BedGroupController extends Controller
                    $action ='<div class="dropdown text-center">
                    <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                        <div class="dropdown-menu" style="min-width:auto !important">
-                       <a data-href="'.route('backend.siteconfig.bedGroup.edit', $row).'" class="dropdown-item edit_check"
+                       <a data-href="'.route('backend.siteConfig.bedGroup.edit', $row).'" class="dropdown-item edit_check"
                            data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit" aria-hidden="true"></i>
                        </a>
                        <div class="dropdown-divider"></div>
-                       <a data-href="'.route('backend.siteconfig.bedGroup.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
+                       <a data-href="'.route('backend.siteConfig.bedGroup.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
                            data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash" aria-hidden="true"></i>
                        </a>
                    </div></div>';
@@ -57,7 +57,7 @@ class BedGroupController extends Controller
 
        }
        // $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
-       return view('backend.siteconfig.bedGroup.index');
+       return view('backend.siteConfig.bedGroup.index');
     }
 
       /**
@@ -67,7 +67,7 @@ class BedGroupController extends Controller
      */
     public function create()
     {
-        return view('backend.siteconfig.bedGroup.create');
+        return view('backend.siteConfig.bedGroup.create');
     }
 
     /**
@@ -106,7 +106,7 @@ class BedGroupController extends Controller
      */
     public function edit(BedGroup $bedGroup )
     {
-        return view('backend.siteconfig.bedGroup.edit',compact('bedGroup'));
+        return view('backend.siteConfig.bedGroup.edit',compact('bedGroup'));
     }
 
     /**

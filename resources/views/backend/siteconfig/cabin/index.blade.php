@@ -13,14 +13,14 @@
 
     <div class="row">
         <div class="col-3">
-            @include('backend.siteconfig.bed.sidebar')
+            @include('backend.siteConfig.bed.sidebar')
         </div>
         <div class="col-9">
             <div class="card">
                 <div class="body">
                     <div class="d-flex justify-content-between aling-items-center mb-4">
                         <h4 class="card-title mb-0">Cabin List</h4>
-                        <a id="create_data" data-href="{{ route('backend.siteconfig.bedCabin.create') }}"
+                        <a id="create_data" data-href="{{ route('backend.siteConfig.bedCabin.create') }}"
                             class="btn btn-info btn-md text-white">
                             <i class="fa fa-plus-circle me-2"></i> Create Cabin
                         </a>
@@ -78,10 +78,10 @@
                 destroy: true,
                 pagingType: 'numbers',
                 pageLength: 10,
-                ajax: "{{ route('backend.siteconfig.bedCabin.index') }}",
+                ajax: "{{ route('backend.siteConfig.bedCabin.index') }}",
                 ajax: {
                     method: 'GET',
-                    url: "{{ route('backend.siteconfig.bedCabin.index') }}",
+                    url: "{{ route('backend.siteConfig.bedCabin.index') }}",
                     data: function(d) {
                         d.status = $('select#status').val() || true;
                     },

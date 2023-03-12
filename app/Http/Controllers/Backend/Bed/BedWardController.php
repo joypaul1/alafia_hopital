@@ -38,11 +38,11 @@ class BedWardController extends Controller
                    $action ='<div class="dropdown text-center">
                    <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                        <div class="dropdown-menu" style="min-width:auto !important">
-                       <a data-href="'.route('backend.siteconfig.bedWard.edit', $row).'" class="dropdown-item edit_check"
+                       <a data-href="'.route('backend.siteConfig.bedWard.edit', $row).'" class="dropdown-item edit_check"
                            data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit" aria-hidden="true"></i>
                        </a>
                        <div class="dropdown-divider"></div>
-                       <a data-href="'.route('backend.siteconfig.bedWard.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
+                       <a data-href="'.route('backend.siteConfig.bedWard.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
                            data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash" aria-hidden="true"></i>
                        </a>
                    </div></div>';
@@ -59,7 +59,7 @@ class BedWardController extends Controller
 
        }
        // $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
-       return view('backend.siteconfig.ward.index');
+       return view('backend.siteConfig.ward.index');
     }
 
       /**
@@ -69,7 +69,7 @@ class BedWardController extends Controller
      */
     public function create()
     {
-        return view('backend.siteconfig.ward.create');
+        return view('backend.siteConfig.ward.create');
     }
 
     /**
@@ -108,7 +108,7 @@ class BedWardController extends Controller
      */
     public function edit(BedWard $bedWard )
     {
-        return view('backend.siteconfig.ward.edit',compact('floor'));
+        return view('backend.siteConfig.ward.edit',compact('floor'));
     }
 
     /**

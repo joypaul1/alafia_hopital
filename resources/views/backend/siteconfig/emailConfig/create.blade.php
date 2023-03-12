@@ -10,7 +10,7 @@
 @include('backend._partials.page_header', [
 'fa' => 'fa fa-list',
 'name' => ' ',
-'route' => route('backend.siteconfig.email-configuration.index')
+'route' => route('backend.siteConfig.email-configuration.index')
 ])
 
 
@@ -19,7 +19,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-validation">
-                    <form action="{{ route('backend.siteconfig.email-configuration.store') }}" method="Post" enctype="multipart/form-data">
+                    <form action="{{ route('backend.siteConfig.email-configuration.store') }}" method="Post" enctype="multipart/form-data">
                         @method('POST')
                         @csrf
 

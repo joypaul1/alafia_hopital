@@ -11,7 +11,7 @@
 @include('backend._partials.page_header', [
     'fa' => 'fa fa-plus-circle',
     'name' => 'Create QuickPage',
-    'route' => route('backend.siteconfig.quick-page.create')
+    'route' => route('backend.siteConfig.quick-page.create')
  ])
 
 
@@ -31,7 +31,7 @@
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
-                    
+
                         <tbody>
                             @forelse ($quickPages as $key=>$item)
                                 <tr>
@@ -40,12 +40,12 @@
                                     <td  class="text-center">  {{ $item->slug??'-' }}</td>
                                     <td class="text-center">{{ $item->position??'-'}}</td>
                                     <td>
-                                        <a href="{{ route('backend.siteconfig.quick-page.edit', $item) }}" class="btn btn-sm btn-icon btn-warning  m-r-5" data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i>
+                                        <a href="{{ route('backend.siteConfig.quick-page.edit', $item) }}" class="btn btn-sm btn-icon btn-warning  m-r-5" data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i>
                                         </a>
                                         <button  type="button" onclick="delete_check({{$item->id}})"
                                         class="btn btn-sm btn-icon btn-danger  button-remove" data-toggle="tooltip" data-original-title="Remove" aria-describedby="tooltip64483"><i class="icon-trash" aria-hidden="true"></i>
                                         </button >
-                                        <form action="{{ route('backend.siteconfig.quick-page.destroy', $item)}}"
+                                        <form action="{{ route('backend.siteConfig.quick-page.destroy', $item)}}"
                                             id="deleteCheck_{{ $item->id }}" method="POST">
                                             @method('delete')
                                           @csrf
@@ -53,10 +53,10 @@
                                     </td>
                                 </tr>
                             @empty
-                                
+
                             @endforelse
-                       
-                        
+
+
                         </tbody>
                     </table>
                 </div>
@@ -93,5 +93,5 @@
 
     </script>
 
-    
+
 @endpush

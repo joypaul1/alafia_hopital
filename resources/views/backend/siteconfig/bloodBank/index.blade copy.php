@@ -13,14 +13,14 @@
 
     <div class="row">
         {{-- <div class="col-3">
-            @include('backend.siteconfig.bloodbank.sidebar')
+            @include('backend.siteConfig.bloodbank.sidebar')
         </div> --}}
         <div class="col-12">
             <div class="card">
                 <div class="body">
                     <div class="d-flex justify-content-between aling-items-center mb-4">
                         <h4 class="card-title mb-0">Symptom List</h4>
-                        <a id="create_data" data-href="{{ route('backend.siteconfig.symptom.create') }}"
+                        <a id="create_data" data-href="{{ route('backend.siteConfig.symptom.create') }}"
                             class="btn btn-info btn-md text-white">
                             <i class="fa fa-plus-circle me-2"></i> Create Type
                         </a>
@@ -167,10 +167,10 @@
             //     destroy: true,
             //     pagingType: 'numbers',
             //     pageLength: 10,
-            //     ajax: "{{ route('backend.siteconfig.symptom.index') }}",
+            //     ajax: "{{ route('backend.siteConfig.symptom.index') }}",
             //     ajax: {
             //         method:'GET',
-            //         url : "{{ route('backend.siteconfig.symptom.index') }}",
+            //         url : "{{ route('backend.siteConfig.symptom.index') }}",
             //         data : function ( d ) {
             //             d.status = $('select#status').val()||true;
             //         },

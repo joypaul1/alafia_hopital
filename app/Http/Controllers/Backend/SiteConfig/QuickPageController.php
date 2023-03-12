@@ -20,7 +20,7 @@ class QuickPageController extends Controller
         $quickPages = QuickPage::select('id', 'position', 'slug', 'name', 'status')->paginate(10);
         $quick_page = QuickPage::active()->select('id', 'name', 'slug', 'position')->orderBy('position')->get();
         session(['quick_page' => $quick_page]);
-       return view('backend.siteconfig.quickpage.index', compact('quickPages'));
+       return view('backend.siteConfig.quickpage.index', compact('quickPages'));
     }
 
     /**
@@ -30,7 +30,7 @@ class QuickPageController extends Controller
      */
     public function create()
     {
-        return view('backend.siteconfig.quickpage.create');
+        return view('backend.siteConfig.quickpage.create');
     }
 
     /**
@@ -68,7 +68,7 @@ class QuickPageController extends Controller
      */
     public function edit(QuickPage $quickPage )
     {
-        return view('backend.siteconfig.quickpage.edit',compact('quickPage'));
+        return view('backend.siteConfig.quickpage.edit',compact('quickPage'));
     }
     /**
      * Update the specified resource in storage.

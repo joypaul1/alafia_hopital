@@ -9,7 +9,7 @@
 @include('backend._partials.page_header', [
     'fa' => 'fa fa-plus-circle',
     'name' => 'Create Slider',
-    'route' => route('backend.siteconfig.slider.create')
+    'route' => route('backend.siteConfig.slider.create')
  ])
 
 
@@ -30,7 +30,7 @@
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
-                    
+
                         <tbody>
                             @forelse ($sliders as $key=>$item)
                                 <tr>
@@ -39,12 +39,12 @@
                                     <td><img src="{{ asset( $item->image) }}" alt="{{ $item->image }}" srcset="" width="100%" height="100"></td>
                                     <td>{{ $item->position??'-'}}</td>
                                     <td>
-                                        <a href="{{ route('backend.siteconfig.slider.edit', $item) }}" class="btn btn-sm btn-icon btn-warning  m-r-5" data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i>
+                                        <a href="{{ route('backend.siteConfig.slider.edit', $item) }}" class="btn btn-sm btn-icon btn-warning  m-r-5" data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i>
                                         </a>
                                         <button   type="button"  onclick="delete_check({{$item->id}})"
                                         class="btn btn-sm btn-icon btn-danger  button-remove" data-toggle="tooltip" data-original-title="Remove" aria-describedby="tooltip64483"><i class="icon-trash" aria-hidden="true"></i>
                                         </button >
-                                        <form action="{{ route('backend.siteconfig.slider.destroy', $item)}}"
+                                        <form action="{{ route('backend.siteConfig.slider.destroy', $item)}}"
                                             id="deleteCheck_{{ $item->id }}" method="POST">
                                             @method('delete')
                                           @csrf
@@ -52,10 +52,10 @@
                                     </td>
                                 </tr>
                             @empty
-                                
+
                             @endforelse
-                       
-                        
+
+
                         </tbody>
                     </table>
                 </div>

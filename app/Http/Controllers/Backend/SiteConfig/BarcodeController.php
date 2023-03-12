@@ -16,13 +16,13 @@ class BarcodeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { 
+    {
         // session_start();
         // $_SESSION["favcolor"] = "green";
-       
+
         // dd(Session::all());
         $datas=  (object)[['name' =>'QRCODE', 'id' =>'QRCODE' ]];
-        return view('backend.siteconfig.barcode.index',compact('datas'));
+        return view('backend.siteConfig.barcode.index',compact('datas'));
     }
 
     /**
@@ -43,7 +43,7 @@ class BarcodeController extends Controller
      */
     public function store(StoreRequest $request)
     {
-    
+
         $returnData = $request->storeData($request);
         if($returnData->getData()->status){
 		    (new LogActivity)::addToLog('Tax-Setting Created');

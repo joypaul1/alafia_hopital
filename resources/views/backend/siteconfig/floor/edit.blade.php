@@ -1,5 +1,5 @@
 <div class="modal-content">
-    <form class="needs-validation" id="floor_edit_form" action="{{ route('backend.siteconfig.floor.update', $floor) }}" method="Post"
+    <form class="needs-validation" id="floor_edit_form" action="{{ route('backend.siteConfig.floor.update', $floor) }}" method="Post"
         enctype="multipart/form-data">
         @method('POST')
         @csrf

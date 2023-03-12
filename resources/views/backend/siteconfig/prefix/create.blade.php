@@ -18,7 +18,7 @@
 
             <div class="card-body">
                 <div class="form-validation">
-                    <form class="needs-validation" action="{{ route('backend.siteconfig.prefix-system.store') }}" method="Post" enctype="multipart/form-data">
+                    <form class="needs-validation" action="{{ route('backend.siteConfig.prefix-system.store') }}" method="Post" enctype="multipart/form-data">
                         @method('POST')
                         @csrf
                         <div class="row align-items-center">
@@ -70,7 +70,7 @@
                                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                                 </div>
                             </div>
-                            
+
                             <div class="col-md-4">
                                 <div class="form-group">
                                     @include('components.backend.forms.input.input-type',[ 'name' => 'expense', 'value' =>Session('invoice_prefix')['expense']??' ', 'placeholder' => 'Expenses will be here...',  ])
@@ -101,7 +101,7 @@
                                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                                 </div>
                             </div> --}}
-                            
+
                             <div class="col-md-4">
                                 <div class="form-group">
                                     @include('components.backend.forms.input.input-type',[ 'name' => 'customer',  'value' =>Session('invoice_prefix')['customer']??' ', 'placeholder' => 'Customer will be here...',  ])

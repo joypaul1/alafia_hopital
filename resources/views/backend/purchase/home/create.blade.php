@@ -530,7 +530,7 @@
         // tax data
         $.ajax({
             type: "GET",
-            url:"{{ route('backend.siteconfig.tax-rate.index') }}",
+            url:"{{ route('backend.siteConfig.tax-rate.index') }}",
             dataType: 'JSON',
             data: {
                 optionData: true

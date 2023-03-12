@@ -1,5 +1,5 @@
 <div class="modal-content">
-    <form class="needs-validation" id="bloodBank_edit_form" action="{{ route('backend.siteconfig.bloodBank.update', $bloodBank) }}" method="Post"
+    <form class="needs-validation" id="bloodBank_edit_form" action="{{ route('backend.siteConfig.bloodBank.update', $bloodBank) }}" method="Post"
         enctype="multipart/form-data">
         @method('POST')
         @csrf

@@ -36,11 +36,11 @@ class BedTypeController extends Controller
                    $action ='<div class="dropdown text-center">
                    <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                        <div class="dropdown-menu" style="min-width:auto !important">
-                       <a data-href="'.route('backend.siteconfig.bedType.edit', $row).'" class="dropdown-item edit_check"
+                       <a data-href="'.route('backend.siteConfig.bedType.edit', $row).'" class="dropdown-item edit_check"
                            data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit" aria-hidden="true"></i>
                        </a>
                        <div class="dropdown-divider"></div>
-                       <a data-href="'.route('backend.siteconfig.bedType.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
+                       <a data-href="'.route('backend.siteConfig.bedType.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
                            data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash" aria-hidden="true"></i>
                        </a>
                    </div></div>';
@@ -57,7 +57,7 @@ class BedTypeController extends Controller
 
        }
        // $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
-       return view('backend.siteconfig.bedType.index');
+       return view('backend.siteConfig.bedType.index');
     }
 
       /**
@@ -67,7 +67,7 @@ class BedTypeController extends Controller
      */
     public function create()
     {
-        return view('backend.siteconfig.bedType.create');
+        return view('backend.siteConfig.bedType.create');
     }
 
     /**
@@ -106,7 +106,7 @@ class BedTypeController extends Controller
      */
     public function edit(BedType $bedType )
     {
-        return view('backend.siteconfig.bedType.edit',compact('bedType'));
+        return view('backend.siteConfig.bedType.edit',compact('bedType'));
     }
 
     /**

@@ -38,11 +38,11 @@ class ServiceNameController extends Controller
                     $action = '<div class="dropdown text-center">
                    <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                        <div class="dropdown-menu" style="min-width:auto !important">
-                       <a data-href="' . route('backend.siteconfig.serviceName.edit', $row) . '" class="dropdown-item edit_check"
+                       <a data-href="' . route('backend.siteConfig.serviceName.edit', $row) . '" class="dropdown-item edit_check"
                            data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit" aria-hidden="true"></i>
                        </a>
                        <div class="dropdown-divider"></div>
-                       <a data-href="' . route('backend.siteconfig.serviceName.destroy', $row) . '"class="dropdown-item delete_check"  data-toggle="tooltip"
+                       <a data-href="' . route('backend.siteConfig.serviceName.destroy', $row) . '"class="dropdown-item delete_check"  data-toggle="tooltip"
                            data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash" aria-hidden="true"></i>
                        </a>
                    </div></div>';
@@ -64,7 +64,7 @@ class ServiceNameController extends Controller
             // ->json();
         }
         // $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
-        return view('backend.siteconfig.service.index');
+        return view('backend.siteConfig.service.index');
     }
 
     /**
@@ -75,7 +75,7 @@ class ServiceNameController extends Controller
     public function create()
     {
         $type = ServiceType::select(['id', 'name'])->get();
-        return view('backend.siteconfig.service.create', compact('type'));
+        return view('backend.siteConfig.service.create', compact('type'));
     }
 
     /**
@@ -115,7 +115,7 @@ class ServiceNameController extends Controller
     {
         $type = ServiceType::select(['id', 'name'])->get();
 
-        return view('backend.siteconfig.service.edit', compact('serviceName', 'type'));
+        return view('backend.siteConfig.service.edit', compact('serviceName', 'type'));
     }
 
     /**

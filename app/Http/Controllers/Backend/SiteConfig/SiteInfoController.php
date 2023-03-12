@@ -20,7 +20,7 @@ class SiteInfoController extends Controller
     {
         $stockMethods = (object)[['id'=> 'FIFO' , 'name'=>"FIFO (First In First Out)" ], ['id'=> 'LIFO' , 'name'=>"LIFO (Last In First Out)" ]];
 
-        return view('backend.siteconfig.home.index',
+        return view('backend.siteConfig.home.index',
         ['siteInfo' => SiteInfo::first(), 'dateTimeZone' => (new Timezone)::generate_timezone_list(),
         'countries' =>  Country::get(['name']), 'currencies' => Currency::get(['name'])]);
     }

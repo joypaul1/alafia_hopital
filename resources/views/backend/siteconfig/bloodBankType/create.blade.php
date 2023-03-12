@@ -1,6 +1,6 @@
 
 <div class="modal-content">
-    <form class="needs-validation" id="bloodBankType_add_form" action="{{ route('backend.siteconfig.bloodBankType.store') }}" method="Post"
+    <form class="needs-validation" id="bloodBankType_add_form" action="{{ route('backend.siteConfig.bloodBankType.store') }}" method="Post"
         enctype="multipart/form-data">
         @method('POST')
         @csrf

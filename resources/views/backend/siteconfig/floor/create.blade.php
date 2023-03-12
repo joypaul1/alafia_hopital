@@ -1,6 +1,6 @@
 
 <div class="modal-content">
-    <form class="needs-validation" id="floor_add_form" action="{{ route('backend.siteconfig.floor.store') }}" method="Post"
+    <form class="needs-validation" id="floor_add_form" action="{{ route('backend.siteConfig.floor.store') }}" method="Post"
         enctype="multipart/form-data">
         @method('POST')
         @csrf

@@ -82,7 +82,9 @@
                                             -
                                         </button>
                                     </div>
+
                                 </div>
+                                <div id="addination_info" style="width:100%"></div>
                             </div>
                         </div>
 
@@ -99,19 +101,21 @@
                                 @include('components.backend.forms.input.input-type2', [
                                     'name' => 'symptoms_name',
                                     'placeholder' => 'Complaint',
+                                    'class' => 'symptoms_name',
                                     'required' => true,
                                 ])
                             </div>
+                            <input type="hidden" id="symptoms_id" name="symptoms_id[]">
                             <div class="col-2">
-                                <button class="btn btn-info">
+                                <button class="btn btn-info chief_add">
                                     +
                                 </button>
-                                <button class="btn btn-danger">
+                                <button class="btn btn-danger chief_remove">
                                     -
                                 </button>
                             </div>
                         </div>
-
+                        <div id="chief_complaints" style="width:100%"></div>
                     </div>
                 </div>
 
@@ -301,7 +305,110 @@
 
 @push('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script>file:///home/icicle/Downloads/BiochemistryReport.html
+    <script>
+        //addination info add and remove
+        $(document).on('click', '.p_infoAdd', function() {
+            var html = `<div class="row  my-2">  <div class="col-5 ">
+                                    @include('components.backend.forms.input.input-type2', [
+                                        'name' => 'p_info[]',
+                                        'placeholder' => 'Additional informarion (eg. Blood Pressure)',
+                                        'required' => true,
+                                    ])
+                                </div>
+                                <div class="col-5">
+                                    @include('components.backend.forms.input.input-type2', [
+                                        'name' => 'p_info_value[]',
+                                        'placeholder' => 'Enter Value (eg. 120/80)',
+                                        'required' => true,
+                                    ])
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn btn-info p_infoAdd">
+                                        +
+                                    </button>
+                                    <button class="btn btn-danger p_infoRemove">
+                                        -
+                                    </button>
+                                </div></div>`;
+
+            $('#addination_info').append(html);
+        });
+        // p_remove remove
+        $(document).on('click', '.p_infoRemove', function() {
+            $(this).parent().parent().remove();
+        });
+
+        // symptoms_name add and remove
+        $(document).on('click', '.chief_add', function() {
+            var html = `<div class="row my-2">
+                            <div class="col-10">
+                                @include('components.backend.forms.input.input-type2', [
+                                    'name' => 'symptoms_name',
+                                    'placeholder' => 'Complaint',
+                                    'class' => 'symptoms_name',
+                                    'required' => true,
+                                ])
+                            </div>
+                            <div class="col-2">
+                                <button class="btn btn-info chief_add">
+                                    +
+                                </button>
+                                <button class="btn btn-danger chief_remove">
+                                    -
+                                </button>
+                            </div>
+                        </div>`;
+
+            $('#chief_complaints').append(html);
+        });
+        // chief_remove remove
+        $(document).on('click', '.chief_remove', function() {
+            $(this).parent().parent().remove();
+        });
+
+
+        // symptoms_name every id call for autocomplete suggestion 
+        $(document).on('input', '.symptoms_name', function() {
+            $(this).autocomplete({
+                source: function(request, response) {
+                    var optionData = request.term;
+                    $.ajax({
+                        method: 'GET',
+                        url: "{{ route('backend.siteConfig.symptom.index') }}",
+                        data: {
+                            'optionData': optionData
+                        },
+                        success: function(res) {
+                            var resArray = $.map(res.data, function(obj) {
+                                return {
+                                    value_id: obj
+                                    .id, //Show as label of input fieldname: obj.name,
+                                    value: obj
+                                    .name, //Show as label of input fieldname: obj.name,
+                                    label: obj
+                                    .name, //Show as label of input fieldname: obj.name,
+                                }
+                            })
+                            response(resArray);
+                        }
+                    });
+                },
+                minLength: 1,
+                select: function(event, ui) {
+                    $(this).val(ui.item.value);
+                    $(this).parents('.row').find('#symptoms_id').val(ui.item.value_id);
+                    return false;
+                }
+            });
+        })
+        // $("#symptoms_name").each(function() {
+
+
+        // });
+
+
+
+
 
         //search  patient
         $("#p_id").autocomplete({
@@ -319,8 +426,10 @@
                                 mobile: obj.mobile, //Fillable in input field
                                 value_id: obj.id, //Fillable in input field
                                 name: obj.name, //Fillable in input field
-                                value: obj.patientId, //Show as label of input fieldname: obj.name, mobile: obj.mobile
-                                label: obj.name + '(' + obj.mobile+')', //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                                value: obj
+                                    .patientId, //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                                label: obj.name + '(' + obj.mobile +
+                                    ')', //Show as label of input fieldname: obj.name, mobile: obj.mobile
                             }
                         })
                         response(resArray);
@@ -353,8 +462,10 @@
                                 mobile: obj.mobile, //Fillable in input field
                                 value_id: obj.id, //Fillable in input field
                                 value: obj.name, //Fillable in input field
-                                patientId: obj.patientId, //Show as label of input fieldname: obj.name, mobile: obj.mobile
-                                label: obj.name + '(' + obj.mobile+')', //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                                patientId: obj
+                                    .patientId, //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                                label: obj.name + '(' + obj.mobile +
+                                    ')', //Show as label of input fieldname: obj.name, mobile: obj.mobile
                             }
                         })
                         response(resArray);
@@ -388,8 +499,10 @@
                                 name: obj.name, //Fillable in input field
                                 value_id: obj.id, //Fillable in input field
                                 value: obj.mobile, //Fillable in input field
-                                patientId: obj.patientId, //Show as label of input fieldname: obj.name, mobile: obj.mobile
-                                label: obj.name + '(' + obj.mobile+')', //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                                patientId: obj
+                                    .patientId, //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                                label: obj.name + '(' + obj.mobile +
+                                    ')', //Show as label of input fieldname: obj.name, mobile: obj.mobile
                             }
                         })
                         response(resArray);
@@ -429,7 +542,7 @@
                                 value: obj.name, //Fillable in input field
                                 value_id: obj.id, //Fillable in input field
                                 label: 'Name:' + obj.name + ' sku:' + obj
-                                .sku, //Show as label of input fieldname: obj.name, sku: obj.sku
+                                    .sku, //Show as label of input fieldname: obj.name, sku: obj.sku
                             }
                         })
                         response(resArray);
@@ -480,7 +593,7 @@
                                 value: obj.name, //Fillable in input field
                                 value_id: obj.id, //Fillable in input field
                                 label: 'Name:' + obj.name + ' sku:' + obj
-                                .sku, //Show as label of input fieldname: obj.name, sku: obj.sku
+                                    .sku, //Show as label of input fieldname: obj.name, sku: obj.sku
                             }
                         })
                         response(resArray);

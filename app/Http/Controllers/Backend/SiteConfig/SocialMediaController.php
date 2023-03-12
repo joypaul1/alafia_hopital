@@ -11,7 +11,7 @@ class SocialMediaController extends Controller
 {
     public function index()
     {
-        return view('backend.siteconfig.socialmedia.index', ['socialmedia' => SocialMedia::first()]);
+        return view('backend.siteConfig.socialmedia.index', ['socialmedia' => SocialMedia::first()]);
     }
 
     public function store(Request $request)

@@ -11,7 +11,7 @@
 @include('backend._partials.page_header', [
     'fa' => 'fa fa-plus-circle',
     'name' => 'Create Prefix',
-    'route' => route('backend.siteconfig.prefix-system.create')
+    'route' => route('backend.siteConfig.prefix-system.create')
  ])
 
 
@@ -32,11 +32,11 @@
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
-                    
+
                         <tbody>
-                          
-                       
-                        
+
+
+
                         </tbody>
                     </table>
                 </div>
@@ -73,5 +73,5 @@
 
     </script>
 
-    
+
 @endpush

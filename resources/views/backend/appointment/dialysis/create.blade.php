@@ -9,7 +9,7 @@
     @include('backend._partials.page_header', [
         'fa' => 'fa fa-list',
         'name' => 'Appointment List',
-        'route' => route('backend.siteconfig.slider.index'),
+        'route' => route('backend.siteConfig.slider.index'),
     ])
     <div class="card">
         <div class="body">

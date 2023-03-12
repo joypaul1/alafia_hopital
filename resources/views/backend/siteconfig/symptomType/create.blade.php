@@ -1,6 +1,6 @@
 
 <div class="modal-content">
-    <form class="needs-validation" id="symptomType_add_form" action="{{ route('backend.siteconfig.symptomType.store') }}" method="Post"
+    <form class="needs-validation" id="symptomType_add_form" action="{{ route('backend.siteConfig.symptomType.store') }}" method="Post"
         enctype="multipart/form-data">
         @method('POST')
         @csrf

@@ -13,7 +13,7 @@ class EmailConfigurationController extends Controller
 {
     public function index() {
 
-        return view('backend.siteconfig.emailConfig.create', ['emailConfig' =>EmailConfiguration::first() ]);
+        return view('backend.siteConfig.emailConfig.create', ['emailConfig' =>EmailConfiguration::first() ]);
     }
 
     public function store(Request $request)
@@ -43,6 +43,6 @@ class EmailConfigurationController extends Controller
         }
         (new LogActivity)::addToLog('Email-Configuration');
 
-        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']); 
+        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);
     }
 }

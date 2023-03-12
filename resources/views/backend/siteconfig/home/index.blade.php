@@ -16,7 +16,7 @@
 'fa' => 'fa fa-info-circle',
 ])
 
-<form class="needs-validation" action="{{ route('backend.siteconfig.update') }}" method="Post" enctype="multipart/form-data">
+<form class="needs-validation" action="{{ route('backend.siteConfig.update') }}" method="Post" enctype="multipart/form-data">
     @method('POST')
     @csrf
     <div class="card">

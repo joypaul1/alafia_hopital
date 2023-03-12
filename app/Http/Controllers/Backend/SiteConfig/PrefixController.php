@@ -18,7 +18,7 @@ class PrefixController extends Controller
    */
   public function index()
   {
-    return view('backend.siteconfig.prefix.create');
+    return view('backend.siteConfig.prefix.create');
   }
 
   /**
@@ -28,7 +28,7 @@ class PrefixController extends Controller
    */
   public function create()
   {
-    return view('backend.siteconfig.prefix.create');
+    return view('backend.siteConfig.prefix.create');
   }
 
   /**

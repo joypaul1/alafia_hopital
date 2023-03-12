@@ -40,11 +40,11 @@ class BedController extends Controller
                    $action ='<div class="dropdown text-center">
                    <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                        <div class="dropdown-menu" style="min-width:auto !important">
-                       <a data-href="'.route('backend.siteconfig.bedCabin.edit', $row).'" class="dropdown-item edit_check"
+                       <a data-href="'.route('backend.siteConfig.bedCabin.edit', $row).'" class="dropdown-item edit_check"
                            data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit" aria-hidden="true"></i>
                        </a>
                        <div class="dropdown-divider"></div>
-                       <a data-href="'.route('backend.siteconfig.bedCabin.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
+                       <a data-href="'.route('backend.siteConfig.bedCabin.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
                            data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash" aria-hidden="true"></i>
                        </a>
                    </div></div>';
@@ -79,7 +79,7 @@ class BedController extends Controller
 
        }
         // $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
-        return view('backend.siteconfig.bed.index');
+        return view('backend.siteConfig.bed.index');
     }
 
       /**
@@ -95,7 +95,7 @@ class BedController extends Controller
         $ward = BedWard::active()->select(['id', 'name'])->get();
         $cabin = BedCabin::active()->select(['id', 'name'])->get();
         $floor = Floor::active()->select(['id', 'name'])->get();
-        return view('backend.siteconfig.bed.create',
+        return view('backend.siteConfig.bed.create',
         compact('group', 'type', 'ward', 'cabin', 'floor'));
     }
 
@@ -136,7 +136,7 @@ class BedController extends Controller
      */
     public function edit(Bed $bed )
     {
-        return view('backend.siteconfig.bed.edit',compact('bed'));
+        return view('backend.siteConfig.bed.edit',compact('bed'));
     }
 
     /**

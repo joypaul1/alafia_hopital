@@ -1,5 +1,5 @@
 <div class="modal-content">
-    <form class="needs-validation" id="bed_edit_form" action="{{ route('backend.siteconfig.bed.update', $bed) }}" method="Post"
+    <form class="needs-validation" id="bed_edit_form" action="{{ route('backend.siteConfig.bed.update', $bed) }}" method="Post"
         enctype="multipart/form-data">
         @method('POST')
         @csrf

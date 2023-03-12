@@ -1,5 +1,5 @@
 <div class="modal-content">
-    <form class="needs-validation" id="bedCabin_add_form" action="{{ route('backend.siteconfig.bedCabin.store') }}"
+    <form class="needs-validation" id="bedCabin_add_form" action="{{ route('backend.siteConfig.bedCabin.store') }}"
         method="Post" enctype="multipart/form-data">
         @method('POST')
         @csrf
