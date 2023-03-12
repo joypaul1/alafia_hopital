@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Brand\StoreRequest;
 use App\Http\Requests\Brand\UpdateRequest;
-use App\Models\Admin;
 use App\Models\Item\Brand;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -69,7 +68,7 @@ class BrandController extends Controller
     {
         $returnData = $request->storeData($request);
         if($returnData->getData()->status){
-            (new LogActivity)::addToLog('Banner Created');
+            (new LogActivity)::addToLog('Manufacturer Created');
             return back()->with(['success' => $returnData->getData()->msg  ]);
         }
         return back()->with(['error' =>$returnData->getData()->msg ]);
@@ -110,6 +109,8 @@ class BrandController extends Controller
     {
         $returnData = $request->updateData($request, $brand);
         if($returnData->getData()->status){
+            (new LogActivity)::addToLog('Manufacturer Update');
+
             return back()->with(['success' => $returnData->getData()->msg  ]);
         }
         return back()->with(['error' =>$returnData->getData()->msg ]);
@@ -126,6 +127,8 @@ class BrandController extends Controller
         try {
             (new Image)->deleteIfExists($brand->image);
             $brand->delete();
+            (new LogActivity)::addToLog('Manufacturer Delete');
+
         } catch (\Exception $ex) {
             return back()->with(['status' => false, 'mes' =>$ex->getMessage()]);
         }

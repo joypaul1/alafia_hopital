@@ -217,8 +217,8 @@
                             {{-- <x-backend.side-bar class="{{ request()->segment(3) == 'subcategory' ? 'active' : ' ' }}" name="Subcategory" link='backend.itemconfig.subcategory.index' icon='#' /> --}}
                             {{-- <x-backend.side-bar class="{{ request()->segment(3) == 'childcategory' ? 'active' : ' ' }}" name="Childcategory" link='backend.itemconfig.childcategory.index' icon='#' /> --}}
                             <x-backend.side-bar class="{{ request()->segment(3) == 'brand' ? 'active' : ' ' }}" name="Manufacturer" link='backend.itemconfig.brand.index' icon='#' />
+                            <x-backend.side-bar class="{{ request()->segment(3) == 'generic-name' ? 'active' : ' ' }}" name="Generic Name" link='backend.itemconfig.generic-name.index' icon='#' />
                             <x-backend.side-bar class="{{ request()->segment(3) == 'strenght' ? 'active' : ' ' }}" name="Strenght" link='backend.itemconfig.strenght.index' icon='#' />
-                            <x-backend.side-bar class="{{ request()->segment(3) == 'unit' ? 'active' : ' ' }}" name="Unit" link='backend.itemconfig.unit.index' icon='#' />
                             <x-backend.side-bar class="{{ request()->segment(3) == 'unit' ? 'active' : ' ' }}" name="Unit" link='backend.itemconfig.unit.index' icon='#' />
                             <x-backend.side-bar class="{{ request()->segment(3) == 'rack' ? 'active' : ' ' }}" name="Rack" link='backend.itemconfig.rack.index' icon='#' />
                             <x-backend.side-bar class="{{ request()->segment(3) == 'row' ? 'active' : ' ' }}" name="Row" link='backend.itemconfig.row.index' icon='#' />
