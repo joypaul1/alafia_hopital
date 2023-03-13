@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Item\Size;
+namespace App\Http\Requests\Item\Type;
 
+use App\Models\Item\Type;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
 
-class UpdateRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,16 +26,17 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string', Rule::unique('sizes')->ignore($this->size->id)],
+            'name' => 'required|string|unique:types,name',
         ];
     }
 
-    public function updateData($request ,$size)
+    public function storeData($request)
     {
+      
         try {
             DB::beginTransaction();
             $data = $request->validated();
-            $size->update($data);
+            Type::create($data);
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();

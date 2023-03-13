@@ -156,11 +156,11 @@ $(document).on('click', '.deleteAttribute', function (e) {
     $(this).closest('tr').remove();
 });
 
-$(document).on('click', '#is_thumbnail', function(){
+$(document).on('click', '#is_thumbnail', function () {
     console.log($(this).val());
     if ($(this).val() == 'off') {
         $(this).val('on');
-    }else{
+    } else {
         $(this).val('off');
     }
 });

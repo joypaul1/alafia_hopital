@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Backend\Item;
 
 use App\Http\Controllers\Controller;
-use App\Models\Item\Size;
+use App\Models\Item\Type;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Requests\Item\Size\StoreRequest;
-use App\Http\Requests\Item\Size\UpdateRequest;
+use App\Http\Requests\Item\Type\StoreRequest;
+use App\Http\Requests\Item\Type\UpdateRequest;
 
-class SizeController extends Controller
+class TypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,12 +19,12 @@ class SizeController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Size::select(['id','name','note', 'status'])->latest()->get();
+            $data = Type::select(['id','name','note', 'status'])->latest()->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $action = '<a  href="'.route('backend.itemconfig.size.edit', $row).'" class="btn btn-sm btn-info" data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></a>';
-                    $action .='<button  data-href="'.route('backend.itemconfig.size.destroy', $row).'" type="button"  
+                    $action = '<a  href="'.route('backend.itemconfig.type.edit', $row).'" class="btn btn-sm btn-info" data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></a>';
+                    $action .='<button  data-href="'.route('backend.itemconfig.type.destroy', $row).'" type="button"  
                     class="btn btn-sm btn-danger delete_check" data-toggle="tooltip" data-original-title="Delete" aria-describedby="tooltip64483"><i class="icon-trash" aria-hidden="true"></i>
                     </button >'; 
                     return $action;
@@ -34,7 +34,7 @@ class SizeController extends Controller
                 ->make(true);
               
         }
-       return view('backend.item.size.index');
+       return view('backend.item.type.index');
     }
     
     /**
@@ -44,7 +44,7 @@ class SizeController extends Controller
      */
     public function create()
     {
-        return view('backend.item.size.create');
+        return view('backend.item.type.create');
     }
 
     /**
@@ -80,9 +80,9 @@ class SizeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Size $size )
+    public function edit(Type $type )
     {
-        return view('backend.item.size.edit',compact('size'));
+        return view('backend.item.type.edit',compact('type'));
     }
 
     /**
@@ -92,9 +92,9 @@ class SizeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, Size $size)
+    public function update(UpdateRequest $request, Type $type)
     {
-        $returnData = $request->updateData($request, $size);
+        $returnData = $request->updateData($request, $type);
         if($returnData->getData()->status){
             return back()->with(['success' => $returnData->getData()->msg  ]);
         }
@@ -107,10 +107,10 @@ class SizeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Size $size)
+    public function destroy(Type $type)
     {
         try {
-            $size->delete();
+            $type->delete();
         } catch (\Exception $ex) {
             return back()->with(['status' => false, 'mes' =>$ex->getMessage()]);
         }

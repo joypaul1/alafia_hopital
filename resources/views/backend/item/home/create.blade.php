@@ -39,7 +39,7 @@
                                 <div class="col-lg-4">
                                     @include('components.backend.forms.input.input-type', [
                                         'name' => 'name',
-                                        'placeholder' => 'Product name here...',
+                                        'placeholder' => 'Medicine name here...',
                                         'required' => true,
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
@@ -70,15 +70,15 @@
                                 </div>
                                 <div class="col-lg-4">
                                     @include('components.backend.forms.select2.option', [
-                                        'label' => 'Brand',
-                                        'name' => 'brand_id',
+                                        'label' => 'strenght',
+                                        'name' => 'strenght_id',
                                         'optionDatas' => [],
-                                        'required' => true,
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
-                                        'message' => $errors->first('brand_id'),
+                                        'message' => $errors->first('strenght_id'),
                                     ])
                                 </div>
+                                
 
                                 <div class="col-lg-4">
                                     @include('components.backend.forms.select2.option', [
@@ -96,7 +96,7 @@
                                         'label' => 'sub_category',
                                         'name' => 'subcategory_id',
                                         'optionDatas' => [],
-                                        'required' => true,
+                                        // 'required' => true,
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
                                         'message' => $errors->first('subcategory_id'),
@@ -112,6 +112,29 @@
                                         'message' => $errors->first('childcategory_id'),
                                     ])
                                 </div> --}}
+                                
+
+                                <div class="col-lg-4">
+                                    @include('components.backend.forms.select2.option', [
+                                        'name' => 'generic_id',
+                                        'label' => 'generic_name',
+                                        'optionDatas' => [],
+                                    ])
+                                    @include('components.backend.forms.input.errorMessage', [
+                                        'message' => $errors->first('generic_id'),
+                                    ])
+                                </div>
+                                <div class="col-lg-4">
+                                    @include('components.backend.forms.select2.option', [
+                                        'label' => 'Manufacturer',
+                                        'name' => 'brand_id',
+                                        'optionDatas' => [],
+                                        'required' => true,
+                                    ])
+                                    @include('components.backend.forms.input.errorMessage', [
+                                        'message' => $errors->first('brand_id'),
+                                    ])
+                                </div>
                                 <div class="col-lg-4">
                                     @include('components.backend.forms.select2.option', [
                                         'label' => 'origin',
@@ -122,30 +145,6 @@
                                         'message' => $errors->first('origin_id'),
                                     ])
                                 </div>
-
-                                <div class="col-lg-4">
-                                    @include('components.backend.forms.input.input-type', [
-                                        'name' => 'alert_quantity',
-                                        'placeholder' => 'Product alert quantity here ...',
-                                        'number' => true,
-                                    ])
-                                    @include('components.backend.forms.input.errorMessage', [
-                                        'message' => $errors->first('alert_quantity'),
-                                    ])
-                                    <small class="text-secondary pl-2">Keep this blank if you don't want to manage
-                                        stock.</small>
-                                </div>
-                                {{-- <div class="col-lg-4">
-                                    @include('components.backend.forms.input.input-type', [
-                                        'name' => 'weight',
-                                        'number' => true,
-                                        'placeholder' => 'Weight here ...',
-                                    ])
-                                    @include('components.backend.forms.input.errorMessage', [
-                                        'message' => $errors->first('weight'),
-                                    ])
-                                </div> --}}
-
                                 <div class="col-lg-4">
                                     @include('components.backend.forms.select2.option', [
                                         'label' => 'Rack',
@@ -166,6 +165,18 @@
                                     @include('components.backend.forms.input.errorMessage', [
                                         'message' => $errors->first('row_id'),
                                     ])
+                                </div>
+                                <div class="col-lg-4">
+                                    @include('components.backend.forms.input.input-type', [
+                                        'name' => 'alert_quantity',
+                                        'placeholder' => 'Product alert quantity here ...',
+                                        'number' => true,
+                                    ])
+                                    @include('components.backend.forms.input.errorMessage', [
+                                        'message' => $errors->first('alert_quantity'),
+                                    ])
+                                    <small class="text-secondary pl-2">Keep this blank if you don't want to manage
+                                        stock.</small>
                                 </div>
                             </div>
                         </div>
@@ -350,6 +361,8 @@
         'brand_id' => null,
         'unit_id' => null,
         'rack_id' => null,
+        'generic_id' => null,
+        'strenght_id' => null,
     ]);
 @endsection
 @push('js')

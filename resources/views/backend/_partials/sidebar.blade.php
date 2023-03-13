@@ -214,9 +214,10 @@
                         <ul>
                             <x-backend.side-bar class="{{ request()->segment(3) == 'item' ? 'active' : ' ' }}" name="Medicine" link='backend.itemconfig.item.index' icon='#' />
                             <x-backend.side-bar class="{{ request()->segment(3) == 'category' ? 'active' : ' ' }}" name="Category" link='backend.itemconfig.category.index' icon='#' />
-                            {{-- <x-backend.side-bar class="{{ request()->segment(3) == 'subcategory' ? 'active' : ' ' }}" name="Subcategory" link='backend.itemconfig.subcategory.index' icon='#' /> --}}
-                            {{-- <x-backend.side-bar class="{{ request()->segment(3) == 'childcategory' ? 'active' : ' ' }}" name="Childcategory" link='backend.itemconfig.childcategory.index' icon='#' /> --}}
+                            <x-backend.side-bar class="{{ request()->segment(3) == 'subcategory' ? 'active' : ' ' }}" name="Subcategory" link='backend.itemconfig.subcategory.index' icon='#' />
+                            <x-backend.side-bar class="{{ request()->segment(3) == 'childcategory' ? 'active' : ' ' }}" name="Childcategory" link='backend.itemconfig.childcategory.index' icon='#' />
                             <x-backend.side-bar class="{{ request()->segment(3) == 'brand' ? 'active' : ' ' }}" name="Manufacturer" link='backend.itemconfig.brand.index' icon='#' />
+                            <x-backend.side-bar class="{{ request()->segment(3) == 'type' ? 'active' : ' ' }}" name="Type" link='backend.itemconfig.type.index' icon='#' />
                             <x-backend.side-bar class="{{ request()->segment(3) == 'generic-name' ? 'active' : ' ' }}" name="Generic Name" link='backend.itemconfig.generic-name.index' icon='#' />
                             <x-backend.side-bar class="{{ request()->segment(3) == 'strenght' ? 'active' : ' ' }}" name="Strenght" link='backend.itemconfig.strenght.index' icon='#' />
                             <x-backend.side-bar class="{{ request()->segment(3) == 'unit' ? 'active' : ' ' }}" name="Unit" link='backend.itemconfig.unit.index' icon='#' />

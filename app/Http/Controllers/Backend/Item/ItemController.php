@@ -138,7 +138,7 @@ class ItemController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $returnData = $request->storeData();
+        return $returnData = $request->storeData();
         if($returnData->getData()->status){
             return back()->with(['success' => $returnData->getData()->msg  ]);
         }

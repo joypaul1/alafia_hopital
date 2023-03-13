@@ -39,7 +39,7 @@ class StoreRequest extends FormRequest
                         ->where('origin_id',$this->origin_id)
                         ->where('category_id',$this->category_id)
                         ->where('subcategory_id',$this->subcategory_id)
-                        ->where('childcategory_id',$this->childcategory_id);
+                        ->where('manufacture_id',$this->manufacture_id);
 
                 })
             ],

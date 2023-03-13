@@ -8,7 +8,7 @@ use App\Http\Controllers\Backend\Item\GenericNameController;
 use App\Http\Controllers\Backend\Item\ItemController;
 use App\Http\Controllers\Backend\Item\RackController;
 use App\Http\Controllers\Backend\Item\RowController;
-use App\Http\Controllers\Backend\Item\SizeController;
+use App\Http\Controllers\Backend\Item\TypeController;
 use App\Http\Controllers\Backend\Item\StrenghtController;
 use App\Http\Controllers\Backend\Item\SubcategoryController;
 use App\Http\Controllers\Backend\Item\UnitController;
@@ -30,8 +30,8 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin/item-config' , 'as'=>'b
     Route::resource('brand', BrandController::class);
         // color
     Route::resource('color', ColorController::class);
-        // size
-    Route::resource('size', SizeController::class);
+        // type
+    Route::resource('type', TypeController::class);
         // unit
     Route::resource('unit', UnitController::class);
         // rack
