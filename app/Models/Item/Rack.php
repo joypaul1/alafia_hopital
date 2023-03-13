@@ -4,7 +4,6 @@ namespace App\Models\Item;
 
 use App\Traits\AutoTimeStamp;
 use App\Traits\GlobalScope;
-
 use Illuminate\Database\Eloquent\Model;
 
 class Rack extends Model

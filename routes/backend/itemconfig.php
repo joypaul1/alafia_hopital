@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\Item\BrandController;
 use App\Http\Controllers\Backend\Item\CategoryController;
 use App\Http\Controllers\Backend\Item\ChildcategoryController;
 use App\Http\Controllers\Backend\Item\ColorController;
+use App\Http\Controllers\Backend\Item\GenericNameController;
 use App\Http\Controllers\Backend\Item\ItemController;
 use App\Http\Controllers\Backend\Item\RackController;
 use App\Http\Controllers\Backend\Item\RowController;
@@ -24,7 +25,7 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin/item-config' , 'as'=>'b
     // childcategory
     Route::resource('childcategory', ChildcategoryController::class);
     // manufacturer
-    Route::resource('generic-name', ChildcategoryController::class);
+    Route::resource('generic-name', GenericNameController::class);
      // brand
     Route::resource('brand', BrandController::class);
         // color
