@@ -22,7 +22,6 @@
                         @method('POST')
                         @csrf
                         <div class="mb-3 row">
-                            <label class="col-lg-4 col-form-label" for="name">Name </label>
                             <div class="col-lg-8">
                                 @include('components.backend.forms.input.input-type',[ 'name' => 'name', 'placeholder' => 'name will be here...', 'required'=> true ])
                                 @include('components.backend.forms.input.errorMessage', ['message' =>  $errors->first('name')])

@@ -24,7 +24,6 @@
                         @method('PUT')
                         @csrf
                         <div class="mb-3 row">
-                            <label class="col-lg-4 col-form-label" for="text">Name </label>
                             <div class="col-lg-8">
                                 @include('components.backend.forms.input.input-type',[ 'name' => 'name', 'value' => old('name',$type->name), 'placeholder' => 'text will be here...' ])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])

@@ -78,6 +78,16 @@
                                         'message' => $errors->first('strenght_id'),
                                     ])
                                 </div>
+                                <div class="col-lg-4">
+                                    @include('components.backend.forms.select2.option', [
+                                        'label' => 'Type',
+                                        'name' => 'type_id',
+                                        'optionDatas' => [],
+                                    ])
+                                    @include('components.backend.forms.input.errorMessage', [
+                                        'message' => $errors->first('type_id'),
+                                    ])
+                                </div>
                                 
 
                                 <div class="col-lg-4">
@@ -85,7 +95,7 @@
                                         'label' => 'Category',
                                         'name' => 'category_id',
                                         'optionDatas' => [],
-                                        'required' => true,
+                                        // 'required' => true,
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
                                         'message' => $errors->first('category_id'),
@@ -129,7 +139,7 @@
                                         'label' => 'Manufacturer',
                                         'name' => 'brand_id',
                                         'optionDatas' => [],
-                                        'required' => true,
+                                        // 'required' => true,
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
                                         'message' => $errors->first('brand_id'),

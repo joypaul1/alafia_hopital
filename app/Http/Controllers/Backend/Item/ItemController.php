@@ -133,12 +133,13 @@ class ItemController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreRequest $request)
     {
-        return $returnData = $request->storeData();
+         $returnData = $request->storeData();
         if($returnData->getData()->status){
             return back()->with(['success' => $returnData->getData()->msg  ]);
         }
