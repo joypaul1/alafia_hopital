@@ -6,6 +6,12 @@
 @stop
 @push('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <style>
+        .table-bordered td,
+        .table-bordered th {
+            border: none;
+        }
+    </style>
 @endpush
 @section('content')
 
@@ -65,6 +71,8 @@
                                             'name' => 'p_info[]',
                                             'placeholder' => 'Additional informarion (eg. Blood Pressure)',
                                             'required' => true,
+                                            'value' => '',
+
                                         ])
                                     </div>
                                     <div class="col-5">
@@ -72,13 +80,14 @@
                                             'name' => 'p_info_value[]',
                                             'placeholder' => 'Enter Value (eg. 120/80)',
                                             'required' => true,
+                                            'value' => '',
                                         ])
                                     </div>
                                     <div class="col-2">
-                                        <button class="btn btn-info p_infoAdd">
+                                        <button type="button"  class="btn btn-info p_infoAdd">
                                             +
                                         </button>
-                                        <button class="btn btn-danger p_infoRemove">
+                                        <button type="button" class="btn btn-danger p_infoRemove">
                                             -
                                         </button>
                                     </div>
@@ -102,15 +111,14 @@
                                     'name' => 'symptoms_name',
                                     'placeholder' => 'Complaint',
                                     'class' => 'symptoms_name',
-                                    'required' => true,
                                 ])
                             </div>
                             <input type="hidden" id="symptoms_id" name="symptoms_id[]">
                             <div class="col-2">
-                                <button class="btn btn-info chief_add">
+                                <button type="button"  class="btn btn-info chief_add">
                                     +
                                 </button>
-                                <button class="btn btn-danger chief_remove">
+                                <button type="button"  class="btn btn-danger chief_remove">
                                     -
                                 </button>
                             </div>
@@ -130,21 +138,19 @@
                                 @include('components.backend.forms.input.input-type2', [
                                     'name' => 'test_name',
                                     'placeholder' => 'Test Name',
-                                    'required' => true,
                                 ])
                             </div>
                             <div class="col-5">
                                 @include('components.backend.forms.input.input-type2', [
                                     'name' => 'spacifications',
                                     'placeholder' => 'Any Spacifications ?',
-                                    'required' => true,
                                 ])
                             </div>
                             <div class="col-2">
-                                <button class="btn btn-info">
+                                <button type="button"  class="btn btn-info">
                                     +
                                 </button>
-                                <button class="btn btn-danger">
+                                <button type="button"  class="btn btn-danger">
                                     -
                                 </button>
                             </div>
@@ -164,11 +170,10 @@
                                 @include('components.backend.forms.input.input-type2', [
                                     'name' => 'search_medicine',
                                     'placeholder' => 'Search Medicine by Name / Type / Group',
-                                    'required' => true,
                                 ])
                             </div>
                         </div>
-                        <table class="table table-bordered text-center">
+                        {{-- <table class="table table-bordered text-center">
                             <thead>
                                 <tr>
                                     <th>Sl.</th>
@@ -193,71 +198,16 @@
                                     </td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> --}}
 
                         <hr>
-
                         <h5 class="text-center">
                             Selected Medicine
                         </h5>
                         <hr>
-                        <div class="d-flex justify-content-between">
-                            <h6 class="text-info">
-                                <strong>
-                                    1.
-                                </strong>
-                                Paracetamol 500mg
-                            </h6>
-                            <button class="btn btn-sm btn-danger">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                        </div>
+                        <div id="medicineSeciton"></div>
 
-                        <table class="table table-bordered my-3">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        @include('components.backend.forms.input.input-type2', [
-                                            'name' => 'take_time',
-                                            'placeholder' => 'How many times a day ?',
-                                            'required' => true,
-                                        ])
-                                    </td>
-                                    <td>
-                                        @include('components.backend.forms.input.input-type2', [
-                                            'name' => 'medicine_quantity',
-                                            'placeholder' => 'Medicine Quantity (eg, 1 + 1 + 1)',
-                                            'required' => true,
-                                        ])
-                                    </td>
-                                    <td>
-                                        @include('components.backend.forms.input.input-type2', [
-                                            'name' => 'take_time',
-                                            'placeholder' => 'How many days ?',
-                                            'required' => true,
-                                        ])
-                                    </td>
-                                    <td>
-                                        <p class="m-0">
-                                            <input type="radio" name="eat_time" id="before_meal">
-                                            <label for="before_meal">
-                                                Before Meal
-                                            </label>
-                                        </p>
-                                        <p class="m-0">
-                                            <input type="radio" name="eat_time" id="after_meal">
-                                            <label for="after_meal">
-                                                After Meal
-                                            </label>
-                                        </p>
 
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <textarea name="note" id="note" rows="2" class="form-control"
-                            placeholder="Any Note ? (eg. Take medicine when you feel pain)"></textarea>
 
                     </div>
                 </div>
@@ -289,7 +239,7 @@
                 </div>
 
                 <p class="text-right">
-                    <button class="btn btn-info">
+                    <button type="submit"  class="btn btn-info">
                         Submit
                     </button>
                 </p>
@@ -313,6 +263,8 @@
                                         'name' => 'p_info[]',
                                         'placeholder' => 'Additional informarion (eg. Blood Pressure)',
                                         'required' => true,
+                                        'value' => '',
+
                                     ])
                                 </div>
                                 <div class="col-5">
@@ -320,13 +272,15 @@
                                         'name' => 'p_info_value[]',
                                         'placeholder' => 'Enter Value (eg. 120/80)',
                                         'required' => true,
+                                        'value' => '',
+
                                     ])
                                 </div>
                                 <div class="col-2">
-                                    <button class="btn btn-info p_infoAdd">
+                                    <button type="button" class="btn btn-info p_infoAdd">
                                         +
                                     </button>
-                                    <button class="btn btn-danger p_infoRemove">
+                                    <button type="button" class="btn btn-danger p_infoRemove">
                                         -
                                     </button>
                                 </div></div>`;
@@ -350,10 +304,10 @@
                                 ])
                             </div>
                             <div class="col-2">
-                                <button class="btn btn-info chief_add">
+                                <button type="button"  class="btn btn-info chief_add">
                                     +
                                 </button>
-                                <button class="btn btn-danger chief_remove">
+                                <button type="button"  class="btn btn-danger chief_remove">
                                     -
                                 </button>
                             </div>
@@ -367,7 +321,7 @@
         });
 
 
-        // symptoms_name every id call for autocomplete suggestion 
+        // symptoms_name every id call for autocomplete suggestion
         $(document).on('input', '.symptoms_name', function() {
             $(this).autocomplete({
                 source: function(request, response) {
@@ -382,11 +336,11 @@
                             var resArray = $.map(res.data, function(obj) {
                                 return {
                                     value_id: obj
-                                    .id, //Show as label of input fieldname: obj.name,
+                                        .id, //Show as label of input fieldname: obj.name,
                                     value: obj
-                                    .name, //Show as label of input fieldname: obj.name,
+                                        .name, //Show as label of input fieldname: obj.name,
                                     label: obj
-                                    .name, //Show as label of input fieldname: obj.name,
+                                        .name, //Show as label of input fieldname: obj.name,
                                 }
                             })
                             response(resArray);
@@ -401,13 +355,6 @@
                 }
             });
         })
-        // $("#symptoms_name").each(function() {
-
-
-        // });
-
-
-
 
 
         //search  patient
@@ -524,7 +471,7 @@
         //
 
 
-        $("#product_name").autocomplete({
+        $("#search_medicine").autocomplete({
             source: function(request, response) {
                 var optionData = request.term;
                 $.ajax({
@@ -535,153 +482,100 @@
                     },
                     success: function(res) {
                         var resArray = $.map(res.data, function(obj) {
-                            console.log(obj.sell_price);
                             return {
-                                sell_price: obj.sell_price, //Fillable in input field
-                                unit: obj.unit, //Fillable in input field
+                                data: obj,
                                 value: obj.name, //Fillable in input field
-                                value_id: obj.id, //Fillable in input field
-                                label: 'Name:' + obj.name + ' sku:' + obj
-                                    .sku, //Show as label of input fieldname: obj.name, sku: obj.sku
+                                label: obj.name + '|' + obj.generic_name.name + '|' + obj.strenght.name + '|' + obj.type.name //Show as label of input fieldname: obj.name, sku: obj.sku
                             }
                         })
                         response(resArray);
                     }
                 });
             },
-            minLength: 3,
+            minLength: 1,
             select: function(event, ui) {
-                let html = '<tr>'
-                html += '<td> <input type="text" readonly  class="form-control text-center" value="' + ui.item
-                    .value + '"></td>'
-                html += ' <input type="hidden"  name="pItem_id[]" class="form-control text-cente" value="' + ui
-                    .item.value_id + '">'
-                html +=
-                    '<td> <input type="text" readonly  name="unit[]" class="form-control text-center" value="' +
-                    ui.item.unit.name + '"></td>'
-                html +=
-                    '<td> <input type="text"   name="p_qty[]" class="form-control text-center p_qty" value="' +
-                    1 + '"></td>'
-                html +=
-                    '<td> <input type="text" readonly  name="pu_price[]" class="form-control text-center pu_price" value="' +
-                    parseFloat(ui.item.sell_price).toFixed(2) + '"></td>'
-                html +=
-                    '<td> <input type="text" readonly  name="p_total_price[]" class="form-control text-center p_total_price" value="' +
-                    parseFloat(ui.item.sell_price).toFixed(2) + '"></td>'
-                html += '<td> <button class="btn btn-danger" onclick="removeRow(this)">-</button></td>'
-                html += '</tr>'
-                $('#productionItem').after(html);
-                approximateSellPrice();
-                approximateProfit();
+                let html = ` <section style="margin-top:1%">
+                                <div class="d-flex justify-content-between">
+
+                                    <input type="hidden" name="item_id[]" value="${ui.item.data.id}">
+
+                                </div>
+
+                            <table class="table table-bordered">
+
+                                <tbody>
+                                    <tr>
+                                        <td colspan='2'><h6 class="text-info">${ui.item.data.name}</h6></td>
+                                        <td colspan='2' class="text-right"> <button class="btn btn-sm btn-danger">
+                                        <i class="fa fa-trash"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @include('components.backend.forms.input.input-type2', [
+                                                'name' => 'how_many_times[${ui.item.data.id}][]',
+                                                'placeholder' => 'How many times a day ?',
+                                                'required' => true,
+                                            ])
+                                        </td>
+                                        <td>
+                                            @include('components.backend.forms.input.input-type2', [
+                                                'name' => 'how_many_quantity[${ui.item.data.id}][]',
+                                                'placeholder' => 'Medicine Quantity (eg, 1 + 1 + 1)',
+                                                'required' => true,
+                                            ])
+                                        </td>
+                                        <td>
+                                            @include('components.backend.forms.input.input-type2', [
+                                                'name' => 'how_many_days[${ui.item.data.id}][]',
+                                                'placeholder' => 'How many days ?',
+                                                'required' => true,
+                                            ])
+                                        </td>
+                                        <td>
+                                            <p class="m-0">
+                                                <input type="radio" value="before_meal" name="before_after_meal[${ui.item.data.id}][]" id="before_meal">
+                                                <label for="before_meal">
+                                                    Before Meal
+                                                </label>
+                                            </p>
+                                            <p class="m-0">
+                                                <input type="radio" value="between_meal" name="before_after_meal[${ui.item.data.id}][]" id="after_meal">
+                                                <label for="between_meal">
+                                                    Between Meal
+                                                </label>
+                                            </p>
+                                            <p class="m-0">
+                                                <input type="radio"value="after_meal" name="before_after_meal[${ui.item.data.id}][]"  id="after_meal">
+                                                <label for="after_meal">
+                                                    After Meal
+                                                </label>
+                                            </p>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan='4'> <textarea name="note[${ui.item.data.id}][]" id="note" rows="2" class="form-control"
+                                            placeholder="Any Note ? (eg. Take medicine when you feel pain)"></textarea>
+                                            </td>
+
+                                    </section>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                           `;
+                $('#medicineSeciton').after(html);
+
             }
         });
 
-        $("#material_name").autocomplete({
-            source: function(request, response) {
-                var optionData = request.term;
-                $.ajax({
-                    method: 'GET',
-                    url: "{{ route('backend.itemconfig.item.index') }}",
-                    data: {
-                        'optionData': optionData
-                    },
-                    success: function(res) {
-                        var resArray = $.map(res.data, function(obj) {
-                            return {
-                                sell_price: obj.sell_price, //Fillable in input field
-                                unit: obj.unit, //Fillable in input field
-                                value: obj.name, //Fillable in input field
-                                value_id: obj.id, //Fillable in input field
-                                label: 'Name:' + obj.name + ' sku:' + obj
-                                    .sku, //Show as label of input fieldname: obj.name, sku: obj.sku
-                            }
-                        })
-                        response(resArray);
-                    }
-                });
-            },
-            minLength: 3,
-            select: function(event, ui) {
-                let html = '<tr>'
-                html += '<td> <input type="text" readonly  class="form-control text-center" value="' + ui.item
-                    .value + '"></td>'
-                html += ' <input type="hidden"  name="mItem_id[]" class="form-control text-cente" value="' + ui
-                    .item.value_id + '">'
-                html +=
-                    '<td> <input type="text" readonly  name="unit[]" class="form-control text-center" value="' +
-                    ui.item.unit.name + '"></td>'
-                html +=
-                    '<td> <input type="text"   name="m_qty[]" class="form-control text-center m_qty" value="' +
-                    1 + '"></td>'
-                html +=
-                    '<td> <input type="text" readonly  name="mu_price[]" class="form-control text-center mu_price" value="' +
-                    parseFloat(ui.item.sell_price).toFixed(2) + '"></td>'
-                html +=
-                    '<td> <input type="text" readonly  name="m_total_price[]" class="form-control text-center m_total_price" value="' +
-                    parseFloat(ui.item.sell_price).toFixed(2) + '"></td>'
-                html += '<td> <button class="btn btn-danger" onclick="removeMRow(this)">-</button></td>'
-                html += '</tr>'
-                $('#materialsItem').after(html);
-                approximateCost();
-                approximateProfit();
-            }
-        });
+
 
 
         // create a function to remove a row
         function removeRow(row) {
             $(row).closest('tr').remove();
-            approximateSellPrice();
-        }
-
-        function removeMRow(row) {
-            $(row).closest('tr').remove();
-            approximateCost();
-        }
-
-        $(document).on('keyup', '.p_qty', function() {
-            var p_qty = $(this).val();
-            var pu_price = $(this).closest('tr').find('.pu_price').val();
-            pu_price = Number(pu_price.replace(/[^0-9\.]+/g, ""));
-            var p_total_price = p_qty * pu_price;
-            $(this).closest('tr').find('.p_total_price').val(p_total_price);
-            approximateSellPrice();
-            approximateProfit();
-        });
-        $(document).on('keyup', '.m_qty', function() {
-            var m_qty = $(this).val();
-            var mu_price = $(this).closest('tr').find('.mu_price').val();
-            mu_price = Number(mu_price.replace(/[^0-9\.]+/g, ""));
-            var p_total_price = m_qty * mu_price;
-            $(this).closest('tr').find('.m_total_price').val(p_total_price);
-            approximateSellPrice();
-            approximateProfit();
-        });
-
-
-        approximateSellPrice = function() {
-            var total = 0;
-            $('.p_total_price').each(function() {
-                total += Number($(this).val().replace(/[^0-9\.]+/g, ""));
-            });
-            $('#approximateSell').val(total.toFixed(2));
-
-            return total;
-        }
-        approximateCost = function() {
-            var total = 0;
-            $('.m_total_price').each(function() {
-                total += Number($(this).val().replace(/[^0-9\.]+/g, ""));
-            });
-            $('#approximateCost').val(total.toFixed(2));
-            return total;
-        }
-
-        // Something for test
-
-        function approximateProfit() {
-            $('#approximateProfit').text(approximateSellPrice() - approximateCost());
-            console.log(approximateSellPrice() - approximateCost(), 'profile');
+            // approximateSellPrice();
         }
     </script>
 @endpush

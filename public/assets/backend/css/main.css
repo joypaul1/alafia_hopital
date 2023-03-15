@@ -2411,7 +2411,7 @@ html.fullscreen-bg #wrapper {
     top: 5px;
     left: 0;
     width: 100%;
-    background: #00264de8;
+    background: #03045e;
     z-index: 99;
     border-bottom: 1px solid #eee;
 }
@@ -2835,7 +2835,7 @@ html.fullscreen-bg #wrapper {
     margin-top: 61px;
     position: fixed;
     left: 5px;
-    background-color: #00264D;
+    background-color: #03045e;
     z-index: 11;
     overflow-y: scroll;
     scrollbar-width: none;
@@ -2960,7 +2960,7 @@ html.fullscreen-bg #wrapper {
 }
 
 .sidebar-nav .metismenu > li.active > a {
-    background-color: #506f8d;
+    background-color: #0077b6;
 }
 
 .sidebar-nav .metismenu > li .active a {
@@ -3012,7 +3012,7 @@ html.fullscreen-bg #wrapper {
 .sidebar-nav .metismenu a:focus,
 .sidebar-nav .metismenu a:active {
     text-decoration: none;
-    background: #00498D;
+    background: #017bbd
 }
 
 .sidebar-nav .metismenu .has-arrow::after {

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend\Prescription;
 
 use App\Helpers\InvoiceNumber;
 use App\Http\Controllers\Controller;
+use App\Models\Appointment\Appointment;
+use App\Models\Patient\Patient;
 use App\Models\Prescription\Prescription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -57,27 +59,57 @@ class PrescriptionController extends Controller
      */
     public function store(Request $request)
     {
+
+        // dd($request->all(), json_encode($request->p_info), json_encode($request->p_info_value));
         try {
             DB::beginTransaction();
-            $data['patientId']          = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
-            $data['name']               = $request->name;
-            $data['email']              = $request->email;
-            $data['mobile']             = $request->mobile;
-            $data['emergency_contact']  = $request->emergency_contact;
-            $data['guardian_name']      = $request->guardian_name;
-            $data['gender']             = $request->gender;
-            $data['dob']                = $request->dob;
-            $data['blood_group']        = $request->blood_group;
-            $data['marital_status']     = $request->marital_status;
-            $data['address']            = $request->address;
-            $prescription               = Prescription::create($data);
+            $data['invoice_number']          = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
+            $data['patient_id']              = Patient::where('patientId', $request->p_id)->first()->id;
+            $data['date']                    =  date('Y-m-d h:i:s');
+            // $data['doctor_id']               = auth('admin')->user()->id;
+            $data['doctor_id']               = 26;
+            // $data['appointment_id']          = Appointment::where('doctor_id', auth('admin')->user()->id)->where('patient_id', $data['patient_id'])->first()->id;
+            $data['appointment_id']          = Appointment::where('patient_id', $data['patient_id'])->first()->id;
+            $data['advice']                  = $request->advice;
+            $data['next_visit']              = $request->next_visit;
+            $prescription                    = Prescription::create($data);
+            if ($request->symptoms_id) {
+                foreach ($request->symptoms_id as $key => $symptom) {
+                    $prescription->diseasesSymptoms()->create(['symptom_id' => $symptom]);
+                }
+            }
+
+            if ($request->item_id) {
+                foreach ($request->item_id as $key => $medicine) {
+                    $v = $prescription->medicine()->create(
+                        [
+                            'item_id' => $medicine,
+                            'how_many_times' => implode($request->how_many_times[$medicine]),
+                            'how_many_days' => implode($request->how_many_days[$medicine]),
+                            'how_many_quantity' => implode($request->how_many_quantity[$medicine]),
+                            'before_after_meal' => implode($request->before_after_meal[$medicine]),
+                            'medicine_note' => implode($request->note[$medicine])
+                        ]
+                    );
+                }
+            }
+            if($request->p_info){
+                foreach ($request->p_info as $key => $info) {
+                   $others= $prescription->otherSpecifications()
+                    ->create(['name' => $info,
+                    'value' => $request->p_info_value[$key]]);
+                    // dd($others);
+                }
+            }
+
+            // dd($prescription);
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollback();
-            return response()->json(['error' => $ex->getMessage(), 'success' => false, 'status_code' => 400]);
+            return back()->with(['error' => $ex->getMessage(), $ex->getLine(), 'status' => false]);
         }
 
-        return response()->json(['success' => 'Prescription Created Successfully', 'success' => true, 'status_code' => 200, 'data' => $prescription]);
+        return back()->with(['success' => 'Prescription Created Successfully', 'status' => true]);
     }
 
     /**

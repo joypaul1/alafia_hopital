@@ -126,5 +126,36 @@ class Item extends Model
     {
         return $this->belongsTo(Brand::class);
     }
-   
+
+    /**
+     * Get the genericName that owns the Item
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function genericName(): BelongsTo
+    {
+        return $this->belongsTo(GenericName::class, 'generic_id', 'id');
+    }
+
+    /**
+     * Get the genericName that owns the Item
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function strenght(): BelongsTo
+    {
+        return $this->belongsTo(Strenght::class, 'strenght_id', 'id');
+    }
+
+    /**
+     * Get the genericName that owns the Item
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(Type::class, 'type_id', 'id');
+    }
+
+
 }

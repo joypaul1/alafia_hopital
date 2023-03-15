@@ -29,7 +29,21 @@ class ItemController extends Controller
     {
         if($request->optionData){
             return response()->json(['data' => Item::whereLike($request->optionData)
-            ->select(['id','name','sku', 'unit_id', 'sell_price'])->with('unit:id,name')->take(15)->get()]);
+            ->select(['id','name','type_id', 'generic_id', 'strenght_id'])
+            ->with('genericName:id,name')
+            ->with('strenght:id,name')
+            ->with('type:id,name')
+            ->orwhereHas('genericName', function($q)use ($request){
+                $q->where('name','like',  '%' .$request->optionData . '%' )->select(['id','name']);
+            })
+            ->orwhereHas('strenght',function($q)use ($request){
+                $q->where('name', 'like',  '%' .$request->optionData  . '%')->select(['id','name']);
+            })
+            ->orwhereHas('type',function($q)use ($request){
+                $q->where('name','like', '%' . $request->optionData  . '%')->select(['id','name']);
+            })
+
+            ->take(15)->get()]);
         }
         $data = Item::select(['id','name','category_id','subcategory_id','childcategory_id','sku','unit_id','brand_id','status', 'sell_price'])
         ->with('category:id,name')->with('subcategory:id,name')
