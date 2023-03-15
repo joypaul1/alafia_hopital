@@ -13,12 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('types', function (Blueprint $table) {
+        Schema::create('lab_tests', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('note')->nullable();
             $table->boolean('status')->default(true);
+            $table->decimal('price', 8, 2);
             $table->softDeletes();
+            $table->unsignedBigInteger('lab_test_tube_id');
+            $table->foreign('lab_test_tube_id')->references('id')->on('lab_test_tubes');
+            
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('admins');
             $table->unsignedBigInteger('updated_by')->nullable();
@@ -36,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('types');
+        Schema::dropIfExists('lab_tests');
     }
 };

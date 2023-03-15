@@ -75,14 +75,14 @@
                 <div class="body">
                     <div class="icon text-info"><i class="fa fa-user"></i> </div>
                     <div class="content">
-                        <div class="text">Total Student</div>
-                        <h5 class="number">530</h5>
+                        <div class="text">Today's Patients</div>
+                        <h5 class="number">14</h5>
                     </div>
                     <hr>
-                    <div class="icon text-warning"><i class="fa fa-user-circle"></i> </div>
+                    <div class="icon text-warning"><i class="fa fa-users"></i> </div>
                     <div class="content">
-                        <div class="text">Total Teacher</div>
-                        <h5 class="number">14</h5>
+                        <div class="text">Total Patients</div>
+                        <h5 class="number">640</h5>
                     </div>
                 </div>
             </div>
@@ -92,14 +92,14 @@
                 <div class="body">
                     <div class="icon text-warning"><i class="fa fa-tags"></i> </div>
                     <div class="content">
-                        <div class="text">Department</div>
-                        <h5 class="number">7</h5>
+                        <div class="text">Today's Income</div>
+                        <h5 class="number">৳ 42,500</h5>
                     </div>
                     <hr>
-                    <div class="icon"><i class="fa fa-graduation-cap"></i> </div>
+                    <div class="icon"><i class="fa fa-university"></i> </div>
                     <div class="content">
-                        <div class="text">Courses</div>
-                        <h5 class="number">35</h5>
+                        <div class="text">This Month Total Income</div>
+                        <h5 class="number">৳ 5,564,558</h5>
                     </div>
                 </div>
             </div>
@@ -109,14 +109,16 @@
                 <div class="body">
                     <div class="icon text-danger"><i class="fa fa-credit-card"></i> </div>
                     <div class="content">
-                        <div class="text">Expense</div>
-                        <h5 class="number">$3205</h5>
+                        <div class="text">Today's Expense</div>
+                        <h5 class="number">৳ 30,205</h5>
                     </div>
                     <hr>
-                    <div class="icon text-success"><i class="fa fa-university"></i> </div>
+                    <div class="icon text-danger">
+                        <i class="fa fa-money"></i>
+                    </div>
                     <div class="content">
-                        <div class="text">Income</div>
-                        <h5 class="number">$35,325</h5>
+                        <div class="text">Total Expense This Month</div>
+                        <h5 class="number">৳ 1,350,325</h5>
                     </div>
                 </div>
             </div>
@@ -126,8 +128,8 @@
                 <div class="body">
                     <div class="icon"><i class="fa fa-map-pin"></i> </div>
                     <div class="content">
-                        <div class="text">Our Center</div>
-                        <h5 class="number">28</h5>
+                        <div class="text">Total Dialysis Patient's</div>
+                        <h5 class="number">369</h5>
                     </div>
                     <hr>
                     <div class="icon text-success"><i class="fa fa-smile-o"></i> </div>
@@ -139,7 +141,7 @@
             </div>
         </div>
     </div>
-    <div class="row clearfix">
+    <div class="row clearfix my-4">
         <div class="col-6">
             <div class="card">
                 <div class="card-header text-center text-white"
@@ -148,7 +150,7 @@
                     font-weight: bold;
                     font-size: 14px;
                 ">
-                    Weekly Sell Report</div>
+                    Weekly Appointment Report</div>
                 <canvas id="weeklySell"></canvas>
             </div>
         </div>
@@ -160,11 +162,12 @@
                     font-weight: bold;
                     font-size: 14px;
                 ">
-                    Monthly Sell Report</div>
-                <canvas id="monthlySell"></canvas>
+                    Weekly Dailyses Report</div>
+                <canvas id="userSell"></canvas>
             </div>
         </div>
-        <div class="col-6">
+
+        <div class="col-12">
             <div class="card">
                 <div class="card-header text-center text-white"
                     style="
@@ -172,8 +175,8 @@
                     font-weight: bold;
                     font-size: 14px;
                 ">
-                    Today's Sellman Wise Sell Report</div>
-                <canvas id="userSell"></canvas>
+                    Monthly Sell Report</div>
+                <canvas id="monthlySell"></canvas>
             </div>
         </div>
         {{-- <div class="col-lg-6 col-md-6">
