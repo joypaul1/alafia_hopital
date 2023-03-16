@@ -85,6 +85,41 @@
 
     <script>
         let table_name;
+        $(document).on('input', '#patientId', function() {
+            $("#patientId").autocomplete({
+                source: function(request, response) {
+                    var optionData = request.term;
+                    $.ajax({
+                        method: 'GET',
+                        url: "{{ route('backend.patient.index') }}",
+                        data: {
+                            'optionData': optionData
+                        },
+                        success: function(res) {
+                            var resArray = $.map(res.data, function(obj) {
+                                return {
+                                    value: obj
+                                        .name, //Fillable in input field
+                                    value_id: obj
+                                        .id, //Fillable in input field
+                                    label: 'Name:' + obj.name +
+                                        ' mobile:' + obj
+                                        .mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                                }
+                            })
+                            response(resArray);
+                        }
+                    });
+                },
+                minLength: 3,
+                select: function(event, ui) {
+                    // patient_Id data
+                    $('#patient_Id').val(ui.item.value_id);
+
+
+                }
+            });
+        });
         $(function() {
             table_name = $("#appointment_table").DataTable({
                 dom: "Bfrtip",
@@ -152,6 +187,8 @@
                     },
                 ],
             });
+
+
         });
 
         $(document).on('change', '#department_id', function(e) {
@@ -247,37 +284,7 @@
             });
         });
 
-        // $(function() {
-        $("#patientId").autocomplete({
-            source: function(request, response) {
-                var optionData = request.term;
-                $.ajax({
-                    method: 'GET',
-                    url: "{{ route('backend.patient.index') }}",
-                    data: {
-                        'optionData': optionData
-                    },
-                    success: function(res) {
-                        var resArray = $.map(res.data, function(obj) {
-                            return {
-                                value: obj.name, //Fillable in input field
-                                value_id: obj.id, //Fillable in input field
-                                label: 'Name:' + obj.name + ' mobile:' + obj
-                                    .mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
-                            }
-                        })
-                        response(resArray);
-                    }
-                });
-            },
-            minLength: 3,
-            select: function(event, ui) {
-                // patient_Id data
-                $('#patient_Id').val(ui.item.value_id);
 
-
-            }
-        });
 
         // get slot time on change date by ajax request
         $(document).on('change', '#appointment_date', function() {

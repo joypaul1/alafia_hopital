@@ -29,7 +29,7 @@ class UpdateRequest extends FormRequest
             'name'          => ['required', 'string', Rule::unique('service_names')->ignore($this->serviceName->id)],
             'service_type_id'   => 'required|exists:service_types,id',
             'description'   => 'nullable|string',
-            'service_price'       => 'required|numeric',
+            'service_price'       => 'required',
 
         ];
     }
@@ -39,6 +39,8 @@ class UpdateRequest extends FormRequest
         try {
             DB::beginTransaction();
             $data = $request->validated();
+            // dd($data);
+            $data['service_price'] = str_replace(',','',$request->service_price);
             $serviceName->update($data);
             DB::commit();
         } catch (\Exception $ex) {

@@ -57,12 +57,12 @@ class AppointmentController extends Controller
         //     ['name' => 'Pending', 'id' => 'pending'],
         // ];
 
-        $appointmentDatas = Appointment::
+        $appointmentData = Appointment::
         select('id', 'invoice_number', 'appointment_date', 'patient_id', 'doctor_id', 'doctor_fee','appointment_status' )
         ->with('patient:id,name,patientId', 'doctor:id,first_name,last_name')->latest()->get();
 
         if (request()->ajax()) {
-            return DataTables::of($appointmentDatas)
+            return DataTables::of($appointmentData)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $action ='<div class="dropdown">
@@ -105,11 +105,7 @@ class AppointmentController extends Controller
                 ->make(true);
 
         }
-        return view('backend.appointment.doctor.index',
-            compact(
-                'appointmentDatas'
-            )
-        );
+        return view('backend.appointment.doctor.index');
     }
 
 
