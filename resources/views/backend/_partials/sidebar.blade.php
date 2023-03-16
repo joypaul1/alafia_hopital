@@ -224,7 +224,7 @@
                             <x-backend.side-bar class="{{ request()->segment(3) == 'rack' ? 'active' : ' ' }}" name="Rack" link='backend.itemconfig.rack.index' icon='#' />
                             <x-backend.side-bar class="{{ request()->segment(3) == 'row' ? 'active' : ' ' }}" name="Row" link='backend.itemconfig.row.index' icon='#' />
                         </ul>
-                        </li> 
+                        </li>
                         {{-- End Item Config --}}
                         {{-- Account Panel --}}
                         <li class="{{ strpos($strpos, 'backend.account') === 0 ? 'active' : ' ' }}">
@@ -269,6 +269,7 @@
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'bed' ? 'active' : ' ' }}" name="Bed Config" link='backend.siteConfig.bed.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'symptom' ? 'active' : ' ' }}" name="Symptom Config" link='backend.siteConfig.symptom.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'serviceName' ? 'active' : ' ' }}" name="Service Config" link='backend.siteConfig.serviceName.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'labTest' ? 'active' : ' ' }}" name="Lab Test Config" link='backend.siteConfig.labTest.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'bloodBank' ? 'active' : ' ' }}" name="Blood Config" link='backend.siteConfig.bloodBank.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'slider' ? 'active' : ' ' }}" name="Slider" link='backend.siteConfig.slider.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'banner' ? 'active' : ' ' }}" name="Banner" link='backend.siteConfig.banner.index' icon='#' />

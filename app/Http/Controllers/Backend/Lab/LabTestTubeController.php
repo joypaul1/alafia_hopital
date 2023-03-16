@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend\Lab;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TestTubeController extends Controller
+class LabTestTubeController extends Controller
 {
     /**
      * Display a listing of the resource.

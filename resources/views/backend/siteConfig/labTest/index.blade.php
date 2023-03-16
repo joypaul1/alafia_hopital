@@ -3,7 +3,7 @@
 
 
 @section('page-header')
-    <i class="fa fa-list"></i> Cabin Config
+    <i class="fa fa-list"></i> LabTest Config
 @stop
 
 @section('content')
@@ -13,25 +13,27 @@
 
     <div class="row">
         <div class="col-3">
-            @include('backend.siteConfig.bed.sidebar')
+            @include('backend.siteConfig.labTest.sidebar')
         </div>
         <div class="col-9">
             <div class="card">
                 <div class="body">
                     <div class="d-flex justify-content-between aling-items-center mb-4">
-                        <h4 class="card-title mb-0">Cabin List</h4>
-                        <a id="create_data" data-href="{{ route('backend.siteConfig.bedCabin.create') }}"
+                        <h4 class="card-title mb-0">LabTest List</h4>
+                        <a id="create_data" data-href="{{ route('backend.siteConfig.labTest.create') }}"
                             class="btn btn-info btn-md text-white">
-                            <i class="fa fa-plus-circle me-2"></i> Create Cabin
+                            <i class="fa fa-plus-circle me-2"></i> Create LabTest
                         </a>
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="bedCabin_table">
+                        <table class="table table-bordered " id="labTest_table">
                             <thead>
                                 <tr>
                                     <th class="text-center">Sl.</th>
                                     <th class="text-center">Name</th>
+                                    <th class="text-center">Type</th>
+                                    <th class="text-center">Price</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -50,7 +52,7 @@
 
     <!-- Modal HTML -->
 
-    <div class="modal fade bedCabin_modal" tabindex="-1" role="dialog">
+    <div class="modal fade labTest_modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-md" role=" document">
 
         </div>
@@ -61,56 +63,66 @@
 @push('js')
     <script>
         let table_name;
-        var modal = ".bedCabin_modal";
+        var modal = ".labTest_modal";
         $(function() {
-            table_name = $("#bedCabin_table").DataTable({
-                dom: "Bfrtip",
-                buttons: ["colvis", "copy", "csv", "excel", "pdf", "print",
-                    {
-                        text: 'Reload',
-                        action: function(e, dt, node, config) {
-                            dataBaseCall();
-                        }
-                    }
-                ],
-                processing: true,
-                serverSide: true,
-                destroy: true,
-                pagingType: 'numbers',
-                pageLength: 10,
-                ajax: "{{ route('backend.siteConfig.bedCabin.index') }}",
-                ajax: {
-                    method: 'GET',
-                    url: "{{ route('backend.siteConfig.bedCabin.index') }}",
-                    data: function(d) {
-                        d.status = $('select#status').val() || true;
-                    },
-                },
-                columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex'
-                    }, {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status',
-                        orderable: false,
-                        searchable: false
-                    }, {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    },
-                ],
-            });
+            // table_name = $("#labTest_table").DataTable({
+            //     dom: "Bfrtip"
+            //     , buttons: ["colvis", "copy", "csv", "excel", "pdf", "print"
+            //         , {
+            //             text: 'Reload'
+            //             , action: function(e, dt, node, config) {
+            //                 dataBaseCall();
+            //             }
+            //         }
+            //     ]
+            //     , processing: true
+            //     , serverSide: true
+            //     , destroy: true
+            //     , pagingType: 'numbers'
+            //     , pageLength: 10
+            //     , ajax: "{{ route('backend.siteConfig.labTest.index') }}"
+            //     , ajax: {
+            //         method: 'GET'
+            //         , url: "{{ route('backend.siteConfig.labTest.index') }}"
+            //         , data: function(d) {
+            //             d.status = $('select#status').val() || true;
+            //         }
+            //     , }
+            //     , columns: [{
+            //             data: 'DT_RowIndex'
+            //             , name: 'DT_RowIndex'
+            //         }
+            //         , {
+            //             data: 'name'
+            //             , name: 'name'
+            //             , "className": "text-center"
+            //         }, {
+            //             data: 'service_type_id'
+            //             , name: 'service_type_id'
+            //             , "className": "text-center"
+            //         }, {
+            //             data: 'service_price'
+            //             , name: 'service_price'
+            //             , "className": "text-center"
+            //         , }
+            //         , {
+            //             data: 'status'
+            //             , name: 'status'
+            //             , orderable: false
+            //             , searchable: false
+            //         }, {
+            //             data: 'action'
+            //             , name: 'action'
+            //             , orderable: false
+            //             , searchable: false
+            //         }
+            //     , ]
+            // , });
         });
 
         $('#create_data').click(function(e) {
             e.preventDefault();
-            var modal = ".bedCabin_modal";
+            var modal = ".labTest_modal";
             var href = $(this).data('href');
 
             // AJAX request
@@ -149,11 +161,11 @@
             table_name.ajax.reload();
         }
 
-        $(document).on('submit', 'form#bedCabin_edit_form', function(e) {
+        $(document).on('submit', 'form#labTest_edit_form', function(e) {
             e.preventDefault();
-            var registerForm = $("form#bedCabin_edit_form");
+            var registerForm = $("form#labTest_edit_form");
             var formData = registerForm.serialize();
-            $('.edit_bedCabin_button').attr('disabled', true);
+            $('.edit_labTest_button').attr('disabled', true);
 
             $.ajaxSetup({
                 headers: {
@@ -208,17 +220,19 @@
                                 positionClass: $positionClass
                             });
                         }
+
                     }
+
                 }
             });
         });
 
 
-        $(document).on('submit', 'form#bedCabin_add_form', function(e) {
+        $(document).on('submit', 'form#labTest_add_form', function(e) {
             e.preventDefault();
-            var registerForm = $("form#bedCabin_add_form");
+            var registerForm = $("form#labTest_add_form");
             var formData = registerForm.serialize();
-            $('.save_bedCabin_button').attr('disabled', true);
+            $('.save_labTest_button').attr('disabled', true);
 
             $.ajaxSetup({
                 headers: {

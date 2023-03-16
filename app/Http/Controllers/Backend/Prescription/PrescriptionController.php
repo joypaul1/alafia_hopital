@@ -19,12 +19,12 @@ class PrescriptionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-        // if ($request->optionData) {
-        //     return response()->json(['data' => Prescription::
-        //         whereLike($request->optionData, 'mobile')->whereLike($request->optionData, 'name')->whereLike($request->optionData, 'patientId')->whereLike($request->optionData, 'email')->take(15)
-        //         ->get()]);
-        // }
+    { 
+        if ($request->optionData) {
+            return response()->json(['data' => Prescription::
+                // whereLike($request->optionData, 'mobile')->whereLike($request->optionData, 'name')->whereLike($request->optionData, 'patientId')->whereLike($request->optionData, 'email')->take(15)
+                all()]);
+        }
         // $appointments =Prescription::latest()->get();
 
         return view('backend.prescription.index');

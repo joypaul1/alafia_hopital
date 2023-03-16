@@ -112,7 +112,7 @@
         e.preventDefault();
         var modal = ".bedWard_modal";
         var href = $(this).data('href');
-        console.log(href);
+
         // AJAX request
         $.ajax({
             url: href,

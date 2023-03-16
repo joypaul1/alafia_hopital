@@ -8,6 +8,8 @@ use App\Http\Controllers\Backend\Bed\BedWardController;
 use App\Http\Controllers\Backend\Bed\FloorController;
 use App\Http\Controllers\Backend\SiteConfig\BarcodeController;
 use App\Http\Controllers\Backend\File\FileManagerController;
+use App\Http\Controllers\Backend\Lab\LabTestController;
+use App\Http\Controllers\Backend\Lab\LabTestTubeController;
 use App\Http\Controllers\Backend\SiteConfig\PrefixController;
 use App\Http\Controllers\Backend\SiteConfig\BannerController;
 use App\Http\Controllers\Backend\SiteConfig\Blood\BloodBankController;
@@ -82,11 +84,17 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin/site-config', 'as' => 
     //symptoms
     Route::resource('symptom', SymptomController::class);
 
-    //servicetype
+    //serviceType
     Route::resource('serviceType', ServiceTypeController::class);
 
     //service
     Route::resource('serviceName', ServiceNameController::class);
+
+    //labTest
+    Route::resource('labTest', LabTestController::class);
+
+    //LabTestTube
+    Route::resource('labTestTube', LabTestTubeController::class);
 
     //blood
     Route::resource('bloodBank', BloodBankController::class);

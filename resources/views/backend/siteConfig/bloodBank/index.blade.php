@@ -115,7 +115,7 @@
         e.preventDefault();
         var modal = ".bloodBank_modal";
         var href = $(this).data('href');
-        // console.log(href);
+        //
         // AJAX request
         $.ajax({
             url: href,
