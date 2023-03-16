@@ -12,6 +12,7 @@ use App\Models\SiteConfig\BloodBank;
 use Illuminate\Http\Request;
 use App\Http\Requests\Appointment\Doctor\StoreRequest;
 use App\Http\Requests\Appointment\Doctor\UpdateRequest;
+use App\Models\Employee\Department;
 use App\Models\Employee\Designation;
 use FontLib\Table\Type\name;
 use Yajra\DataTables\Facades\DataTables;
@@ -144,11 +145,11 @@ class AppointmentController extends Controller
             $data['name'] = $doctor->first_name . ' ' . $doctor->last_name;
             return $data;
         });
-        $designation = Designation::active()->select('id', 'name')->get();
+        $department = Department::active()->select('id', 'name')->get();
 
         return view('backend.appointment.doctor.create', compact(
             'doctors',
-            'designation',
+            'department',
             'appointment_status',
             'appointment_priority',
             'paymentSystems'
