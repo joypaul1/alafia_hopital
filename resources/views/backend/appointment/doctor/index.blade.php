@@ -205,6 +205,7 @@
                 success: function(res) {
                     $('#doctorID').html(' ');
                     $.map(res.data, function(val, i) {
+                        var newOption = new Option('-select Doctor-', null, false, false);
                         var newOption = new Option(val.name, val.id, false, false);
                         $('#doctorID').append(newOption);
                     });
