@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-{{-- @dd(123123) --}}
+
 
     @include('backend._partials.page_header')
 
@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table table-bordered " id="labTest_table">
+                        <table class="table table-bordered " id="labTestTube_table">
                             <thead>
                                 <tr>
                                     <th class="text-center">Sl.</th>
@@ -52,7 +52,7 @@
 
     <!-- Modal HTML -->
 
-    <div class="modal fade labTest_modal" tabindex="-1" role="dialog">
+    <div class="modal fade labTestTube_modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-md" role=" document">
 
         </div>
@@ -63,9 +63,9 @@
 @push('js')
     <script>
         let table_name;
-        var modal = ".labTest_modal";
+        var modal = ".labTestTube_modal";
         $(function() {
-            // table_name = $("#labTest_table").DataTable({
+            // table_name = $("#labTestTube_table").DataTable({
             //     dom: "Bfrtip"
             //     , buttons: ["colvis", "copy", "csv", "excel", "pdf", "print"
             //         , {
@@ -122,7 +122,7 @@
 
         $('#create_data').click(function(e) {
             e.preventDefault();
-            var modal = ".labTest_modal";
+            var modal = ".labTestTube_modal";
             var href = $(this).data('href');
 
             // AJAX request
@@ -161,11 +161,11 @@
             table_name.ajax.reload();
         }
 
-        $(document).on('submit', 'form#labTest_edit_form', function(e) {
+        $(document).on('submit', 'form#labTestTube_edit_form', function(e) {
             e.preventDefault();
-            var registerForm = $("form#labTest_edit_form");
+            var registerForm = $("form#labTestTube_edit_form");
             var formData = registerForm.serialize();
-            $('.edit_labTest_button').attr('disabled', true);
+            $('.edit_labTestTube_button').attr('disabled', true);
 
             $.ajaxSetup({
                 headers: {
@@ -228,11 +228,11 @@
         });
 
 
-        $(document).on('submit', 'form#labTest_add_form', function(e) {
+        $(document).on('submit', 'form#labTestTube_add_form', function(e) {
             e.preventDefault();
-            var registerForm = $("form#labTest_add_form");
+            var registerForm = $("form#labTestTube_add_form");
             var formData = registerForm.serialize();
-            $('.save_labTest_button').attr('disabled', true);
+            $('.save_labTestTube_button').attr('disabled', true);
 
             $.ajaxSetup({
                 headers: {

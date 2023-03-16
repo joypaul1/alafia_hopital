@@ -20,6 +20,7 @@ class LabTestController extends Controller
      */
     public function index(Request $request)
     {
+        // dd($request->all());
         $data = ServiceName::select(['id', 'name', 'status', 'service_price', 'service_type_id'])->latest();
         if ($request->status) {
             $data = $data->active();
