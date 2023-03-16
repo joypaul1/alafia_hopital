@@ -18,6 +18,8 @@ class UnitController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth('admin')->user()->can('view-unit')){
+
         if ($request->optionData) {
             $data = Unit::active()->select(['id','name','status'])->latest()->get();
             return response()->json(['data' => $data]);
@@ -27,12 +29,22 @@ class UnitController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $action = '<button  data-href="'.route('backend.itemconfig.unit.edit', $row).'"  type="button" 
+                    $action='';
+                    if(auth('admin')->user()->can('edit-unit')){
+
+                    $action .= '<button  data-href="'.route('backend.itemconfig.unit.edit', $row).'"  type="button" 
                     class="btn btn-sm btn-info edit_data" 
                     data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></button>';
+                    }
+                    if(auth('admin')->user()->can('delete-unit')){
+
                     $action .='<button  data-href="'.route('backend.itemconfig.unit.destroy', $row).'" type="button"  
                     class="btn btn-sm btn-danger delete_check" data-toggle="tooltip" data-original-title="Delete" aria-describedby="tooltip64483"><i class="icon-trash" aria-hidden="true"></i>
                     </button >'; 
+                    }
+                    else{
+                        $action.='';
+                    }
                     return $action;
                 })
                 ->removeColumn(['id'])
@@ -42,6 +54,9 @@ class UnitController extends Controller
         }
        return view('backend.item.unit.index');
     }
+    abort(403, 'Unauthorized action.');
+
+    }
     
     /**
      * Show the form for creating a new resource.
@@ -50,7 +65,12 @@ class UnitController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-unit')){
+
         return view('backend.item.unit.create');
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**

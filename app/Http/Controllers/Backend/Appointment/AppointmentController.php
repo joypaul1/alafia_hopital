@@ -25,6 +25,8 @@ class AppointmentController extends Controller
      */
     public function index()
     {
+        if(auth('admin')->user()->can('view-doctor-appointment')){
+
         $status =  (object)[['name' => 'Active', 'id' => 1], ['name' => 'Inactive', 'id' => 0]];
         //gender option create
         // $genders = (object)[
@@ -107,6 +109,9 @@ class AppointmentController extends Controller
         }
         return view('backend.appointment.doctor.index');
     }
+    abort(403, 'Unauthorized action.');
+
+    }
 
 
 
@@ -117,6 +122,8 @@ class AppointmentController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-doctor-appointment')){
+
 
         $appointment_priority = (object)[
             ['name' => 'Normal', 'id' => 'Normal'],
@@ -154,6 +161,9 @@ class AppointmentController extends Controller
             'paymentSystems'
         ));
     }
+    abort(403, 'Unauthorized action.');
+
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -190,8 +200,13 @@ class AppointmentController extends Controller
      */
     public function show($id)
     {
+        if(auth('admin')->user()->can('view-doctor-appointment')){
+
         $appointment = Appointment::whereId($id)->with('doctor', 'patient', 'paymentHistories')->first();
         return view('backend.appointment.moneyReceipt', compact('appointment'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -225,6 +240,8 @@ class AppointmentController extends Controller
      */
     public function destroy(Appointment $appointment)
     {
+        if(auth('admin')->user()->can('delete-doctor-appointment')){
+
         try {
             // (new Image)->deleteIfExists($category->image);
             $appointment->delete();
@@ -235,4 +252,7 @@ class AppointmentController extends Controller
         (new LogActivity)::addToLog('Category Deleted');
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 }

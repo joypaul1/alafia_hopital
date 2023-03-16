@@ -190,6 +190,31 @@
                             <ul>
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'admin' ? 'active' : ' ' }}" name="Admin" link='backend.admin.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'log-activity' ? 'active' : ' ' }}" name="Log-Activity" link='backend.admin.log.activity' icon='#' />
+
+                      
+                            <x-backend.side-bar
+                            class="{{ request()->segment(2) == 'modules' ? 'active' : ' ' }}"
+                            name="Module" link='backend.modules.index' icon='#' />
+                            
+
+                            <x-backend.side-bar
+                            class="{{ request()->segment(2) == 'submodules' ? 'active' : ' ' }}"
+                            name="SubModule" link='backend.submodules.index' icon='#' />
+                        
+                            
+                            <x-backend.side-bar
+                            class="{{ request()->segment(2) == 'roles' ? 'active' : ' ' }}"
+                            name="Roles" link='backend.roles.index' icon='#' />
+                            
+
+                            <x-backend.side-bar
+                            class="{{ request()->segment(2) == 'permissions' ? 'active' : ' ' }}"
+                            name="Permissions" link='backend.permissions.index' icon='#' />
+                        
+                            <x-backend.side-bar
+                            class="{{ request()->segment(2) == 'permission-assign' ? 'active' : ' ' }}"
+                            name="Access Control" link='backend.permission-assign.index' icon='#' />
+                            
                             </ul>
                         </li>
                         {{-- End Admin Panel --}}

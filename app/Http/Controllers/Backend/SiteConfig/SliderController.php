@@ -20,9 +20,14 @@ class SliderController extends Controller
      */
     public function index()
     {
+        if(auth('admin')->user()->can('view-slider')){
+
         $sliders = Slider::select('id', 'text','position', 'image')->paginate(10);
-        return view('backend.siteConfig.slider.index', compact('sliders'));
+        return view('backend.siteconfig.slider.index', compact('sliders'));
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     /**
      * Show the form for creating a new resource.
@@ -31,7 +36,12 @@ class SliderController extends Controller
      */
     public function create()
     {
-        return view('backend.siteConfig.slider.create');
+        if(auth('admin')->user()->can('create-slider')){
+
+        return view('backend.siteconfig.slider.create');
+        }
+        
+    abort(403, 'Unauthorized action.');
     }
 
     /**
@@ -48,7 +58,7 @@ class SliderController extends Controller
             return back()->with(['success' => $returnData->getData()->msg  ]);
         }
         return back()->with(['error' =>$returnData->getData()->msg ]);
-
+      
     }
 
     /**
@@ -70,7 +80,14 @@ class SliderController extends Controller
      */
     public function edit(Slider $slider )
     {
-        return view('backend.siteConfig.slider.edit',compact('slider'));
+        if(auth('admin')->user()->can('edit-slider')){
+
+        return view('backend.siteconfig.slider.edit',compact('slider'));
+    }
+        
+    abort(403, 'Unauthorized action.');
+        
+           
     }
 
     /**
@@ -82,7 +99,7 @@ class SliderController extends Controller
      */
     public function update(UpdateRequest $request, Slider $slider)
     {
-
+      
         $returnData = $request->updateData($request, $slider);
         if($returnData->getData()->status){
 		    (new LogActivity)::addToLog('Slider Updated');
@@ -99,13 +116,21 @@ class SliderController extends Controller
      */
     public function destroy(Slider $slider)
     {
-        try {
-            (new Image)->deleteIfExists($slider->image);
-            $slider->delete();
-        } catch (\Exception $ex) {
-            return back()->with(['status' => false, 'error' =>$ex->getMessage()]);
+        if(auth('admin')->user()->can('delete-slider')){
+
+            try {
+                (new Image)->deleteIfExists($slider->image);
+                $slider->delete();
+            } catch (\Exception $ex) {
+                return back()->with(['status' => false, 'error' =>$ex->getMessage()]);
+            }
+            (new LogActivity)::addToLog('Slider Deleted');
+            return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);   
+    
         }
-		(new LogActivity)::addToLog('Slider Deleted');
-        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);
+        
+        abort(403, 'Unauthorized action.');
+
+   
     }
 }

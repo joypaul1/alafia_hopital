@@ -11,8 +11,13 @@ class SocialMediaController extends Controller
 {
     public function index()
     {
-        return view('backend.siteConfig.socialmedia.index', ['socialmedia' => SocialMedia::first()]);
+        if(auth('admin')->user()->can('view-social-media')){
+
+        return view('backend.siteconfig.socialmedia.index', ['socialmedia' => SocialMedia::first()]);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     public function store(Request $request)
     {

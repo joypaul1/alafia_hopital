@@ -21,6 +21,8 @@ class AccountGroupController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth('admin')->user()->can('view-account-group'))
+        {
         $data = AccountGroup::select(['id', 'name','note', 'account_head_id','status'])->latest();
         if($request->status == '1'){ 
             $data = $data->active();
@@ -39,15 +41,22 @@ class AccountGroupController extends Controller
                 ->addColumn('action', function ($row) {
                     $action ='<div class="dropdown">
                     <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                        <div class="dropdown-menu">
-                        <a data-href="'.route('backend.account.accountgroup.edit', $row).'" class="dropdown-item edit_check"
+                        <div class="dropdown-menu">';
+                    if(auth('admin')->user()->can('edit-account-group')){
+                      $action.='<a data-href="'.route('backend.account.accountgroup.edit', $row).'" class="dropdown-item edit_check"
                             data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit mr-2" aria-hidden="true"></i> Edit
-                        </a>
-                        <div class="dropdown-divider"></div>
+                        </a>';
+                    }
+                    if(auth('admin')->user()->can('delete-account-group')){
+    
+                        $action.='<div class="dropdown-divider"></div>
                         <a data-href="'.route('backend.account.accountgroup.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip" 
                             data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash mr-2" aria-hidden="true"></i> Delete
-                        </a>
-                    </div></div>';
+                        </a>';}
+                        else{
+                            $action.='';
+                        }
+                    $action.='</div></div>';
                     return $action;
                 })
                 
@@ -67,6 +76,8 @@ class AccountGroupController extends Controller
         
         return view('backend.account.accountgroup.index', compact('status'));
     }
+    abort(403, 'Unauthorized action.');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -75,8 +86,12 @@ class AccountGroupController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-account-group'))
+        {
         $account_heads = AccountHead::get(['id', 'name']);
         return view('backend.account.accountgroup.create', compact('account_heads'));
+    }
+    abort(403, 'Unauthorized action.');
     }
 
     /**
@@ -115,9 +130,13 @@ class AccountGroupController extends Controller
      */
     public function edit(AccountGroup $accountgroup )
     {
+        if(auth('admin')->user()->can('edit-account-group'))
+        {
         $account_heads = AccountHead::get(['id', 'name']);
         return view('backend.account.accountgroup.edit',compact('accountgroup','account_heads'));
     }
+    abort(403, 'Unauthorized action.');
+}
 
     /**
      * Update the specified resource in storage.
@@ -145,6 +164,9 @@ class AccountGroupController extends Controller
 
     public function destroy(AccountGroup $accountgroup)
     {
+        if(auth('admin')->user()->can('delete-account-group'))
+    {
+        {
         try {
             DB::beginTransaction();
             $accountgroup->delete();
@@ -156,5 +178,7 @@ class AccountGroupController extends Controller
         (new LogActivity)::addToLog('Account Group Deleted');
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);   
     }
+}
+abort(403, 'Unauthorized action.');
 }
 

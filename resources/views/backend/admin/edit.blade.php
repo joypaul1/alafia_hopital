@@ -60,6 +60,16 @@
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('image')])
                             </div>
                         </div>
+                        <div class="mb-3 row">
+                            <div class="col-lg-8">
+                            <select name="role_id" class="form-control show-tick ms select2" id="select2" required>
+                                    <option value="">--Select Role--</option>
+                                    @foreach($roles as $role)
+                                    <option value="{{ $role->id }}" @if($role->id == $userrole->role_id) selected @endif>{{ $role->name }}</option>
+                                    @endforeach
+                                    </select>
+                            </div>
+                        </div>
 
                         <div class="mb-3 row">
                             <div class="col-lg-12 text-right">

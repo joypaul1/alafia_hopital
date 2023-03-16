@@ -25,6 +25,8 @@ class DialysisAppointmentController extends Controller
      */
     public function index()
     {
+        if(auth('admin')->user()->can('view-dialysis-appointment')){
+
         // return NumtoWordCon::convertor(1232);
         $status =  (object)[['name' => 'Active', 'id' => 1], ['name' => 'Inactive', 'id' => 0]];
         //gender option create
@@ -78,6 +80,9 @@ class DialysisAppointmentController extends Controller
             )
         );
     }
+    abort(403, 'Unauthorized action.');
+
+    }
 
 
 
@@ -88,7 +93,12 @@ class DialysisAppointmentController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-dialysis-appointment')){
+
         return view('backend.appointment.dialysis.create');
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -126,9 +136,14 @@ class DialysisAppointmentController extends Controller
      */
     public function show($id)
     {
+        if(auth('admin')->user()->can('view-dialysis-appointment')){
+
         $appointment = DialysisAppointment::whereId($id)->with('asignEmp', 'patient', 'paymentHistories')->first();
         return view('backend.appointment.dialysis.moneyReceipt', compact('appointment'));
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     /**
      * Show the form for editing the specified resource.

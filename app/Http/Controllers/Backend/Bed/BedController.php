@@ -19,6 +19,8 @@ class BedController extends Controller
 {
     public function index(Request $request)
     {
+        if(auth('admin')->user()->can('view-bed-config')){
+
         $data = Bed::
         // select('beds.*', 'bed_cabin_id.name as bedCabin', 'bed_groups.name as bedGroup', 'bed_types.name as bedType', 'bed_wards.name as bedWard', 'floors.name as floor')
         with('bedCabin', 'bedGroup', 'bedType', 'bedWard', 'floor')
@@ -81,6 +83,10 @@ class BedController extends Controller
         // $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
         return view('backend.siteConfig.bed.index');
     }
+    abort(403, 'Unauthorized action.');
+
+
+    }
 
       /**
        * Show the form for creating a new resource.
@@ -90,6 +96,8 @@ class BedController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-bed-config')){
+
         $group = BedGroup::active()->select(['id', 'name'])->get();
         $type = BedType::active()->select(['id', 'name'])->get();
         $ward = BedWard::active()->select(['id', 'name'])->get();
@@ -97,6 +105,9 @@ class BedController extends Controller
         $floor = Floor::active()->select(['id', 'name'])->get();
         return view('backend.siteConfig.bed.create',
         compact('group', 'type', 'ward', 'cabin', 'floor'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -136,7 +147,12 @@ class BedController extends Controller
      */
     public function edit(Bed $bed )
     {
+        if(auth('admin')->user()->can('edit-bed-config')){
+
         return view('backend.siteConfig.bed.edit',compact('bed'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -165,6 +181,8 @@ class BedController extends Controller
 
     public function destroy(Bed $bed)
     {
+        if(auth('admin')->user()->can('delete-bed-config')){
+
         try {
             $bed->delete();
 
@@ -174,6 +192,9 @@ class BedController extends Controller
         (new LogActivity)::addToLog('Bed Deleted');
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
 
 

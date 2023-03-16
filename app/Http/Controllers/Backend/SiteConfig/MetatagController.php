@@ -10,9 +10,13 @@ use Illuminate\Http\Request;
 class MetatagController extends Controller
 {
     public function index() {
+        if(auth('admin')->user()->can('view-meta-tag')){
 
-        return view('backend.siteConfig.metatag.create', ['metatags' =>MetaTag::all() ]);
+        return view('backend.siteconfig.metatag.create', ['metatags' =>MetaTag::all() ]);
     }
+    abort(403, 'Unauthorized action.');
+
+   }
 
     public function store(Request $request)
     {
@@ -23,7 +27,7 @@ class MetatagController extends Controller
                 "description"  => "required|array",
                 "description.*"  => "required|string",
             ]);
-
+           
             if(!empty($request->ids)){
                 $string= (implode(",",$request->ids));
                 $integerIDs = array_map('intval', explode(',', $string));
@@ -45,12 +49,12 @@ class MetatagController extends Controller
                     ]);
                 }
             }
-
+           
         } catch (\Exception $ex) {
             return back()->with(['status' => false, 'error' =>$ex->getMessage()]);
         }
 		(new LogActivity)::addToLog('Meta-Tag Configuration');
 
-        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);
+        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']); 
     }
 }

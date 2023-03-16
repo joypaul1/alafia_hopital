@@ -19,10 +19,15 @@ class DepartmentController extends Controller
      */
     public function index()
     {
+        if(auth('admin')->user()->can('view-department')){
+
         $departments = Department::select('id', 'name', 'status', 'created_by')->with('createdBy')->with(['designations' => function($query){
             $query->select('designation_id', 'name');
         }])->orderBy('id', 'DESC')->paginate(20);
         return view('backend.employee.department.index', compact('departments'));
+    }
+    abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -32,8 +37,13 @@ class DepartmentController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-department')){
+
         $designations = Designation::select('id', 'name')->get();
         return view('backend.employee.department.create', compact('designations'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -72,9 +82,14 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department )
     {
+        if(auth('admin')->user()->can('edit-department')){
+
         $designations = Designation::select('id', 'name')->get();
         return view('backend.employee.department.edit',compact('department', 'designations'));
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     /**
      * Update the specified resource in storage.
@@ -101,6 +116,8 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
+        if(auth('admin')->user()->can('delete-department')){
+
         try {
             $department->delete();
         } catch (\Exception $ex) {
@@ -110,5 +127,8 @@ class DepartmentController extends Controller
 
         return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 }
 

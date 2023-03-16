@@ -12,9 +12,13 @@ use App\Http\Requests\Banner\StoreRequest;
 class EmailConfigurationController extends Controller
 {
     public function index() {
+        if(auth('admin')->user()->can('view-email-config')){
 
-        return view('backend.siteConfig.emailConfig.create', ['emailConfig' =>EmailConfiguration::first() ]);
+        return view('backend.siteconfig.emailConfig.create', ['emailConfig' =>EmailConfiguration::first() ]);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     public function store(Request $request)
     {
@@ -43,6 +47,6 @@ class EmailConfigurationController extends Controller
         }
         (new LogActivity)::addToLog('Email-Configuration');
 
-        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);
+        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']); 
     }
 }

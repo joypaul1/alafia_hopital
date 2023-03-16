@@ -22,6 +22,8 @@ class AccountLedgerController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth('admin')->user()->can('view-account-ledger')){
+
         $data = AccountLedger::select(['id', 'name','note', 'account_group_id','status'])->latest();
         if($request->status == '1'){
             $data = $data->active();
@@ -69,6 +71,10 @@ class AccountLedgerController extends Controller
 
         return view('backend.account.accountledger.index', compact('status'));
     }
+    abort(403, 'Unauthorized action.');
+
+
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -77,9 +83,14 @@ class AccountLedgerController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-account-ledger')){
+
         $account_groups = AccountGroup::get(['id', 'name']);
         return view('backend.account.accountledger.create', compact('account_groups'));
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     /**
      * Store a newly created resource in storage.
@@ -118,9 +129,14 @@ class AccountLedgerController extends Controller
      */
     public function edit(AccountLedger $accountledger )
     {
+        if(auth('admin')->user()->can('edit-account-ledger')){
+
         $account_heads = AccountHead::get(['id', 'name']);
         return view('backend.account.accountledger.edit',compact('accountledger','account_heads'));
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     /**
      * Update the specified resource in storage.
@@ -148,6 +164,8 @@ class AccountLedgerController extends Controller
 
     public function destroy(AccountLedger $accountledger)
     {
+                if(auth('admin')->user()->can('view-account-ledger')){
+
         try {
             DB::beginTransaction();
             $accountledger->openingBalance()->delete();
@@ -161,4 +179,7 @@ class AccountLedgerController extends Controller
         (new LogActivity)::addToLog('Account Ledger Deleted');
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 }

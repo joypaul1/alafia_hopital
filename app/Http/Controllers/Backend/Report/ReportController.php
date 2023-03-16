@@ -17,6 +17,8 @@ class ReportController extends Controller
 
     public function incomeReport(Request $request)
     {
+        if(auth('admin')->user()->can('view-income-report')){
+
         $netSell = Order::whereHas('orderStatus', function($query){
             $query->whereStatus('paid');
         })
@@ -31,19 +33,29 @@ class ReportController extends Controller
         }])->first();
         return view('backend.report.income', compact('netSell', 'othersIncome'));
     }
+    abort(403, 'Unauthorized action.');
+
+    }
     public function expenseReport(Request $request)
     {
+        if(auth('admin')->user()->can('view-expense-report')){
+
         $othersExpense = AccountHead::whereName('Expenses')->with(['groups.ledgers.transaction'=> function($transaction) use ($request){
             $transaction->whereDate('date', '>=', date('Y-m-d', strtotime($request->start_date??date('Y-m-d'))))
             ->whereDate('date', '<=', date('Y-m-d', strtotime($request->end_date??date('Y-m-d'))));
 
         }])->first();
         return view('backend.report.expense', compact('othersExpense'));
+    }
+    abort(403, 'Unauthorized action.');
+
 
     }
 
     public function profitReport(Request $request)
     {
+        if(auth('admin')->user()->can('view-profit-report')){
+
         $netSell = Order::whereHas('orderStatus', function($query){
             $query->whereStatus('paid');
         })
@@ -62,19 +74,28 @@ class ReportController extends Controller
 
         }])->first();
         return view('backend.report.profitReport', compact('netSell', 'othersIncome'));
+    }
+    abort(403, 'Unauthorized action.');
 
     }
 
     public function dayBook(Request $request)
     {
+        if(auth('admin')->user()->can('view-day-book')){
+
         $daybooks = DailyAccountTransaction::
         with('transactionHistories')
         ->get();
 
        return view('backend.report.daybook', compact('daybooks'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
     public function cashFlow(Request $request)
     {
+        if(auth('admin')->user()->can('view-cash-flow')){
+
         $cashFlows = CashFlow::with('ledger:id,name')
         ->with('method:id,name')
         ->with('cashflowHistory')
@@ -82,6 +103,9 @@ class ReportController extends Controller
         // $model = new $media->cashflowable_type;
         // return  $media->model = $model->findOrFail($media->cashflowable_id);
        return view('backend.report.cashflow', compact('cashFlows'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     public function sellReport(Request $request)

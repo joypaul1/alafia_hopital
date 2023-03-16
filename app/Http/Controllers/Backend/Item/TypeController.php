@@ -18,6 +18,8 @@ class TypeController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth('admin')->user()->can('view-type')){
+
         if ($request->ajax()) {
             $data = Type::select(['id','name','note', 'status'])->latest()->get();
             return Datatables::of($data)
@@ -36,6 +38,9 @@ class TypeController extends Controller
         }
        return view('backend.item.type.index');
     }
+    abort(403, 'Unauthorized action.');
+
+    }
     
     /**
      * Show the form for creating a new resource.
@@ -44,7 +49,12 @@ class TypeController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-type')){
+
         return view('backend.item.type.create');
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -82,7 +92,12 @@ class TypeController extends Controller
      */
     public function edit(Type $type )
     {
+        if(auth('admin')->user()->can('edit-type')){
+
         return view('backend.item.type.edit',compact('type'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -109,6 +124,8 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
+        if(auth('admin')->user()->can('delete-type')){
+
         try {
             $type->delete();
         } catch (\Exception $ex) {
@@ -116,4 +133,7 @@ class TypeController extends Controller
         }
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);   
     }
+    abort(403, 'Unauthorized action.');
+
+}
 }

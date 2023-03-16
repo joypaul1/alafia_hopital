@@ -21,6 +21,8 @@ class SubcategoryController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth('admin')->user()->can('view-subcategory')){
+
         $data = Subcategory::query()->select('id', 'name', 'slug', 'image', 'status', 'category_id');
         if(request()->ajax() && $request->status) {
             if($request->status){
@@ -65,6 +67,9 @@ class SubcategoryController extends Controller
         $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
         return view('backend.item.subcategory.index', compact('status'));
     }
+    abort(403, 'Unauthorized action.');
+
+    }
 
 
     /**
@@ -74,8 +79,13 @@ class SubcategoryController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-subcategory')){
+
         return view('backend.item.subcategory.create', ['categories' => Category::get(['id', 'name'])]);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     /**
      * Store a newly created resource in storage.
@@ -113,8 +123,13 @@ class SubcategoryController extends Controller
      */
     public function edit(Subcategory $subcategory )
     {
+        if(auth('admin')->user()->can('edit-subcategory')){
+
         return view('backend.item.subcategory.edit',['categories' => Category::get(['id', 'name'])],compact('subcategory'));
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     /**
      * Update the specified resource in storage.
@@ -142,6 +157,8 @@ class SubcategoryController extends Controller
      */
     public function destroy(Subcategory $subcategory)
     {
+        if(auth('admin')->user()->can('delete-subcategory')){
+
         try {
             (new Image)->deleteIfExists($subcategory->image);
             $subcategory->delete();
@@ -152,6 +169,9 @@ class SubcategoryController extends Controller
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
 
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
 
 

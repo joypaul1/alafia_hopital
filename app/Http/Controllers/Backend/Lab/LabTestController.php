@@ -20,6 +20,8 @@ class LabTestController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth('admin')->user()->can('view-lab-test-config')){
+
         $data = ServiceName::select(['id', 'name', 'status', 'service_price', 'service_type_id'])->latest();
         if ($request->status) {
             $data = $data->active();
@@ -66,6 +68,9 @@ class LabTestController extends Controller
         // $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
         return view('backend.siteConfig.labTest.index');
     }
+    abort(403, 'Unauthorized action.');
+
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -74,8 +79,13 @@ class LabTestController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-lab-test-config')){
+
         $type = ServiceType::select(['id', 'name'])->get();
         return view('backend.siteConfig.labTest.create', compact('type'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -113,10 +123,15 @@ class LabTestController extends Controller
      */
     public function edit(ServiceName $serviceName)
     {
+        if(auth('admin')->user()->can('edit-lab-test-config')){
+
         $type = ServiceType::select(['id', 'name'])->get();
 
         return view('backend.siteConfig.labTest.edit', compact('serviceName', 'type'));
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     /**
      * Update the specified resource in storage.
@@ -144,6 +159,8 @@ class LabTestController extends Controller
 
     public function destroy(ServiceName $service)
     {
+        if(auth('admin')->user()->can('delete-lab-test-config')){
+
         try {
             $service->delete();
         } catch (\Exception $ex) {
@@ -152,4 +169,7 @@ class LabTestController extends Controller
         (new LogActivity)::addToLog('ServiceName Deleted');
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 }

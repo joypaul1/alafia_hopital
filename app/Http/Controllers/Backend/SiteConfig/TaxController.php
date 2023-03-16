@@ -17,12 +17,17 @@ class TaxController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth('admin')->user()->can('view-tax')){
+
         $taxDatas = TaxSetting::all();
         if($request->optionData){
             return TaxSetting::select('id', 'type', 'rate')->get();
         }
         $datas=  (object)[['name' =>'Percent', 'id' =>'percent' ],['name' =>'Flat', 'id' =>'flat' ]];
-        return view('backend.siteConfig.tax.index',compact('datas', 'taxDatas'));
+        return view('backend.siteconfig.tax.index',compact('datas', 'taxDatas'));
+    }
+    abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -32,7 +37,11 @@ class TaxController extends Controller
      */
     public function create()
     {
-        return view('backend.siteConfig.tax.index');
+        if(auth('admin')->user()->can('create-tax')){
+
+        return view('backend.siteconfig.tax.index');
+    }
+    abort(403, 'Unauthorized action.');
     }
 
     /**

@@ -18,7 +18,12 @@ class PrefixController extends Controller
    */
   public function index()
   {
-    return view('backend.siteConfig.prefix.create');
+    if(auth('admin')->user()->can('view-prefix-system')){
+
+    return view('backend.siteconfig.prefix.create');
+    }
+    abort(403, 'Unauthorized action.');
+
   }
 
   /**
@@ -28,7 +33,7 @@ class PrefixController extends Controller
    */
   public function create()
   {
-    return view('backend.siteConfig.prefix.create');
+    return view('backend.siteconfig.prefix.create');
   }
 
   /**

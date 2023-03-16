@@ -21,6 +21,8 @@ class ChildcategoryController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth('admin')->user()->can('view-childcategory')){
+
         $childcategories = Childcategory::select('id', 'name', 'slug', 'image', 'status', 'category_id', 'subcategory_id');
 
         if($request->subcategory_id) {
@@ -30,6 +32,9 @@ class ChildcategoryController extends Controller
         $childcategories = $childcategories->paginate(10);
         return view('backend.item.childcategory.index', compact('childcategories'));
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     /**
      * Show the form for creating a new resource.
@@ -38,8 +43,13 @@ class ChildcategoryController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-childcategory')){
+
         return view('backend.item.childcategory.create', ['categories' => Category::get(['id', 'name'])]);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     /**
      * Store a newly created resource in storage.
@@ -80,9 +90,14 @@ class ChildcategoryController extends Controller
      */
     public function edit(Childcategory $childcategory)
     {
+        if(auth('admin')->user()->can('edit-childcategory')){
+
         return view('backend.item.childcategory.edit',['categories' => Category::get(['id', 'name']),
          'subcategories'=>  Subcategory::where('category_id', $childcategory->category_id)->get(['id', 'name'])],compact('childcategory'));
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     /**
      * Update the specified resource in storage.
@@ -110,6 +125,8 @@ class ChildcategoryController extends Controller
      */
     public function destroy(Childcategory $childcategory)
     {
+        if(auth('admin')->user()->can('delete-childcategory')){
+
         try {
             (new Image)->deleteIfExists($childcategory->image);
             $childcategory->delete();
@@ -119,4 +136,7 @@ class ChildcategoryController extends Controller
         (new LogActivity)::addToLog('Childcategory Delete');
         return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 }

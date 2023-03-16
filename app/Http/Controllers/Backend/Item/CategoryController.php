@@ -21,6 +21,8 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth('admin')->user()->can('view-category')){
+
         $data = Category::select(['id', 'name', 'slug', 'image', 'status'])->latest();
         if($request->status){
             $data = $data->active();
@@ -65,6 +67,9 @@ class CategoryController extends Controller
         $this->catSession();
         return view('backend.item.category.index', compact('status'));
     }
+    abort(403, 'Unauthorized action.');
+
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -73,7 +78,12 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-category')){
+
         return view('backend.item.category.create');
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -113,7 +123,12 @@ class CategoryController extends Controller
      */
     public function edit(Category $category )
     {
+        if(auth('admin')->user()->can('edit-category')){
+
         return view('backend.item.category.edit',compact('category'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -143,6 +158,8 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
+        if(auth('admin')->user()->can('delete-category')){
+
         try {
             (new Image)->deleteIfExists($category->image);
             $category->delete();
@@ -153,6 +170,9 @@ class CategoryController extends Controller
         (new LogActivity)::addToLog('Category Deleted');
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     public function catSession()
     {

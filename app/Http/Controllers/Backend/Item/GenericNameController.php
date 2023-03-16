@@ -20,6 +20,8 @@ class GenericNameController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth('admin')->user()->can('view-genericname')){
+
         if ($request->optionData) {
             $data = GenericName::select(['id', 'name'])->latest()->get();
             return response()->json(['data' => $data]);
@@ -47,6 +49,9 @@ class GenericNameController extends Controller
         }
         return view('backend.item.generic.index');
     }
+    abort(403, 'Unauthorized action.');
+
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -55,7 +60,12 @@ class GenericNameController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-genericname')){
+
         return view('backend.item.generic.create');
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -93,7 +103,12 @@ class GenericNameController extends Controller
      */
     public function edit(GenericName $genericName)
     {
+        if(auth('admin')->user()->can('edit-genericname')){
+
         return view('backend.item.generic.edit', compact('genericName'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -122,6 +137,8 @@ class GenericNameController extends Controller
      */
     public function destroy(GenericName $genericName)
     {
+        if(auth('admin')->user()->can('delete-genericname')){
+
         try {
             DB::beginTransaction();
             $genericName->delete();
@@ -134,4 +151,7 @@ class GenericNameController extends Controller
         }
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 }

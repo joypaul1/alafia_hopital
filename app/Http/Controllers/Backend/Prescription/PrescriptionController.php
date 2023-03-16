@@ -20,6 +20,8 @@ class PrescriptionController extends Controller
      */
     public function index(Request $request)
     { 
+        if(auth('admin')->user()->can('view-prescription')){
+
         if ($request->optionData) {
             return response()->json(['data' => Prescription::
                 // whereLike($request->optionData, 'mobile')->whereLike($request->optionData, 'name')->whereLike($request->optionData, 'patientId')->whereLike($request->optionData, 'email')->take(15)
@@ -30,6 +32,9 @@ class PrescriptionController extends Controller
         return view('backend.prescription.index');
         // return view('backend.prescription.index', compact('appointments'));
     }
+    abort(403, 'Unauthorized action.');
+
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -39,7 +44,12 @@ class PrescriptionController extends Controller
     public function create()
     {
         //
+        if(auth('admin')->user()->can('create-prescription')){
+
         return view('backend.prescription.create');
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     public function getInvoiceNumber()

@@ -18,10 +18,14 @@ class DesignationController extends Controller
      */
     public function index()
     {
+        if(auth('admin')->user()->can('view-designation')){
 
         $designations = Designation::select('id', 'name','status')->paginate(20);
         return view('backend.employee.designation.index', compact('designations'));
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     /**
      * Show the form for creating a new resource.
@@ -30,7 +34,12 @@ class DesignationController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-designation')){
+
         return view('backend.employee.designation.create');
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -59,9 +68,14 @@ class DesignationController extends Controller
      */
     public function show($id)
     {
+        if(auth('admin')->user()->can('view-designation')){
+
         // single value show for ajax request
         $designation = Designation::select('id', 'name',)->where('id',$id)->first();
         return response()->json($designation);
+        }
+        abort(403, 'Unauthorized action.');
+
 
     }
 
@@ -73,7 +87,12 @@ class DesignationController extends Controller
      */
     public function edit(Designation $designation )
     {
+        if(auth('admin')->user()->can('edit-designation')){
+
         return view('backend.employee.designation.edit',compact('designation'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -101,6 +120,8 @@ class DesignationController extends Controller
      */
     public function destroy(Designation $designation)
     {
+        if(auth('admin')->user()->can('delete-designation')){
+
         try {
             // (new Image)->deleteIfExists($category->image);
             $designation->delete();
@@ -111,4 +132,7 @@ class DesignationController extends Controller
 
         return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 }

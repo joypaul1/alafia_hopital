@@ -18,6 +18,8 @@ class RackController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth('admin')->user()->can('view-rack')){
+
         if ($request->optionData) {
             $data = Rack::select(['id','name'])->latest()->get();
             return response()->json(['data' => $data]);
@@ -28,12 +30,22 @@ class RackController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $action = '<button  data-href="'.route('backend.itemconfig.rack.edit', $row).'"  type="button" 
+                    $action='';
+                    if(auth('admin')->user()->can('edit-rack')){
+
+                    $action.= '<button  data-href="'.route('backend.itemconfig.rack.edit', $row).'"  type="button" 
                     class="btn btn-sm btn-info edit_data" 
                     data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></button>';
+                    }
+                    if(auth('admin')->user()->can('delete-rack')){
+
                     $action .='<button  data-href="'.route('backend.itemconfig.rack.destroy', $row).'" type="button"  
                     class="btn btn-sm btn-danger delete_check" data-toggle="tooltip" data-original-title="Delete" aria-describedby="tooltip64483"><i class="icon-trash" aria-hidden="true"></i>
                     </button >'; 
+                    }
+                    else{
+                        $action.='';
+                    }
                     return $action;
                 })
                 ->removeColumn(['id'])
@@ -43,6 +55,9 @@ class RackController extends Controller
         }
        return view('backend.item.rack.index');
     }
+    abort(403, 'Unauthorized action.');
+
+    }
     
     /**
      * Show the form for creating a new resource.
@@ -51,7 +66,12 @@ class RackController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('view-rack')){
+
         return view('backend.item.rack.create');
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**

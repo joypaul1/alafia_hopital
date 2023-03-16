@@ -19,6 +19,8 @@ class PatientController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth('admin')->user()->can('view-patient')){
+
         if ($request->optionData) {
             return response()->json(['data' => Patient::
                 whereLike($request->optionData, 'mobile')
@@ -32,6 +34,9 @@ class PatientController extends Controller
 
         return view('backend.patient.index', compact('patients'));
     }
+    abort(403, 'Unauthorized action.');
+
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -40,6 +45,8 @@ class PatientController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-patient')){
+
         //gender option create
         $genders = (object)[
             ['name' => 'male', 'id' => 'male'],
@@ -60,6 +67,9 @@ class PatientController extends Controller
             'genders',
             'marital_status'
         ));
+    }
+    abort(403, 'Unauthorized action.');
+
     }
 
     public function getInvoiceNumber()

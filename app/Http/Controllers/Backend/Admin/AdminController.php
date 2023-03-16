@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreRequest;
 use App\Http\Requests\Admin\UpdateRequest;
 use App\Models\Admin;
+use App\Models\Role;
+use DB;
 use App\Models\LogActivity as BackendLogActivity;
 
 
@@ -19,14 +21,24 @@ class AdminController extends Controller
      */
     public function index()
     {
+        if(auth('admin')->user()->can('view-admin')){
+
         $admins = Admin::paginate(10);
         return view('backend.admin.index', compact('admins'));
+        }
+            abort(403, 'Unauthorized action.');
+
     }
 
     public function logIndex()
     {
+        if(auth('admin')->user()->can('view-log-activity')){
+
         $activities = BackendLogActivity::with('admin')->paginate(50);
         return view('backend.admin.logIndex', compact('activities'));
+        }
+            abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -36,7 +48,13 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('backend.admin.create');
+        if(auth('admin')->user()->can('create-admin')){
+
+        $roles=Role::all();
+        return view('backend.admin.create',compact('roles'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -49,7 +67,7 @@ class AdminController extends Controller
     {
         $returnData = $request->storeData($request);
         if($returnData->getData()->status){
-            (new LogActivity)::addToLog('Admin Created');
+           // (new LogActivity)::addToLog('Admin Created');
             return back()->with(['success' => $returnData->getData()->msg  ]);
         }
         return back()->with(['error' =>$returnData->getData()->msg ]);
@@ -75,9 +93,17 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin )
     {
-        // dd($admin);
-        return view('backend.admin.edit',compact('admin'));
+        if(auth('admin')->user()->can('view-admin')){
+
+        $roles=Role::all();
+        $userrole=DB::table('admins_roles')->where('admin_id',$admin->id)->first();
+        
+        return view('backend.admin.edit',compact('admin','roles','userrole'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -91,7 +117,7 @@ class AdminController extends Controller
 
         $returnData = $request->updateData($request, $admin);
         if($returnData->getData()->status){
-            (new LogActivity)::addToLog('Admin Updated');
+          //  (new LogActivity)::addToLog('Admin Updated');
             return back()->with(['success' => $returnData->getData()->msg  ]);
 
         }
@@ -106,6 +132,8 @@ class AdminController extends Controller
      */
     public function destroy(Admin $admin)
     {
+        if(auth('admin')->user()->can('delete-admin')){
+
         try {
             (new Image)->deleteIfExists($admin->image);
             $admin->delete();
@@ -116,4 +144,7 @@ class AdminController extends Controller
 
         return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 }

@@ -19,8 +19,14 @@ class ShiftController extends Controller
      */
     public function index()
     {
+        if(auth('admin')->user()->can('view-shift')){
+
+
         $shifts = Shift::select('id', 'name', 'status', 'start_time', 'end_time')->paginate(10);
         return view('backend.employee.shift.index', compact('shifts'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -30,7 +36,12 @@ class ShiftController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-shift')){
+
         return view('backend.employee.shift.create');
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -71,7 +82,13 @@ class ShiftController extends Controller
      */
     public function edit(Shift $shift )
     {
+        if(auth('admin')->user()->can('edit-shift')){
+
         return view('backend.employee.shift.edit',compact('shift'));
+        }
+        abort(403, 'Unauthorized action.');
+
+
     }
 
     /**
@@ -99,6 +116,8 @@ class ShiftController extends Controller
      */
     public function destroy(Shift $shift)
     {
+        if(auth('admin')->user()->can('view-shift')){
+
         try {
             $shift->delete();
         } catch (\Exception $ex) {
@@ -108,4 +127,7 @@ class ShiftController extends Controller
 
         return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);   
     }
+    abort(403, 'Unauthorized action.');
+
+}
 }

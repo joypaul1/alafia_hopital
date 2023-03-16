@@ -19,8 +19,13 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banners = Banner::select('id', 'position', 'image')->paginate(10);
-        return view('backend.siteConfig.banner.index', compact('banners'));
+        if(auth('admin')->user()->can('view-banner')){
+
+    $banners = Banner::select('id', 'position', 'image')->paginate(10);
+       return view('backend.siteconfig.banner.index', compact('banners'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -30,7 +35,12 @@ class BannerController extends Controller
      */
     public function create()
     {
-        return view('backend.siteConfig.banner.create');
+        if(auth('admin')->user()->can('create-banner')){
+
+        return view('backend.siteconfig.banner.create');
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -47,7 +57,7 @@ class BannerController extends Controller
             return back()->with(['success' => $returnData->getData()->msg  ]);
         }
         return back()->with(['error' =>$returnData->getData()->msg ]);
-
+      
     }
 
     /**
@@ -69,7 +79,12 @@ class BannerController extends Controller
      */
     public function edit(Banner $banner )
     {
-        return view('backend.siteConfig.banner.edit',compact('banner'));
+        if(auth('admin')->user()->can('edit-banner')){
+
+        return view('backend.siteconfig.banner.edit',compact('banner'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -98,6 +113,8 @@ class BannerController extends Controller
      */
     public function destroy(Banner $banner)
     {
+        if(auth('admin')->user()->can('delete-banner')){
+
         try {
             (new Image)->deleteIfExists($banner->image);
             $banner->delete();
@@ -106,7 +123,10 @@ class BannerController extends Controller
         }
         (new LogActivity)::addToLog('Banner Deleted');
 
-        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);
+        return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);   
     }
+    abort(403, 'Unauthorized action.');
+
+}
 }
 

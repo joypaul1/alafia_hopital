@@ -22,6 +22,8 @@ class BloodBankController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth('admin')->user()->can('view-blood-config')){
+
         $data = BloodBank::select(['id', 'name', 'status','type_id'])->latest();
        if($request->status){
            $data = $data->active();
@@ -66,6 +68,9 @@ class BloodBankController extends Controller
        // $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
        return view('backend.siteConfig.bloodBank.index');
     }
+    abort(403, 'Unauthorized action.');
+
+    }
 
       /**
      * Show the form for creating a new resource.
@@ -74,8 +79,13 @@ class BloodBankController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-blood-config')){
+
         $type = BloodBankType::select(['id', 'name'])->get();
         return view('backend.siteConfig.bloodBank.create', compact('type'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -114,10 +124,15 @@ class BloodBankController extends Controller
      */
     public function edit(BloodBank $bloodBank )
     {
+        if(auth('admin')->user()->can('edit-blood-config')){
+
         $type = BloodBankType::select(['id', 'name'])->get();
 
         return view('backend.siteConfig.bloodBank.edit',compact('bloodBank', 'type'));
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     /**
      * Update the specified resource in storage.
@@ -145,6 +160,8 @@ class BloodBankController extends Controller
 
     public function destroy(BloodBank $bloodBank)
     {
+        if(auth('admin')->user()->can('delete-blood-config')){
+
         try {
             $bloodBank->delete();
 
@@ -154,5 +171,8 @@ class BloodBankController extends Controller
         (new LogActivity)::addToLog('BloodBank Deleted');
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
 }

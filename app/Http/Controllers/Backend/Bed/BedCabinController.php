@@ -19,6 +19,8 @@ class BedCabinController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth('admin')->user()->can('view-bed-config')){
+
         $data = BedCabin::select(['id', 'name', 'status'])->latest();
        if($request->status){
            $data = $data->active();
@@ -60,6 +62,9 @@ class BedCabinController extends Controller
        // $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
        return view('backend.siteConfig.cabin.index');
     }
+       abort(403, 'Unauthorized action.');
+
+    }
 
       /**
      * Show the form for creating a new resource.
@@ -68,7 +73,12 @@ class BedCabinController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-bed-config')){
+
         return view('backend.siteConfig.cabin.create');
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -107,7 +117,11 @@ class BedCabinController extends Controller
      */
     public function edit(BedCabin $bedCabin )
     {
+        if(auth('admin')->user()->can('edit-bed-config')){
+
         return view('backend.siteConfig.cabin.edit',compact('bedCabin'));
+    }    abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -136,6 +150,8 @@ class BedCabinController extends Controller
 
     public function destroy(BedCabin $bedCabin)
     {
+        if(auth('admin')->user()->can('delete-bed-config')){
+
         try {
             $bedCabin->delete();
 
@@ -145,5 +161,8 @@ class BedCabinController extends Controller
         (new LogActivity)::addToLog('BedCabin Deleted');
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
 }

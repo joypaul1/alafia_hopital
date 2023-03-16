@@ -20,6 +20,8 @@ class SymptomController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth('admin')->user()->can('view-symptom-config')){
+
         $data = Symptom::select(['id', 'name', 'status', 'description', 'symptom_type_id'])->latest();
         if ($request->status) {
             $data = $data->active();
@@ -61,6 +63,9 @@ class SymptomController extends Controller
         }
         // $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
         return view('backend.siteConfig.symptom.index');
+
+    }        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -70,9 +75,15 @@ class SymptomController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-symptom-config')){
+
         $type = SymptomType::select(['id', 'name'])->get();
         return view('backend.siteConfig.symptom.create', compact('type'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -109,10 +120,15 @@ class SymptomController extends Controller
      */
     public function edit(Symptom $symptom)
     {
+        if(auth('admin')->user()->can('edit-symptom-config')){
+
         $type = SymptomType::select(['id', 'name'])->get();
 
         return view('backend.siteConfig.symptom.edit', compact('symptom', 'type'));
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     /**
      * Update the specified resource in storage.
@@ -140,6 +156,8 @@ class SymptomController extends Controller
 
     public function destroy(Symptom $symptom)
     {
+        if(auth('admin')->user()->can('delete-symptom-config')){
+
         try {
             $symptom->delete();
         } catch (\Exception $ex) {
@@ -148,4 +166,7 @@ class SymptomController extends Controller
         (new LogActivity)::addToLog('Symptom Deleted');
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 }

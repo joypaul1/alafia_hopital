@@ -19,6 +19,8 @@ class RowController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth('admin')->user()->can('view-row')){
+
         
         if ($request->rack_id) {
           
@@ -30,12 +32,22 @@ class RowController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $action = '<button  data-href="'.route('backend.itemconfig.row.edit', $row).'"  type="button" 
+                    $action='';
+                    if(auth('admin')->user()->can('edit-row')){
+
+                    $action .= '<button  data-href="'.route('backend.itemconfig.row.edit', $row).'"  type="button" 
                     class="btn btn-sm btn-info edit_data" 
                     data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i></button>';
+                    }
+                    if(auth('admin')->user()->can('delete-row')){
+
                     $action .='<button  data-href="'.route('backend.itemconfig.row.destroy', $row).'" type="button"  
                     class="btn btn-sm btn-danger delete_check" data-toggle="tooltip" data-original-title="Delete" aria-describedby="tooltip64483"><i class="icon-trash" aria-hidden="true"></i>
                     </button >'; 
+                    }
+                    else{
+                        $action.='';
+                    }
                     return $action;
                 })
                 ->editColumn('rack_id', function($row){
@@ -48,6 +60,9 @@ class RowController extends Controller
         }
        return view('backend.item.row.index');
     }
+    abort(403, 'Unauthorized action.');
+
+    }
     
     /**
      * Show the form for creating a new resource.
@@ -56,8 +71,13 @@ class RowController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-row')){
+
         return view('backend.item.row.create')->with(['racks' => Rack::get(['id', 'name'])]);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     /**
      * Store a newly created resource in storage.

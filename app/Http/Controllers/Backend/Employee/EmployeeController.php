@@ -19,9 +19,14 @@ class EmployeeController extends Controller
      */
     public function index()
     {
+        if(auth('admin')->user()->can('view-employee')){
+
         $employees = Employee::get();
         return view('backend.employee.home.index', compact('employees'));
     }
+    abort(403, 'Unauthorized action.');
+
+}
 
     /**
      * Show the form for creating a new resource.
@@ -30,7 +35,12 @@ class EmployeeController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-employee')){
+
         return view('backend.employee.home.create');
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -69,7 +79,12 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee )
     {
+        if(auth('admin')->user()->can('edit-employee')){
+
         return view('backend.employee.edit',compact('employee'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -98,6 +113,8 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
+        if(auth('admin')->user()->can('delete-employee')){
+
         try {
             (new Image)->deleteIfExists($employee->image);
             $employee->delete();
@@ -107,4 +124,7 @@ class EmployeeController extends Controller
 		(new LogActivity)::addToLog('Employee Deleted');
         return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);
     }
+    abort(403, 'Unauthorized action.');
+
+}
 }

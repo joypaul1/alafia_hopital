@@ -7,7 +7,7 @@ use App\Rules\MatchOldPassword;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
-
+use DB;
 class UpdateRequest extends FormRequest
 {
    
@@ -30,7 +30,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'password' => ['nullable', new MatchOldPassword($this->admin)],
+            //'password' => ['nullable', new MatchOldPassword($this->admin)],
             'email' => ['required', Rule::unique('admins')->ignore($this->admin->id)],
             'mobile' => ['required', Rule::unique('admins')->ignore($this->admin->id)],
             'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg',
@@ -41,7 +41,7 @@ class UpdateRequest extends FormRequest
     {
         try {
             $data = $request->validated();
-            unset($data['password']);
+           // unset($data['password']);
             if(!empty($request->image)){
                 $data['image'] =  (new Image)->dirName('admin')->file($request->image)
                 ->resizeImage(150, 150)
@@ -51,8 +51,14 @@ class UpdateRequest extends FormRequest
             if(($request->filled('password'))){
                 $data['password'] = Hash::make($request->password);
             }   
+            if($request->role_id){
+                DB::table('admins_roles')->where('admin_id',$admin->id)->delete();
+                $admin_role = Role::where('id', $request->role_id)->first();
+
+            }      
             // dd($data);
             $admin->update($data);
+            $admin->roles()->attach($admin_role);
         } catch (\Exception $ex) {
             return response()->json(['status' => false, 'msg' =>$ex->getMessage()]);
         }

@@ -23,6 +23,8 @@ class DoctorController extends Controller
      */
     public function index(Request $request)
     {
+        if(auth('admin')->user()->can('view-doctor')){
+
         $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
 
         if($request->optionData) {
@@ -92,6 +94,7 @@ class DoctorController extends Controller
 
         return view('backend.doctor.home.index', compact( 'status'));
     }
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -100,6 +103,8 @@ class DoctorController extends Controller
      */
     public function create()
     {
+        if(auth('admin')->user()->can('create-doctor')){
+
         $doctors        = Doctor::select('id', 'first_name')->get();
         $status         =  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
         $departments    = Department::select('id', 'name')->get();
@@ -108,6 +113,9 @@ class DoctorController extends Controller
         $shifts         = Shift::select('id', 'name')->get();
         return view('backend.doctor.home.create', compact('doctors', 'status',
          'departments', 'designations', 'roles', 'shifts'));
+        }
+        abort(403, 'Unauthorized action.');
+
     }
 
     /**
@@ -136,6 +144,8 @@ class DoctorController extends Controller
      */
     public function show($id)
     {
+        if(auth('admin')->user()->can('view-doctor')){
+
         if (request()->slot) {
             $timeSlot = [];
             $data = Doctor::whereId($id)->select('id')
@@ -151,6 +161,7 @@ class DoctorController extends Controller
                 ];
             });
             return response()->json(['data'=> $timeSlot]);
+            
 
         }
         // get ajax request for single data show
@@ -160,6 +171,8 @@ class DoctorController extends Controller
             $consultation_fee= $data->consultations->first()->consultation_fee ;
             return response()->json($consultation_fee);
         }
+    }
+    abort(403, 'Unauthorized action.');
 
 
     }
