@@ -140,7 +140,7 @@ class AdminController extends Controller
         } catch (\Exception $ex) {
             return back()->with(['status' => false, 'error' =>$ex->getMessage()]);
         }
-        (new LogActivity)::addToLog('Admin Deleted');
+       // (new LogActivity)::addToLog('Admin Deleted');
 
         return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);
     }
