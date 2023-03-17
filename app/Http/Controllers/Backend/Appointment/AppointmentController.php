@@ -69,8 +69,8 @@ class AppointmentController extends Controller
                     $action ='<div class="dropdown">
                     <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                         <div class="dropdown-menu" >
-                        <a data-href="'.route('backend.appointment.edit', $row).'" class="dropdown-item edit_check"
-                            data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit mr-2" aria-hidden="true"></i> Edit
+                        <a href="'.route('backend.appointment.show', $row).'" class="dropdown-item edit_check"
+                            data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye mr-2" aria-hidden="true"></i> Show
                         </a>
                         <div class="dropdown-divider"></div>
                         <a data-href="'.route('backend.appointment.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
@@ -192,7 +192,7 @@ class AppointmentController extends Controller
     public function show($id)
     {
         $appointment = Appointment::whereId($id)->with('doctor', 'patient', 'paymentHistories')->first();
-        return view('backend.appointment.moneyReceipt', compact('appointment'));
+        return view('backend.appointment.doctor.moneyReceipt', compact('appointment'));
     }
 
     /**
