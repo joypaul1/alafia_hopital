@@ -48,13 +48,7 @@ class AppointmentController extends Controller
                     </div></div>';
                     return $action;
                 })
-                // ->editColumn('image', function($row){
-                //     return  asset($row->image);
-                // })
-                // ->editColumn('status', function($row){
-                //     return view('components.backend.forms.input.input-switch', ['status' => $row->status ]);
 
-                // })
                 ->editColumn('appointment_date', function($row) {
                     return date('d-m-Y', strtotime($row->appointment_date));
                 })

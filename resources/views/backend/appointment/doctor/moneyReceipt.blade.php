@@ -69,7 +69,7 @@
     <div class="mt-3 prescription">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <img src="./logo-bipsh.png" style="width: 180px;" alt="">
+                <img src="{{ asset("assets/moneyReceipt/logo_bipsh.png") }}" style="width: 180px;" alt="">
             </div>
             <h2 style="font-weight: bold; color: #f97316;">
                 Al-Afiyah Dialysis Unit

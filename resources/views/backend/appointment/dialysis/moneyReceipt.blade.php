@@ -70,11 +70,11 @@
             <div>
                 <img src="{{ asset("assets/moneyReceipt/logo_bipsh.png") }}" style="width: 180px;" alt="">
             </div>
-            <h2 style="font-weight: bold;color: #f97316;">
+            <h2 style="font-weight: bold; color: #f97316;">
                 Al-Afiyah Dialysis Unit
             </h2>
             <div>
-                <img src="src="{{ asset("assets/moneyReceipt/logo.png") }}" " width="90" alt="">
+                <img src="{{ asset("assets/moneyReceipt/logo.png") }}" width="90" alt="">
             </div>
         </div>
         {{-- <div class="d-flex justify-content-between">
