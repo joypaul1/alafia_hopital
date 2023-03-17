@@ -26,37 +26,6 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $status =  (object)[['name' => 'Active', 'id' => 1], ['name' => 'Inactive', 'id' => 0]];
-        //gender option create
-        // $genders = (object)[
-        //     ['name' => 'male', 'id' => 'male'],
-        //     ['name' => 'female', 'id' => 'female'],
-        //     ['name' => 'others', 'id' => 'others'],
-        // ];
-        //marital_status option create
-        // $marital_status = (object)[
-        //     ['name' => 'married', 'id' => 'married'],
-        //     ['name' => 'unmarried', 'id' => 'unmarried'],
-        //     ['name' => 'divorced', 'id' => 'divorced'],
-        // ];
-
-        //blood group
-        // $blood_group = BloodBank::where('type_id', 1)->get();
-
-        // appointment_priority select option create
-        // $appointment_priority = (object)[
-        //     ['name' => 'Normal', 'id' => 'Normal'],
-        //     ['name' => 'Urgent', 'id' => 'Urgent'],
-        // ];
-
-
-        // $paymentSystems = PaymentSystem::select('id', 'name')->get();
-
-        // //appointment status option create
-        // $appointment_status = (object)[
-        //     ['name' => 'Approved', 'id' => 'approved'],
-        //     ['name' => 'Pending', 'id' => 'pending'],
-        // ];
 
         $appointmentData = Appointment::
         select('id', 'invoice_number', 'appointment_date', 'patient_id', 'doctor_id', 'doctor_fee','appointment_status' )

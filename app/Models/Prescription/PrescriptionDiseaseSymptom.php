@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models\Prescription;
+
+use App\Models\Symptom\Symptom;
 use App\Traits\AutoTimeStamp;
 use App\Traits\GlobalScope;
 use Illuminate\Database\Eloquent\Model;
@@ -15,4 +17,9 @@ class PrescriptionDiseaseSymptom extends Model
     // diseases
     use AutoTimeStamp, GlobalScope;
     protected $guarded = ['id'];
+
+    public function symptom()
+    {
+        return $this->belongsTo(Symptom::class, 'symptom_id', 'id');
+    }
 }
