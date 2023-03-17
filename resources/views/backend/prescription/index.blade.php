@@ -18,12 +18,16 @@
         <div class="card">
             <div class="body">
                 <div class="table-responsive">
-                    <table ellspacing='0' class="table table-bordered text-center dataTable" id="production_table">
+                    <table ellspacing='0' class="table table-bordered text-center dataTable" id="prescription_table">
                         <thead>
                             <tr>
                                 <th >Sl.</th>
+                                <th >Pres. Number</th>
                                 <th >Date</th>
-                                <th >Name</th>
+                                <th >Patient</th>
+                                {{-- <th >Appointment</th> --}}
+                                <th >Next Visit</th>
+                                <th >Symptoms</th>
                                 <th >Action</th>
                             </tr>
                         </thead>
@@ -37,27 +41,27 @@
 
 @push('js')
 <script>
-    let table_name =  $("#production_table");
-    // $(function () {
-    //     table_name.DataTable({
-    //         dom: "Bfrtip",
-    //         buttons: ["copy", "csv", "excel", "pdf", "print"],
-    //         processing: true,
-    //         serverSide: true,
-    //         destroy: true,
-    //         pageLength: 10,
-    //         ajax: "{{ route('backend.appointment.index') }}",
-    //         columns: [
-    //             { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-    //             { data: 'date', name: 'date' },
-    //             { data: 'name', name: 'name' },
-    //             { data: 'approximate_sell', name: 'approximate_sell' },
-    //             { data: 'approximate_cost', name: 'approximate_cost' },
-    //             { data: 'approximate_profit', name: 'approximate_profit' },
-    //             { data: 'action', name: 'action', orderable: false, searchable: false },
-    //         ],
-    //     });
-    // });
+    let table_name =  $("#prescription_table");
+    $(function () {
+        table_name.DataTable({
+            dom: "Bfrtip",
+            buttons: ["copy", "csv", "excel", "pdf", "print"],
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            pageLength: 10,
+            ajax: "{{ route('backend.prescription.index') }}",
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                { data: 'invoice_number', name: 'invoice_number' },
+                { data: 'date', name: 'date' },
+                { data: 'patient_id', name: 'patient_id' },
+                { data: 'next_visit', name: 'next_visit' },
+                { data: 'symptoms', name: 'symptoms' },
+                { data: 'action', name: 'action', orderable: false, searchable: false },
+            ],
+        });
+    });
 
 
 </script>

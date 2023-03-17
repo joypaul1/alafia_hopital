@@ -9,7 +9,7 @@ use App\Models\Patient\Patient;
 use App\Models\Prescription\Prescription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Yajra\DataTables\Facades\DataTables;
 
 class PrescriptionController extends Controller
 {
@@ -19,7 +19,7 @@ class PrescriptionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    { 
+    {
         if(auth('admin')->user()->can('view-prescription')){
 
         if ($request->optionData) {
@@ -27,7 +27,47 @@ class PrescriptionController extends Controller
                 // whereLike($request->optionData, 'mobile')->whereLike($request->optionData, 'name')->whereLike($request->optionData, 'patientId')->whereLike($request->optionData, 'email')->take(15)
                 all()]);
         }
-        // $appointments =Prescription::latest()->get();
+         $prescription = Prescription::with('diseasesSymptoms:prescription_id,symptom_id','diseasesSymptoms.symptom:id,name', 'patient:id,name')->latest()->get();
+
+        if (request()->ajax()) {
+            return DataTables::of($prescription)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $action ='<div class="dropdown">
+                    <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                        <div class="dropdown-menu" >
+                        <a href="'.route('backend.prescription.show', $row).'" class="dropdown-item edit_check"
+                            data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye mr-2" aria-hidden="true"></i> Show
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a data-href="'.route('backend.prescription.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
+                            data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash mr-2" aria-hidden="true"></i> Delete
+                        </a>
+                    </div></div>';
+                    return $action;
+                })
+                ->addColumn('symptoms', function($row) {
+                    $symptoms = '';
+                    foreach ($row->diseasesSymptoms as $key => $value) {
+                        $symptoms .= $value->symptom->name . ', ';
+                    }
+                    return $symptoms;
+                })
+                ->editColumn('patient_id', function($row) {
+                    return $row->patient->name;
+                })
+                ->editColumn('appointment_id', function($row) {
+                    return $row->appointment->name;
+                })
+                ->editColumn('date', function($row) {
+                    return date('d-m-Y', strtotime($row->date));
+                })
+
+                ->removeColumn(['id'])
+                ->rawColumns(['action', 'symptoms'])
+                ->make(true);
+
+        }
 
         return view('backend.prescription.index');
         // return view('backend.prescription.index', compact('appointments'));
@@ -130,7 +170,8 @@ class PrescriptionController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('backend.prescription.show');
+
     }
 
     /**

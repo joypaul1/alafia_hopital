@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Models\Prescription;
+
+use App\Models\Appointment\Appointment;
+use App\Models\Patient\Patient;
 use App\Traits\AutoTimeStamp;
 use App\Traits\GlobalScope;
 use Illuminate\Database\Eloquent\Model;
@@ -38,5 +41,15 @@ class Prescription extends Model
     {
         // prescription_other_specifications
         return $this->hasMany(PrescriptionOtherSpecification::class, 'prescription_id', 'id');
+    }
+
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
+
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class);
     }
 }
