@@ -59,6 +59,7 @@ class StoreRequest extends FormRequest
             DB::beginTransaction();
             $data = $this->all();
             $data['invoice_number'] = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
+            $data['doctor_appointment_schedule_id'] = $this->appointment_schedule;
             $data['patient_id'] = $this->patient_Id;
             $data['doctor_id'] = $this->doctorID;
             $data['doctor_fee']        = $this->doctor_fees;

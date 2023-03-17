@@ -313,9 +313,9 @@
                 success: function(response) {
                     if (response.data.length != 0) {
                         response.data.forEach(element => {
-                            $('#appointment_schedule').append('<option value="' + element.id + '">' +
-                                element.start_time + ' -- ' + element.end_time + '</option>')
+                            $('#appointment_schedule').append('<option value="' + element.id + '" >' +element.start_time + ' -- ' + element.end_time + '</option>')
                         }).trigger('change');
+                        $("#appointment_schedule").val($("#appointment_schedule option:first").val()).trigger('change');
                     } else {
                         $('#appointment_schedule').append('<option value="">No Slot Available</option>')
                     }
