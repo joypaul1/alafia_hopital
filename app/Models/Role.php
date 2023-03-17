@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     use AutoTimeStamp;
+    protected $fillable = ['name', 'slug', 'created_by', 'updated_by'];
 
     public function permissions() {
 
