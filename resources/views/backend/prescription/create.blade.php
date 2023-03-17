@@ -39,6 +39,8 @@
                                     'number' => true,
                                     'placeholder' => 'Seach By Patient ID(0000001)',
                                     'required' => true,
+                                    'readonly' => true,
+                                    'value' => $appointment->patient->patientId,
                                 ])
                             </div>
                             <div class="col-4">
@@ -46,6 +48,10 @@
                                     'name' => 'p_name',
                                     'placeholder' => 'Seach By Patient Name(Mr Jack)',
                                     'required' => true,
+                                    'readonly' => true,
+
+                                    'value' => $appointment->patient->name,
+
                                 ])
                             </div>
                             <div class="col-4">
@@ -54,6 +60,9 @@
                                     'number' => true,
                                     'placeholder' => 'Seach By Patient Mobile(01******)',
                                     'required' => true,
+                                    'readonly' => true,
+                                    'value' => $appointment->patient->mobile,
+
                                 ])
                             </div>
                             {{-- <div class="col-2">

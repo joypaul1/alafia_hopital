@@ -66,16 +66,16 @@
 
 <body>
     <div class="mt-3 prescription">
-        <div class="d-flex justify-content-center align-items-center">
-            <img src="{{ asset("assets/moneyReceipt/logo.png") }}" width="50" alt="">
-            <h4 class="py-2">
-                Al-Afiyah Dialysis Unit Center
-            </h4>
-        </div>
-        <div class="text-center my-3">
-            <span class="border px-4 py-2" style="font-family: monospace;">
-                MONEY RECEIPT
-            </span>
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <img src="{{ asset("assets/moneyReceipt/logo_bipsh.png") }}" style="width: 180px;" alt="">
+            </div>
+            <h2 style="font-weight: bold;color: #f97316;">
+                Al-Afiyah Dialysis Unit
+            </h2>
+            <div>
+                <img src="src="{{ asset("assets/moneyReceipt/logo.png") }}" " width="90" alt="">
+            </div>
         </div>
         {{-- <div class="d-flex justify-content-between">
             <img src="{{ asset("assets/moneyReceipt/code.png") }}" style="width: 100px;" alt="">
