@@ -76,10 +76,11 @@ class PrescriptionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
-        return view('backend.prescription.create');
+        $appointment=Appointment::where('id', $request->prescription)->with('patient')->first();
+        // dd(Prescription::find(1), $request->all(), $request->prescription);
+        return view('backend.prescription.create', compact('appointment'));
     }
 
     public function getInvoiceNumber()

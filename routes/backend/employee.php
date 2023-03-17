@@ -25,8 +25,3 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], f
     Route::resource('patient', PatientController::class);
 });
 
-// appointment
-// Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], function(){
-//     Route::resource('appointment', AppointmentController::class);
-//     Route::get('appointment/money-receipt/{$id}', [AppointmentController::class, 'moneyReceipt'])->name('appointment.moneyReceipt');
-// });

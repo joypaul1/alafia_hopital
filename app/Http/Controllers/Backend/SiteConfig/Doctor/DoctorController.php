@@ -11,7 +11,6 @@ use App\Models\Employee\Shift;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests\Doctor\StoreRequest;
-use App\Models\Appointment\Appointment;
 use App\Models\Doctor\DoctorAppointmentSchedule;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -46,61 +45,51 @@ class DoctorController extends Controller
             });;
             return response()->json(['data' =>$data]);
         }
-        $appointmentData = Appointment::
-        select('id', 'invoice_number', 'appointment_date', 'patient_id', 'doctor_id', 'doctor_fee','appointment_status' )
-        ->with('patient:id,name,patientId', 'doctor:id,first_name,last_name')->latest()->get();
-
         if (request()->ajax()) {
-            return DataTables::of($appointmentData)
+            $data = Doctor::latest();
+            if($request->status){
+                $data = $data->active();
+            }elseif($request->status == '0'){
+                $data = $data->inactive();
+            }
+            $data = $data->get();
+            return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $action ='<a href="'.route('backend.prescription.create', ['prescription' => $row]).'"  ><button class="btn btn-sm btn-info">Prescription</button> </a>';
-                    // $action ='<div class="dropdown">
-                    // <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                    //     <div class="dropdown-menu" >
-                    //     <a href="'.route('backend.appointment.show', $row).'" class="dropdown-item edit_check"
-                    //         data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye mr-2" aria-hidden="true"></i> Show
-                    //     </a>
-                    //     <div class="dropdown-divider"></div>
-                    //     <a data-href="'.route('backend.appointment.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
-                    //         data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash mr-2" aria-hidden="true"></i> Delete
-                    //     </a>
-                    // </div></div>';
+                    $action ='<div class="dropdown">
+                    <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                        <div class="dropdown-menu" >
+                        <a data-href="'.route('backend.doctor.edit', $row).'" class="dropdown-item edit_check"
+                            data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit mr-2" aria-hidden="true"></i> Edit
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a data-href="'.route('backend.doctor.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
+                            data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash mr-2" aria-hidden="true"></i> Delete
+                        </a>
+                    </div></div>';
                     return $action;
                 })
-                // ->editColumn('image', function($row){
-                //     return  asset($row->image);
-                // })
-                // ->editColumn('status', function($row){
-                //     return view('components.backend.forms.input.input-switch', ['status' => $row->status ]);
-
-                // })
-                ->editColumn('appointment_date', function($row) {
-                    return date('d-m-Y', strtotime($row->appointment_date));
+                ->editColumn('image', function($row){
+                    return  asset($row->image);
                 })
-                ->addColumn('mobile', function($row) {
-                    return optional($row->patient)->mobile ;
+                ->editColumn('status', function($row){
+                    return view('components.backend.forms.input.input-switch', ['status' => $row->status ]);
                 })
-                ->addColumn('p_id', function($row) {
-                    return optional($row->patient)->patientId ;
+                ->editColumn('department_id', function($row){
+                    return optional($row->department)->name??' ';
                 })
-                ->editColumn('patient_id', function($row) {
-                    return optional($row->patient)->name ;
+                ->editColumn('designation_id', function($row){
+                    return optional($row->designation)->name??' ';
                 })
-                ->editColumn('doctor_id', function($row) {
-                    return optional($row->doctor)->first_name;
-                })
-                ->editColumn('doctor_fee', function($row) {
-                    return  number_format($row->doctor_fee, 2);
-                })
-                ->addColumn('paymentHistories', function($row) {
-                    return implode(' ,', $row->paymentHistories()->pluck('payment_method')->toArray());
+                ->addColumn('full_name', function($row){
+                    return $row->first_name.' '.$row->last_name;
                 })
                 ->removeColumn(['id'])
-                ->rawColumns(['action', 'paymentHistories'])
+                ->rawColumns(['action'])
                 ->make(true);
 
         }
+
         return view('backend.doctor.home.index', compact( 'status'));
     }
 
