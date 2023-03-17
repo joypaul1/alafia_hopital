@@ -81,12 +81,13 @@ class PrescriptionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $appointment=Appointment::where('id', $request->prescription)->with('patient')->first();
+        // dd(Prescription::find(1), $request->all(), $request->prescription);
         if(auth('admin')->user()->can('create-prescription')){
 
-        return view('backend.prescription.create');
+        return view('backend.prescription.create', compact('appointment'));
         }
         abort(403, 'Unauthorized action.');
 

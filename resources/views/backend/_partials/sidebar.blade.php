@@ -115,7 +115,7 @@
                         {{-- End appointment Panel --}}
 
                         {{-- prescription Panel --}}
-                        <li class="{{ strpos($strpos, 'backend.prescription') === 0 ? 'active' : ' ' }}">
+                        {{-- <li class="{{ strpos($strpos, 'backend.prescription') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
                                 <span>Prescription Panel</span>
@@ -124,7 +124,7 @@
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'prescription' ? 'active' : ' ' }}" name="Prescription" link='backend.prescription.index' icon='#' />
 
                             </ul>
-                        </li>
+                        </li> --}}
                         {{-- End prescription Panel --}}
 
                         {{-- patient Panel --}}

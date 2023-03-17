@@ -45,6 +45,10 @@ autocomplete="off"
 @isset($required)
 required
 @endisset
+@isset($readonly)
+readonly
+
+@endisset
 
 >
 {{-- input end here --}}
