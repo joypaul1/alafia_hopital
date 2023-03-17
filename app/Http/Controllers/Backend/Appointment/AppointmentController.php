@@ -12,6 +12,7 @@ use App\Models\SiteConfig\BloodBank;
 use Illuminate\Http\Request;
 use App\Http\Requests\Appointment\Doctor\StoreRequest;
 use App\Http\Requests\Appointment\Doctor\UpdateRequest;
+use App\Models\Employee\Department;
 use App\Models\Employee\Designation;
 use FontLib\Table\Type\name;
 use Yajra\DataTables\Facades\DataTables;
@@ -70,8 +71,8 @@ class AppointmentController extends Controller
                     $action ='<div class="dropdown">
                     <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                         <div class="dropdown-menu" >
-                        <a data-href="'.route('backend.appointment.edit', $row).'" class="dropdown-item edit_check"
-                            data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit mr-2" aria-hidden="true"></i> Edit
+                        <a href="'.route('backend.appointment.show', $row).'" class="dropdown-item edit_check"
+                            data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye mr-2" aria-hidden="true"></i> Show
                         </a>
                         <div class="dropdown-divider"></div>
                         <a data-href="'.route('backend.appointment.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
@@ -151,11 +152,11 @@ class AppointmentController extends Controller
             $data['name'] = $doctor->first_name . ' ' . $doctor->last_name;
             return $data;
         });
-        $designation = Designation::active()->select('id', 'name')->get();
+        $department = Department::active()->select('id', 'name')->get();
 
         return view('backend.appointment.doctor.create', compact(
             'doctors',
-            'designation',
+            'department',
             'appointment_status',
             'appointment_priority',
             'paymentSystems'
@@ -203,7 +204,7 @@ class AppointmentController extends Controller
         if(auth('admin')->user()->can('view-doctor-appointment')){
 
         $appointment = Appointment::whereId($id)->with('doctor', 'patient', 'paymentHistories')->first();
-        return view('backend.appointment.moneyReceipt', compact('appointment'));
+        return view('backend.appointment.doctor.moneyReceipt', compact('appointment'));
         }
         abort(403, 'Unauthorized action.');
 

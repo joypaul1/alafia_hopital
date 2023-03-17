@@ -92,4 +92,8 @@ class DashboardController extends Controller
             'todayPendingOrder'
         ));
     }
+    public function labReport()
+    {
+        return view('backend.dashboard.lab-report');
+    }
 }

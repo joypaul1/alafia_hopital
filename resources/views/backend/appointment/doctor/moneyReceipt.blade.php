@@ -13,7 +13,8 @@
             margin: 0;
         }
 
-        td , th {
+        td,
+        th {
             padding: 0.25rem 0.5rem !important;
         }
 
@@ -66,17 +67,23 @@
 
 <body>
     <div class="mt-3 prescription">
-        <div class="d-flex justify-content-center align-items-center">
-            <img src="{{ asset("assets/moneyReceipt/logo.png") }}" width="50" alt="">
-            <h4 class="py-2">
-                Al-Afiyah Dialysis Unit Center
-            </h4>
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <img src="./logo-bipsh.png" style="width: 180px;" alt="">
+            </div>
+            <h2 style="font-weight: bold; color: #f97316;">
+                Al-Afiyah Dialysis Unit
+            </h2>
+            <div>
+                <img src="{{ asset("assets/moneyReceipt/logo.png") }}" width="90" alt="">
+            </div>
         </div>
         <div class="text-center my-3">
             <span class="border px-4 py-2" style="font-family: monospace;">
                 MONEY RECEIPT
             </span>
         </div>
+
         <table class="table table-borderless my-2" style="font-size: 12px;">
             <tbody>
                 <tr>
@@ -93,35 +100,35 @@
                         </div>
                     </td>
                     <td style="text-align: right;">
-                        <strong>Bill Date</strong> : {{ date('d-m-Y', strtotime($appointment->created_at)) }}
+                        <strong>Bill Date</strong> : 2021-07-01
                     </td>
                 </tr>
-                {{-- @dd($appointment->patient); --}}
                 <tr>
                     <td>
                         <Strong>
                             PID
                         </Strong>
-                        : {{ optional($appointment->patient)->patientId  }}
+                        : {{ optional($appointment->patient)->patientId }}
                     </td>
                     <td style="text-align: right;">
-                        <strong>Appt. No</strong> : {{ ($appointment->id)  }}
+                        <strong>Appt. No</strong> : {{ $appointment->id }}
                     </td>
                 </tr>
+                @php
+                    $bday = new DateTime(optional($appointment->patient)->dob); // Your date of birth
+                    $today = new Datetime(date('m.d.y'));
+                    $diff = $today->diff($bday);
+                @endphp
                 <tr>
                     <td>
                         <Strong>
                             Name
                         </Strong>
-                        : {{  optional($appointment->patient)->name}}
+                        : {{ optional($appointment->patient)->name }}
                     </td>
-                    @php
-                        $bday = new DateTime( optional($appointment->patient)->dob); // Your date of birth
-                        $today = new Datetime(date('m.d.y'));
-                        $diff = $today->diff($bday);
-                    @endphp
                     <td style="text-align: right;">
-                        <strong>Age </strong> : {{ $diff->y }} Years    {{ $diff->m }} Months   {{ $diff->d }} Days
+                        <strong>Age </strong> : {{ $diff->y }} Years {{ $diff->m }} Months {{ $diff->d }}
+                        Days
                     </td>
                 </tr>
                 <tr>
@@ -129,11 +136,13 @@
                         <Strong>
                             Consultant
                         </Strong>
-                        :  {{  optional($appointment->doctor)->first_name.' '. optional($appointment->doctor)->last_name}} ({{  optional(optional($appointment->doctor)->designation)->name}})
+                        :
+                        {{ optional($appointment->doctor)->first_name . ' ' . optional($appointment->doctor)->last_name }}
+                        ({{ optional(optional($appointment->doctor)->designation)->name }})
                     </td>
                     <td style="text-align: right;">
-                        <strong>Appt. Time </strong> : {{  date('d-m-Y h.i A', strtotime($appointment->appointment_date))  }}
-
+                        <strong>Appt. Time </strong> :
+                        {{ date('d-m-Y h.i A', strtotime($appointment->appointment_date)) }}
                     </td>
                 </tr>
             </tbody>
@@ -150,7 +159,7 @@
                     <th>
                         Particulars
                     </th>
-                    <th class="text-center">
+                    <th>
                         Amount
                     </th>
                 </tr>
@@ -161,7 +170,7 @@
                     <td>
                         Consultation Fee
                     </td>
-                    <td class="text-right">
+                    <td>
                         {{ number_format($appointment->doctor_fee, 2) }}
                     </td>
                 </tr>
@@ -169,7 +178,14 @@
         </table>
 
         <div class="row">
-            <div class="col-6"></div>
+            <div class="col-6">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                    <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;"
+                        class="h2 px-4 py-2">
+                        PAID
+                    </div>
+                </div>
+            </div>
             <div class="col-6">
                 <table class="table table-bordered" style="font-size: 12px;">
                     <tbody>
@@ -177,7 +193,7 @@
                             <td>
                                 Bill Amount
                             </td>
-                            <td class="text-right">
+                            <td>
                                 {{ number_format($appointment->doctor_fee, 2) }}
                             </td>
                         </tr>
@@ -185,31 +201,31 @@
                             <td>
                                 Discount Amount
                             </td>
-                            <td class="text-right">
-                                00.00
+                            <td>
+                                00
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 Vat Amount
                             </td>
-                            <td class="text-right">
-                                00.00
+                            <td>
+                                00
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 Payable Amount
                             </td>
-                            <td class="text-right">
-                                {{ number_format($appointment->doctor_fee, 2) }}
+                            <td>
+                                00
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 Cash Paid
                             </td>
-                            <td class="text-right">
+                            <td>
                                 {{ number_format($appointment->doctor_fee, 2) }}
                             </td>
                         </tr>
@@ -221,7 +237,7 @@
                                     Due Amount
                                 </strong>
                             </td>
-                            <td class="text-right">
+                            <td>
                                 <strong>
                                     0.00
                                 </strong>
@@ -235,38 +251,40 @@
         <p class="text-center">
             <i style="color: #727272;">
                 <small>
-                    Received with thanks : {!! Helper::wordConvertor($appointment->doctor_fee)!!}
+                    Received with thanks : {!! Helper::wordConvertor($appointment->doctor_fee) !!}
                 </small>
             </i>
         </p>
 
-        <div class="pt-5">
-            <div class="col-6 ml-auto">
-                <div class="d-flex">
-                    <p>
-                        <Strong>
-                            Signature:
-                        </Strong>
-                    </p>
-                    <p style="border-bottom: 2px dashed #727272; width: 100%;">
+        <div class="position-fixed" style="bottom: 10px; left:0; right: 0; width: 95%; margin: 0 auto; ">
+            <div class="pt-5">
+                <div class="col-6 ml-auto">
+                    <div class="d-flex">
+                        <p>
+                            <Strong>
+                                Signature:
+                            </Strong>
+                        </p>
+                        <p style="border-bottom: 2px dashed #727272; width: 100%;">
 
-                    </p>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <hr>
+            <hr>
 
-        <div class="d-flex justify-content-between align-items-center" style="font-size: 12px;">
-            <strong>
-                Hotline : 01833-181126
-            </strong>
+            <div class="d-flex justify-content-between align-items-center" style="font-size: 12px; ">
+                <strong>
+                    Hotline : 01844-5583151
+                </strong>
 
-            <p style="text-align: right;">
-                78, Satmasjid Road, Dhanmondi, Dhaka-1207
-                <br>
-                Call : 01833-181126 | Email : support@alafiyah.com | Web : www.alafiyah.com
-            </p>
+                <p style="text-align: right;">
+                    House 13, Road-2, Dhanmondi, Dhaka, Bangladesh
+                    <br>
+                    Call : 01844-5583151 | Email : alaﬁayah@gmail.com <br> Web : https://www.alaﬁyahbd.com
+                </p>
+            </div>
         </div>
 
     </div>

@@ -343,7 +343,7 @@
                             <div class="body">
                                 <h6>Appointment Schedule</h6>
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-12">
+                                    <div class="col-lg-4 col-md-12">
                                         <div class="form-group">
                                             <label>Day</label>
                                             <select name="appointment_days[]" id=""  class="form-control">
@@ -354,30 +354,22 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3  col-md-12">
-                                        <div class="form-group">
-                                            <label>Shift</label>
-                                            <select name="appointment_days[]" id=""  class="form-control">
-                                                @foreach ($shifts as $shift)
-                                                    <option value="{{ $shift->id }}">{{ $shift->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
 
-                                    <div class="col-lg-3   col-md-12">
+
+                                    <div class="col-lg-4   col-md-12">
                                         <div class="form-group">
                                             <label for="start_time">Start Time</label>
                                             <input type="time" id="start_time" name="appointment_day_start_time[]" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-lg-3  col-md-12">
+                                    <div class="col-lg-4  col-md-12">
                                         <div class="form-group">
                                             <label for="end_time">End Time</label>
                                             <input type="time" id="end_time" name="appointment_day_end_time[]" class="form-control">
                                         </div>
                                     </div>
                                 </div>
+                                <div class="appointmentIncrement"></div>
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="text-right">
@@ -398,7 +390,7 @@
                             <div class="body">
                                 <h6>Petaint Visit Schedule</h6>
                                 <div class="row">
-                                    <div class="col-lg-3  col-md-12">
+                                    <div class="col-lg-4  col-md-12">
                                         <div class="form-group">
                                             <label>Day</label>
                                             <select name="visit_schedule_days[]" id="" class="form-control">
@@ -408,29 +400,21 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3  col-md-12">
-                                        <div class="form-group">
-                                            <label>Shift</label>
-                                            <select name="appointment_days[]" id=""  class="form-control">
-                                                @foreach ($shifts as $shift)
-                                                    <option value="{{ $shift->id }}">{{ $shift->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3  col-md-12">
+
+                                    <div class="col-lg-4  col-md-12">
                                         <div class="form-group">
                                             <label for="start_time">Start Time</label>
                                             <input type="time" id="start_time" name="visit_schedule_day_start_time[]" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-lg-3  col-md-12">
+                                    <div class="col-lg-4  col-md-12">
                                         <div class="form-group">
                                             <label for="end_time">End Time</label>
                                             <input type="time" id="end_time" name="visit_schedule_day_end_time[]" class="form-control">
                                         </div>
                                     </div>
                                 </div>
+                                <div class="scheduleIncrement"></div>
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="text-right">
@@ -509,7 +493,7 @@
                 html += '</div>';
                 html += '</div>';
                 html += '</div>';
-                $('#appointmentIncrement').before(html);
+                $('.appointmentIncrement').append(html);
             });
             $('#appointmentDecrement').click(function() {
                 $('#appointmentRow' + appointmentIncrement + '').remove();
@@ -546,7 +530,7 @@
                 html += '</div>';
                 html += '</div>';
                 html += '</div>';
-                $('#scheduleIncrement').before(html);
+                $('.scheduleIncrement').append(html);
             });
             $('#scheduleDecrement').click(function() {
                 $('#scheduleRow' + scheduleIncrement + '').remove();

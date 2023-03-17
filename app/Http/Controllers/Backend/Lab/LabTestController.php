@@ -22,6 +22,7 @@ class LabTestController extends Controller
     {
         if(auth('admin')->user()->can('view-lab-test-config')){
 
+        // dd($request->all());
         $data = ServiceName::select(['id', 'name', 'status', 'service_price', 'service_type_id'])->latest();
         if ($request->status) {
             $data = $data->active();
