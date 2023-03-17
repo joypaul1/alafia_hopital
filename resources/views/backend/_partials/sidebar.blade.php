@@ -148,7 +148,7 @@
                             </a>
                             <ul>
 
-                                <x-backend.side-bar class="{{ request()->segment(2) == 'doctor' ? 'active' : ' ' }}" name="Doctor" link='backend.doctor.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(2) == 'doctor' ? 'active' : ' ' }}" name="Appointment" link='backend.doctor.index' icon='#' />
 
                             </ul>
                         </li>
