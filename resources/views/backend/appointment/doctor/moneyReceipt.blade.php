@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <style>
+        @media print {
+            .print-fixed{
+                position: fixed;
+            }
+        }
         p {
             margin: 0;
         }
@@ -256,7 +261,7 @@
             </i>
         </p>
 
-        <div class="position-fixed" style="bottom: 10px; left:0; right: 0; width: 95%; margin: 0 auto; ">
+        <div class="print-fixed" style="bottom: 10px; left:0; right: 0; width: 95%; margin: 0 auto; ">
             <div class="pt-5">
                 <div class="col-6 ml-auto">
                     <div class="d-flex">
