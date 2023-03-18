@@ -21,9 +21,7 @@ class PrescriptionController extends Controller
     public function index(Request $request)
     {
         if ($request->optionData) {
-            return response()->json(['data' => Prescription::
-                // whereLike($request->optionData, 'mobile')->whereLike($request->optionData, 'name')->whereLike($request->optionData, 'patientId')->whereLike($request->optionData, 'email')->take(15)
-                all()]);
+            return response()->json(['data' => Prescription::all()]);
         }
          $prescription = Prescription::with('diseasesSymptoms:prescription_id,symptom_id','diseasesSymptoms.symptom:id,name', 'patient:id,name')->latest()->get();
 
@@ -100,8 +98,6 @@ class PrescriptionController extends Controller
      */
     public function store(Request $request)
     {
-
-        // dd($request->all(), json_encode($request->p_info), json_encode($request->p_info_value));
         try {
             DB::beginTransaction();
             $data['invoice_number']          = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
@@ -109,8 +105,7 @@ class PrescriptionController extends Controller
             $data['date']                    =  date('Y-m-d h:i:s');
             // $data['doctor_id']               = auth('admin')->user()->id;
             $data['doctor_id']               = 26;
-            // $data['appointment_id']          = Appointment::where('doctor_id', auth('admin')->user()->id)->where('patient_id', $data['patient_id'])->first()->id;
-            $data['appointment_id']          = Appointment::where('patient_id', $data['patient_id'])->first()->id;
+            $data['appointment_id']          = $request->appointment_id;
             $data['advice']                  = $request->advice;
             $data['next_visit']              = $request->next_visit;
             $prescription                    = Prescription::create($data);
