@@ -149,8 +149,8 @@ class PrescriptionController extends Controller
             DB::rollback();
             return back()->with(['error' => $ex->getMessage(), $ex->getLine(), 'status' => false]);
         }
-
-        return back()->with(['success' => 'Prescription Created Successfully', 'status' => true]);
+        return redirect()->route('backend.prescription.show', $prescription);
+        // return back()->with(['success' => 'Prescription Created Successfully', 'status' => true]);
     }
 
     /**
@@ -159,9 +159,11 @@ class PrescriptionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Prescription $prescription)
     {
-        return view('backend.prescription.show');
+        // dd($prescription);
+         $prescription= $prescription->with('patient','doctor:id,first_name,last_name', 'appointment', 'diseasesSymptoms.symptom', 'medicines.item.strength', 'otherSpecifications')->first();
+        return view('backend.prescription.show', compact('prescription'));
 
     }
 

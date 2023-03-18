@@ -3,6 +3,7 @@
 namespace App\Models\Prescription;
 
 use App\Models\Appointment\Appointment;
+use App\Models\Doctor\Doctor;
 use App\Models\Patient\Patient;
 use App\Traits\AutoTimeStamp;
 use App\Traits\GlobalScope;
@@ -17,11 +18,11 @@ class Prescription extends Model
     protected $guarded = ['id'];
 
     /**
-     * Get all of the medicine for the Prescription
+     * Get all of the medicines for the Prescription
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function medicine(): HasMany
+    public function medicines(): HasMany
     {
         return $this->hasMany(PrescriptionMedicine::class, 'prescription_id', 'id');
     }
@@ -52,4 +53,11 @@ class Prescription extends Model
     {
         return $this->belongsTo(Appointment::class);
     }
+
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class, 'doctor_id', 'id');
+    }
+
+
 }

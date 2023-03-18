@@ -26,6 +26,7 @@
             <form action="{{ route('backend.prescription.store') }}" method="post">
                 @csrf
                 @method('POST')
+                <input type="hidden" name="appointment_id" value="{{ $appointment->id }}">
                 <div class="card">
                     <div class="body">
                         <h4>

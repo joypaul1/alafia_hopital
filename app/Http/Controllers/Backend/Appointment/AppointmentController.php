@@ -127,22 +127,12 @@ class AppointmentController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        // dd($request->all());
         $returnData = $request->storeData($request);
-        // dd(  $returnData );
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('Appointment Created');
             return redirect()->route('backend.appointment.show', $returnData->getData()->data);
-            // $this->moneyReceipt($returnData->getData()->data);
-            // return back()->with('success', $returnData->getData()->msg);
-            // return redirect()->to('admin/appointment/money-receipt',  $returnData->getData()->data);
-            // return redirect(route("backend.appointment.moneyReceipt")."?id=".$returnData->getData()->data);
-            // return redirect()->route('admin/appointment/money-receipt',  $returnData->getData()->data);
-            // ->with('success', $returnData->getData()->msg);
-            // return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
         }
         return back()->with('error', $returnData->getData()->msg);
-        // return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
     }
 
 
