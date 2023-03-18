@@ -20,7 +20,7 @@
                 <div class="body">
                     <div class="d-flex justify-content-between aling-items-center mb-4">
                         <h4 class="card-title mb-0">LabTest List</h4>
-                        <a id="create_data" data-href="{{ route('backend.siteConfig.labTest.create') }}"
+                        <a id="create_data" data-href="{{ route('backend.siteConfig.labTestTube.create') }}"
                             class="btn btn-info btn-md text-white">
                             <i class="fa fa-plus-circle me-2"></i> Create LabTest
                         </a>
@@ -32,7 +32,6 @@
                                 <tr>
                                     <th class="text-center">Sl.</th>
                                     <th class="text-center">Name</th>
-                                    <th class="text-center">Type</th>
                                     <th class="text-center">Price</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
@@ -65,59 +64,55 @@
         let table_name;
         var modal = ".labTestTube_modal";
         $(function() {
-            // table_name = $("#labTestTube_table").DataTable({
-            //     dom: "Bfrtip"
-            //     , buttons: ["colvis", "copy", "csv", "excel", "pdf", "print"
-            //         , {
-            //             text: 'Reload'
-            //             , action: function(e, dt, node, config) {
-            //                 dataBaseCall();
-            //             }
-            //         }
-            //     ]
-            //     , processing: true
-            //     , serverSide: true
-            //     , destroy: true
-            //     , pagingType: 'numbers'
-            //     , pageLength: 10
-            //     , ajax: "{{ route('backend.siteConfig.labTest.index') }}"
-            //     , ajax: {
-            //         method: 'GET'
-            //         , url: "{{ route('backend.siteConfig.labTest.index') }}"
-            //         , data: function(d) {
-            //             d.status = $('select#status').val() || true;
-            //         }
-            //     , }
-            //     , columns: [{
-            //             data: 'DT_RowIndex'
-            //             , name: 'DT_RowIndex'
-            //         }
-            //         , {
-            //             data: 'name'
-            //             , name: 'name'
-            //             , "className": "text-center"
-            //         }, {
-            //             data: 'service_type_id'
-            //             , name: 'service_type_id'
-            //             , "className": "text-center"
-            //         }, {
-            //             data: 'service_price'
-            //             , name: 'service_price'
-            //             , "className": "text-center"
-            //         , }
-            //         , {
-            //             data: 'status'
-            //             , name: 'status'
-            //             , orderable: false
-            //             , searchable: false
-            //         }, {
-            //             data: 'action'
-            //             , name: 'action'
-            //             , orderable: false
-            //             , searchable: false
-            //         }
-            //     , ]
-            // , });
+            table_name = $("#labTestTube_table").DataTable({
+                dom: "Bfrtip"
+                , buttons: ["colvis", "copy", "csv", "excel", "pdf", "print"
+                    , {
+                        text: 'Reload'
+                        , action: function(e, dt, node, config) {
+                            dataBaseCall();
+                        }
+                    }
+                ]
+                , processing: true
+                , serverSide: true
+                , destroy: true
+                , pagingType: 'numbers'
+                , pageLength: 10
+                , ajax: "{{ route('backend.siteConfig.labTestTube.index') }}"
+                , ajax: {
+                    method: 'GET'
+                    , url: "{{ route('backend.siteConfig.labTestTube.index') }}"
+                    , data: function(d) {
+                        d.status = $('select#status').val() || true;
+                    }
+                , }
+                , columns: [{
+                        data: 'DT_RowIndex'
+                        , name: 'DT_RowIndex'
+                    }
+                    , {
+                        data: 'name'
+                        , name: 'name'
+                        , "className": "text-center"
+                    }, {
+                        data: 'price'
+                        , name: 'price'
+                        , "className": "text-center"
+                    }
+                    , {
+                        data: 'status'
+                        , name: 'status'
+                        , orderable: false
+                        , searchable: false
+                    }, {
+                        data: 'action'
+                        , name: 'action'
+                        , orderable: false
+                        , searchable: false
+                    }
+                , ]
+            , });
         });
 
         $('#create_data').click(function(e) {
