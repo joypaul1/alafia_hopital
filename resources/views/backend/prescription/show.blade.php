@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,13 +72,13 @@
     <div class="mt-3 prescription">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <img src="{{ asset("assets/moneyReceipt/logo_bipsh.png") }}" style="width: 180px;" alt="">
+                <img src="{{ asset('assets/moneyReceipt/logo_bipsh.png') }}" style="width: 180px;" alt="">
             </div>
-            <h2 style="font-weight: bold;color: #f97316;">
-                Al-Afiyah Dialysis Unit
+            <h2 style="font-weight: bold; color: #f97316;">
+                Al-Afiyah Doctors' Chamber
             </h2>
             <div>
-                <img src="src="{{ asset("assets/moneyReceipt/logo.png") }}" " width="90" alt="">
+                <img src="{{ asset('assets/moneyReceipt/logo.png') }}" width="90" alt="">
             </div>
         </div>
         <table class="table table-bordered my-3" style="font-size: 12px;">
@@ -91,7 +90,7 @@
                         </Strong>
                     </td>
                     <td>
-                        0000002
+                        {{ $prescription->patient->id }}
                     </td>
                     <td>
                         <Strong>
@@ -99,7 +98,7 @@
                         </Strong>
                     </td>
                     <td>
-                        PS-0000001
+                        PS-{{ $prescription->invoice_number }}
                     </td>
                     <td>
                         <Strong>
@@ -107,7 +106,7 @@
                         </Strong>
                     </td>
                     <td>
-                        19-03-2023 02:00 PM
+                        {{ $prescription->created_at->format('d-m-Y') }}
                     </td>
 
                 </tr>
@@ -118,7 +117,7 @@
                         </Strong>
                     </td>
                     <td colspan="3">
-                        Joy
+                        {{ $prescription->patient->name }}
                     </td>
                     <td>
                         <Strong>
@@ -126,7 +125,7 @@
                         </Strong>
                     </td>
                     <td>
-                        25 Years 0 Months 23 Days
+                        {{ $prescription->patient->age }}
                     </td>
                 </tr>
                 <tr>
@@ -136,7 +135,7 @@
                         </Strong>
                     </td>
                     <td>
-                        Female
+                        {{ $prescription->patient->gender }}
                     </td>
                     <td>
                         <Strong>
@@ -144,7 +143,8 @@
                         </Strong>
                     </td>
                     <td>
-                        01700000000
+                        {{ $prescription->patient->mobile }}
+
                     </td>
                     <td>
                         <Strong>
@@ -162,7 +162,7 @@
                         </Strong>
                     </td>
                     <td colspan="4">
-                        Dr. Abdul Hai (Medicine)
+                        {{ $prescription->doctor->first_name }} {{ $prescription->doctor->last_name }}
                     </td>
                     <td>
                         Dhaka
@@ -170,11 +170,6 @@
                 </tr>
             </tbody>
         </table>
-
-        <div class="d-flex justify-content-between">
-            <img src="./code.png" style="width: 100px;" alt="">
-            <img src="./code.png" style="width: 100px;" alt="">
-        </div>
 
         <div class="my-2 p-2" style="font-size: 14px; border: 2px dashed #c5c5c5;">
             <div class="row">
@@ -185,15 +180,13 @@
                         </Strong>
                     </p>
                     <ul>
-                        <li>
-                            BP : 120/80
-                        </li>
-                        <li>
-                            Pulse : 80
-                        </li>
-                        <li>
-                            Temperature : 101.6˚ F
-                        </li>
+                        @forelse ($prescription->otherSpecifications as $otherSpecification)
+                            <li>
+                                {{ $otherSpecification->name }} : {{ $otherSpecification->value }}
+                            </li>
+                        @empty
+                        @endforelse
+
                     </ul>
                     <p>
                         <Strong>
@@ -201,29 +194,24 @@
                         </Strong>
                     </p>
                     <ul>
-                        <li>
-                            Fever
-                        </li>
-                        <li>
-                            Cough
-                        </li>
-                        <li>
-                            Cold
-                        </li>
+                        @foreach ($prescription->diseasesSymptoms as $diseases)
+                            <li>
+                                {{ $diseases->symptom->name }}
+                        @endforeach
+
+
                     </ul>
                     <p>
                         <Strong>
-                            Diagnosis
+                            Test
                         </Strong>
                     </p>
                     <ol>
                         <li>
                             <!-- Medicine Diagnosis -->
-                            Viral Infection
+                            Test name will be here...
                         </li>
-                        <li>
-                            Bacterial Infection
-                        </li>
+
                     </ol>
                 </div>
                 <div class="col-8">
@@ -233,46 +221,38 @@
                         </strong>
                     </h5>
                     <ol>
-                        <li>
-                            <div>
-                                <p>
-                                    <strong>
-                                        Nape Extra 500 mg
-                                    </strong>
-                                </p>
-                                <div class="d-flex justify-content-between my-1">
+                        @forelse ($prescription->medicines as $medicine)
+                            <li>
+                                <div>
                                     <p>
-                                        1-0-1
+                                        <strong>
+                                            {{ $medicine->item->name }} {{ $medicine->item->strength->name }}
+                                        </strong>
                                     </p>
-                                    <p class="mx-2">
-                                        After Meal
-                                    </p>
-                                    <p>
-                                        5 Days
-                                    </p>
+                                    <div class="d-flex justify-content-between my-1">
+                                        <p>
+                                            {{ $medicine->how_many_quantity }}
+                                        </p>
+                                        <p class="mx-2">
+                                            {{ ucfirst(Str::replaceFirst('_', ' ', $medicine->before_after_meal)) }}
+                                        </p>
+                                        <p>
+                                            {{ $medicine->how_many_days }} Days
+                                        </p>
+                                        {{-- <br> --}}
+
+
+                                    </div>
+                                    @if ($medicine->medicine_note)
+                                        <span style="text-align:center;display:block"> [ Note:
+                                            {{ $medicine->medicine_note }}]</span>
+                                    @endif
                                 </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <p>
-                                    <strong>
-                                        Paracetamol 500 mg
-                                    </strong>
-                                </p>
-                                <div class="d-flex justify-content-between my-1">
-                                    <p>
-                                        1-0-1
-                                    </p>
-                                    <p class="mx-2">
-                                        After Meal
-                                    </p>
-                                    <p>
-                                        5 Days
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+
+                        @empty
+                        @endforelse
+
 
                     </ol>
 
@@ -283,18 +263,16 @@
                     </p>
                     <ul>
                         <li>
-                            Do not drink cold water or cold drinks or eat ice cream.
+                            {{ $prescription->advice }}
                         </li>
-                        <li>
-                            Do not carry heavy weight or do heavy work. Take rest for 2-3 days.
-                        </li>
+
                     </ul>
 
                     <p>
                         <Strong>
                             Next Follow Up :
                         </Strong>
-                        After 5 Days
+                        {{ $prescription->next_visit ?? '―' }}
                     </p>
                     <small style="color: #727272;">
                         <i>
@@ -338,5 +316,8 @@
 
     </div>
 </body>
+<script>
+    window.print();
+</script>
 
 </html>

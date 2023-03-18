@@ -142,9 +142,9 @@ class Item extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function strenght(): BelongsTo
+    public function strength(): BelongsTo
     {
-        return $this->belongsTo(Strenght::class, 'strenght_id', 'id');
+        return $this->belongsTo(Strength::class, 'strength_id', 'id');
     }
 
     /**
