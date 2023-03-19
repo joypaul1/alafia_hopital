@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-{{-- @dd(123123) --}}
+    {{-- @dd(123123) --}}
 
     @include('backend._partials.page_header')
 
@@ -65,59 +65,55 @@
         let table_name;
         var modal = ".labTest_modal";
         $(function() {
-            // table_name = $("#labTest_table").DataTable({
-            //     dom: "Bfrtip"
-            //     , buttons: ["colvis", "copy", "csv", "excel", "pdf", "print"
-            //         , {
-            //             text: 'Reload'
-            //             , action: function(e, dt, node, config) {
-            //                 dataBaseCall();
-            //             }
-            //         }
-            //     ]
-            //     , processing: true
-            //     , serverSide: true
-            //     , destroy: true
-            //     , pagingType: 'numbers'
-            //     , pageLength: 10
-            //     , ajax: "{{ route('backend.siteConfig.labTest.index') }}"
-            //     , ajax: {
-            //         method: 'GET'
-            //         , url: "{{ route('backend.siteConfig.labTest.index') }}"
-            //         , data: function(d) {
-            //             d.status = $('select#status').val() || true;
-            //         }
-            //     , }
-            //     , columns: [{
-            //             data: 'DT_RowIndex'
-            //             , name: 'DT_RowIndex'
-            //         }
-            //         , {
-            //             data: 'name'
-            //             , name: 'name'
-            //             , "className": "text-center"
-            //         }, {
-            //             data: 'service_type_id'
-            //             , name: 'service_type_id'
-            //             , "className": "text-center"
-            //         }, {
-            //             data: 'service_price'
-            //             , name: 'service_price'
-            //             , "className": "text-center"
-            //         , }
-            //         , {
-            //             data: 'status'
-            //             , name: 'status'
-            //             , orderable: false
-            //             , searchable: false
-            //         }, {
-            //             data: 'action'
-            //             , name: 'action'
-            //             , orderable: false
-            //             , searchable: false
-            //         }
-            //     , ]
-            // , });
+            table_name = $("#labTest_table").DataTable({
+                dom: "Bfrtip",
+                buttons: ["colvis", "copy", "csv", "excel", "pdf", "print", {
+                    text: 'Reload',
+                    action: function(e, dt, node, config) {
+                        dataBaseCall();
+                    }
+                }],
+                processing: true,
+                serverSide: true,
+                destroy: true,
+                pagingType: 'numbers',
+                pageLength: 10,
+                ajax: "{{ route('backend.siteConfig.labTest.index') }}",
+                ajax: {
+                    method: 'GET',
+                    url: "{{ route('backend.siteConfig.labTest.index') }}",
+                    data: function(d) {
+                        d.status = $('select#status').val() || true;
+                    },
+                },
+                columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                }, {
+                    data: 'name',
+                    name: 'name',
+                    "className": "text-center"
+                }, {
+                    data: 'lab_test_tube_id',
+                    name: 'lab_test_tube_id',
+                    "className": "text-center"
+                }, {
+                    data: 'price',
+                    name: 'price',
+                    className: "text-center",
+                }, {
+                    data: 'status',
+                    name: 'status',
+                    "className": "text-center",
+                    orderable: false,
+                    searchable: false
+                }, {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                }]
+            });
         });
 
         $('#create_data').click(function(e) {

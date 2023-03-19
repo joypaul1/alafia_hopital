@@ -3,7 +3,7 @@
         @method('POST')
         @csrf
         <div class="modal-header">
-            <h4 class="title" id="">LabTest Edit</h4>
+            <h4 class="title" id="">Lab-Test Edit</h4>
         </div>
         <div class="modal-body">
             <div class="form-validation">
@@ -12,17 +12,14 @@
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.select2.option',['label'=>'labTestName Type', 'name' =>'labTest_type_id', 'optionDatas'=>$type, 'selectedKey'=>$labTestName->labTest_type_id, 'required'=>true])
-                    @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('labTest_type_id')])
+                    @include('components.backend.forms.select2.option',['label'=>'LabTestTube', 'name' =>'lab_test_tube_id', 'optionDatas'=>$type, 'selectedKey'=>$labTestName->lab_test_tube_id])
+                    @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('lab_test_tube_id')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.input.input-type',[ 'name' => 'labTest_price', 'placeholder' => 'price will be here...', 'value' => number_format($labTestName->labTest_price ,2), 'required'=>true ])
-                    @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('labTest_price')])
+                    @include('components.backend.forms.input.input-type',[ 'name' => 'price', 'placeholder' => 'price will be here...', 'value' => number_format($labTestName->labTest_price ,2), 'required'=>true ])
+                    @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('price')])
                 </div>
-                <div class=" form-group">
-                    <label for="description">Description</label>
-                    <textarea class="form-control" name="description" id="description" rows="3">{{$labTestName->description??' '}}</textarea>
-                </div>
+
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" name="status" {{$labTestName->status == true ? 'Checked': ' '}} id="active_check">
                     <label class="form-check-label" for="active_check">Active ?</label>
