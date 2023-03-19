@@ -110,11 +110,9 @@ class LabTestTubeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ServiceName $serviceName)
+    public function edit(LabTestTube $labTestTube)
     {
-        $type = ServiceType::select(['id', 'name'])->get();
-
-        return view('backend.siteConfig.labTestTube.edit', compact('serviceName', 'type'));
+        return view('backend.siteConfig.labTestTube.edit', compact('labTestTube'));
     }
 
     /**
