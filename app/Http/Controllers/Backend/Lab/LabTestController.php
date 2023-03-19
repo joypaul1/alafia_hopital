@@ -91,7 +91,7 @@ class LabTestController extends Controller
     {
         $returnData = $request->storeData($request);
         if ($returnData->getData()->status) {
-            (new LogActivity)::addToLog('ServiceName Created');
+            (new LogActivity)::addToLog('LabTest Created');
             return response()->json(['success' => $returnData->getData()->msg, 'status' => true], 200);
         }
         return response()->json(['error' => $returnData->getData()->msg, 'status' => false], 400);
@@ -114,11 +114,11 @@ class LabTestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ServiceName $serviceName)
+    public function edit(LabTest $labTest)
     {
-        $type = ServiceType::select(['id', 'name'])->get();
+        $labTestTube = LabTestTube::select(['id', 'name'])->get();
 
-        return view('backend.siteConfig.labTest.edit', compact('serviceName', 'type'));
+        return view('backend.siteConfig.labTest.edit', compact('labTest', 'labTestTube'));
     }
 
     /**
@@ -128,11 +128,11 @@ class LabTestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, ServiceName $serviceName)
+    public function update(UpdateRequest $request, LabTest $labTest)
     {
-        $returnData = $request->updateData($request, $serviceName);
+        $returnData = $request->updateData($request, $labTest);
         if ($returnData->getData()->status) {
-            (new LogActivity)::addToLog('ServiceName Updated');
+            (new LogActivity)::addToLog('LabTest Updated');
             return response()->json(['success' => $returnData->getData()->msg, 'status' => true], 200);
         }
         return response()->json(['error' => $returnData->getData()->msg, 'status' => false], 400);
@@ -145,14 +145,14 @@ class LabTestController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy(ServiceName $service)
+    public function destroy(LabTest $labTest)
     {
         try {
-            $service->delete();
+            $labTest->delete();
         } catch (\Exception $ex) {
             return response()->json(['status' => false, 'mes' => $ex->getMessage()]);
         }
-        (new LogActivity)::addToLog('ServiceName Deleted');
+        (new LogActivity)::addToLog('LabTest Deleted');
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
 }

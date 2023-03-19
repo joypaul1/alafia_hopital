@@ -26,8 +26,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-outline-primary save_labTestTube_button">SAVE</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
+            <button type="submit" class="btn btn-outline-primary save_labTestTube_button">SAVE</button>
         </div>
     </form>
 </div>
