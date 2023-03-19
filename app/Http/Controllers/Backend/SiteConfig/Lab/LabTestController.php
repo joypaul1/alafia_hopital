@@ -11,7 +11,7 @@ use App\Http\Requests\LabTest\StoreRequest;
 use App\Http\Requests\LabTest\UpdateRequest;
 use App\Models\lab\LabTest;
 use App\Models\lab\LabTestTube;
-use App\Models\Service\ServiceType;
+
 
 class LabTestController extends Controller
 {

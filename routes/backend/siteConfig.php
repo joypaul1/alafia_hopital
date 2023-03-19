@@ -8,8 +8,8 @@ use App\Http\Controllers\Backend\Bed\BedWardController;
 use App\Http\Controllers\Backend\Bed\FloorController;
 use App\Http\Controllers\Backend\SiteConfig\BarcodeController;
 use App\Http\Controllers\Backend\File\FileManagerController;
-use App\Http\Controllers\Backend\Lab\LabTestController;
-use App\Http\Controllers\Backend\Lab\LabTestTubeController;
+use App\Http\Controllers\Backend\SiteConfig\Lab\LabTestController;
+use App\Http\Controllers\Backend\SiteConfig\Lab\LabTestTubeController;
 use App\Http\Controllers\Backend\SiteConfig\PrefixController;
 use App\Http\Controllers\Backend\SiteConfig\BannerController;
 use App\Http\Controllers\Backend\SiteConfig\Blood\BloodBankController;
@@ -22,11 +22,9 @@ use App\Http\Controllers\Backend\SiteConfig\Service\ServiceTypeController;
 use App\Http\Controllers\Backend\SiteConfig\SiteInfoController;
 use App\Http\Controllers\Backend\SiteConfig\SliderController;
 use App\Http\Controllers\Backend\SiteConfig\SocialMediaController;
-use App\Http\Controllers\Backend\SiteConfig\Symptom\ServiceController;
 use App\Http\Controllers\Backend\SiteConfig\TaxController;
 use App\Http\Controllers\Backend\SiteConfig\Symptom\SymptomTypeController;
 use App\Http\Controllers\Backend\SiteConfig\Symptom\SymptomController;
-use App\Models\Service\ServiceType;
 use Illuminate\Support\Facades\Route;
 
 
