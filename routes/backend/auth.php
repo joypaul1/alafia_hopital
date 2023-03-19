@@ -27,4 +27,5 @@ require_once __DIR__ . '/order.php';
 require_once __DIR__ . '/doctor.php';
 require_once __DIR__ . '/prescription.php';
 require_once __DIR__ . '/appointment.php';
+require_once __DIR__ . '/pathology.php';
 

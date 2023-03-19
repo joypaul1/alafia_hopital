@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Lab;
+namespace App\Http\Controllers\Backend\SiteConfig\Lab;
 
 use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
@@ -10,7 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\LabTestTube\StoreRequest;
 use App\Http\Requests\LabTestTube\UpdateRequest;
 use App\Models\lab\LabTestTube;
-use App\Models\Service\ServiceType;
+
 
 class LabTestTubeController extends Controller
 {
