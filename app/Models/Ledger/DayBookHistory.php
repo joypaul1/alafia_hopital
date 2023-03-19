@@ -2,10 +2,11 @@
 
 namespace App\Models\Ledger;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\AutoTimeStamp;
 use Illuminate\Database\Eloquent\Model;
 
 class DayBookHistory extends Model
 {
-    use HasFactory;
+    use AutoTimeStamp;
+    protected $guarded = ['id'];
 }
