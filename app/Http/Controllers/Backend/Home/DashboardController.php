@@ -55,8 +55,8 @@ class DashboardController extends Controller
 
             ->get()->toArray();
         $totalOrder = Order::whereHas('orderStatus', function ($query) {
-                $query->whereStatus('paid');
-            })->count();
+            $query->whereStatus('paid');
+        })->count();
         $todayCountOrder = Order::whereDate('date', date('Y-m-d'))
             ->whereHas('orderStatus', function ($query) {
                 $query->whereStatus('paid');
@@ -94,6 +94,16 @@ class DashboardController extends Controller
     }
     public function labReport()
     {
-        return view('backend.dashboard.lab-report');
+        $units = (object)[
+            ['id' => 'mg/dl', 'name' => 'mg/dl'],
+            ['id' => 'mmol/l', 'name' => 'mmol/l'],
+            ['id' => 'Nil', 'name' => 'Nil'],
+            ['id' => 'µg/dl' , 'name' => 'µg/dl' ],
+            ['id' => 'U/L' , 'name' => 'U/L' ],
+            ['id' => 'g/dl' , 'name' => 'g/dl' ],
+            ['id' => 'mmol/l' , 'name' => 'mmol/l' ],
+            ['id' => '%' , 'name' => '%' ],
+        ];
+        return view('backend.dashboard.lab-report', compact('units'));
     }
 }

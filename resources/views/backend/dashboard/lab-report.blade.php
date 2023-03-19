@@ -2,73 +2,56 @@
 @push('css')
 @endpush
 @section('page-header')
-    <i class="fa fa-plus-circle"></i> Appointment Create
+<i class="fa fa-plus-circle"></i> Lab Report
 @stop
 
 @section('content')
-    @include('backend._partials.page_header', [
-        'fa' => 'fa fa-list',
-        'name' => 'Appointment List',
-        'route' => route('backend.siteConfig.slider.index'),
-    ])
-    <div class="card">
-        <div class="body">
-            <div class="row">
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option', [
-                        // 'label' => 'doctor name',
-                        'name' => 'doctor',
-                        'optionDatas' => [],
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type', [
-                        'name' => 'Doctor Fees',
-                        'readonly' => 'true',
-                        'value' => 5000,
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type', [
-                        'name' => 'Appointment Date',
-                        'type' => 'date',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option', [
-                        'name' => 'Slot',
-                        'optionDatas' => [],
-                        'required' => 'true',
-                    ])
-                </div>
-                {{-- <div class="col-3">
-                    @include('components.backend.forms.select2.option', [
-                        'name' => 'Appointment Priority',
-                        'optionDatas' => [],
-                        'required' => 'true',
-                    ])
-                </div> --}}
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option', [
-                        'name' => 'Payment Method',
-                        'optionDatas' => [],
-                        'required' => 'true',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option', [
-                        'name' => 'Status',
-                        'optionDatas' => [],
-                        'required' => 'true',
-                    ])
-                </div>
+@include('backend._partials.page_header', [
+'fa' => 'fa fa-list',
+'name' => 'Report Pages',
+'route' => route('backend.siteConfig.slider.index'),
+])
+<div class="card">
+    <div class="body">
+        <h6>
+            <i class="fa fa-flask"></i> Biochemistry Report
+        </h6>
+        <div class="row mb-2 align-items-center">
+            <div class="col-3">
+                @include('components.backend.forms.input.input-type2', [
+                // 'label' => 'doctor name',
+                'name' => 'name[]',
+                'value' => 'Fasting Blood Sugar (FBS)',
+                ])
+            </div>
+            <div class="col-3">
+                @include('components.backend.forms.input.input-type2', [
+                // 'label' => 'doctor name',
+                'name' => 'result[]',
+                'placeholder' => 'Enter result here...',
+                ])
+            </div>
+            <div class="col-3">
+                @include('components.backend.forms.select2.option2', [
+                'name' => 'unit[]',
+                'optionDatas' => $units,
+                'required' => true,
+                'selectedKey' => 'mg/dl'
+                ])
+            </div>
+            <div class="col-3">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'reference[]',
+                'required' => true,
+                'value' => '3.5 – 5.5'
+                ])
             </div>
         </div>
     </div>
+</div>
 
 
 
 @endsection
 
-@push('js')
-@endpush
+@push(' js') @endpush
