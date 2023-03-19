@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Backend\Lab;
 
 use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
-use App\Models\Service\ServiceName;
+
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Requests\ServiceName\StoreRequest;
-use App\Http\Requests\ServiceName\UpdateRequest;
+use App\Http\Requests\LabTest\StoreRequest;
+use App\Http\Requests\LabTest\UpdateRequest;
+use App\Models\lab\LabTest;
+use App\Models\lab\LabTestTube;
 use App\Models\Service\ServiceType;
 
 class LabTestController extends Controller
@@ -21,7 +23,7 @@ class LabTestController extends Controller
     public function index(Request $request)
     {
         // dd($request->all());
-        $data = ServiceName::select(['id', 'name', 'status', 'service_price', 'service_type_id'])->latest();
+        $data = LabTest::select(['id', 'name', 'status', 'price', 'lab_test_tube_id'])->latest();
         if ($request->status) {
             $data = $data->active();
         } elseif ($request->status == '0') {
@@ -53,11 +55,11 @@ class LabTestController extends Controller
                 ->editColumn('status', function ($row) {
                     return view('components.backend.forms.input.input-switch', ['status' => $row->status]);
                 })
-                ->editColumn('service_type_id', function ($row) {
-                    return optional($row->serviceType)->name ?? ' ';
+                ->editColumn('lab_test_tube_id', function ($row) {
+                    return optional($row->tube)->name ?? ' ';
                 })
-                ->editColumn('service_price', function ($row) {
-                    return number_format($row->service_price, 2) . ' TK';
+                ->editColumn('price', function ($row) {
+                    return number_format($row->price, 2) . ' TK';
                 })
                 ->removeColumn(['id'])
                 ->rawColumns(['action'])
@@ -75,8 +77,8 @@ class LabTestController extends Controller
      */
     public function create()
     {
-        $type = ServiceType::select(['id', 'name'])->get();
-        return view('backend.siteConfig.labTest.create', compact('type'));
+        $labTestTube = LabTestTube::select(['id', 'name'])->get();
+        return view('backend.siteConfig.labTest.create', compact('labTestTube'));
     }
 
     /**

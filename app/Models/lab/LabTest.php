@@ -20,7 +20,7 @@ class LabTest extends Model
      */
     public function tube(): BelongsTo
     {
-        return $this->belongsTo(LabTestTube::class, 'foreign_key', 'other_key');
+        return $this->belongsTo(LabTestTube::class, 'lab_test_tube_id', 'id');
     }
 
 }
