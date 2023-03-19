@@ -203,9 +203,9 @@
                     for (var key in myObject) {
                         if (myObject.hasOwnProperty(key)) {
                             console.log(key + "/" + myObject[key]);
-                            $("form#outlet_add_form input[name='" + key + "']").after(
+                            $("form#labTest_edit_form input[name='" + key + "']").after(
                                 "<div class='text-danger'><strong>" + ' ' + " </strong></div>");
-                            $("form#outlet_add_form input[name='" + key + "']").after(
+                            $("form#labTest_edit_form input[name='" + key + "']").after(
                                 "<div class='text-danger'><strong>" + myObject[key] +
                                 " </strong></div>");
                             let $message = myObject[key];
@@ -269,10 +269,9 @@
                     var myObject = errors.responseJSON.errors;
                     for (var key in myObject) {
                         if (myObject.hasOwnProperty(key)) {
-                            console.log(key + "/" + myObject[key]);
-                            $("form#outlet_add_form input[name='" + key + "']").after(
+                            $("form#labTest_add_form input[name='" + key + "']").after(
                                 "<div class='text-danger'><strong>" + ' ' + " </strong></div>");
-                            $("form#outlet_add_form input[name='" + key + "']").after(
+                            $("form#labTest_add_form input[name='" + key + "']").after(
                                 "<div class='text-danger'><strong>" + myObject[key] +
                                 " </strong></div>");
                             let $message = myObject[key];
