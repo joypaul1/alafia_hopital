@@ -65,54 +65,49 @@
         var modal = ".labTestTube_modal";
         $(function() {
             table_name = $("#labTestTube_table").DataTable({
-                dom: "Bfrtip"
-                , buttons: ["colvis", "copy", "csv", "excel", "pdf", "print"
-                    , {
-                        text: 'Reload'
-                        , action: function(e, dt, node, config) {
-                            dataBaseCall();
-                        }
+                dom: "Bfrtip",
+                buttons: ["colvis", "copy", "csv", "excel", "pdf", "print", {
+                    text: 'Reload',
+                    action: function(e, dt, node, config) {
+                        dataBaseCall();
                     }
-                ]
-                , processing: true
-                , serverSide: true
-                , destroy: true
-                , pagingType: 'numbers'
-                , pageLength: 10
-                , ajax: "{{ route('backend.siteConfig.labTestTube.index') }}"
-                , ajax: {
-                    method: 'GET'
-                    , url: "{{ route('backend.siteConfig.labTestTube.index') }}"
-                    , data: function(d) {
+                }],
+                processing: true,
+                serverSide: true,
+                destroy: true,
+                pagingType: 'numbers',
+                pageLength: 10,
+                ajax: "{{ route('backend.siteConfig.labTestTube.index') }}",
+                ajax: {
+                    method: 'GET',
+                    url: "{{ route('backend.siteConfig.labTestTube.index') }}",
+                    data: function(d) {
                         d.status = $('select#status').val() || true;
-                    }
-                , }
-                , columns: [{
-                        data: 'DT_RowIndex'
-                        , name: 'DT_RowIndex'
-                    }
-                    , {
-                        data: 'name'
-                        , name: 'name'
-                        , "className": "text-center"
-                    }, {
-                        data: 'price'
-                        , name: 'price'
-                        , "className": "text-center"
-                    }
-                    , {
-                        data: 'status'
-                        , name: 'status'
-                        , orderable: false
-                        , searchable: false
-                    }, {
-                        data: 'action'
-                        , name: 'action'
-                        , orderable: false
-                        , searchable: false
-                    }
-                , ]
-            , });
+                    },
+                },
+                columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                }, {
+                    data: 'name',
+                    name: 'name',
+                    "className": "text-center"
+                }, {
+                    data: 'price',
+                    name: 'price',
+                    "className": "text-center"
+                }, {
+                    data: 'status',
+                    name: 'status',
+                    orderable: false,
+                    searchable: false
+                }, {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                }, ],
+            });
         });
 
         $('#create_data').click(function(e) {
@@ -202,9 +197,9 @@
                     for (var key in myObject) {
                         if (myObject.hasOwnProperty(key)) {
                             console.log(key + "/" + myObject[key]);
-                            $("form#outlet_add_form input[name='" + key + "']").after(
+                            $("form#labTestTube_edit_form input[name='" + key + "']").after(
                                 "<div class='text-danger'><strong>" + ' ' + " </strong></div>");
-                            $("form#outlet_add_form input[name='" + key + "']").after(
+                            $("form#labTestTube_edit_form input[name='" + key + "']").after(
                                 "<div class='text-danger'><strong>" + myObject[key] +
                                 " </strong></div>");
                             let $message = myObject[key];
@@ -269,9 +264,9 @@
                     for (var key in myObject) {
                         if (myObject.hasOwnProperty(key)) {
                             console.log(key + "/" + myObject[key]);
-                            $("form#outlet_add_form input[name='" + key + "']").after(
+                            $("form#labTestTube_add_form input[name='" + key + "']").after(
                                 "<div class='text-danger'><strong>" + ' ' + " </strong></div>");
-                            $("form#outlet_add_form input[name='" + key + "']").after(
+                            $("form#labTestTube_add_form input[name='" + key + "']").after(
                                 "<div class='text-danger'><strong>" + myObject[key] +
                                 " </strong></div>");
                             let $message = myObject[key];
