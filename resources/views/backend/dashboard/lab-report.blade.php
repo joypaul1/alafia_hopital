@@ -129,6 +129,23 @@ At Birth: 10,000-25,000</textarea>
                 <textarea class="form-control" name="referance[]" id="" rows="1">2-10</textarea>
             </div>
         </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-4">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Eosinophils',
+                ])
+            </div>
+            <div class="col-4">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'result[]',
+                'placeholder' => 'Enter result here...',
+                ])
+            </div>
+            <div class="col-4">
+                <textarea class="form-control" name="referance[]" id="" rows="1">2-6</textarea>
+            </div>
+        </div>
     </div>
 </div>
 
