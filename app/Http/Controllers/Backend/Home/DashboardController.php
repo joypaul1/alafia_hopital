@@ -103,6 +103,9 @@ class DashboardController extends Controller
             ['id' => 'g/dl' , 'name' => 'g/dl' ],
             ['id' => 'mmol/l' , 'name' => 'mmol/l' ],
             ['id' => '%' , 'name' => '%' ],
+            ['id' => 'ng/ml' , 'name' => 'ng/ml' ],
+            ['id' => 'mlu/L' , 'name' => 'mlu/L' ],
+            ['id' => 'pg/mL' , 'name' => 'pg/mL' ],
         ];
         return view('backend.dashboard.lab-report', compact('units'));
     }
