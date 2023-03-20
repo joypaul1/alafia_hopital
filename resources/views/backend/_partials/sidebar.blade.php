@@ -129,8 +129,11 @@
                             </a>
                             <ul>
                                 <x-backend.side-bar
-                                    class="{{ request()->segment(2) == 'appointment' ? 'active' : ' ' }}"
-                                    name="LabTest" link='backend.pathology.labTest.index' icon='#' />
+                                    class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}"
+                                    name="Create" link='backend.pathology.labTest.create' icon='#' />
+                                <x-backend.side-bar
+                                    class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}"
+                                    name="List" link='backend.pathology.labTest.index' icon='#' />
                                 {{-- <x-backend.side-bar
                                     class="{{ request()->segment(2) == 'dialysis-appointment' ? 'active' : ' ' }}"
                                     name="Dailyses Appoint." link='backend.dialysis-appointment.index' icon='#' /> --}}
