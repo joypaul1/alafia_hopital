@@ -112,8 +112,8 @@
                                 <div class=" form-inline d-flex justify-content-end">
                                     <div class="form-group">
                                         <label> Sub-Total:</label>
-                                        <input type="text" readonly name="testSubTotal"
-                                            class="form-control text-right" id="testSubTotal">
+                                        <input type="text" readonly name="testSubTotal" class="form-control text-right"
+                                            id="testSubTotal">
                                     </div>
                                 </div>
                             </div>
@@ -133,8 +133,8 @@
                                 <div class=" form-inline d-flex justify-content-end">
                                     <div class="form-group">
                                         <label> Sub-Total:</label>
-                                        <input type="text" readonly name="tubeSubTotal"
-                                            class="form-control text-right" id="tubeSubTotal">
+                                        <input type="text" readonly name="tubeSubTotal" class="form-control text-right"
+                                            id="tubeSubTotal">
                                     </div>
                                 </div>
                             </div>
@@ -236,7 +236,7 @@
                             </td>\
                         </tr>`;
                 $('#labTestAppend').last().after(row);
-                approximatePrice();
+
 
                 //get all labTestCatName value by class name labTestCatName
                 let testTube_id = $('.testTube_id').map(function() {
@@ -245,7 +245,8 @@
                 let labTestCatName = $('.labTestCatName').map(function() {
                     return $(this).val();
                 }).get();
-                if ($.inArray((ui.item.tube.id).toString(), testTube_id) != -1 && $.inArray((ui.item.category).toString(), labTestCatName) != -1 ) {
+                if ($.inArray((ui.item.tube.id).toString(), testTube_id) != -1 && $.inArray((ui.item.category)
+                        .toString(), labTestCatName) != -1) {
 
                 } else {
                     // testTube data append in table
@@ -263,7 +264,7 @@
                     $('#testTubeAppend').last().after(tube);
                 }
 
-
+                approximatePrice();
             }
         });
 
@@ -295,7 +296,5 @@
             var total = test_price + tube_price;
             $('#totalPrice').text(total.toFixed(2));
         }
-
-
     </script>
 @endpush
