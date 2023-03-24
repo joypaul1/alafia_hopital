@@ -111,7 +111,7 @@
                         }
                     });
                 },
-                minLength: 3,
+
                 select: function(event, ui) {
                     // patient_Id data
                     $('#patient_Id').val(ui.item.value_id);

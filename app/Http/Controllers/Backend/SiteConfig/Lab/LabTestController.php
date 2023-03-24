@@ -22,7 +22,11 @@ class LabTestController extends Controller
      */
     public function index(Request $request)
     {
-        // dd($request->all());
+        if ($request->optionData) {
+            $data = LabTest::whereLike($request->optionData)->select(['id', 'name','category', 'status', 'price', 'lab_test_tube_id'])->with('tube:id,name,price')->take(15)->get();
+            return response()->json(['data' => $data]);
+        }
+
         $data = LabTest::select(['id', 'name', 'status', 'price', 'lab_test_tube_id'])->latest();
         if ($request->status) {
             $data = $data->active();
@@ -31,9 +35,7 @@ class LabTestController extends Controller
         }
 
         $data = $data->get();
-        if ($request->optionData) {
-            return response()->json(['data' => $data]);
-        }
+
         if (request()->ajax()) {
             return DataTables::of($data)
                 ->addIndexColumn()
