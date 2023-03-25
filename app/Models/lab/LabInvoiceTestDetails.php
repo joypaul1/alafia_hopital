@@ -16,4 +16,9 @@ class LabInvoiceTestDetails extends Model
     {
         return $this->belongsTo(LabTest::class, 'lab_test_id', 'id');
     }
+
+    public function labInvoice()
+    {
+        return $this->belongsTo(LabInvoice::class, 'lab_invoice_id', 'id');
+    }
 }
