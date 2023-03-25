@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('lab_test_single_reports', function (Blueprint $table) {
             $table->id();
             $table->string('no')->nullable();
-            $table->timestamp('report_date');
+            $table->datetime('report_date');
             $table->unsignedBigInteger('lab_test_id');
             $table->foreign('lab_test_id')->references('id')->on('lab_tests');
             $table->unsignedBigInteger('lab_invoice_test_detail_id');
