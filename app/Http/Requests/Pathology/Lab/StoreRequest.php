@@ -31,7 +31,6 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        // dd($this->all());
         return [
             'patient_id' => 'required|exists:patients,id',
             'date' => 'required',
@@ -63,7 +62,7 @@ class StoreRequest extends FormRequest
      */
     public function storeData()
     {
-        // dd($this->all());
+
         try {
             DB::beginTransaction();
             $data['invoice_no']         = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
@@ -74,11 +73,19 @@ class StoreRequest extends FormRequest
             $labInvoice                 = LabInvoice::create($data);
             // hasMany labTest data insert
             foreach ($this->labTest_id as $key => $labTest) {
-                $v =  $labInvoice->labTest()->create([
+                $labInvoice->labTest()->create([
                     'lab_test_id' => $labTest,
                     'price' => $this->test_price[$key],
                 ]);
-                dd($v );
+
+            }
+            // hasMany labTestTube data insert
+            foreach ($this->testTube_id as $key => $testTube) {
+                $labInvoice->labTestTube()->create([
+                    'lab_test_tube_id' => $testTube,
+                    'price' => $this->testTube_price[$key],
+                ]);
+
             }
 
             // $labInvoice->labTest()
@@ -135,12 +142,12 @@ class StoreRequest extends FormRequest
             ], [
                 'debit' => DB::raw('debit +' . $labInvoice->total_amount)
             ]);
-            dd($data);
+            // dd($data);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            return response()->json(['error' => $e->getMessage(), $e->getLine(), 'status' => false], 400);
+            return response()->json(['msg' => $e->getMessage(), $e->getLine(), 'status' => false], 400);
         }
-        return response()->json(['success' => 'Lab Test Invoice Created Successfully', 'status' => true], 200);
+        return response()->json(['msg' => 'Lab Test Invoice Created Successfully', 'status' => true], 200);
     }
 }

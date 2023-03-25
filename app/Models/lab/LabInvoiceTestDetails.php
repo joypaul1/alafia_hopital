@@ -11,4 +11,9 @@ class LabInvoiceTestDetails extends Model
     use GlobalScope, AutoTimeStamp;
 
     protected $guarded =['id'];
+
+    public function testName()
+    {
+        return $this->belongsTo(LabTest::class, 'lab_test_id', 'id');
+    }
 }

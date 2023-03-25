@@ -6,6 +6,7 @@ use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Pathology\Lab\StoreRequest;
+use App\Models\lab\LabInvoice;
 
 class LabTestController extends Controller
 {
@@ -16,7 +17,21 @@ class LabTestController extends Controller
      */
     public function index()
     {
-        return view('backend.pathology.labTest.index');
+        return $labInvoices= LabInvoice::with('labTest.testName:id,name,category')->get()->map(function($query){
+            // dd($query->labTest);
+            $data['id'] = $query->id;
+            $data['invoice_no'] = $query->invoice_no;
+            $data['patient'] = $query->patient->name;
+            $data['created_date'] = $query->date;
+            $data['total_amount'] = $query->total_amount;
+            $data['category'] = $query->labTest->pluck('testName.category')->unique()->all();
+            $data['testName'] = $query->labTest->pluck('testName.name');
+            $data['testName_id'] = $query->labTest->pluck('id');
+            return $data;
+        });
+
+
+        return view('backend.pathology.labTest.index', compact('labInvoices'));
 
     }
 
@@ -38,12 +53,15 @@ class LabTestController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        return$returnData = $request->storeData();
+        $returnData = $request->storeData();
         if($returnData->getData()->status){
             (new LogActivity)::addToLog('Pathology Lab Test Invoice Created');
-            return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
+            return back()->with('success', $returnData->getData()->msg);
+            // return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
         }
-        return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
+        return back()->with('error', $returnData->getData()->msg);
+
+        // return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
 
     }
 

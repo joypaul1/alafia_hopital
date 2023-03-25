@@ -29,22 +29,36 @@
                                     <th class="text-center">Sl.</th>
                                     <th class="text-center">Date </th>
                                     <th class="text-center">P-Name</th>
-                                    <th class="text-center">Test List</th>
-                                    {{-- <th class="text-center"></th> --}}
-                                    <th class="text-center">Action</th>
+                                    <th class="text-center">Test List & Make</th>
+                                    {{-- <th class="text-center">Action</th> --}}
                                 </tr>
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>01</td>
-                                    <td>20-03-23</td>
-                                    <td>Joy</td>
-                                    <td>CVC</td>
+                                @foreach ($labInvoices as $key=> $labInvoice)
+                                <tr class="text-center">
+                                    <td>{{$key}}</td>
+                                    <td> {{ date('d-m-y', strtotime($labInvoice['created_date'])) }}</td>
+                                    <td>{{ $labInvoice['patient'] }}</td>
+                                    {{-- <td>{{ implode(",",  $labInvoice['testName']->toArray())   }}</td> --}}
                                     <td>
-                                        <button class="btn btn-sm btn-info">CVC</button>
+                                        @foreach ($labInvoice['category'] as $category)
+                                        <div class="btn-group">
+                                            <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             {{ $category }}
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                @foreach ($labInvoice['testName'] as $key=>$testName)
+                                                    <a class="dropdown-item" href="{{ url('make-test-result') }}">{{ $testName }}</a>
+                                                @endforeach
+                                            </div>
+                                          </div>
+                                        @endforeach
+
                                     </td>
                                 </tr>
+                                @endforeach
+
 
 
                             </tbody>
