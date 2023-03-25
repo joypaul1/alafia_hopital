@@ -29,14 +29,14 @@ class ItemController extends Controller
     {
         if($request->optionData){
             return response()->json(['data' => Item::whereLike($request->optionData)
-            ->select(['id','name','type_id', 'generic_id', 'strenght_id'])
+            ->select(['id','name','type_id', 'generic_id', 'strength_id'])
             ->with('genericName:id,name')
-            ->with('strenght:id,name')
+            ->with('strength:id,name')
             ->with('type:id,name')
             ->orwhereHas('genericName', function($q)use ($request){
                 $q->where('name','like',  '%' .$request->optionData . '%' )->select(['id','name']);
             })
-            ->orwhereHas('strenght',function($q)use ($request){
+            ->orwhereHas('strength',function($q)use ($request){
                 $q->where('name', 'like',  '%' .$request->optionData  . '%')->select(['id','name']);
             })
             ->orwhereHas('type',function($q)use ($request){

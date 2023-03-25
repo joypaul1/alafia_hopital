@@ -15,18 +15,17 @@ class LabTestResultController extends Controller
     {
         $labInvoiceTestDetail= LabInvoiceTestDetails::where('id', $request->id)->with('testName')->first();
         return view('backend.pathology.singleTest.create', compact('labInvoiceTestDetail'));
-
     }
 
 
     public function store(Request $request)
     {
-        $data['created_date'] = date('Y-m-d h:i:s' );
-        $data['lab_invoice_test_detail_id'] = $request->lab_invoice_test_detail_id;
-        $data['lab_test_id'] = LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->with('testName')->first()->testName->id;
-        $data['patient_id'] = LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->with('labInvoice.patient')->first()->labInvoice->patient->id;
-        $labTestSingleReport= LabTestSingleReport::create($data);
-        
+        $data['created_date']                   = date('Y-m-d h:i:s' );
+        $data['lab_invoice_test_detail_id']     = $request->lab_invoice_test_detail_id;
+        $data['lab_test_id']    = LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->with('testName')->first()->testName->id;
+        $data['patient_id']     = LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->with('labInvoice.patient')->first()->labInvoice->patient->id;
+        $labTestSingleReport    = LabTestSingleReport::create($data);
+
         return view('backend.pathology.singleTest.show', compact('labTestSingleReport'));
 
     }
@@ -34,7 +33,7 @@ class LabTestResultController extends Controller
 
     public function show($id)
     {
-        return $labTestSingleReport= LabTestSingleReport::whereId($id)->first();
+         $labTestSingleReport= LabTestSingleReport::whereId($id)->first();
         return view('backend.pathology.singleTest.show', compact('labTestSingleReport'));
     }
 }

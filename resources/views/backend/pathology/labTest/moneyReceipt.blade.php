@@ -10,10 +10,11 @@
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <style>
         @media print {
-            .print-fixed{
+            .print-fixed {
                 position: fixed;
             }
         }
+
         p {
             margin: 0;
         }
@@ -74,13 +75,13 @@
     <div class="mt-3 prescription">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <img src="{{ asset("assets/moneyReceipt/logo_bipsh.png") }}" style="width: 180px;" alt="">
+                <img src="{{ asset('assets/moneyReceipt/logo_bipsh.png') }}" style="width: 180px;" alt="">
             </div>
             <h2 style="font-weight: bold; color: #f97316;">
-                Al-Afiyah Dialysis Unit
+                Al-Afiyah Lab Unit
             </h2>
             <div>
-                <img src="{{ asset("assets/moneyReceipt/logo.png") }}" width="90" alt="">
+                <img src="{{ asset('assets/moneyReceipt/logo.png') }}" width="90" alt="">
             </div>
         </div>
         <div class="text-center my-3">
@@ -96,16 +97,16 @@
                         <Strong>
                             Invoice No.
                         </Strong>
-                        AP-{{ $appointment->invoice_number }}
+                        LB-{{ $labInvoice->invoice_no }}
                     </td>
                     <td rowspan="4">
                         <div class="d-flex justify-content-center align-items-center">
-                            <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-'.$appointment->invoice_number.' PID-'.optional($appointment->patient)->patientId , 'QRCODE')}}" alt="barcode"style="width: 100px;" />
-                            {{-- <img src="{{ asset("assets/moneyReceipt/code.png") }}" style="width: 100px;" alt=""> --}}
+                            <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $labInvoice->invoice_number . ' PID-' . optional($labInvoice->patient)->patientId, 'QRCODE') }}"
+                                alt="barcode"style="width: 100px;" />
                         </div>
                     </td>
                     <td style="text-align: right;">
-                        <strong>Bill Date</strong> : 2021-07-01
+                        <strong>Bill Date</strong> : {{ date('d-m-Y h:i:s', strtotime($labInvoice->date)) }}
                     </td>
                 </tr>
                 <tr>
@@ -113,14 +114,14 @@
                         <Strong>
                             PID
                         </Strong>
-                        : {{ optional($appointment->patient)->patientId }}
+                        : {{ optional($labInvoice->patient)->patientId }}
                     </td>
                     <td style="text-align: right;">
-                        <strong>Appt. No</strong> : {{ $appointment->id }}
+                        <strong>Delivery Date</strong> : {{ date('d-m-Y', strtotime($labInvoice->date)) }}
                     </td>
                 </tr>
                 @php
-                    $bday = new DateTime(optional($appointment->patient)->dob); // Your date of birth
+                    $bday = new DateTime(optional($labInvoice->patient)->dob); // Your date of birth
                     $today = new Datetime(date('m.d.y'));
                     $diff = $today->diff($bday);
                 @endphp
@@ -129,10 +130,11 @@
                         <Strong>
                             Name
                         </Strong>
-                        : {{ optional($appointment->patient)->name }}
+                        : {{ optional($labInvoice->patient)->name }}
                     </td>
                     <td style="text-align: right;">
-                        <strong>Age </strong> : {{ $diff->y }} Years {{ $diff->m }} Months {{ $diff->d }}
+                        <strong>Age </strong> : {{ $diff->y }} Years {{ $diff->m }} Months
+                        {{ $diff->d }}
                         Days
                     </td>
                 </tr>
@@ -142,12 +144,12 @@
                             Consultant
                         </Strong>
                         :
-                        {{ optional($appointment->doctor)->first_name . ' ' . optional($appointment->doctor)->last_name }}
-                        ({{ optional(optional($appointment->doctor)->designation)->name }})
+                        {{ optional($labInvoice->doctor)->first_name . ' ' . optional($labInvoice->doctor)->last_name }}
+                        ({{ optional(optional($labInvoice->doctor)->designation)->name }})
                     </td>
                     <td style="text-align: right;">
                         <strong>Appt. Time </strong> :
-                        {{ date('d-m-Y h.i A', strtotime($appointment->appointment_date)) }}
+                        {{ date('d-m-Y h.i A', strtotime($labInvoice->labInvoice_date)) }}
                     </td>
                 </tr>
             </tbody>
@@ -157,7 +159,7 @@
 
         <table style="font-size: 12px;" class="table table-bordered">
             <tbody>
-                <tr>
+                <tr class="text-center">
                     <th>
                         Sl.
                     </th>
@@ -168,17 +170,20 @@
                         Amount
                     </th>
                 </tr>
-                <tr>
-                    <td>
-                        1
-                    </td>
-                    <td>
-                        Consultation Fee
-                    </td>
-                    <td>
-                        {{ number_format($appointment->doctor_fee, 2) }}
-                    </td>
-                </tr>
+                @foreach ($labInvoice->labTest as $key => $labTest)
+                    <tr>
+                        <td>
+                            {{ $key + 1 }}
+                        </td>
+                        <td>
+                            {{ $labTest->testName->name }}
+                        </td>
+                        <td class="text-right">
+                            {{ number_format($labTest->price, 2) }}
+                        </td>
+                    </tr>
+                @endforeach
+
             </tbody>
         </table>
 
@@ -198,15 +203,15 @@
                             <td>
                                 Bill Amount
                             </td>
-                            <td>
-                                {{ number_format($appointment->doctor_fee, 2) }}
+                            <td class="text-right">
+                                {{ number_format($labInvoice->doctor_fee, 2) }}
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 Discount Amount
                             </td>
-                            <td>
+                            <td class="text-right">
                                 00
                             </td>
                         </tr>
@@ -214,7 +219,7 @@
                             <td>
                                 Vat Amount
                             </td>
-                            <td>
+                            <td class="text-right ">
                                 00
                             </td>
                         </tr>
@@ -222,30 +227,30 @@
                             <td>
                                 Payable Amount
                             </td>
-                            <td>
-                                00
+                            <td class="text-right">
+                                {{ number_format($labInvoice->total_amount, 2) }}
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 Cash Paid
                             </td>
-                            <td>
-                                {{ number_format($appointment->doctor_fee, 2) }}
+                            <td class="text-right">
+                                {{ number_format($labInvoice->total_amount, 2) }}
                             </td>
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
                             <td>
-                                <strong>
-                                    Due Amount
-                                </strong>
+
+                                Due Amount
+
                             </td>
-                            <td>
-                                <strong>
-                                    0.00
-                                </strong>
+                            <td class="text-right ">
+
+                                0.00
+
                             </td>
                         </tr>
                     </tfoot>
@@ -256,7 +261,7 @@
         <p class="text-center">
             <i style="color: #727272;">
                 <small>
-                    Received with thanks : {!! Helper::wordConvertor($appointment->doctor_fee) !!}
+                    Received with thanks : {!! Helper::wordConvertor($labInvoice->doctor_fee) !!}
                 </small>
             </i>
         </p>

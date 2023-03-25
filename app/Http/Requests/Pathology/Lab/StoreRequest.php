@@ -87,8 +87,6 @@ class StoreRequest extends FormRequest
                 ]);
 
             }
-
-            // $labInvoice->labTest()
             //<----start of cash flow Transition------->
             // cashflowTransactions
             $cashflowTransition = $labInvoice->cashflowTransactions()->create([
@@ -148,6 +146,6 @@ class StoreRequest extends FormRequest
             DB::rollback();
             return response()->json(['msg' => $e->getMessage(), $e->getLine(), 'status' => false], 400);
         }
-        return response()->json(['msg' => 'Lab Test Invoice Created Successfully', 'status' => true], 200);
+        return response()->json(['data' =>$labInvoice->id, 'status' => true], 200);
     }
 }
