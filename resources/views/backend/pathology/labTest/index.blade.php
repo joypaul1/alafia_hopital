@@ -49,7 +49,7 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 @foreach ($labInvoice['testName'] as $key=>$testName)
-                                                    <a class="dropdown-item" href="{{ url('make-test-result') }}">{{ $testName }}</a>
+                                                    <a class="dropdown-item" href="{{ route('backend.pathology.make-test-result', ['id' => $labInvoice['testName_id'][$key] ]) }}">{{ $testName }}</a>
                                                 @endforeach
                                             </div>
                                           </div>

@@ -17,7 +17,7 @@ class LabTestController extends Controller
      */
     public function index()
     {
-        return $labInvoices= LabInvoice::with('labTest.testName:id,name,category')->get()->map(function($query){
+         $labInvoices= LabInvoice::with('labTest.testName:id,name,category')->get()->map(function($query){
             // dd($query->labTest);
             $data['id'] = $query->id;
             $data['invoice_no'] = $query->invoice_no;
