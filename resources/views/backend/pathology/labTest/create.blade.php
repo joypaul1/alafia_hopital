@@ -38,13 +38,15 @@
 
     <div class="row">
         <div class="col-12">
+            @if($errors->any())
+            {{ implode('', $errors->all('<div>:message</div>')) }}
+        @endif
             <form action="{{ route('backend.pathology.labTest.store') }}" method="post">
                 @csrf
                 @method('POST')
                 <div class="card">
                     <div class="body">
-                        {{-- <h3 class="mb-3 text-center">Restaurant</h3>
-                    <hr> --}}
+
 
                         <div class="row">
                             <div class="col-md-3">
@@ -213,7 +215,8 @@
                                 value: obj.name, //Fillable in input field
                                 category: obj.category, //Fillable in input field
                                 price: obj.price, //Fillable in input field
-                                label: +obj.name
+                                label: obj.name,
+                                value_id: obj.id
 
                             }
                         })

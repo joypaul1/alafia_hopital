@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Backend\Pathology;
 
+use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\Pathology\Lab\StoreRequest;
 
 class LabTestController extends Controller
 {
@@ -25,7 +27,6 @@ class LabTestController extends Controller
      */
     public function create()
     {
-        // dd('hello');
         return view('backend.pathology.labTest.create');
     }
 
@@ -35,9 +36,15 @@ class LabTestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        dd($request->all());
+        return$returnData = $request->storeData();
+        if($returnData->getData()->status){
+            (new LogActivity)::addToLog('Pathology Lab Test Invoice Created');
+            return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
+        }
+        return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
+
     }
 
     /**

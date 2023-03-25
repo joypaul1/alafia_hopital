@@ -6,7 +6,7 @@ use App\Traits\AutoTimeStamp;
 use App\Traits\GlobalScope;
 use Illuminate\Database\Eloquent\Model;
 
-class LabInvoiceDetails extends Model
+class LabInvoiceTestDetails extends Model
 {
     use GlobalScope, AutoTimeStamp;
 

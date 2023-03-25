@@ -2,10 +2,13 @@
 
 namespace App\Models\lab;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\AutoTimeStamp;
+use App\Traits\GlobalScope;
 use Illuminate\Database\Eloquent\Model;
 
 class LabInvoiceTestTubeDetails extends Model
 {
-    use HasFactory;
+    use GlobalScope, AutoTimeStamp;
+
+    protected $guarded =['id'];
 }
