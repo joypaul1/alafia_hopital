@@ -151,6 +151,15 @@
 
                         </td>
                     </tr>
+                    <tr>
+                        {{-- @if (optional($appointment->asignEmp)->name) --}}
+                        <td colspan="3">
+                            <Strong>
+                                Asign To
+                            </Strong>
+                            : {{ optional($appointment->asignEmp)->name}} {{ optional(optional($appointment->asignEmp)->designation)->name??' '}}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -312,3 +321,12 @@
 </body>
 
 </html>
+
+
+@push('js')
+<script>
+    $(document).ready(function () {
+        window.print();
+    });
+</script>
+@endpush
