@@ -14,6 +14,6 @@ class LabTestReport extends Model
 
     public function details()
     {
-        return $this->hasMany(LabTestReportDetails::class);
+        return $this->hasMany(LabTestReportDetails::class, 'lab_test_report_id', 'id');
     }
 }

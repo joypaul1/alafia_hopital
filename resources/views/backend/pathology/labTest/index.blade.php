@@ -16,10 +16,7 @@
                 <div class="body">
                     <div class="d-flex justify-content-between aling-items-center mb-4">
                         <h4 class="card-title mb-0">LabTest List</h4>
-                        <a id="create_data" data-href="{{ route('backend.siteConfig.labTest.create') }}"
-                            class="btn btn-info btn-md text-white">
-                            <i class="fa fa-plus-circle me-2"></i> Create LabTest
-                        </a>
+
                     </div>
 
                     <div class="table-responsive">
@@ -29,8 +26,8 @@
                                     <th class="text-center">Sl.</th>
                                     <th class="text-center">Date </th>
                                     <th class="text-center">P-Name</th>
-                                    <th class="text-center">Test List & Make</th>
-                                    {{-- <th class="text-center">Action</th> --}}
+                                    <th class="text-center"> Make  Result</th>
+                                    <th class="text-center">View Result </th>
                                 </tr>
                             </thead>
 

@@ -49,7 +49,7 @@ class LabInvoice extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function labTest(): HasMany
+    public function labTestDetails(): HasMany
     {
         return $this->hasMany(LabInvoiceTestDetails::class, 'lab_invoice_id', 'id');
     }

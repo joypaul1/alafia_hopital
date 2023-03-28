@@ -10,7 +10,7 @@ class LabInvoiceTestDetails extends Model
 {
     use GlobalScope, AutoTimeStamp;
 
-    protected $guarded =['id'];
+    protected $guarded = ['id'];
 
     public function testName()
     {
@@ -20,5 +20,10 @@ class LabInvoiceTestDetails extends Model
     public function labInvoice()
     {
         return $this->belongsTo(LabInvoice::class, 'lab_invoice_id', 'id');
+    }
+
+    public function viewResult()
+    {
+        return $this->hasOne(LabTestReport::class, 'lab_invoice_test_detail_id');
     }
 }
