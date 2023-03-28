@@ -15,7 +15,8 @@
     <form action="{{ route('backend.pathology.make-test-result-store') }}" method="post">
         @csrf
         @method('POST')
-        <input type="hidden" name="lab_invoice_test_detail_id" value="{{ $labInvoiceTestDetail->id }}">
+        <input type="hidden" name="lab_invoice_test_detail_id" value="{{ $data['labDetails_id'] }}">
+        <input type="hidden" name="test_id" value="{{ $data['labTest_id'] }}">
         <div class="card">
             <div class="body">
                 <h5 class="text-center mb-3">
