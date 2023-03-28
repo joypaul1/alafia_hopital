@@ -116,9 +116,9 @@
                             </Strong>
                             : {{ optional($appointment->patient)->patientId  }}
                         </td>
-                        {{-- <td style="text-align: right;">
-                            <strong>Appt. No</strong> : {{ ($appointment->id)  }}
-                        </td> --}}
+                        <td style="text-align: right; width: 40%">
+                            <strong>Print Time</strong> : {{ now()->format('d-m-Y h.i A') }}
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -140,9 +140,9 @@
                         {{-- @if (optional($appointment->asignEmp)->name) --}}
                         <td>
                             <Strong>
-                                Asign To
+                                Sex
                             </Strong>
-                            : {{ optional($appointment->asignEmp)->name}} {{ optional(optional($appointment->asignEmp)->designation)->name??' '}}
+                            : <span style="text-transform: capitalize;">{{  optional($appointment->patient)->gender}}</span>
                         </td>
                         {{-- @endif --}}
 

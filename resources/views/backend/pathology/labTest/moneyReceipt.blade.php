@@ -101,8 +101,7 @@
                         </td>
                         <td rowspan="4">
                             <div class="d-flex justify-content-center align-items-center">
-                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $labInvoice->invoice_number . ' PID-' . optional($labInvoice->patient)->patientId, 'QRCODE') }}"
-                                    alt="barcode"style="width: 100px;" />
+                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $labInvoice->invoice_number . ' PID-' . optional($labInvoice->patient)->patientId, 'QRCODE') }}" alt="barcode" style="width: 100px;" />
                             </div>
                         </td>
                         <td style="text-align: right; width: 40%;">
@@ -121,9 +120,9 @@
                         </td>
                     </tr>
                     @php
-                        $bday = new DateTime(optional($labInvoice->patient)->dob); // Your date of birth
-                        $today = new Datetime(date('m.d.y'));
-                        $diff = $today->diff($bday);
+                    $bday = new DateTime(optional($labInvoice->patient)->dob); // Your date of birth
+                    $today = new Datetime(date('m.d.y'));
+                    $diff = $today->diff($bday);
                     @endphp
                     <tr>
                         <td>
@@ -133,23 +132,32 @@
                             : {{ optional($labInvoice->patient)->name }}
                         </td>
                         <td style="text-align: right;">
+                            <strong>Print Time </strong> :
+                            {{ now()->format('d-m-Y h.i A') }}
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>
                             <strong>Age </strong> : {{ $diff->y }} Years {{ $diff->m }} Months
                             {{ $diff->d }}
                             Days
                         </td>
+
+                        <td style="text-align: right;">
+                            <strong>Sex </strong> :
+                            <span style="text-transform: capitalize;">{{  optional($appointment->patient)->gender}}</span>
+                        </td>
+
                     </tr>
                     <tr>
-                        <td>
+                        <td colspan="3">
                             <Strong>
-                                Consultant
+                                Prepared By
                             </Strong>
                             :
                             {{ optional($labInvoice->doctor)->first_name . ' ' . optional($labInvoice->doctor)->last_name }}
                             ({{ optional(optional($labInvoice->doctor)->designation)->name }})
-                        </td>
-                        <td style="text-align: right;">
-                            <strong>Appt. Time </strong> :
-                            {{ date('d-m-Y h.i A', strtotime($labInvoice->labInvoice_date)) }}
                         </td>
                     </tr>
                 </tbody>
@@ -170,17 +178,17 @@
                         </th>
                     </tr>
                     @foreach ($labInvoice->labTest as $key => $labTest)
-                        <tr>
-                            <td>
-                                {{ $key + 1 }}
-                            </td>
-                            <td>
-                                {{ $labTest->testName->name }}
-                            </td>
-                            <td class="text-right">
-                                {{ number_format($labTest->price, 2) }}
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            {{ $key + 1 }}
+                        </td>
+                        <td>
+                            {{ $labTest->testName->name }}
+                        </td>
+                        <td class="text-right">
+                            {{ number_format($labTest->price, 2) }}
+                        </td>
+                    </tr>
                     @endforeach
 
                 </tbody>
@@ -316,3 +324,13 @@
 </body>
 
 </html>
+
+
+@push('js')
+<script>
+    $(document).ready(function() {
+        window.print();
+    });
+</script>
+
+@endpush

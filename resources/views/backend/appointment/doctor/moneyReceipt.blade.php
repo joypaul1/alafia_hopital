@@ -139,13 +139,25 @@
                     <tr>
                         <td>
                             <Strong>
-                                Consultant
+                                Sex
                             </Strong>
-                            :  {{  optional($appointment->doctor)->first_name.' '. optional($appointment->doctor)->last_name}} ({{  optional(optional($appointment->doctor)->designation)->name}})
+                            : <span style="text-transform: capitalize;">{{  optional($appointment->patient)->gender}}</span>
                         </td>
+                        @php
+                            $bday = new DateTime( optional($appointment->patient)->dob); // Your date of birth
+                            $today = new Datetime(date('m.d.y'));
+                            $diff = $today->diff($bday);
+                        @endphp
                         <td style="text-align: right;">
                             <strong>Appt. Time </strong> : {{  date('d-m-Y h.i A', strtotime($appointment->appointment_date))  }}
-
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <Strong>
+                                Doctor Name
+                            </Strong>
+                            :  {{  optional($appointment->doctor)->first_name.' '. optional($appointment->doctor)->last_name}} ({{  optional(optional($appointment->doctor)->designation)->name}})
                         </td>
                     </tr>
                 </tbody>
