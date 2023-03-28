@@ -89,7 +89,7 @@
                     MONEY RECEIPT
                 </span>
             </div>
-            <table class="table table-borderless my-2" style="font-size: 12px;">
+            <table class="table table-borderless my-2" style="font-size: 12pt;">
                 <tbody>
                     <tr>
                         <td style="width: 40%">
@@ -155,7 +155,7 @@
             </table>
 
 
-            <table style="font-size: 12px;" class="table table-bordered t">
+            <table style="font-size: 12pt;" class="table table-bordered t">
                 <tbody>
                     <tr>
                         <th>
@@ -191,7 +191,7 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <table class="table table-bordered t" style="font-size: 12px;">
+                    <table class="table table-bordered t" style="font-size: 12pt;">
                         <tbody>
                             <tr>
                                 <td>
