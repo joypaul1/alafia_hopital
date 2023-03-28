@@ -40,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lab_test_single_reports');
+        Schema::dropIfExists('lab_test_reports');
     }
 };
