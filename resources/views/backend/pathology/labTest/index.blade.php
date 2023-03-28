@@ -35,12 +35,13 @@
                             </thead>
 
                             <tbody>
+                                {{-- @dd($labInvoices ); --}}
                                 @foreach ($labInvoices as $key=> $labInvoice)
                                 <tr class="text-center">
                                     <td>{{$key}}</td>
                                     <td> {{ date('d-m-y', strtotime($labInvoice['created_date'])) }}</td>
                                     <td>{{ $labInvoice['patient'] }}</td>
-                                    {{-- <td>{{ implode(",",  $labInvoice['testName']->toArray())   }}</td> --}}
+
                                     <td>
                                         @foreach ($labInvoice['category'] as $category)
                                         <div class="btn-group">
@@ -49,7 +50,10 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 @foreach ($labInvoice['testName'] as $key=>$testName)
-                                                    <a class="dropdown-item" href="{{ route('backend.pathology.make-test-result', ['id' => $labInvoice['testName_id'][$key] ]) }}">{{ $testName }}</a>
+                                                    <a class="dropdown-item"
+                                                     href="{{ route('backend.pathology.make-test-result',
+                                                     ['invoice_id' => $labInvoice['id'],'test_id' => $labInvoice['testName_id'][$key] ]) }}">
+                                                    {{ $testName }}</a>
                                                 @endforeach
                                             </div>
                                           </div>

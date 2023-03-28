@@ -17,7 +17,7 @@ class LabTestController extends Controller
      */
     public function index()
     {
-         $labInvoices= LabInvoice::with('labTest.testName:id,name,category')->get()->map(function($query){
+        $labInvoices= LabInvoice::with('labTest.testName:id,name,category')->get()->map(function($query){
             $data['id'] = $query->id;
             $data['invoice_no'] = $query->invoice_no;
             $data['patient'] = $query->patient->name;
@@ -28,7 +28,6 @@ class LabTestController extends Controller
             $data['testName_id'] = $query->labTest->pluck('id');
             return $data;
         });
-
 
         return view('backend.pathology.labTest.index', compact('labInvoices'));
 
@@ -56,10 +55,6 @@ class LabTestController extends Controller
         if($returnData->getData()->status){
             (new LogActivity)::addToLog('Pathology Lab Test Invoice Created');
             return redirect()->route('backend.pathology.labTest.show', $returnData->getData()->data);
-            // ->with('success', $returnData->getData()->msg);
-            // dd($returnData->getData()->data);
-            // return back()->with('success', $returnData->getData()->data);
-            // return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
         }
         return back()->with('error', $returnData->getData()->msg);
 

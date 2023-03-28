@@ -6,11 +6,11 @@
 @stop
 
 @section('content')
-    @include('backend._partials.page_header', [
+    {{-- @include('backend._partials.page_header', [
         'fa' => 'fa fa-list',
         'name' => 'Report Pages',
         'route' => route('backend.siteConfig.slider.index'),
-    ])
+    ]) --}}
 
     <form action="{{ route('backend.pathology.make-test-result-store') }}" method="post">
         @csrf
@@ -18,7 +18,7 @@
         <input type="hidden" name="lab_invoice_test_detail_id" value="{{ $labInvoiceTestDetail->id }}">
         <div class="card">
             <div class="body">
-                <h5 class="mb-3">
+                <h5 class="text-center mb-3">
                     <i class="fa fa-flask"></i> Hematology Report
                 </h5>
                 <div class="row mb-2 align-items-center">
@@ -35,7 +35,7 @@
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="referance[]" id="" rows="1">Male: 13-17
+                        <textarea class="form-control" name="reference[]" id="" rows="1">Male: 13-17
                         Female: 12.0-16.5
                         1 Month: 11-17, 2-6 Month:9.5-13.5
                         2-6 Years: 11-14, 6-12
@@ -57,7 +57,7 @@
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="referance[]" id="" rows="1">Male: 0.10, Female: 0.20</textarea>
+                        <textarea class="form-control" name="reference[]" id="" rows="1">Male: 0.10, Female: 0.20</textarea>
                     </div>
                 </div>
                 <div class="row mb-2 align-items-center">
@@ -74,7 +74,7 @@
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="referance[]" id="" rows="1">Adult:4,000-11,000
+                        <textarea class="form-control" name="reference[]" id="" rows="1">Adult:4,000-11,000
                             Infant: 6,000-18,000
                             Child: 5,000-15,000
                             At Birth: 10,000-25,000
@@ -99,7 +99,7 @@
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="referance[]" id="" rows="1">Adult:40-75 ,Child:20-50</textarea>
+                        <textarea class="form-control" name="reference[]" id="" rows="1">Adult:40-75 ,Child:20-50</textarea>
                     </div>
                 </div>
                 <div class="row mb-2 align-items-center">
@@ -116,7 +116,7 @@
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="referance[]" id="" rows="1">Adult:20-50 ,Child:40-75</textarea>
+                        <textarea class="form-control" name="reference[]" id="" rows="1">Adult:20-50 ,Child:40-75</textarea>
                     </div>
                 </div>
                 <div class="row mb-2 align-items-center">
@@ -133,7 +133,7 @@
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="referance[]" id="" rows="1">2-10</textarea>
+                        <textarea class="form-control" name="reference[]" id="" rows="1">2-10</textarea>
                     </div>
                 </div>
                 <div class="row mb-2 align-items-center">
@@ -150,7 +150,7 @@
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="referance[]" id="" rows="1">2-6</textarea>
+                        <textarea class="form-control" name="reference[]" id="" rows="1">2-6</textarea>
                     </div>
                 </div>
                 <div class="row mb-2 align-items-center">
@@ -167,7 +167,7 @@
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="referance[]" id="" rows="1">{{ '<1.0' }}
+                        <textarea class="form-control" name="reference[]" id="" rows="1">{{ '<1.0' }}
                 </textarea>
                     </div>
                 </div>
@@ -185,7 +185,7 @@
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="referance[]" id="" rows="1">50-500</textarea>
+                        <textarea class="form-control" name="reference[]" id="" rows="1">50-500</textarea>
                     </div>
                 </div>
                 <div class="row mb-2 align-items-center">
@@ -202,7 +202,7 @@
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="referance[]" id="" rows="1">Male: 4.5-6.5, Female: 3.8-5.8</textarea>
+                        <textarea class="form-control" name="reference[]" id="" rows="1">Male: 4.5-6.5, Female: 3.8-5.8</textarea>
                     </div>
                 </div>
                 <div class="row mb-2 align-items-center">
@@ -219,7 +219,7 @@
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="referance[]" id="" rows="1">Male: 40-54, Female: 37-47</textarea>
+                        <textarea class="form-control" name="reference[]" id="" rows="1">Male: 40-54, Female: 37-47</textarea>
                     </div>
                 </div>
                 <div class="row mb-2 align-items-center">
@@ -236,7 +236,7 @@
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="referance[]" id="" rows="1">76-94</textarea>
+                        <textarea class="form-control" name="reference[]" id="" rows="1">76-94</textarea>
                     </div>
                 </div>
                 <div class="row mb-2 align-items-center">
@@ -253,7 +253,7 @@
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="referance[]" id="" rows="1">27-32</textarea>
+                        <textarea class="form-control" name="reference[]" id="" rows="1">27-32</textarea>
                     </div>
                 </div>
                 <div class="row mb-2 align-items-center">
@@ -270,7 +270,7 @@
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="referance[]" id="" rows="1">29-34</textarea>
+                        <textarea class="form-control" name="reference[]" id="" rows="1">29-34</textarea>
                     </div>
                 </div>
                 <div class="row mb-2 align-items-center">
@@ -287,7 +287,7 @@
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="referance[]" id="" rows="1">11-16</textarea>
+                        <textarea class="form-control" name="reference[]" id="" rows="1">11-16</textarea>
                     </div>
                 </div>
                 <div class="row mb-2 align-items-center">
@@ -304,7 +304,7 @@
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="referance[]" id="" rows="1">35-56</textarea>
+                        <textarea class="form-control" name="reference[]" id="" rows="1">35-56</textarea>
                     </div>
                 </div>
                 <div class="row mb-2 align-items-center">
@@ -321,7 +321,7 @@
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="referance[]" id="" rows="1">11.00-22.00</textarea>
+                        <textarea class="form-control" name="reference[]" id="" rows="1">11.00-22.00</textarea>
                     </div>
                 </div>
                 <div class="row mb-2 align-items-center">
@@ -338,16 +338,21 @@
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="referance[]" id="" rows="1">1,50,000-4,50,000</textarea>
+                        <textarea class="form-control" name="reference[]" id="" rows="1">1,50,000-4,50,000</textarea>
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
+        <div class="row text-right mb-5">
+            <div class="col-12">
+                <button class="btn btn-primary btn-lg" type="submit">Save</button>
+            </div>
+
+        </div>
 
     </form>
 
-    @endsection
+@endsection
 
-    @push('js')
-    @endpush
+
