@@ -26,22 +26,20 @@
                         @include('components.backend.forms.input.input-type', [
                             'name' => 'name',
                             'value' => $labInvoiceTestDetail->testName->name,
-                            'readonly'=> true,
+                            'readonly' => true,
                         ])
                     </div>
                     <div class="col-4">
                         @include('components.backend.forms.input.input-type', [
                             'name' => 'result',
                             'placeholder' => 'Enter result here...',
-
                         ])
                     </div>
                     <div class="col-4">
                         @include('components.backend.forms.input.input-type', [
                             'name' => 'unit',
                             'value' => $labInvoiceTestDetail->testName->unit,
-                            'readonly'=> true,
-
+                            'readonly' => true,
                         ])
                     </div>
 
@@ -55,10 +53,8 @@
                         <button class="btn btn-primary btn-md" type="submit">Save</button>
                     </div>
 
-
-
+                </div>
             </div>
-        </div>
     </form>
 
 
