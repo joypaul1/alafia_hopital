@@ -115,24 +115,21 @@
                                     name="Doctor Appoint." link='backend.appointment.index' icon='#' />
                                 <x-backend.side-bar
                                     class="{{ request()->segment(2) == 'dialysis-appointment' ? 'active' : ' ' }}"
-                                    name="Dailyses Appoint." link='backend.dialysis-appointment.index' icon='#' />
+                                    name="Dialysis Appoint." link='backend.dialysis-appointment.index' icon='#' />
 
                             </ul>
                         </li>
                         {{-- End appointment Panel --}}
                         {{-- Pathology Panel --}}
-                        <li
-                            class="{{ strpos($strpos, 'backend.pathology') === 0 ? 'active' : ' ' }}">
+                        <li class="{{ strpos($strpos, 'backend.pathology') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
                                 <span>Pathology Panel</span>
                             </a>
                             <ul>
-                                <x-backend.side-bar
-                                    class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}"
+                                <x-backend.side-bar class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}"
                                     name="Create" link='backend.pathology.labTest.create' icon='#' />
-                                <x-backend.side-bar
-                                    class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}"
+                                <x-backend.side-bar class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}"
                                     name="List" link='backend.pathology.labTest.index' icon='#' />
                                 {{-- <x-backend.side-bar
                                     class="{{ request()->segment(2) == 'dialysis-appointment' ? 'active' : ' ' }}"

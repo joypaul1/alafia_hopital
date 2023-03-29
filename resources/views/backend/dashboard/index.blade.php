@@ -128,7 +128,7 @@
 
     </div>
     <div class="row clearfix">
-        <div class="card py-3 text-center"><strong>Doctor Appointment</strong> </div>
+        <div class="card py-3 text-center"><strong>Dialysis Appointment</strong> </div>
         <div class="col-lg-3 col-md-6">
             <div class="card top_counter">
                 <div class="body">
@@ -185,7 +185,7 @@
 
     </div>
     <div class="row clearfix">
-        <div class="card py-3 text-center"><strong>Doctor Appointment</strong> </div>
+        <div class="card py-3 text-center"><strong>Pathology Appointment</strong> </div>
         <div class="col-lg-3 col-md-6">
             <div class="card top_counter">
                 <div class="body">
