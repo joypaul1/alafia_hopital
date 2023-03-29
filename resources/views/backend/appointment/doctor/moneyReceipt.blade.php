@@ -82,7 +82,7 @@
 
 <body>
     <div class="prescription">
-        <img src="{{ asset("assets/moneyReceipt/hdoctor.png") }}" style="width: 100%;" alt="">
+        <img src="{{ asset("assets/moneyReceipt/h-doctor.png") }}" style="width: 100%;" alt="">
         <div style="padding: 0 0.5in;">
             <div class="text-center mt-3 mb-4">
                 <span class="px-4 py-2" style="font-family: monospace; border: 2pt #a3a3a3 solid !important;">
@@ -167,13 +167,13 @@
             <table style="font-size: 12pt;" class="table table-bordered t">
                 <tbody>
                     <tr>
-                        <th>
+                        <th style="width: 50px;">
                             Sl.
                         </th>
                         <th>
                             Particulars
                         </th>
-                        <th class="text-center">
+                        <th class="text-right" style="width: 120px;">
                             Amount
                         </th>
                     </tr>
@@ -206,7 +206,7 @@
                                 <td>
                                     Bill Amount
                                 </td>
-                                <td class="text-right">
+                                <td class="text-right" style="width: 120px;">
                                     {{ number_format($appointment->doctor_fee, 2) }}
                                 </td>
                             </tr>
@@ -262,7 +262,7 @@
             </div>
 
             <p class="text-center">
-                <i style="color: #727272;">
+                <i style="color: #000;">
                     <small style="text-transform:capitalize;">
                         Received with thanks : {!! Helper::wordConvertor(round($appointment->doctor_fee))!!} Taka Only
                     </small>
