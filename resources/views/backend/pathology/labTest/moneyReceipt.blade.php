@@ -209,7 +209,7 @@
                                 {{ $si }}
                             </td>
                             <td>
-                                {{ $labTest->tubeName->name }}
+                               Vacutainer {{ $labTest->tubeName->name }}
                             </td>
                             <td class="text-right">
                                 {{ number_format($labTest->price, 2) }}
