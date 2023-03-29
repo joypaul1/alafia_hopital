@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receipt</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <style>
         p {
             margin: 0;
@@ -76,13 +77,12 @@
                 margin: 0 auto;
             }
         }
-
     </style>
 </head>
 
 <body>
     <div class="prescription">
-        <img src="{{ asset("assets/moneyReceipt/hpathology.png") }}" style="width: 100%;" alt="">
+        <img src="{{ asset('assets/moneyReceipt/hpathology.png') }}" style="width: 100%;" alt="">
         <div style="padding: 0 0.5in;">
             <div class="text-center mt-3 mb-4">
                 <span class="px-4 py-2" style="font-family: monospace; border: 2pt #a3a3a3 solid !important;">
@@ -101,7 +101,8 @@
                         </td>
                         <td rowspan="4">
                             <div class="d-flex justify-content-center align-items-center">
-                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $labInvoice->invoice_number . ' PID-' . optional($labInvoice->patient)->patientId, 'QRCODE') }}" alt="barcode" style="width: 100px;" />
+                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $labInvoice->invoice_number . ' PID-' . optional($labInvoice->patient)->patientId, 'QRCODE') }}"
+                                    alt="barcode" style="width: 100px;" />
                             </div>
                         </td>
                         <td style="text-align: right; width: 40%;">
@@ -120,9 +121,9 @@
                         </td>
                     </tr>
                     @php
-                    $bday = new DateTime(optional($labInvoice->patient)->dob); // Your date of birth
-                    $today = new Datetime(date('m.d.y'));
-                    $diff = $today->diff($bday);
+                        $bday = new DateTime(optional($labInvoice->patient)->dob); // Your date of birth
+                        $today = new Datetime(date('m.d.y'));
+                        $diff = $today->diff($bday);
                     @endphp
                     <tr>
                         <td>
@@ -146,14 +147,15 @@
 
                         <td style="text-align: right;">
                             <strong>Sex </strong> :
-                            <span style="text-transform: capitalize;">{{  optional($appointment->patient)->gender}}</span>
+                            <span
+                                style="text-transform: capitalize;">{{ optional($labInvoice->patient)->gender }}</span>
                         </td>
 
                     </tr>
                     <tr>
                         <td colspan="3">
                             <Strong>
-                                Prepared By
+                                Referred By
                             </Strong>
                             :
                             {{ optional($labInvoice->doctor)->first_name . ' ' . optional($labInvoice->doctor)->last_name }}
@@ -167,28 +169,52 @@
             <table style="font-size: 12pt;" class="table table-bordered t">
                 <tbody>
                     <tr class="text-center">
-                        <th>
+                        <th style="width: 50px;">
                             Sl.
                         </th>
                         <th>
                             Particulars
                         </th>
-                        <th>
+                        <th class="text-right" style="width: 120px;">
                             Amount
                         </th>
                     </tr>
-                    @foreach ($labInvoice->labTest as $key => $labTest)
-                    <tr>
-                        <td>
-                            {{ $key + 1 }}
-                        </td>
-                        <td>
-                            {{ $labTest->testName->name }}
-                        </td>
-                        <td class="text-right">
-                            {{ number_format($labTest->price, 2) }}
-                        </td>
-                    </tr>
+                    @php
+                        $si = 0;
+                    @endphp
+
+                    @foreach ($labInvoice->labTestDetails as $key => $labTest)
+                        @php
+                            $si += 1;
+                        @endphp
+                        <tr>
+                            <td>
+                                {{ $si }}
+                            </td>
+                            <td>
+                                {{ $labTest->testName->name }}
+                            </td>
+                            <td class="text-right">
+                                {{ number_format($labTest->price, 2) }}
+                            </td>
+                        </tr>
+                    @endforeach
+
+                    @foreach ($labInvoice->labTestTube as $key => $labTest)
+                        @php
+                            $si += 1;
+                        @endphp
+                        <tr>
+                            <td>
+                                {{ $si }}
+                            </td>
+                            <td>
+                                {{ $labTest->tubeName->name }}
+                            </td>
+                            <td class="text-right">
+                                {{ number_format($labTest->price, 2) }}
+                            </td>
+                        </tr>
                     @endforeach
 
                 </tbody>
@@ -197,7 +223,8 @@
             <div class="row">
                 <div class="col-6">
                     <div class="d-flex justify-content-center align-items-center h-100">
-                        <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;" class="h2 px-4 py-2">
+                        <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;"
+                            class="h2 px-4 py-2">
                             PAID
                         </div>
                     </div>
@@ -209,7 +236,7 @@
                                 <td>
                                     Bill Amount
                                 </td>
-                                <td class="text-right">
+                                <td class="text-right" style="width: 120px;">
                                     {{ number_format($labInvoice->doctor_fee, 2) }}
                                 </td>
                             </tr>
@@ -265,9 +292,9 @@
             </div>
 
             <p class="text-center">
-                <i style="color: #727272;">
+                <i style="color: #000;">
                     <small style="text-transform:capitalize;">
-                        Received with thanks : {!! Helper::wordConvertor(round($labInvoice->total_amount))!!} Taka Only
+                        Received with thanks : {!! Helper::wordConvertor(round($labInvoice->total_amount)) !!} Taka Only
                     </small>
                 </i>
             </p>
@@ -315,7 +342,7 @@
                     </div>
                 </div>
             </div>
-            <img src="{{ asset("assets/moneyReceipt/fpathology.png") }}" style="width: 100%;" alt="">
+            <img src="{{ asset('assets/moneyReceipt/fpathology.png') }}" style="width: 100%;" alt="">
         </footer>
 
     </div>
@@ -327,10 +354,9 @@
 
 
 @push('js')
-<script>
-    $(document).ready(function() {
-        window.print();
-    });
-</script>
-
+    <script>
+        $(document).ready(function() {
+            window.print();
+        });
+    </script>
 @endpush

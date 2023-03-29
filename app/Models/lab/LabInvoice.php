@@ -16,7 +16,7 @@ class LabInvoice extends Model
 {
     use GlobalScope, AutoTimeStamp;
 
-    protected $guarded =['id'];
+    protected $guarded = ['id'];
 
     /**
      * Get all of the Purchase's daybook transaction.
@@ -36,7 +36,6 @@ class LabInvoice extends Model
     public function patient()
     {
         return $this->belongsTo(Patient::class, 'patient_id', 'id');
-
     }
 
     public function paymentHistories()
@@ -57,7 +56,4 @@ class LabInvoice extends Model
     {
         return $this->hasMany(LabInvoiceTestTubeDetails::class, 'lab_invoice_id', 'id');
     }
-
-
-
 }

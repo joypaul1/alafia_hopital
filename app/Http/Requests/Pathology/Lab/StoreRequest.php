@@ -71,9 +71,10 @@ class StoreRequest extends FormRequest
             $data['paid_amount']        = Str::replace(',', '', ($this->tubeSubTotal + $this->testSubTotal));
             $data['total_amount']       = $data['paid_amount'];
             $labInvoice                 = LabInvoice::create($data);
+            // dd($labInvoice);
             // hasMany labTest data insert
             foreach ($this->labTest_id as $key => $labTest) {
-                $labInvoice->labTest()->create([
+                $v= $labInvoice->labTestDetails()->create([
                     'lab_test_id' => $labTest,
                     'price' => $this->test_price[$key],
                 ]);

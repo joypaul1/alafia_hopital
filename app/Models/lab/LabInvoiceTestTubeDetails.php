@@ -11,4 +11,9 @@ class LabInvoiceTestTubeDetails extends Model
     use GlobalScope, AutoTimeStamp;
 
     protected $guarded =['id'];
+
+    public function tubeName()
+    {
+        return $this->belongsTo(LabTestTube::class, 'lab_test_tube_id', 'id');
+    }
 }
