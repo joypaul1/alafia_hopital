@@ -69,6 +69,7 @@
 
 
 @section('content')
+@dd($todaysDocAppointment);
     <div class="row clearfix">
         <div class="card py-3 text-center"><strong>Doctor Appointment</strong> </div>
         <div class="col-lg-3 col-md-6">
@@ -94,7 +95,7 @@
                     <div class="icon text-warning"><i class="fa fa-tags"></i> </div>
                     <div class="content">
                         <div class="text">Today's Income</div>
-                        <h5 class="number">৳ 00</h5>
+                        <h5 class="number">৳ {{ $todaysDocAppointmentIncome }}</h5>
                     </div>
                     <hr>
                     <div class="icon"><i class="fa fa-university"></i> </div>

@@ -14,10 +14,16 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        // dd("2023-02-26", date('Y-m-d'));
         $todaysDocAppointment=  Appointment::where('date', date('Y-m-d'))->count();
         $todaysDialysisAppointment=  DialysisAppointment::where('appointment_date', date('Y-m-d'))->count();
-        $todaysDocAppointmentIncome= Appointment::where('date', date('Y-m-d'))->with('paymentHistories')->get()->sum('total_amount');
+        $todaysDocAppointmentTaka= Appointment::where('date', date('Y-m-d'))
+        ->with('paymentHistories')->get();
+        $todaysDocAppointmentIncome = $todaysDocAppointmentTaka->map(function ($appointment) {
+            $payment['total_payment'] = $appointment->paymentHistories->sum('paid_amount');
+            return $payment;
+        });
+        // dd($todaysDocAppointmentIncome);
+        // ->sum('paid_amount');
         // $weaklyData['days'] = [];
         // $weaklyData['sell'] = [];
         // $monthData['month'] = [];
@@ -83,7 +89,7 @@ class DashboardController extends Controller
         // $totalVat = round($totalVat * 15 / 100);
 
 
-        return view('backend.dashboard.index', compact('todaysDocAppointment', 'todaysDialysisAppointment'));
+        return view('backend.dashboard.index', compact('todaysDocAppointment', 'todaysDialysisAppointment', 'todaysDocAppointmentIncome'));
     }
     public function labReport()
     {
