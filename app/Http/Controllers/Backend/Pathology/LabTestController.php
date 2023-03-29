@@ -19,15 +19,16 @@ class LabTestController extends Controller
     {
         $labInvoices = LabInvoice::with('labTestDetails.testName:id,name,category')->get()
         ->map(function ($query) {
+            // dd($query);
             $data['id'] = $query->id;
             $data['invoice_no'] = $query->invoice_no;
             $data['patient'] = $query->patient->name;
             $data['created_date'] = $query->date;
             $data['total_amount'] = $query->total_amount;
-            $data['category'] = $query->labTest->pluck('testName.category')->unique()->all();
-            $data['testName'] = $query->labTest->pluck('testName.name');
-            $data['labDetails_id'] = $query->labTest->pluck('id');
-            $data['labTest_id'] = $query->labTest->pluck('testName.id');
+            $data['category'] = $query->labTestDetails->pluck('testName.category')->unique()->all();
+            $data['testName'] = $query->labTestDetails->pluck('testName.name');
+            $data['labDetails_id'] = $query->labTestDetails->pluck('id');
+            $data['labTest_id'] = $query->labTestDetails->pluck('testName.id');
             return $data;
         });
 

@@ -24,7 +24,8 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">Sl.</th>
-                                    <th class="text-center">Date </th>
+                                    <th class="text-center">Created Date </th>
+                                    <th class="text-center">Delivery Date </th>
                                     <th class="text-center">P-Name</th>
                                     <th class="text-center"> Make  Result</th>
                                     <th class="text-center">View Result </th>
@@ -35,7 +36,8 @@
 
                                 @foreach ($labInvoices as $key=> $labInvoice)
                                 <tr class="text-center">
-                                    <td>{{$key}}</td>
+                                    <td>{{$labInvoice['invoice_no']}}</td>
+                                    <td> {{ date('d-m-y', strtotime($labInvoice['created_date'])) }}</td>
                                     <td> {{ date('d-m-y', strtotime($labInvoice['created_date'])) }}</td>
                                     <td>{{ $labInvoice['patient'] }}</td>
 
