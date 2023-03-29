@@ -16,4 +16,11 @@ class LabTestReport extends Model
     {
         return $this->hasMany(LabTestReportDetails::class, 'lab_test_report_id', 'id');
     }
+
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class, 'patient_id', 'id');
+    }
+
+    
 }
