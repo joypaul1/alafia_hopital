@@ -141,7 +141,7 @@
             </div>
         </div>
     </div>
-    <div class="row clearfix my-4">
+    {{-- <div class="row clearfix my-4">
         <div class="col-6">
             <div class="card">
                 <div class="card-header text-center text-white"
@@ -179,11 +179,9 @@
                 <canvas id="monthlySell"></canvas>
             </div>
         </div>
-        {{-- <div class="col-lg-6 col-md-6">
-            @include('backend._partials.todo')
-        </div> --}}
-    </div>
-    <div class="row clearfix">
+
+    </div> --}}
+    {{-- <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="card">
                 <div class="header">
@@ -223,9 +221,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row clearfix">
+    {{-- <div class="row clearfix">
         <div class="col-12">
             <div class="card">
                 <div class="body">
@@ -238,7 +236,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 @push('js')

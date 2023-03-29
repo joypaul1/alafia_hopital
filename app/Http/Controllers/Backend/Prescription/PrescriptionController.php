@@ -117,7 +117,7 @@ class PrescriptionController extends Controller
 
             if ($request->item_id) {
                 foreach ($request->item_id as $key => $medicine) {
-                    $v = $prescription->medicine()->create(
+                    $prescription->medicines()->create(
                         [
                             'item_id' => $medicine,
                             'how_many_times' => implode($request->how_many_times[$medicine]),
