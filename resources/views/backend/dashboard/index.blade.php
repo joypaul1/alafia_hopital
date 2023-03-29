@@ -69,7 +69,7 @@
 
 
 @section('content')
-@dd($todaysDocAppointment);
+{{-- @dd($todaysDocAppointment); --}}
     <div class="row clearfix">
         <div class="card py-3 text-center"><strong>Doctor Appointment</strong> </div>
         <div class="col-lg-3 col-md-6">
@@ -112,7 +112,7 @@
                     <div class="icon text-danger"><i class="fa fa-credit-card"></i> </div>
                     <div class="content">
                         <div class="text">Today's Expense</div>
-                        <h5 class="number">৳ 30,205</h5>
+                        <h5 class="number">৳ 0.00</h5>
                     </div>
                     <hr>
                     <div class="icon text-danger">
@@ -120,7 +120,121 @@
                     </div>
                     <div class="content">
                         <div class="text">Total Expense This Month</div>
-                        <h5 class="number">৳ 1,350,325</h5>
+                        <h5 class="number">৳ 0.00</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row clearfix">
+        <div class="card py-3 text-center"><strong>Doctor Appointment</strong> </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card top_counter">
+                <div class="body">
+                    <div class="icon text-info"><i class="fa fa-user"></i> </div>
+                    <div class="content">
+                        <div class="text">Today's Patients</div>
+                        <h5 class="number">{{$todaysDocAppointment  }}</h5>
+                    </div>
+                    <hr>
+                    <div class="icon text-warning"><i class="fa fa-users"></i> </div>
+                    <div class="content">
+                        <div class="text">Total Patients</div>
+                        <h5 class="number">640</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card top_counter">
+                <div class="body">
+                    <div class="icon text-warning"><i class="fa fa-tags"></i> </div>
+                    <div class="content">
+                        <div class="text">Today's Income</div>
+                        <h5 class="number">৳ {{ $todaysDocAppointmentIncome }}</h5>
+                    </div>
+                    <hr>
+                    <div class="icon"><i class="fa fa-university"></i> </div>
+                    <div class="content">
+                        <div class="text">This Month Total Income</div>
+                        <h5 class="number">৳ 00</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card top_counter">
+                <div class="body">
+                    <div class="icon text-danger"><i class="fa fa-credit-card"></i> </div>
+                    <div class="content">
+                        <div class="text">Today's Expense</div>
+                        <h5 class="number">৳ 0.00</h5>
+                    </div>
+                    <hr>
+                    <div class="icon text-danger">
+                        <i class="fa fa-money"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text">Total Expense This Month</div>
+                        <h5 class="number">৳ 0.00</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row clearfix">
+        <div class="card py-3 text-center"><strong>Doctor Appointment</strong> </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card top_counter">
+                <div class="body">
+                    <div class="icon text-info"><i class="fa fa-user"></i> </div>
+                    <div class="content">
+                        <div class="text">Today's Patients</div>
+                        <h5 class="number">{{$todaysDocAppointment  }}</h5>
+                    </div>
+                    <hr>
+                    <div class="icon text-warning"><i class="fa fa-users"></i> </div>
+                    <div class="content">
+                        <div class="text">Total Patients</div>
+                        <h5 class="number">640</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card top_counter">
+                <div class="body">
+                    <div class="icon text-warning"><i class="fa fa-tags"></i> </div>
+                    <div class="content">
+                        <div class="text">Today's Income</div>
+                        <h5 class="number">৳ {{ $todaysDocAppointmentIncome }}</h5>
+                    </div>
+                    <hr>
+                    <div class="icon"><i class="fa fa-university"></i> </div>
+                    <div class="content">
+                        <div class="text">This Month Total Income</div>
+                        <h5 class="number">৳ 00</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card top_counter">
+                <div class="body">
+                    <div class="icon text-danger"><i class="fa fa-credit-card"></i> </div>
+                    <div class="content">
+                        <div class="text">Today's Expense</div>
+                        <h5 class="number">৳ 0.00</h5>
+                    </div>
+                    <hr>
+                    <div class="icon text-danger">
+                        <i class="fa fa-money"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text">Total Expense This Month</div>
+                        <h5 class="number">৳ 0.00</h5>
                     </div>
                 </div>
             </div>

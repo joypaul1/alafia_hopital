@@ -19,8 +19,8 @@ class DashboardController extends Controller
         $todaysDocAppointmentTaka= Appointment::where('date', date('Y-m-d'))
         ->with('paymentHistories')->get();
         $todaysDocAppointmentIncome = $todaysDocAppointmentTaka->map(function ($appointment) {
-            $payment['total_payment'] = $appointment->paymentHistories->sum('paid_amount');
-            return $payment;
+            return $appointment->paymentHistories->sum('paid_amount');
+            // return $payment['total_payment'];
         });
         // dd($todaysDocAppointmentIncome);
         // ->sum('paid_amount');
