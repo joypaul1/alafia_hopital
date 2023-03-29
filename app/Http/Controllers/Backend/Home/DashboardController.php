@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    // use SMS;
     public function index(Request $request)
     {
         $weaklyData['days'] = [];
