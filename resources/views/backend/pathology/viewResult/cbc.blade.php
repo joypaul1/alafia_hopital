@@ -1386,7 +1386,7 @@
 <body class="c46 doc-content">
     <div class="content">
         <div>
-            <img src="./hpathology.png" style="width: 100%;" alt="header">
+            <img src="{{ asset('assets/moneyReceipt/hpathology.png') }}" style="width: 100%;" alt="header">
             <div style="padding: 0 0.5in;">
                 <table class="c55">
                     <tr class="c5">
@@ -1835,7 +1835,7 @@
 
         <div id="page-break"></div>
         <div>
-            <img src="./hpathology.png" style="width: 100%;" alt="header">
+            <img src="{{ asset('assets/moneyReceipt/hpathology.png') }}"style="width: 100%;" alt="header">
             <div style="padding: 0 0.5in;">
                 <table class="c55">
                     <tr class="c5">
@@ -2248,7 +2248,7 @@
                     </div>
                 </div>
             </div>
-            <img src="./fpathology.png" style="width: 100%;" alt="">
+            <img src="{{ asset('assets/moneyReceipt/fpathology.png') }}" stylestyle="width: 100%;" alt="">
         </footer>
     </div>
 </body>
