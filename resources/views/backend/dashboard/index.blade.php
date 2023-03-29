@@ -70,9 +70,9 @@
 
 @section('content')
 {{-- @dd($todaysDocAppointment); --}}
-    <div class="row clearfix">
+    <div class="row mb-4 clearfix">
         <div class="card py-3 text-center"><strong>Doctor Appointment</strong> </div>
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-4 col-md-6">
             <div class="card top_counter">
                 <div class="body">
                     <div class="icon text-info"><i class="fa fa-user"></i> </div>
@@ -89,7 +89,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-4 col-md-6">
             <div class="card top_counter">
                 <div class="body">
                     <div class="icon text-warning"><i class="fa fa-tags"></i> </div>
@@ -106,7 +106,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-4 col-md-6">
             <div class="card top_counter">
                 <div class="body">
                     <div class="icon text-danger"><i class="fa fa-credit-card"></i> </div>
@@ -127,9 +127,9 @@
         </div>
 
     </div>
-    <div class="row clearfix">
+    <div class="row mb-4 clearfix">
         <div class="card py-3 text-center"><strong>Dialysis Appointment</strong> </div>
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-4 col-md-6">
             <div class="card top_counter">
                 <div class="body">
                     <div class="icon text-info"><i class="fa fa-user"></i> </div>
@@ -146,7 +146,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-4 col-md-6">
             <div class="card top_counter">
                 <div class="body">
                     <div class="icon text-warning"><i class="fa fa-tags"></i> </div>
@@ -163,7 +163,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-4 col-md-6">
             <div class="card top_counter">
                 <div class="body">
                     <div class="icon text-danger"><i class="fa fa-credit-card"></i> </div>
@@ -184,9 +184,9 @@
         </div>
 
     </div>
-    <div class="row clearfix">
+    <div class="row mb-4 clearfix">
         <div class="card py-3 text-center"><strong>Pathology Appointment</strong> </div>
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-4 col-md-6">
             <div class="card top_counter">
                 <div class="body">
                     <div class="icon text-info"><i class="fa fa-user"></i> </div>
@@ -203,7 +203,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-4 col-md-6">
             <div class="card top_counter">
                 <div class="body">
                     <div class="icon text-warning"><i class="fa fa-tags"></i> </div>
@@ -220,7 +220,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-4 col-md-6">
             <div class="card top_counter">
                 <div class="body">
                     <div class="icon text-danger"><i class="fa fa-credit-card"></i> </div>
