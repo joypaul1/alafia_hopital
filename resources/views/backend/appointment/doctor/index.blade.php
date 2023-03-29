@@ -42,20 +42,6 @@
                             </thead>
 
                             <tbody>
-                                {{-- @foreach ($appointmentDatas as $key => $appointmentData)
-                                    <tr class="text-center">
-                                        <td>{{ $key + 1 }}</td>
-                                        <td>{{ $appointmentData->invoice_number }}</td>
-                                        <td>{{ date('d-m-Y', strtotime($appointmentData->appointment_date)) }}</td>
-                                        <td>{{ optional($appointmentData->patient)->name }}</td>
-                                        <td>{{ optional($appointmentData->doctor)->first_name }}</td>
-                                        <td>{{ $appointmentData->appointment_status }}</td>
-                                        <td>{{ number_format($appointmentData->doctor_fee, 2) }}</td>
-                                        <td>{{ $appointmentData->paymentHistories()->pluck('payment_method') }}</td>
-
-                                    </tr>
-                                @endforeach --}}
-
 
                             </tbody>
                         </table>
@@ -313,9 +299,11 @@
                 success: function(response) {
                     if (response.data.length != 0) {
                         response.data.forEach(element => {
-                            $('#appointment_schedule').append('<option value="' + element.id + '" >' +element.start_time + ' -- ' + element.end_time + '</option>')
+                            $('#appointment_schedule').append('<option value="' + element.id + '" >' +
+                                element.start_time + ' -- ' + element.end_time + '</option>')
                         }).trigger('change');
-                        $("#appointment_schedule").val($("#appointment_schedule option:first").val()).trigger('change');
+                        $("#appointment_schedule").val($("#appointment_schedule option:first").val()).trigger(
+                            'change');
                     } else {
                         $('#appointment_schedule').append('<option value="">No Slot Available</option>')
                     }

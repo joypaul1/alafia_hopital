@@ -491,11 +491,12 @@
                         'optionData': optionData
                     },
                     success: function(res) {
+                        // console.log(res)
                         var resArray = $.map(res.data, function(obj) {
                             return {
                                 data: obj,
                                 value: obj.name, //Fillable in input field
-                                label: obj.name + '|' + obj.generic_name.name + '|' + obj.strenght.name + '|' + obj.type.name //Show as label of input fieldname: obj.name, sku: obj.sku
+                                label: obj.name + '|' + obj.generic_name.name + '|' + obj.strength.name + '|' + obj.type.name //Show as label of input fieldname: obj.name, sku: obj.sku
                             }
                         })
                         response(resArray);
