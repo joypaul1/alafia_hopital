@@ -70,13 +70,14 @@
 
 @section('content')
     <div class="row clearfix">
+        <div class="card py-3 text-center"><strong>Doctor Appointment</strong> </div>
         <div class="col-lg-3 col-md-6">
             <div class="card top_counter">
                 <div class="body">
                     <div class="icon text-info"><i class="fa fa-user"></i> </div>
                     <div class="content">
                         <div class="text">Today's Patients</div>
-                        <h5 class="number">14</h5>
+                        <h5 class="number">{{$todaysDocAppointment  }}</h5>
                     </div>
                     <hr>
                     <div class="icon text-warning"><i class="fa fa-users"></i> </div>
@@ -93,13 +94,13 @@
                     <div class="icon text-warning"><i class="fa fa-tags"></i> </div>
                     <div class="content">
                         <div class="text">Today's Income</div>
-                        <h5 class="number">৳ 42,500</h5>
+                        <h5 class="number">৳ 00</h5>
                     </div>
                     <hr>
                     <div class="icon"><i class="fa fa-university"></i> </div>
                     <div class="content">
                         <div class="text">This Month Total Income</div>
-                        <h5 class="number">৳ 5,564,558</h5>
+                        <h5 class="number">৳ 00</h5>
                     </div>
                 </div>
             </div>
@@ -123,23 +124,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="card top_counter">
-                <div class="body">
-                    <div class="icon"><i class="fa fa-map-pin"></i> </div>
-                    <div class="content">
-                        <div class="text">Total Dialysis Patient's</div>
-                        <h5 class="number">369</h5>
-                    </div>
-                    <hr>
-                    <div class="icon text-success"><i class="fa fa-smile-o"></i> </div>
-                    <div class="content">
-                        <div class="text">Happy Clients</div>
-                        <h5 class="number">528</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
     {{-- <div class="row clearfix my-4">
         <div class="col-6">
@@ -243,132 +228,5 @@
     {{-- <script src="{{ asset('assets/backend/clock/clock.js') }}"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script>
-        var userSellData = [];
-        var userSellAmount = [];
-        var monthlySellData = [];
-        var monthlySellAmount = [];
-        $(document).ready(function() {
-            // weaklyData
-            let weaklyData = jQuery.parseJSON('{!! json_encode($userSell) !!}');
-            weaklyData.forEach(element => {
-                userSellData.push(element.name);
-                userSellAmount.push(Math.round(element.total_sell));
-            });
 
-            // monthlyData
-            let monthlyData = jQuery.parseJSON('{!! json_encode($monthData) !!}');
-            $.each(monthlyData, function(key, value) {
-                monthlySellData.push(key);
-                monthlySellAmount.push(Math.round(value));
-
-            });
-
-            // userSell
-            const userSell = document.getElementById('userSell');
-            new Chart(userSell, {
-                type: 'bar',
-                data: {
-                    labels: userSellData,
-                    datasets: [{
-                        data: userSellAmount,
-                        borderWidth: 2,
-                        backgroundColor: 'orange',
-                    }]
-                },
-                options: {
-                    animations: {
-                        tension: {
-                            duration: 1000,
-                            easing: 'linear',
-                            from: 1,
-                            to: 0,
-                            loop: true
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-
-            // monthlySell
-            const monthlySell = document.getElementById('monthlySell');
-            new Chart(monthlySell, {
-                type: 'bar',
-                data: {
-                    labels: monthlySellData,
-                    datasets: [{
-                        data: monthlySellAmount,
-                        borderWidth: 2,
-                        backgroundColor: 'green',
-                    }]
-                },
-                options: {
-                    animations: {
-                        tension: {
-                            duration: 1000,
-                            easing: 'linear',
-                            from: 1,
-                            to: 0,
-                            loop: true
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-            //weeklysell
-            const weeklySell = document.getElementById('weeklySell');
-            new Chart(weeklySell, {
-                type: 'line',
-                data: {
-
-                    labels: jQuery.parseJSON('{!! json_encode($weaklyData['days']) !!}'),
-                    datasets: [{
-                        label: '# of Votes',
-                        data: jQuery.parseJSON('{!! json_encode($weaklyData['sell']) !!}'),
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    animations: {
-                        tension: {
-                            duration: 1000,
-                            easing: 'linear',
-                            from: 1,
-                            to: 0,
-                            loop: true
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-
-        });
-    </script>
 @endpush

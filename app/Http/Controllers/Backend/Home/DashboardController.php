@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Backend\Home;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
-use App\Models\Order;
-use App\Models\User;
-use App\Traits\SMS;
+use App\Models\Appointment\Appointment;
+use App\Models\Appointment\DialysisAppointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +14,10 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        // dd("2023-02-26", date('Y-m-d'));
+        $todaysDocAppointment=  Appointment::where('date', date('Y-m-d'))->count();
+        $todaysDialysisAppointment=  DialysisAppointment::where('appointment_date', date('Y-m-d'))->count();
+        $todaysDocAppointmentIncome= Appointment::where('date', date('Y-m-d'))->with('paymentHistories')->get()->sum('total_amount');
         // $weaklyData['days'] = [];
         // $weaklyData['sell'] = [];
         // $monthData['month'] = [];
@@ -80,9 +83,7 @@ class DashboardController extends Controller
         // $totalVat = round($totalVat * 15 / 100);
 
 
-        return view('backend.dashboard.index', compact(
-
-        ));
+        return view('backend.dashboard.index', compact('todaysDocAppointment', 'todaysDialysisAppointment'));
     }
     public function labReport()
     {
