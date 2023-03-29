@@ -18,9 +18,9 @@ class LabTestResultController extends Controller
 
         $labTest = LabTest::whereId($request->labTest_id)->first();
         if ($labTest->name == 'CBC') {
-            return view('backend.pathology.makeResult.cbc', compact('data'));
+            return view('backend.pathology.makeResult.cbc', compact('data', 'labTest'));
         }
-        return view('backend.pathology.makeResult.create', compact('labInvoiceTestDetail'));
+        return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
     }
 
 

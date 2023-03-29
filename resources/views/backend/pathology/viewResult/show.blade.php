@@ -1381,7 +1381,8 @@
         }
     </style>
 </head>
-@dd($labTestReport);
+{{-- @dd($labTestReport->details); --}}
+{{-- @dd($labTestReport->patient); --}}
 <body class="c46 doc-content">
     <div class="content">
         <div>

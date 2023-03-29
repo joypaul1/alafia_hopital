@@ -2,6 +2,7 @@
 
 namespace App\Models\lab;
 
+use App\Models\Patient\Patient;
 use App\Traits\AutoTimeStamp;
 use App\Traits\GlobalScope;
 use Illuminate\Database\Eloquent\Model;
@@ -22,5 +23,5 @@ class LabTestReport extends Model
         return $this->belongsTo(Patient::class, 'patient_id', 'id');
     }
 
-    
+
 }
