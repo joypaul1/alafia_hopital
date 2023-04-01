@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\ServiceName\StoreRequest;
 use App\Http\Requests\ServiceName\UpdateRequest;
+use App\Models\Item\Unit;
 use App\Models\Service\ServiceType;
 
 class ServiceNameController extends Controller
@@ -20,14 +21,14 @@ class ServiceNameController extends Controller
      */
     public function index(Request $request)
     {
-        $data = ServiceName::select(['id', 'name', 'status', 'service_price', 'service_type_id'])->latest();
+        $data = ServiceName::select(['id', 'name', 'status', 'service_price', 'service_type_id', 'unit_id'])->With('unit:id,name')->latest();
         if ($request->status) {
             $data = $data->active();
         } elseif ($request->status == '0') {
             $data = $data->inactive();
         }
 
-        $data = $data->get();
+         $data = $data->get();
         if ($request->optionData) {
             return response()->json(['data' => $data]);
         }
@@ -55,6 +56,9 @@ class ServiceNameController extends Controller
                 ->editColumn('service_type_id', function ($row) {
                     return optional($row->serviceType)->name ?? ' ';
                 })
+                ->editColumn('unit_id', function ($row) {
+                    return optional($row->unit)->name ?? ' ';
+                })
                 ->editColumn('service_price', function ($row) {
                     return number_format($row->service_price, 2) . ' TK';
                 })
@@ -75,7 +79,8 @@ class ServiceNameController extends Controller
     public function create()
     {
         $type = ServiceType::select(['id', 'name'])->get();
-        return view('backend.siteConfig.service.create', compact('type'));
+        $unit =Unit::get(['id','name']);
+        return view('backend.siteConfig.service.create', compact('type','unit'));
     }
 
     /**
@@ -114,8 +119,9 @@ class ServiceNameController extends Controller
     public function edit(ServiceName $serviceName)
     {
         $type = ServiceType::select(['id', 'name'])->get();
+        $unit =Unit::get(['id','name']);
 
-        return view('backend.siteConfig.service.edit', compact('serviceName', 'type'));
+        return view('backend.siteConfig.service.edit', compact('serviceName', 'type', 'unit'));
     }
 
     /**

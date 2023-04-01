@@ -3,7 +3,6 @@
 namespace App\Http\Requests\ServiceName;
 
 use App\Models\Service\ServiceName;
-use App\Models\Symptom\Symptom;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 
@@ -29,6 +28,7 @@ class StoreRequest extends FormRequest
         return [
             'name'              => 'required|string|unique:service_names,name',
             'service_type_id'   => 'required|exists:service_types,id',
+            'unit_id'           => 'required|exists:units,id',
             'description'       => 'nullable|string',
             'service_price'       => 'required',
         ];
@@ -36,7 +36,6 @@ class StoreRequest extends FormRequest
 
     public function storeData($request)
     {
-
         try {
             DB::beginTransaction();
             $data = $request->validated();

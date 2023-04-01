@@ -2,19 +2,14 @@
 
 namespace App\Http\Controllers\Backend\Appointment;
 
-use App\Helpers\Image;
 use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment\Appointment;
 use App\Models\Doctor\Doctor;
 use App\Models\PaymentSystem;
-use App\Models\SiteConfig\BloodBank;
 use Illuminate\Http\Request;
 use App\Http\Requests\Appointment\Doctor\StoreRequest;
-use App\Http\Requests\Appointment\Doctor\UpdateRequest;
 use App\Models\Employee\Department;
-use App\Models\Employee\Designation;
-use FontLib\Table\Type\name;
 use Yajra\DataTables\Facades\DataTables;
 
 class AppointmentController extends Controller
@@ -80,8 +75,7 @@ class AppointmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-
+    {   
         $appointment_priority = (object)[
             ['name' => 'Normal', 'id' => 'Normal'],
             ['name' => 'Urgent', 'id' => 'Urgent'],
@@ -180,7 +174,6 @@ class AppointmentController extends Controller
     public function destroy(Appointment $appointment)
     {
         try {
-            // (new Image)->deleteIfExists($category->image);
             $appointment->delete();
 
         } catch (\Exception $ex) {
@@ -189,4 +182,13 @@ class AppointmentController extends Controller
         (new LogActivity)::addToLog('Category Deleted');
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
+
+    public function getSerialNumber(Request $request)
+    {
+        $serialNumber = Appointment::where('doctor_id', $request->doctor_id)
+            ->where('appointment_date', $request->appointment_date)
+            ->count();
+        return response()->json(['serialNumber' => $serialNumber + 1]);
+    }
+
 }

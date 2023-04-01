@@ -84,13 +84,9 @@
                         success: function(res) {
                             var resArray = $.map(res.data, function(obj) {
                                 return {
-                                    value: obj
-                                        .name, //Fillable in input field
-                                    value_id: obj
-                                        .id, //Fillable in input field
-                                    label: 'Name:' + obj.name +
-                                        ' mobile:' + obj
-                                        .mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                                    value: obj.name, //Fillable in input field
+                                    value_id: obj.id, //Fillable in input field
+                                    label: 'Name:' + obj.name +' mobile:' + obj.mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
                                 }
                             })
                             response(resArray);
@@ -194,6 +190,7 @@
                         var newOption = new Option('-select Doctor-', null, false, false);
                         var newOption = new Option(val.name, val.id, false, false);
                         $('#doctorID').append(newOption);
+                        getDocFee();
                     });
                 },
                 error: function(jqXHR, exception) {
@@ -257,7 +254,11 @@
         });
         // onchange doctorID  get value and set in input field by ajax request
         $(document).on('change', '#doctorID', function() {
-            var doctor_id = $(this).val();
+            getDocFee()
+        });
+
+        function getDocFee(){
+            var doctor_id = $('#doctorID').val();
             var url = "{{ route('backend.doctor.show', ':id') }}";
             url = url.replace(':id', doctor_id);
             $.ajax({
@@ -265,13 +266,10 @@
                 type: 'GET',
                 dataType: "json",
                 success: function(response) {
-                    $('.appointment_modal #appointment_add_form .modal-body .col-4 #doctor_fees').val(
-                        Number(response).toFixed(2));
+                    $('.appointment_modal #appointment_add_form .modal-body .col-4 #doctor_fees').val(Number(response).toFixed(2));
                 }
             });
-        });
-
-
+        }
 
         // get slot time on change date by ajax request
         $(document).on('change', '#appointment_date', function() {

@@ -30,6 +30,8 @@ class UpdateRequest extends FormRequest
             'service_type_id'   => 'required|exists:service_types,id',
             'description'   => 'nullable|string',
             'service_price'       => 'required',
+            'unit_id'           => 'required|exists:units,id',
+
 
         ];
     }
