@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receipt</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <style>
         p {
             margin: 0;
@@ -76,13 +77,12 @@
                 margin: 0 auto;
             }
         }
-
     </style>
 </head>
 
 <body>
     <div class="prescription">
-        <img src="{{ asset("assets/moneyReceipt/hdilysis.png") }}" style="width: 100%;" alt="">
+        <img src="{{ asset('assets/moneyReceipt/hdilysis.png') }}" style="width: 100%;" alt="">
         <div style="padding: 0 0.5in;">
             <div class="text-center mt-3 mb-4">
                 <span class="px-4 py-2" style="font-family: monospace; border: 2pt #a3a3a3 solid !important;">
@@ -100,7 +100,8 @@
                         </td>
                         <td rowspan="4">
                             <div class="d-flex justify-content-center align-items-center">
-                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# DIA-'.$serviceInvoice->invoice_no.' PID-'.optional($serviceInvoice->patient)->patientId , 'QRCODE')}}" alt="barcode" style="width: 100px;" />
+                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# DIA-' . $serviceInvoice->invoice_no . ' PID-' . optional($serviceInvoice->patient)->patientId, 'QRCODE') }}"
+                                    alt="barcode" style="width: 100px;" />
                                 {{-- <img src="{{ asset("assets/moneyReceipt/code.png") }}" style="width: 100px;" alt=""> --}}
                             </div>
                         </td>
@@ -114,10 +115,10 @@
                             <Strong>
                                 PID
                             </Strong>
-                            : {{ optional($serviceInvoice->patient)->patientId  }}
+                            : {{ optional($serviceInvoice->patient)->patientId }}
                         </td>
                         <td style="text-align: right; width: 40%">
-                            <strong>Mobile</strong> : {{ optional($serviceInvoice->patient)->mobile  }}
+                            <strong>Mobile</strong> : {{ optional($serviceInvoice->patient)->mobile }}
                         </td>
                     </tr>
                     <tr>
@@ -125,15 +126,16 @@
                             <Strong>
                                 Name
                             </Strong>
-                            : {{ optional($serviceInvoice->patient)->name}}
+                            : {{ optional($serviceInvoice->patient)->name }}
                         </td>
                         @php
-                        $bday = new DateTime( optional($serviceInvoice->patient)->dob); // Your date of birth
-                        $today = new Datetime(date('m.d.y'));
-                        $diff = $today->diff($bday);
+                            $bday = new DateTime(optional($serviceInvoice->patient)->dob); // Your date of birth
+                            $today = new Datetime(date('m.d.y'));
+                            $diff = $today->diff($bday);
                         @endphp
                         <td style="text-align: right;">
-                            <strong>Age </strong> : {{ $diff->y }} Years {{ $diff->m }} Months {{ $diff->d }} Days
+                            <strong>Age </strong> : {{ $diff->y }} Years {{ $diff->m }} Months
+                            {{ $diff->d }} Days
                         </td>
                     </tr>
                     <tr>
@@ -142,7 +144,8 @@
                             <Strong>
                                 Sex
                             </Strong>
-                            : <span style="text-transform: capitalize;">{{  optional($serviceInvoice->patient)->gender}}</span>
+                            : <span
+                                style="text-transform: capitalize;">{{ optional($serviceInvoice->patient)->gender }}</span>
                         </td>
                         {{-- @endif --}}
 
@@ -176,29 +179,29 @@
                             U.Price
                         </th>
                         <th class="text-center">
-                           Sub Total
+                            Sub Total
                         </th>
                     </tr>
                     {{-- @dd($serviceInvoice->itemDetails ); --}}
-                    @foreach ($serviceInvoice->itemDetails as $key=>$item)
-                    <tr>
-                        <td>
-                            {{ $key+1 }}
-                        </td>
-                        <td>
-                            {{ $item->serviceName->name }}
-                        </td>
-                        <td class="text-right">
-                            {{ number_format($item->qty, 2) }}
+                    @foreach ($serviceInvoice->itemDetails as $key => $item)
+                        <tr>
+                            <td>
+                                {{ $key + 1 }}
+                            </td>
+                            <td>
+                                {{ $item->serviceName->name }}
+                            </td>
+                            <td class="text-right">
+                                {{ number_format($item->qty, 2) }}
 
-                        </td>
-                        <td class="text-right">
-                            {{ number_format($item->service_price, 2) }}
-                        </td>
-                        <td class="text-right">
-                            {{ number_format($item->subtotal, 2) }}
-                        </td>
-                    </tr>
+                            </td>
+                            <td class="text-right">
+                                {{ number_format($item->service_price, 2) }}
+                            </td>
+                            <td class="text-right">
+                                {{ number_format($item->subtotal, 2) }}
+                            </td>
+                        </tr>
                     @endforeach
 
                 </tbody>
@@ -207,7 +210,8 @@
             <div class="row">
                 <div class="col-6">
                     <div class="d-flex justify-content-center align-items-center h-100">
-                        <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;" class="h2 px-4 py-2">
+                        <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;"
+                            class="h2 px-4 py-2">
                             PAID
                         </div>
                     </div>
@@ -275,7 +279,7 @@
             <p class="text-center">
                 <i style="color: #727272;">
                     <small style="text-transform:capitalize;">
-                        Received with thanks : {!! Helper::wordConvertor(round($serviceInvoice->total),)!!} Taka Only
+                        Received with thanks : {!! Helper::wordConvertor(round($serviceInvoice->total)) !!} Taka Only
                     </small>
                 </i>
             </p>
@@ -323,7 +327,7 @@
                     </div>
                 </div>
             </div>
-            <img src="{{ asset("assets/moneyReceipt/fdilysis.png") }}" style="width: 100%;" alt="">
+            <img src="{{ asset('assets/moneyReceipt/fdilysis.png') }}" style="width: 100%;" alt="">
         </footer>
 
     </div>
@@ -332,15 +336,6 @@
 </body>
 
 </html>
-{{-- <script>
+<script>
     window.print();
 </script>
-
-@push('js')
-<script>
-
-    $(document).ready(function () {
-        window.print();
-    });
-</script> --}}
-{{-- @endpush --}}
