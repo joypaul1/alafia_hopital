@@ -32,21 +32,21 @@
         <div class="card d-flex  mt-5">
             <div class="header">
                 <span href="#" style="font-size: 18px;font-weight:700">
-                    <i class="fa fa-desktop"></i> POS
+                    <i class="fa fa-desktop"></i> POS (Dialysis Of Invoice Service Center)
                 </span>
 
                 <div class="pull-right">
-                    {{-- <span class="btn btn-danger btn-md mr-1">
+                     {{-- <span class="btn btn-danger btn-md mr-1">
                         <i class="fa fa-pause-circle-o" aria-hidden="true"></i> </span>
-                    <span class="btn btn-dark btn-md mr-1">
-                        <i class="fa fa-briefcase" aria-hidden="true"></i> </span>
+                    <span class="btn btn-dark btn-md mr-1"> --}}
+                        {{-- <i class="fa fa-briefcase" aria-hidden="true"></i> </span> --}}
                     <span data-toggle="modal" data-target="#calculatorModal" class="btn btn-info btn-md mr-1">
                         <i class="fa fa-calculator me-1"></i> </span>
-                    <button class="btn btn-primary btn-md mr-1">Park Sale</button>
+                    <button class="btn btn-primary btn-md mr-1">All Invoice </button>
                     <a href="{{ url('admin/pos/pos') }}">
                         <button class="btn btn-warning text-white btn-md mr-1" onclick="deleteAll()">New Sale</button>
                     </a>
-                    <a href="{{ route('backend.order.order-list-pending.index') }}" target="_blank"><button
+                    {{--<a href="{{ route('backend.order.order-list-pending.index') }}" target="_blank"><button
                             class="btn btn-info btn-md mr-1">Pending List</button></a>
                     <a href="{{ route('backend.order.order-list-processing.index') }}" target="_blank"><button
                             class="btn btn-primary btn-md mr-1">Processing List</button></a>
@@ -144,9 +144,9 @@
                         </table>
                         <table class="table table-bordered text-center mt-5">
                             <tbody>
-                                <tr>
+                                <tr class="text-right">
 
-                                    <td colspan="3" class="text-center">
+                                    <td colspan="3" >
                                         <b>Qty:</b>&nbsp;
                                         <span class="mr-5">{{ number_format($this->serviceNameQty ?? 0, 2) }}</span>
                                         {{-- <b>serviceNames:</b>&nbsp;
@@ -158,7 +158,7 @@
 
                                 </tr>
                                 <tr>
-                                    <td>
+                                    <td class="text-right">
                                         <strong>
                                             Discount (-): <i class="fa fa-pencil-square-o" data-toggle="modal"
                                                 data-target="#discountModal" style="cursor:pointer;"
@@ -279,21 +279,71 @@
                 <i    class="fa fa-money"></i> {{ __('Pending') }}
             </button> --}}
             <button onclick="deleteAll()" type="button" class="btn btn-danger">
-                <i class="fa fa-times"></i>Cancel
+                <i class="fa fa-times"></i>Cancel / Clear
             </button>
         </div>
     </div>
 
 
-    <div wire:ignore.self class="modal fade" id="discountModal" data-backdrop="static" data-bs-keyboard="false"
-        data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div wire:ignore  class="modal fade" id="discountModal" data-backdrop="static" data-bs-keyboard="false" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="">{{ __('Invoice') }}</h5>
+                    <h5 class="modal-title" id="">{{ __('Discount') }}</h5>
                 </div>
-                <div class="modal-body">
-                    {{-- <iframe src="{{ $invoice_url }}" frameborder="0" width="100%;" height="600px;"></iframe> --}}
+                <div class="modal-body" wire:ignore.self>
+                    <form action="#">
+                        <div class="mb-3 row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="contact_id">Discount:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="fa fa-info" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" wire:model="discount"  class="form-control" placeholder="Discount Amount">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="contact_id">Discount type:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="fa fa-info" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        <select class="form-control" wire:change="discountCal($event.target.value)" >
+                                            <option value="{{ null }}" hidden>Please Select</option>
+                                            <option value="fixed">Fixed</option>
+                                            <option value="percentage">Percentage</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-3">
+                                    <label for="contact_id">Discount Amount:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="fa fa-info" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" readonly wire:model="discount_amount" class="form-control" placeholder="Discount Amount">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
                 </div>
             </div>
         </div>
