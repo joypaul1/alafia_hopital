@@ -2,37 +2,37 @@
 
 namespace App\Http\Livewire\Backend\Pos;
 
-use App\Models\Item\Brand;
-use App\Models\Item\Category;
+
 use App\Models\Item\Item;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Helpers\InvoiceNumber;
+use App\Models\Item\Unit;
+use App\Models\Service\ServiceName;
 use App\Models\SiteInfo;
 use App\Models\TableName;
 
 class Create extends Component
 {
-    public $brand_id, $userId, $category_id, $userDetails,$categories, $brands, $total,$subTotal,$discount, $discountType,
-    $shippingCost =0,$invoice_url=null, $taxAmount=0, $taxId, $cartSubTotal=0,$itemCount=0, $itemQty=0, $cartTotal=0,$cartServiceCharge=0;
+    public $brand_id, $userId, $unit_id, $userDetails,$serviceNames, $units, $total,$subTotal,$discount, $discountType,
+    $shippingCost =0,$invoice_url=null, $taxAmount=0, $taxId, $cartSubTotal=0,$itemCount=0, $itemQty=0, $cartTotal=0;
     public $basket = array();
-    public $service_charge = true;
-    public $selectedTable = array();
     public $dataTable = array();
     protected $listeners = ['refreshComponent' => '$refresh', 'updateQty'];
 
     public function mount( )
-    {   $this->dataTable    = TableName::get(['id', 'name', 'booked']);
-        $this->userId       = 2;
-        $this->categories   = Category::active()->select('id', 'name', 'status')->get();
-        $this->brands       = Brand::active()->select('id', 'name', 'status')->get();
+    {
+        $this->units   = Unit::active()->select('id', 'name')->get();
+        $this->serviceNames = $this->serviceNameQuery();
     }
     public function render()
     {
-        return view('livewire.backend.pos.create')->with('basket', $this->basket)->with('items', $this->itemQuery())
-        ->extends('backend.layout.posApp')
-        ->section('content');
+        // dd($this->serviceNameQuery());
+        return view('livewire.backend.pos.create'
+        )->with('basket', $this->basket)
+        // ->with('serviceNames', $this->serviceNameQuery())
+        ->extends('backend.layout.posApp')->section('content');
     }
 
 
@@ -51,7 +51,7 @@ class Create extends Component
             return $this->dispatchBrowserEvent('alert', ['type' => 'error',  'message' => 'Please Select Customer']);
         }
         if (count($this->basket) == 0) {
-           return  $this->dispatchBrowserEvent('alert', ['type' => 'error',  'message' => 'Your Item Is Empty']);
+           return  $this->dispatchBrowserEvent('alert', ['type' => 'error',  'message' => 'Your Service Is Empty']);
         }
         try {
             DB::beginTransaction();
@@ -63,7 +63,6 @@ class Create extends Component
                 'order_type'        => 'app',
                 'vat'               => $this->cartSubTotal * 1..SiteInfo::first()->vat,
                 'sub_total'         => $this->cartSubTotal,
-                'service_charge'    => $this->cartServiceCharge,
                 'total'             => $this->cartTotal,
                 'discount_amount'   => 0,
                 'discount_type'     => null,
@@ -75,21 +74,15 @@ class Create extends Component
                 'date' => date('Y-m-d h:i:s'),
             ]);
 
-            //order table booked
-            for ($i=0; $i <count($this->selectedTable) ; $i++) {
-                $order->orderTables()->create([
-                    'table_id' => $this->selectedTable[$i],
-                ]);
-                TableName::where('id', $this->selectedTable[$i])->update(['booked' => 1]);
-            }
 
-            //order items
-            foreach ($this->basket as $itemId => $cartItem) {
-                $order->orderItems()->create([
+
+            //order serviceNames
+            foreach ($this->basket as $serviceNameId => $cartItem) {
+                $order->orderserviceNames()->create([
                     'order_id'  => $order->id,
-                    'item_id'   => $itemId,
+                    'item_id'   => $serviceNameId,
                     'qty'       => $cartItem['qty'],
-                    'unit_price'=> $cartItem['sell_price'],
+                    'unit_price'=> $cartItem['service_price'],
                     'subtotal'  => $cartItem['subtotal'],
                 ]);
             }
@@ -110,95 +103,86 @@ class Create extends Component
     }
 
 
-    public function itemQuery()
+    public function serviceNameQuery()
     {
-        return Item::active()
-        ->when($this->brand_id, function($query){
-            $query->where('brand_id', $this->brand_id);
+        return ServiceName::active()
+        ->when($this->unit_id, function($query){
+            $query->where('unit_id', $this->unit_id);
         })
-        ->when($this->category_id, function($query){
-            $query->where('category_id', $this->category_id);
-        })
-        ->paginate(25);
+        ->get();
 
     }
-    public function addToCard($itemId)
+    public function addToCard($serviceNameId)
     {
         if(!$this->basket){
-            $item  = Item::find($itemId);
+            $serviceName  = ServiceName::find($serviceNameId);
             $this->basket = [
-                $itemId =>[
-                    "name" => $item->name,
+                $serviceNameId =>[
+                    "name" => $serviceName->name,
                     "qty" => 1,
-                    "sell_price" => $item->sell_price,
-                    "image" => $item->image,
-                    "subtotal" => $item->sell_price,
+                    "service_price" => $serviceName->service_price,
+                    "subtotal" => $serviceName->service_price,
                 ]
             ];
-        }else if(isset($this->basket[$itemId])){
-            $this->basket[$itemId]['qty']++;
-            $this->basket[$itemId]['subtotal'] += $this->basket[$itemId]['sell_price'] ;
+        }else if(isset($this->basket[$serviceNameId])){
+            $this->basket[$serviceNameId]['qty']++;
+            $this->basket[$serviceNameId]['subtotal'] += $this->basket[$serviceNameId]['service_price'] ;
         }
         else{
-            $item  = Item::find($itemId);
-            $this->basket[$itemId] = [
-                "name" => $item->name,
+            $serviceName  = ServiceName::find($serviceNameId);
+            $this->basket[$serviceNameId] = [
+                "name" => $serviceName->name,
                 "qty" => 1,
-                "sell_price" => $item->sell_price,
-                "image" => $item->image,
-                "subtotal" => $item->sell_price,
+                "service_price" => $serviceName->service_price,
+                "subtotal" => $serviceName->service_price,
             ];
         }
         $this->cartCalculation();
     }
 
-    public function qtyCalculation($method, $itemId)
+    public function qtyCalculation($method, $serviceNameId)
     {
-        if(isset($this->basket[$itemId])){
+        if(isset($this->basket[$serviceNameId])){
             if($method == "increment"){
-                $this->basket[$itemId]['qty']++;
-                $this->basket[$itemId]['subtotal'] += $this->basket[$itemId]['sell_price'] ;
+                $this->basket[$serviceNameId]['qty']++;
+                $this->basket[$serviceNameId]['subtotal'] += $this->basket[$serviceNameId]['service_price'] ;
             }else{
-                $this->basket[$itemId]['qty']--;
-                $this->basket[$itemId]['subtotal'] -= $this->basket[$itemId]['sell_price'] ;
+                $this->basket[$serviceNameId]['qty']--;
+                $this->basket[$serviceNameId]['subtotal'] -= $this->basket[$serviceNameId]['service_price'] ;
             }
             $this->cartCalculation();
             return true;
         }
     }
 
-    public function deleteItem($itemId)
+    public function deleteServiceName($serviceNameId)
     {
-        if(isset($this->basket[$itemId])){
-           unset($this->basket[$itemId]);
+        if(isset($this->basket[$serviceNameId])){
+           unset($this->basket[$serviceNameId]);
         }
         $this->cartCalculation();
         return true;
     }
 
-    public function updateQty($value,$itemId)
+    public function updateQty($value,$serviceNameId)
     {
-        $this->basket[$itemId]['qty']       = $value;
-        $this->basket[$itemId]['subtotal']  = $value * $this->basket[$itemId]['sell_price'] ;
+        $this->basket[$serviceNameId]['qty']       = $value;
+        $this->basket[$serviceNameId]['subtotal']  = $value * $this->basket[$serviceNameId]['service_price'] ;
         $this->cartCalculation();
     }
 
     public function cartCalculation()
     {
         $this->cartSubTotal =  array_sum(array_column($this->basket, 'subtotal')) ;
-        $this->cartServiceCharge = 0;
-        if($this->service_charge === true){
-            $this->cartServiceCharge =  ($this->cartSubTotal* SiteInfo::first()->service_charge)/100;
-        }
-
-        $this->cartTotal =  $this->cartSubTotal + $this->cartServiceCharge;
+        $this->cartTotal =  $this->cartSubTotal;
         $this->itemCount=count($this->basket);
         $this->itemQty=count($this->basket);
     }
 
     public function resetData()
     {
-        $this->discountType = $this->discount = $this->total=$this->shippingCost=$this->taxAmount= $this->taxId = $this->cartSubTotal=$this->itemCount=$this->itemQty=$this->cartTotal=$this->cartServiceCharge= 0;
+        $this->discountType = $this->discount = $this->total=$this->shippingCost=$this->taxAmount= $this->taxId = $this->cartSubTotal=$this->itemCount=$this->itemQty=$this->cartTotal=0;
+        // $this->cartServiceCharge= 0;
         $this->userDetails= null;
         $this->userId= null;
         $this->basket = array();
@@ -207,13 +191,10 @@ class Create extends Component
 
     public function serviceCharge()
     {
-        // $this->cartServiceCharge=0
-        // dd($this->service_charge);
-        if(!$this->service_charge){
-            $this->cartServiceCharge=0;
-            // dd($this->service_charge);
-            // $this->service_charge === false??
-        }
+
+        // if(!$this->service_charge){
+        //     $this->cartServiceCharge=0;
+        // }
         $this->cartCalculation();
     }
 

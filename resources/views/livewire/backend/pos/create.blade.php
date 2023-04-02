@@ -42,16 +42,16 @@
                         <i class="fa fa-briefcase" aria-hidden="true"></i> </span>
                     <span data-toggle="modal" data-target="#calculatorModal" class="btn btn-info btn-md mr-1">
                         <i class="fa fa-calculator me-1"></i> </span>
-                    <button class="btn btn-primary btn-md mr-1">Park Sale</button> --}}
+                    <button class="btn btn-primary btn-md mr-1">Park Sale</button>
                     <a href="{{ url('admin/pos/pos') }}">
                         <button class="btn btn-warning text-white btn-md mr-1" onclick="deleteAll()">New Sale</button>
                     </a>
-                    <a  href="{{ route('backend.order.order-list-pending.index') }}" target="_blank"><button
+                    <a href="{{ route('backend.order.order-list-pending.index') }}" target="_blank"><button
                             class="btn btn-info btn-md mr-1">Pending List</button></a>
                     <a href="{{ route('backend.order.order-list-processing.index') }}" target="_blank"><button
                             class="btn btn-primary btn-md mr-1">Processing List</button></a>
                     <a href="{{ route('backend.order.order-list-delivered.index') }}" target="_blank"><button
-                            class="btn btn-success btn-md mr-1">Delivered List</button></a>
+                            class="btn btn-success btn-md mr-1">Delivered List</button></a> --}}
                 </div>
 
                 {{-- <span data-toggle="popover" title="Calculator" data-html="true"
@@ -60,18 +60,20 @@
                 <i class="fa fa-calculator me-2"></i>  </span> --}}
             </div>
         </div>
-        <div class="card border-top">
+        {{-- <div class="card border-top">
             <div class="body">
-                <div wire:ignore style="display: grid;grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));gap: 15px;">
+                <div wire:ignore
+                    style="display: grid;grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));gap: 15px;">
                     @for ($i = 0; $i < count($this->dataTable); $i++)
-                        <div class="btn tableBtn @if($this->dataTable[$i]->booked) tb-active  @endif" style="background: #2099ac; color: #fff;"
-                            onClick ='selectedTable({{$this->dataTable[$i]->id }}, this)'>
+                        <div class="btn tableBtn @if ($this->dataTable[$i]->booked) tb-active @endif"
+                            style="background: #2099ac; color: #fff;"
+                            onClick='selectedTable({{ $this->dataTable[$i]->id }}, this)'>
                             <i class="fa fa-chair"></i>{{ $this->dataTable[$i]->name }}
                         </div>
                     @endfor
                 </div>
             </div>
-        </div>
+        </div> --}}
 
 
         <div class="col-lg-7">
@@ -107,7 +109,7 @@
                                 @include('components.backend.forms.input.input-type2', [
                                     'name' => 'product_name',
                                     'placeholder' => 'Enter Product Name / SKU',
-                                    // 'value' =>$itemDetails,
+                                    // 'value' =>$serviceNameDetails,
                                     'required' => true,
                                 ])
 
@@ -125,15 +127,15 @@
                                 <tr>
                                     <th>Product</th>
                                     <th>Quantity</th>
-                                    <th>Price inc. tax</th>
+                                    <th>Price </th>
                                     <th>Sub Total</th>
-                                    <th> Action</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($basket as $itemId=>$item)
-                                    <livewire:backend.pos.component.cart-item :item="$item" :itemId="$itemId"
-                                    wire:key="{{ $loop->index }}"/>
+                                @forelse ($basket as $serviceNameId=>$serviceName)
+                                    <livewire:backend.pos.component.cart-service-name :serviceName="$serviceName" :serviceNameId="$serviceNameId"
+                                        wire:key="{{ $loop->index }}" />
                                 @empty
                                 @endforelse
 
@@ -146,9 +148,9 @@
 
                                     <td colspan="3" class="text-center">
                                         <b>Qty:</b>&nbsp;
-                                        <span class="mr-5">{{ number_format($this->itemQty ?? 0, 2) }}</span>
-                                        <b>Items:</b>&nbsp;
-                                        <span class="mr-5">{{ number_format($this->itemCount ?? 0, 2) }}</span>
+                                        <span class="mr-5">{{ number_format($this->serviceNameQty ?? 0, 2) }}</span>
+                                        {{-- <b>serviceNames:</b>&nbsp;
+                                        <span class="mr-5">{{ number_format($this->serviceNameCount ?? 0, 2) }}</span> --}}
                                         <b>Subtotal:</b> &nbsp;
                                         <strong
                                             class="sub_total">{{ number_format($this->cartSubTotal ?? 0, 2) }}</strong>
@@ -164,15 +166,15 @@
                                         </strong>
                                         <span id="total_discount">{{ number_format($this->discount ?? 0, 2) }}</span>
                                     </td>
-                                    <td class="">
+                                    {{-- <td class="">
                                         <span>
                                             <b>Order Tax(+): <i class="fa fa-pencil-square-o" data-toggle="modal"
                                                     data-target="#taxModal" style="cursor:pointer;"
                                                     aria-hidden="true"></i> </b>
                                             <span id="order_tax" {{ number_format($this->taxAmount ?? 0, 2) }}</span>
                                             </span>
-                                    </td>
-                                    <td>
+                                    </td> --}}
+                                    {{-- <td>
                                         <span>
                                             <b>Shipping(+): <i class="fa fa-pencil-square-o" data-toggle="modal"
                                                     data-target="#shippingModal" style="cursor:pointer;"
@@ -180,15 +182,16 @@
                                             <span
                                                 id="shipping_charges_amount">{{ number_format($this->shippingCost ?? 0, 2) }}</span>
                                         </span>
-                                    </td>
+                                    </td> --}}
                                 </tr>
 
                             </tbody>
                             <tfoot>
-                                <tr>
-                                    <td colspan="2"  class="text-right">
-                                        <label for="service_charge">Service Charge  </label>
-                                        <input type="checkbox" wire:click="serviceCharge"  id="service_charge"wire:model='service_charge'>
+                                {{-- <tr>
+                                    <td colspan="2" class="text-right">
+                                        <label for="service_charge">Service Charge </label>
+                                        <input type="checkbox" wire:click="serviceCharge"
+                                            id="service_charge"wire:model='service_charge'>
 
                                     </td>
                                     <td class="text-right">
@@ -197,7 +200,7 @@
                                         <span class="total">{{ number_format($cartServiceCharge ?? 0, 2) }}</span>
 
                                     </td>
-                                </tr>
+                                </tr> --}}
                                 <tr>
                                     <td colspan="3" class="text-right">
                                         <h6>
@@ -216,23 +219,10 @@
             <div class="card border-top h-100">
                 <div class="body h-100">
                     <h5>
-                        Products Management
+                        Service Management
                     </h5>
                     <div class="row mt-3">
-                        <div class="col-md-6">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-search-plus"
-                                            aria-hidden="true"></i></span>
-                                </div>
-                                @include('components.backend.forms.select2.option2', [
-                                    'name' => 'product_category',
-                                    'optionDatas' => $this->categories,
-                                ])
 
-
-                            </div>
-                        </div>
                         <div class="col-md-6">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -241,7 +231,7 @@
                                 </div>
                                 @include('components.backend.forms.select2.option2', [
                                     'name' => 'product_brand',
-                                    'optionDatas' => $this->brands,
+                                    'optionDatas' => $this->units,
                                 ])
 
                             </div>
@@ -251,13 +241,13 @@
                     </div>
 
                     <div class="product-grid-container">
-                        @forelse ($items as $item)
-                            <a href="#" wire:click="addToCard({{ $item->id }})">
+                        @forelse ($serviceNames as $serviceName)
+                            <a href="#" wire:click="addToCard({{ $serviceName->id }})">
                                 <div class="card text-center">
-                                    <img src="{{ asset($item->image) }}" class="card-img-top" alt="...">
+                                    <img src="{{ asset('assets/service.png') }}" class="card-img-top" alt="...">
                                     <div class="card-body" style="padding:.75em">
-                                        <h6 class="card-title">{{ $item->name }}</h6>
-                                        <h6>{{ number_format($item->sell_price, 2) }}</h6>
+                                        <h6 class="card-title">{{ $serviceName->name }}</h6>
+                                        <h6>{{ number_format($serviceName->service_price, 2) }}</h6>
                                     </div>
 
                                 </div>
@@ -276,15 +266,15 @@
 
     <div class="row position-fixed fixed-bottom bg-white">
         <div class="col-12 text-center">
-            <button type="button" wire:click="storeData('pending')" class="btn btn-success">
-                <i class="fa fa-money"></i> {{ __('Pending') }}
+            <button type="button" wire:click="storeData('pending')" class="btn btn-info">
+                <i class="fa fa-money"></i> {{ __('Save & Print') }}
             </button>
-            <button type="button" wire:click="storeData('processing')" class="btn btn-primary">
+            {{-- <button type="button" wire:click="storeData('processing')" class="btn btn-primary">
                 <i class="fa fa-money"></i> {{ __('Processing') }}
             </button>
             <button type="button" wire:click="storeData('delivered')" class="btn btn-info">
                 <i class="fa fa-money"></i> {{ __('Delivered') }}
-            </button>
+            </button> --}}
             {{-- <button type="button" wire:click="storeData('pending')" class="btn btn-info">
                 <i    class="fa fa-money"></i> {{ __('Pending') }}
             </button> --}}
@@ -296,7 +286,7 @@
 
 
     <div wire:ignore.self class="modal fade" id="discountModal" data-backdrop="static" data-bs-keyboard="false"
-    data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -347,7 +337,7 @@
     <script>
         let total = 0;
         $('#product_category').on('change', function(e) {
-            @this.set('category_id', e.target.value);
+            @this.set('unit_id', e.target.value);
         });
         $('#product_brand').on('change', function(e) {
             @this.set('brand_id', e.target.value);
@@ -358,7 +348,7 @@
                 var optionData = request.term;
                 $.ajax({
                     method: 'GET',
-                    url: "{{ route('backend.itemconfig.item.index') }}",
+                    url: "{{ route('backend.siteConfig.serviceName.index') }}",
                     data: {
                         'optionData': optionData
                     },
@@ -367,8 +357,7 @@
                             return {
                                 value: obj.name, //Fillable in input field
                                 value_id: obj.id, //Fillable in input field
-                                label: 'Name:' + obj.name + ' sku:' + obj
-                                .sku, //Show as label of input fieldname: obj.name, sku: obj.sku
+                                label: 'Name:' + obj.name + ' price:' + obj.service_price, //Show as label of input fieldname: obj.name, sku: obj.sku
                             }
                         })
                         response(resArray);
@@ -392,9 +381,11 @@
                     success: function(res) {
                         var resArray = $.map(res.data, function(obj) {
                             return {
-                                value: obj.name + '(' + obj.mobile +')', //Fillable in input field
+                                value: obj.name + '(' + obj.mobile +
+                                    ')', //Fillable in input field
                                 value_id: obj.id, //for selected data
-                                label: 'Name:' + obj.name + ' mobile:' + obj.mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                                label: 'Name:' + obj.name + ' mobile:' + obj
+                                    .mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
                             }
                         })
                         response(resArray);
@@ -403,8 +394,8 @@
             },
             minLength: 1,
             select: function(event, ui) {
-                @this.userId = ui.item.value_id;
-                @this.userDetails = ui.item.value;
+                @this.userId = ui.serviceName.value_id;
+                @this.userDetails = ui.serviceName.value;
             }
         });
 
@@ -412,23 +403,23 @@
         // }) //  end addEventListener
 
         $(document).on('click', '.pos-table .increment', function(event) {
-            @this.qtyCalculation('increment', $(this).attr("data-itemId"))
+            @this.qtyCalculation('increment', $(this).attr("data-serviceNameId"))
 
         });
         $(document).on('click', '.pos-table .decrement', function(event) {
             let getData = $(this).closest('.input-group').find('input[type=number]').val().replaceAll(',', '');
             if (Number(getData) > 1) {
-                @this.qtyCalculation('decrement', $(this).attr("data-itemId"))
+                @this.qtyCalculation('decrement', $(this).attr("data-serviceNameId"))
             }
         });
 
 
-        function deleteItem(here, itemId) {
+        function deleteServiceName(here, serviceNameId) {
             here.parents('tr').fadeOut("normal", function() {
                 $(this).remove();
             });
 
-            @this.deleteItem(itemId)
+            @this.deleteServiceName(serviceNameId)
 
         }
 
@@ -438,7 +429,7 @@
         }
     </script>
     <script>
-        let bookedTable =[];
+        let bookedTable = [];
         window.addEventListener('alert', event => {
             toastr[event.detail.type](event.detail.message,
                 event.detail.title ?? ''), toastr.options = {
@@ -448,17 +439,17 @@
         });
 
 
-        function selectedTable(tableId, here){
-          if(jQuery.inArray(tableId, bookedTable) != 0){
-            $(here).toggleClass('tb-active');
-            bookedTable.push(tableId);
-            }else{
-                bookedTable = $.grep(bookedTable, function(value) {
-                    return value != tableId;
-                });
-                $(here).toggleClass('tb-active');
-            }
-            @this.set('selectedTable', bookedTable);
-        }
+        // function selectedTable(tableId, here) {
+        //     if (jQuery.inArray(tableId, bookedTable) != 0) {
+        //         $(here).toggleClass('tb-active');
+        //         bookedTable.push(tableId);
+        //     } else {
+        //         bookedTable = $.grep(bookedTable, function(value) {
+        //             return value != tableId;
+        //         });
+        //         $(here).toggleClass('tb-active');
+        //     }
+        //     @this.set('selectedTable', bookedTable);
+        // }
     </script>
 @endpush
