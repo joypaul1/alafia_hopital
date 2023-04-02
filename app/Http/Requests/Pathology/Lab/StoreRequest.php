@@ -74,11 +74,10 @@ class StoreRequest extends FormRequest
             // dd($labInvoice);
             // hasMany labTest data insert
             foreach ($this->labTest_id as $key => $labTest) {
-                $v= $labInvoice->labTestDetails()->create([
+                $v = $labInvoice->labTestDetails()->create([
                     'lab_test_id' => $labTest,
                     'price' => $this->test_price[$key],
                 ]);
-
             }
             // hasMany labTestTube data insert
             foreach ($this->testTube_id as $key => $testTube) {
@@ -86,7 +85,6 @@ class StoreRequest extends FormRequest
                     'lab_test_tube_id' => $testTube,
                     'price' => $this->testTube_price[$key],
                 ]);
-
             }
             //<----start of cash flow Transition------->
             // cashflowTransactions
@@ -103,7 +101,7 @@ class StoreRequest extends FormRequest
 
             // cashflowHistories
             $cashflowTransition->cashflowHistory()->create([
-                'debit' => $labInvoice->total
+                'debit' => Str::replace(',', '', $labInvoice->total_amount)
             ]);
 
             //<----end of cash flow Transition------->
@@ -121,7 +119,7 @@ class StoreRequest extends FormRequest
             //labInvoice full amount
             $dailyTransition->transactionHistories()->create([
                 'entry_name' => 'labInvoice Item',
-                'debit' => $labInvoice->total_amount,
+                'debit' => Str::replace(',', '', $labInvoice->total_amount),
             ]);
 
             $labInvoice->paymentHistories()->create([
@@ -130,7 +128,7 @@ class StoreRequest extends FormRequest
                 'payment_system_id' => PaymentSystem::first()->name,
                 'date' => $this->date,
                 'note' => $this->payment_note,
-                'paid_amount' => $labInvoice->total_amount,
+                'paid_amount' => Str::replace(',', '', $labInvoice->total_amount),
                 'payment_received_id' => auth('admin')->id(),
             ]);
 
@@ -139,7 +137,7 @@ class StoreRequest extends FormRequest
                 'ledger_id' => AccountLedger::first()->id,
                 'date'     => FinancialYearHistory::latest()->first()->start_date
             ], [
-                'debit' => DB::raw('debit +' . $labInvoice->total_amount)
+                'debit' => DB::raw('debit +' . Str::replace(',', '', $labInvoice->total_amount))
             ]);
             // dd($data);
             DB::commit();
@@ -147,6 +145,6 @@ class StoreRequest extends FormRequest
             DB::rollback();
             return response()->json(['msg' => $e->getMessage(), $e->getLine(), 'status' => false], 400);
         }
-        return response()->json(['data' =>$labInvoice->id, 'status' => true], 200);
+        return response()->json(['data' => $labInvoice->id, 'status' => true], 200);
     }
 }

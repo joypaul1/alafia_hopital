@@ -261,14 +261,14 @@
                     @endphp
                     @foreach ($order->orderItems as $key => $orderitem)
                         @php
-                            $vat    = $orderitem->unit_price - $orderitem->unit_price / 1.15;
+                            $vat = $orderitem->unit_price - $orderitem->unit_price / 1.15;
                             $qtyVat = $vat * $orderitem->qty;
                             // $totalVat+=$qtyVat;
                         @endphp
-                        <tr class="item last" style="width: 100% !important;" >
+                        <tr class="item last" style="width: 100% !important;">
                             <td style="text-align: left;">{{ optional($orderitem->item)->name }}</td>
                             <td style="text-align: center;"> {{ round($orderitem->qty) }}</td>
-                            <td style="text-align: right;">{{ number_format($orderitem->unit_price,2) }}
+                            <td style="text-align: right;">{{ number_format($orderitem->unit_price, 2) }}
                             </td>
                             {{-- <td style="text-align: left;">{{ number_format($vat, 2) }}</td> --}}
                             <td style="text-align: right;">{{ number_format($orderitem->subtotal, 2) }}</td>
@@ -289,7 +289,9 @@
                     </tr>
                     <tr class="">
                         <td class="Rate">
-                            <h2>Discount ({{ round($order->discount) }}@if ($order->discount_type == 'percent')%@else৳@endif)
+                            <h2>Discount ({{ round($order->discount) }}@if ($order->discount_type == 'percent')
+                                %@else৳
+                                @endif)
                             </h2>
                         </td>
                         <td class="payment" style="text-align: right;">

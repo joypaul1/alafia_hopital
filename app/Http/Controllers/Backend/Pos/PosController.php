@@ -49,8 +49,8 @@ class PosController extends Controller
      */
     public function show($id)
     {
-        $order = Order::whereId($id)->with('orderItems.item:id,name','paymentHistories')->first();
-        return view('backend.pos.pos-pdf',compact('order'));
+        // $order = Order::with('orderItems.item:id,name','paymentHistories')->first();
+        // return view('backend.pos.pos-pdf',compact('order'));
     }
 
     /**

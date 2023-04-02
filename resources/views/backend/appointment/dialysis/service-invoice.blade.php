@@ -96,28 +96,28 @@
                             <Strong>
                                 Invoice No.
                             </Strong>
-                            AP-{{ $appointment->invoice_number }}
+                            DIA-{{ $serviceInvoice->invoice_no }}
                         </td>
                         <td rowspan="4">
                             <div class="d-flex justify-content-center align-items-center">
-                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-'.$appointment->invoice_number.' PID-'.optional($appointment->patient)->patientId , 'QRCODE')}}" alt="barcode" style="width: 100px;" />
+                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# DIA-'.$serviceInvoice->invoice_no.' PID-'.optional($serviceInvoice->patient)->patientId , 'QRCODE')}}" alt="barcode" style="width: 100px;" />
                                 {{-- <img src="{{ asset("assets/moneyReceipt/code.png") }}" style="width: 100px;" alt=""> --}}
                             </div>
                         </td>
                         <td style="text-align: right; width: 40%">
-                            <strong>Bill Date</strong> : {{ date('d-m-Y', strtotime($appointment->created_at)) }}
+                            <strong>Bill Date</strong> : {{ date('d-m-Y h.i A', strtotime($serviceInvoice->date)) }}
                         </td>
                     </tr>
-                    {{-- @dd($appointment->patient); --}}
+                    {{-- @dd($serviceInvoice->patient); --}}
                     <tr>
                         <td>
                             <Strong>
                                 PID
                             </Strong>
-                            : {{ optional($appointment->patient)->patientId  }}
+                            : {{ optional($serviceInvoice->patient)->patientId  }}
                         </td>
                         <td style="text-align: right; width: 40%">
-                            <strong>Print Time</strong> : {{ now()->format('d-m-Y h.i A') }}
+                            <strong>Mobile</strong> : {{ optional($serviceInvoice->patient)->mobile  }}
                         </td>
                     </tr>
                     <tr>
@@ -125,10 +125,10 @@
                             <Strong>
                                 Name
                             </Strong>
-                            : {{ optional($appointment->patient)->name}}
+                            : {{ optional($serviceInvoice->patient)->name}}
                         </td>
                         @php
-                        $bday = new DateTime( optional($appointment->patient)->dob); // Your date of birth
+                        $bday = new DateTime( optional($serviceInvoice->patient)->dob); // Your date of birth
                         $today = new Datetime(date('m.d.y'));
                         $diff = $today->diff($bday);
                         @endphp
@@ -137,29 +137,25 @@
                         </td>
                     </tr>
                     <tr>
-                        {{-- @if (optional($appointment->asignEmp)->name) --}}
+                        {{-- @if (optional($serviceInvoice->asignEmp)->name) --}}
                         <td>
                             <Strong>
                                 Sex
                             </Strong>
-                            : <span style="text-transform: capitalize;">{{  optional($appointment->patient)->gender}}</span>
+                            : <span style="text-transform: capitalize;">{{  optional($serviceInvoice->patient)->gender}}</span>
                         </td>
                         {{-- @endif --}}
 
-                        <td style="text-align: right;">
-                            <strong>Appt. Time </strong> : {{ date('d-m-Y h.i A', strtotime($appointment->appointment_date))  }}
 
-                        </td>
                     </tr>
-                    <tr>
-                        {{-- @if (optional($appointment->asignEmp)->name) --}}
-                        <td colspan="3">
+                    {{-- <tr>
+                                                <td colspan="3">
                             <Strong>
                                 Asign To
                             </Strong>
-                            : {{ optional($appointment->asignEmp)->name}} {{ optional(optional($appointment->asignEmp)->designation)->name??' '}}
+                            : {{ optional($serviceInvoice->asignEmp)->name}} {{ optional(optional($serviceInvoice->asignEmp)->designation)->name??' '}}
                         </td>
-                    </tr>
+                    </tr> --}}
                 </tbody>
             </table>
 
@@ -171,23 +167,40 @@
                             Sl.
                         </th>
                         <th>
-                            Particulars
+                            Particular Service
                         </th>
                         <th class="text-center">
-                            Amount
+                            Qty
+                        </th>
+                        <th class="text-center">
+                            U.Price
+                        </th>
+                        <th class="text-center">
+                           Sub Total
                         </th>
                     </tr>
+                    {{-- @dd($serviceInvoice->itemDetails ); --}}
+                    @foreach ($serviceInvoice->itemDetails as $key=>$item)
                     <tr>
                         <td>
-                            1
+                            {{ $key+1 }}
                         </td>
                         <td>
-                            Dialysis Fee
+                            {{ $item->serviceName->name }}
                         </td>
                         <td class="text-right">
-                            {{ number_format($appointment->fee, 2) }}
+                            {{ number_format($item->qty, 2) }}
+
+                        </td>
+                        <td class="text-right">
+                            {{ number_format($item->service_price, 2) }}
+                        </td>
+                        <td class="text-right">
+                            {{ number_format($item->subtotal, 2) }}
                         </td>
                     </tr>
+                    @endforeach
+
                 </tbody>
             </table>
 
@@ -207,31 +220,29 @@
                                     Bill Amount
                                 </td>
                                 <td class="text-right">
-                                    {{ number_format($appointment->fee, 2) }}
+                                    {{ number_format($serviceInvoice->fee, 2) }}
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    Discount Amount
+                                    Discount
+                                    @if ($serviceInvoice->discount_type == 'percentage')
+                                        ({{ number_format($serviceInvoice->discount, 2) }}%)
+                                    @else
+                                        ({{ number_format($serviceInvoice->discount, 2) }} 'TK')
+                                    @endif
                                 </td>
                                 <td class="text-right">
-                                    00.00
+                                    {{ number_format($serviceInvoice->discount_amount, 2) }}
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    Vat Amount
-                                </td>
-                                <td class="text-right">
-                                    00.00
-                                </td>
-                            </tr>
+
                             <tr>
                                 <td>
                                     Payable Amount
                                 </td>
                                 <td class="text-right">
-                                    {{ number_format($appointment->fee, 2) }}
+                                    {{ number_format($serviceInvoice->total, 2) }}
                                 </td>
                             </tr>
                             <tr>
@@ -239,7 +250,7 @@
                                     Cash Paid
                                 </td>
                                 <td class="text-right">
-                                    {{ number_format($appointment->fee, 2) }}
+                                    {{ number_format($serviceInvoice->total, 2) }}
                                 </td>
                             </tr>
                         </tbody>
@@ -264,7 +275,7 @@
             <p class="text-center">
                 <i style="color: #727272;">
                     <small style="text-transform:capitalize;">
-                        Received with thanks : {!! Helper::wordConvertor(round($appointment->fee),)!!} Taka Only
+                        Received with thanks : {!! Helper::wordConvertor(round($serviceInvoice->total),)!!} Taka Only
                     </small>
                 </i>
             </p>
@@ -321,7 +332,7 @@
 </body>
 
 </html>
-<script>
+{{-- <script>
     window.print();
 </script>
 
@@ -331,5 +342,5 @@
     $(document).ready(function () {
         window.print();
     });
-</script>
-@endpush
+</script> --}}
+{{-- @endpush --}}

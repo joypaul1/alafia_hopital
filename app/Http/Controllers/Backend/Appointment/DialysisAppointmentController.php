@@ -12,6 +12,7 @@ use App\Http\Requests\Appointment\Dialysis\UpdateRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment\DialysisAppointment;
 use App\Models\Employee\Employee;
+use App\Models\Service\ServiceInvoice;
 
 class DialysisAppointmentController extends Controller
 {
@@ -80,6 +81,13 @@ class DialysisAppointmentController extends Controller
     }
 
 
+    public function serviceInvoice(Request $request)
+    {
+        // dd($request->id);
+        $serviceInvoice = ServiceInvoice::whereId($request->id)
+        ->with('itemDetails.serviceName','patient', 'paymentHistories')->first();
+        return view('backend.appointment.dialysis.service-invoice', compact('serviceInvoice'));
+    }
 
     /**
      * Show the form for creating a new resource.

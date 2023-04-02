@@ -46,7 +46,7 @@ class ServiceInvoice extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function labTestDetails(): HasMany
+    public function itemDetails(): HasMany
     {
         return $this->hasMany(ServiceInvoiceItems::class, 'service_invoice_id', 'id');
     }

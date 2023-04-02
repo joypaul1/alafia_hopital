@@ -87,7 +87,7 @@
                                 </div>
                                 @include('components.backend.forms.input.input-type2', [
                                     'name' => 'user_id',
-                                    'placeholder' => 'Customer Name/Mobile num..',
+                                    'placeholder' => 'Patient Name/Id/Mobile num..',
                                     'value' => $userDetails,
                                     'required' => true,
                                 ])
@@ -431,11 +431,9 @@
                     success: function(res) {
                         var resArray = $.map(res.data, function(obj) {
                             return {
-                                value: obj.name + '(' + obj.mobile +
-                                    ')', //Fillable in input field
+                                value: obj.name + '(' + obj.mobile +')', //Fillable in input field
                                 value_id: obj.id, //for selected data
-                                label: 'Name:' + obj.name + ' mobile:' + obj
-                                    .mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                                label: obj.name + ' mobile:' + obj.mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
                             }
                         })
                         response(resArray);
@@ -444,8 +442,9 @@
             },
             minLength: 1,
             select: function(event, ui) {
-                @this.userId = ui.serviceName.value_id;
-                @this.userDetails = ui.serviceName.value;
+                console.log(ui.item.value_id);
+                @this.userId = ui.item.value_id;
+                @this.userDetails = ui.item.value;
             }
         });
 

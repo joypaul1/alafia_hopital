@@ -3,17 +3,17 @@
 namespace App\Http\Livewire\Backend\Pos;
 
 
-use App\Models\Item\Item;
-use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Helpers\InvoiceNumber;
 use App\Models\Account\AccountLedger;
+use App\Models\FinancialYearHistory;
 use App\Models\Item\Unit;
 use App\Models\LedgerTransition;
+use App\Models\PaymentSystem;
+use App\Models\Service\ServiceInvoice;
 use App\Models\Service\ServiceName;
-use App\Models\SiteInfo;
-use App\Models\TableName;
+use Illuminate\Support\Str;
 
 class Create extends Component
 {
@@ -30,9 +30,7 @@ class Create extends Component
     }
     public function render()
     {
-        return view(
-            'livewire.backend.pos.create'
-        )->with('basket', $this->basket)
+        return view('livewire.backend.pos.create')->with('basket', $this->basket)
             ->extends('backend.layout.posApp')->section('content');
     }
 
@@ -52,89 +50,68 @@ class Create extends Component
 
     public function getInvoiceNumber()
     {
-        if (!Order::latest()->first()) {
+        if (!ServiceInvoice::latest()->first()) {
             return 1;
         } else {
-            return Order::latest()->first()->invoice_number + 1;
+            return ServiceInvoice::latest()->first()->invoice_no + 1;
         }
     }
 
     public function storeData($data)
     {
         if ($this->userId == null) {
-            return $this->dispatchBrowserEvent('alert', ['type' => 'error',  'message' => 'Please Select Customer']);
+            return $this->dispatchBrowserEvent('alert', ['type' => 'error',  'message' => 'Please Select Patient']);
         }
         if (count($this->basket) == 0) {
             return  $this->dispatchBrowserEvent('alert', ['type' => 'error',  'message' => 'Your Service Is Empty']);
         }
+
         try {
             DB::beginTransaction();
-            //create order
-            $order = Order::create([
-                'invoice_number'    => (new InvoiceNumber)->invoice_num($this->getInvoiceNumber()),
-                'user_id'           => $this->userId,
+            //ServiceInvoice
+            $serviceInvoice = ServiceInvoice::create([
+                'invoice_no'    => (new InvoiceNumber)->invoice_num($this->getInvoiceNumber()),
+                'patient_id'           => $this->userId,
                 'date'              => date('Y-m-d'),
-                'order_type'        => 'app',
-                'vat'               => $this->taxAmount,
                 'sub_total'         => $this->cartSubTotal,
                 'total'             => $this->cartTotal,
                 'discount'          => $this->discount,
                 'discount_amount'   => $this->discount_amount,
-                'discount_type'     => $this->discount_type ,
+                'discount_type'     => $this->discount_type,
             ]);
-            // dd( $order);
 
-            //order current status
-            $v= $order->orderStatus()->create([
-                'status' => $data,
-                'date' => date('Y-m-d h:i:s'),
-            ]);
-            //order items
+            //ServiceInvoice items
             foreach ($this->basket as $itemId => $cartItem) {
-                $orderItem = $order->orderItems()->create([
-                    'order_id'  => $order->id,
-                    'item_id'   => $cartItem['item_id'],
+                $serviceInvoice->itemDetails()->create([
+                    'service_name_id'   => $itemId,
                     'qty'       => $cartItem['qty'],
-                    'unit_price'=> $cartItem['sell_price'],
+                    'service_price' => $cartItem['service_price'],
                     'subtotal'  => $cartItem['subtotal'],
                 ]);
-                // dd( $orderItem);
 
             }
+            //  ServiceInvoice PaymentHistory
 
-            //  OrderPaymentHistory
-            if ($paymentMethod == 'cash_on_delivery') {
-                $orderPaymentHistory= OrderPaymentHistory::create([
-                    'order_id'  => $order->id,
-                    'type'      => 'cash_on_delivery',
-                    'date'      =>  date('Y-m-d'),
-                ]);
-
-            }else{
-                $orderPaymentHistory= OrderPaymentHistory::create([
-                    'order_id'  => $order->id,
-                    'type'      => 'online_payment',
-                    'date'      =>  date('Y-m-d'),
-                ]);
-                $order->paymentHistories()->create([
-                    'ledger_id' =>13,//13
-                    'payment_method'=> 'cash' ,
-                    'payment_system_id' =>6 ,//6
-                    'date' =>date('Y-m-d'),
-                    'note' =>'Sell Online',
-                    'paid_amount' =>Str::replace(',', '', $this->cartTotal),
-                    'payment_received_id' => auth('admin')->id(),
-                ]);
-
-             //<----start of cash flow Transition------->
-            $cashflowTransition= $order->cashflowTransactions()->create([
-                'url'               => "Backend\Pos\PosController@show,['id' =>".$order->id."]",
-                'cashflow_type'     => 'Sell',
-                'description'       => 'Sell Food',
-                'date'              => date('Y-m-d'),
-                'ledger_id'         =>13,
-                'payment_method'    => 6,
+            $serviceInvoice->paymentHistories()->create([
+                'ledger_id'         => AccountLedger::first()->id,
+                'payment_method' => PaymentSystem::first()->name,
+                'payment_system_id' => PaymentSystem::first()->id, //6
+                'date' => date('Y-m-d'),
+                'note' => 'Dialysis Invoice Create',
+                'paid_amount' => Str::replace(',', '', $this->cartTotal),
+                'payment_received_id' => auth('admin')->id(),
             ]);
+
+            //<----start of cash flow Transition------->
+            $cashflowTransition = $serviceInvoice->cashflowTransactions()->create([
+                'url'               => "Backend\Pos\PosController@show,['id' =>" . $serviceInvoice->id . "]",
+                'cashflow_type'     => 'Dialysis Invoice',
+                'description'       => 'Dialysis Invoice Create',
+                'date'              => date('Y-m-d'),
+                'ledger_id'         => AccountLedger::first()->id,
+                'payment_method'    => PaymentSystem::first()->id,
+            ]);
+
             // dd($cashflowTransition);
             // cashflowHistories
             $cashflowTransition->cashflowHistory()->create([
@@ -143,36 +120,37 @@ class Create extends Component
             //<----end of cash flow Transition------->
 
             //<----start of dailyTransition book transaction------->
-            $dailyTransition = $order->dailyTransactions()->create([
-                'url'               =>  "Backend\Pos\PosController@show,['id' =>".$order->id."]",
-                'description'       => 'Sell Food',
-                'transaction_type'  => 'Sell',
+            $dailyTransition = $serviceInvoice->dailyTransactions()->create([
+                'url'               =>  "Backend\Pos\PosController@show,['id' =>" . $serviceInvoice->id . "]",
+                'description'       => 'Dialysis Invoice Create',
+                'transaction_type'  => 'Dialysis Invoice',
                 'date'              =>  date('Y-m-d'),
-                'reference_no'      =>  $order->invoice_number,
+                'reference_no'      =>  $serviceInvoice->invoice_no,
             ]);
             // dd($dailyTransition);
-            //credit transactionHistories // sell increase
+            //credit transactionHistories // Dialysis Invoice increase
             $dailyTransition->transactionHistories()->create([
-                'entry_name' => 'Sell Food',
+                'entry_name' => 'Dialysis Invoice Created',
                 'credit'      => Str::replace(',', '', $this->cartTotal),
             ]);
 
             //debit transactionHistories // amount increase
             $dailyTransition->transactionHistories()->create([
-                'entry_name' => AccountLedger::find(13)->name,
+                'entry_name' => AccountLedger::first()->name,
                 'debit' => Str::replace(',', '', $this->cartTotal),
             ]);
 
-            // LedgerTransition --->increment costing
-            $LedgerTransition=LedgerTransition::updateOrCreate([
-                'ledger_id'=> 13,
+            // LedgerTransition --->increment income
+            LedgerTransition::updateOrCreate([
+                'ledger_id' => AccountLedger::first()->id,
                 'date'     => FinancialYearHistory::latest()->first()->start_date
-            ],[
-                'debit' => DB::raw('debit+'. Str::replace(',', '', $this->cartTotal))
+            ], [
+                'debit' => DB::raw('debit+' . Str::replace(',', '', $this->cartTotal))
             ]);
-            // dd($LedgerTransition);
 
-            }
+            $this->invoice_url = route('backend.dialysis.service.invoice',$serviceInvoice->id);
+            // return redirect()->route('backend.dialysis.service.invoice',[ 'id' => $serviceInvoice->id]);
+            //<----end of dailyTransition book transaction------->
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();
