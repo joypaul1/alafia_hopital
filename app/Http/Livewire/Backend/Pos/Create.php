@@ -148,7 +148,7 @@ class Create extends Component
                 'debit' => DB::raw('debit+' . Str::replace(',', '', $this->cartTotal))
             ]);
 
-            $this->invoice_url = route('backend.dialysis.service.invoice',$serviceInvoice->id);
+            $this->invoice_url = route('backend.dialysis.service.invoice',[ 'id' => $serviceInvoice->id]);
             // return redirect()->route('backend.dialysis.service.invoice',[ 'id' => $serviceInvoice->id]);
             //<----end of dailyTransition book transaction------->
             DB::commit();
