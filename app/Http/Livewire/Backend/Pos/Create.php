@@ -8,7 +8,9 @@ use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Helpers\InvoiceNumber;
+use App\Models\Account\AccountLedger;
 use App\Models\Item\Unit;
+use App\Models\LedgerTransition;
 use App\Models\Service\ServiceName;
 use App\Models\SiteInfo;
 use App\Models\TableName;
@@ -73,34 +75,104 @@ class Create extends Component
                 'user_id'           => $this->userId,
                 'date'              => date('Y-m-d'),
                 'order_type'        => 'app',
-                'vat'               => $this->cartSubTotal * 1. . SiteInfo::first()->vat,
+                'vat'               => $this->taxAmount,
                 'sub_total'         => $this->cartSubTotal,
                 'total'             => $this->cartTotal,
-                'discount_amount'   => 0,
-                'discount_type'     => null,
+                'discount'          => $this->discount,
+                'discount_amount'   => $this->discount_amount,
+                'discount_type'     => $this->discount_type ,
             ]);
+            // dd( $order);
 
             //order current status
-            $order->orderStatus()->create([
+            $v= $order->orderStatus()->create([
                 'status' => $data,
                 'date' => date('Y-m-d h:i:s'),
             ]);
-
-
-
-            //order serviceNames
-            foreach ($this->basket as $serviceNameId => $cartItem) {
-                $order->orderserviceNames()->create([
+            //order items
+            foreach ($this->basket as $itemId => $cartItem) {
+                $orderItem = $order->orderItems()->create([
                     'order_id'  => $order->id,
-                    'item_id'   => $serviceNameId,
+                    'item_id'   => $cartItem['item_id'],
                     'qty'       => $cartItem['qty'],
-                    'unit_price' => $cartItem['service_price'],
+                    'unit_price'=> $cartItem['sell_price'],
                     'subtotal'  => $cartItem['subtotal'],
                 ]);
+                // dd( $orderItem);
+
             }
 
+            //  OrderPaymentHistory
+            if ($paymentMethod == 'cash_on_delivery') {
+                $orderPaymentHistory= OrderPaymentHistory::create([
+                    'order_id'  => $order->id,
+                    'type'      => 'cash_on_delivery',
+                    'date'      =>  date('Y-m-d'),
+                ]);
 
-            // $this->invoice_url = route('backend.pos-pdf.show',$order->id);
+            }else{
+                $orderPaymentHistory= OrderPaymentHistory::create([
+                    'order_id'  => $order->id,
+                    'type'      => 'online_payment',
+                    'date'      =>  date('Y-m-d'),
+                ]);
+                $order->paymentHistories()->create([
+                    'ledger_id' =>13,//13
+                    'payment_method'=> 'cash' ,
+                    'payment_system_id' =>6 ,//6
+                    'date' =>date('Y-m-d'),
+                    'note' =>'Sell Online',
+                    'paid_amount' =>Str::replace(',', '', $this->cartTotal),
+                    'payment_received_id' => auth('admin')->id(),
+                ]);
+
+             //<----start of cash flow Transition------->
+            $cashflowTransition= $order->cashflowTransactions()->create([
+                'url'               => "Backend\Pos\PosController@show,['id' =>".$order->id."]",
+                'cashflow_type'     => 'Sell',
+                'description'       => 'Sell Food',
+                'date'              => date('Y-m-d'),
+                'ledger_id'         =>13,
+                'payment_method'    => 6,
+            ]);
+            // dd($cashflowTransition);
+            // cashflowHistories
+            $cashflowTransition->cashflowHistory()->create([
+                'debit' => Str::replace(',', '', $this->cartTotal)
+            ]);
+            //<----end of cash flow Transition------->
+
+            //<----start of dailyTransition book transaction------->
+            $dailyTransition = $order->dailyTransactions()->create([
+                'url'               =>  "Backend\Pos\PosController@show,['id' =>".$order->id."]",
+                'description'       => 'Sell Food',
+                'transaction_type'  => 'Sell',
+                'date'              =>  date('Y-m-d'),
+                'reference_no'      =>  $order->invoice_number,
+            ]);
+            // dd($dailyTransition);
+            //credit transactionHistories // sell increase
+            $dailyTransition->transactionHistories()->create([
+                'entry_name' => 'Sell Food',
+                'credit'      => Str::replace(',', '', $this->cartTotal),
+            ]);
+
+            //debit transactionHistories // amount increase
+            $dailyTransition->transactionHistories()->create([
+                'entry_name' => AccountLedger::find(13)->name,
+                'debit' => Str::replace(',', '', $this->cartTotal),
+            ]);
+
+            // LedgerTransition --->increment costing
+            $LedgerTransition=LedgerTransition::updateOrCreate([
+                'ledger_id'=> 13,
+                'date'     => FinancialYearHistory::latest()->first()->start_date
+            ],[
+                'debit' => DB::raw('debit+'. Str::replace(',', '', $this->cartTotal))
+            ]);
+            // dd($LedgerTransition);
+
+            }
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();
@@ -188,7 +260,6 @@ class Create extends Component
     public function resetData()
     {
         $this->discount_type = $this->discount = $this->total = $this->discount_amount = $this->taxAmount = $this->taxId = $this->cartSubTotal = $this->itemCount = $this->serviceNameQty = $this->cartTotal = 0;
-        // $this->cartServiceCharge= 0;
         $this->userDetails = null;
         $this->userId = null;
         $this->basket = array();
