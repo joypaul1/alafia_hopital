@@ -143,11 +143,11 @@
                             </Strong>
                             : <span style="text-transform: capitalize;">{{  optional($appointment->patient)->gender}}</span>
                         </td>
-                        @php
+                        {{-- @php
                             $bday = new DateTime( optional($appointment->patient)->dob); // Your date of birth
                             $today = new Datetime(date('m.d.y'));
                             $diff = $today->diff($bday);
-                        @endphp
+                        @endphp --}}
                         <td style="text-align: right;">
                             <strong>Appt. Time </strong> : {{  date('d-m-Y h.i A', strtotime($appointment->appointment_date))  }}
                         </td>
