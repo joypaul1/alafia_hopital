@@ -117,7 +117,7 @@
                             : {{ optional($appointment->patient)->patientId  }}
                         </td>
                         <td style="text-align: right;">
-                            <strong>Appt. No</strong> : {{ ($appointment->id)  }}
+                            <strong>Appt. No</strong> : {{ ($appointment->serial_number)  }}
                         </td>
                     </tr>
                     <tr>
