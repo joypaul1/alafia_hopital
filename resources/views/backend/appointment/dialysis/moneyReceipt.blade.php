@@ -154,9 +154,10 @@
                     <tr>
                         <td colspan="3">
                             <Strong>
-                                Asign To
+                                Consultant By
                             </Strong>
-                            : {{ optional($appointment->asignEmp)->name}} {{ optional(optional($appointment->asignEmp)->designation)->name??' '}}
+                            {{-- : {{ optional($appointment->doctor)->name}} {{ optional(optional($appointment->doctor)->designation)->name??' '}} --}}
+                            {{-- : {{ optional($appointment->asignEmp)->name}} {{ optional(optional($appointment->asignEmp)->designation)->name??' '}} --}}
                         </td>
                     </tr>
                 </tbody>
