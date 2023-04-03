@@ -63,13 +63,14 @@ class StoreRequest extends FormRequest
             $data['patient_id'] = $this->patient_Id;
             $data['doctor_id'] = $this->doctorID;
             $data['doctor_fee']        = $this->doctor_fees;
-            $data['appointment_date'] = $this->appointment_date . ' ' . date("h:i:s");
+            $data['appointment_date'] = $this->appointment_date;
             $data['schedule'] = $this->schedule;
             $data['appointment_priority'] = $this->appointment_priority;
             $data['payment_mode'] = PaymentSystem::find($this->payment_method)->name; //payment method name
             $data['appointment_status'] = $this->status;
             $data['payment_status'] = 'Paid';
             $data['date'] = now();
+            $date['serial_number'] = $this->serial_number();
             $appointment = Appointment::create($data);
             // appointment paymentHistories
             $appointment->paymentHistories()->create([
@@ -132,5 +133,14 @@ class StoreRequest extends FormRequest
             return response()->json(['status' => false, 'msg' => $ex->getMessage()]);
         }
         return response()->json(['status' => true, 'msg' => 'Data Created Successfully', 'data' => $appointment->id]);
+    }
+
+    public function serial_number()
+    {
+        $lastSerialNumber = Appointment::where('doctor_id', $this->doctorID)
+            ->where('appointment_date', $this->appointment_date)
+            ->where('doctor_appointment_schedule_id', $this->appointment_schedule)
+            ->max('serial_number');
+        return $lastSerialNumber ? $lastSerialNumber + 1 : 1;
     }
 }

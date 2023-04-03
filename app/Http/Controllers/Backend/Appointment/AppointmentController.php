@@ -75,7 +75,7 @@ class AppointmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   
+    {
         $appointment_priority = (object)[
             ['name' => 'Normal', 'id' => 'Normal'],
             ['name' => 'Urgent', 'id' => 'Urgent'],
