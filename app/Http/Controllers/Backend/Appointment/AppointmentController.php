@@ -121,7 +121,7 @@ class AppointmentController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $returnData = $request->storeData($request);
+        $returnData = $request->storeData();
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('Appointment Created');
             return redirect()->route('backend.appointment.show', $returnData->getData()->data);

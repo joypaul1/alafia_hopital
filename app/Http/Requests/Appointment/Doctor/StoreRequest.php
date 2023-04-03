@@ -55,6 +55,7 @@ class StoreRequest extends FormRequest
 
     public function storeData()
     {
+        // dd($this->serial_number());
         try {
             DB::beginTransaction();
             $data = $this->all();
@@ -70,8 +71,9 @@ class StoreRequest extends FormRequest
             $data['appointment_status'] = $this->status;
             $data['payment_status'] = 'Paid';
             $data['date'] = now();
-            $date['serial_number'] = 1;
+            $data['serial_number'] = $this->serial_number();
             $appointment = Appointment::create($data);
+            // dd($appointment);
             // appointment paymentHistories
             $appointment->paymentHistories()->create([
                 'ledger_id' => AccountLedger::first()->id,
@@ -140,8 +142,8 @@ class StoreRequest extends FormRequest
         $lastSerialNumber = Appointment::where('doctor_id', $this->doctorID)
             ->where('appointment_date', $this->appointment_date)
             ->where('doctor_appointment_schedule_id', $this->appointment_schedule)
-            // ->count('serial_number');
-            ->count();
+            ->max('serial_number');
+            // ->count();
         return $lastSerialNumber ? $lastSerialNumber + 1 : 1;
     }
 }
