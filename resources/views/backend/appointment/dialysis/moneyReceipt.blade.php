@@ -117,7 +117,7 @@
                             : {{ optional($appointment->patient)->patientId  }}
                         </td>
                         <td style="text-align: right; width: 40%">
-                            <strong>Print Time</strong> : {{ now()->format('d-m-Y h.i A') }}
+                            <strong>Mobile</strong> : {{  optional($appointment->patient)->mobile}}
                         </td>
                     </tr>
                     <tr>
@@ -137,7 +137,7 @@
                         </td>
                     </tr>
                     <tr>
-                        {{-- @if (optional($appointment->asignEmp)->name) --}}
+
                         <td>
                             <Strong>
                                 Sex
@@ -152,7 +152,6 @@
                         </td>
                     </tr>
                     <tr>
-                        {{-- @if (optional($appointment->asignEmp)->name) --}}
                         <td colspan="3">
                             <Strong>
                                 Asign To
@@ -167,13 +166,13 @@
             <table style="font-size: 12pt;" class="table table-bordered t">
                 <tbody>
                     <tr>
-                        <th>
+                        <th style="width: 50px;">
                             Sl.
                         </th>
                         <th>
                             Particulars
                         </th>
-                        <th class="text-center">
+                        <th class="text-right" style="width: 150px;">
                             Amount
                         </th>
                     </tr>
@@ -206,7 +205,7 @@
                                 <td>
                                     Bill Amount
                                 </td>
-                                <td class="text-right">
+                                <td class="text-right" style="width: 150px;">
                                     {{ number_format($appointment->fee, 2) }}
                                 </td>
                             </tr>

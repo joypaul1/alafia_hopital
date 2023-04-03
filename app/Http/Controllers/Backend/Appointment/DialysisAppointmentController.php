@@ -83,7 +83,6 @@ class DialysisAppointmentController extends Controller
 
     public function serviceInvoice(Request $request)
     {
-        // dd($request->id);
         $serviceInvoice = ServiceInvoice::whereId($request->id)
         ->with('itemDetails.serviceName','patient', 'paymentHistories')->first();
         return view('backend.appointment.dialysis.service-invoice', compact('serviceInvoice'));

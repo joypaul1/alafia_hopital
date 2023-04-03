@@ -117,7 +117,9 @@
                             : {{ optional($labInvoice->patient)->patientId }}
                         </td>
                         <td style="text-align: right;">
-                            <strong>Delivery Date</strong> : {{ date('d-m-Y', strtotime($labInvoice->date)) }}
+                            <strong>Sex </strong> :
+                            <span
+                                style="text-transform: capitalize;">{{ optional($labInvoice->patient)->gender }}</span>
                         </td>
                     </tr>
                     @php
@@ -133,8 +135,8 @@
                             : {{ optional($labInvoice->patient)->name }}
                         </td>
                         <td style="text-align: right;">
-                            <strong>Print Time </strong> :
-                            {{ now()->format('d-m-Y h.i A') }}
+                            <strong>Mobile </strong> :
+                            {{  optional($labInvoice->patient)->mobile}}
                         </td>
                     </tr>
                     <tr>
@@ -146,9 +148,7 @@
                         </td>
 
                         <td style="text-align: right;">
-                            <strong>Sex </strong> :
-                            <span
-                                style="text-transform: capitalize;">{{ optional($labInvoice->patient)->gender }}</span>
+
                         </td>
 
                     </tr>
