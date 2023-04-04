@@ -102,7 +102,7 @@
                         <td rowspan="4">
                             <div class="d-flex justify-content-center align-items-center">
                                 <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $labInvoice->invoice_number . ' PID-' . optional($labInvoice->patient)->patientId, 'QRCODE') }}"
-                                    alt="barcode" style="width: 100px;" />
+                                    alt="QR Code" style="width: 100px;" />
                             </div>
                         </td>
                         <td style="text-align: right; width: 40%;">
@@ -306,18 +306,36 @@
                 <tbody>
                     <tr>
                         <th>
-                            1st Floor
+                            5th Floor
                         </th>
                         <th>
-                            2nd Floor
+                            8th Floor
+                        </th>
+                        <th>
+                            9th Floor
                         </th>
                     </tr>
                     <tr>
                         <td>
-                            103, 106
+                            <span style="border-right: 1px solid #333; padding: 4px 8px;">501</span>
+                            <span style="border-right: 1px solid #333; padding: 4px 8px;">502</span>
+                            <span style="border-right: 1px solid #333; padding: 4px 8px;">503</span>
+                            <span style="border-right: 1px solid #333; padding: 4px 8px;">504</span>
+                            <span style="border-right: 1px solid #333; padding: 4px 8px;">505</span>
+                            <span style="border-right: 1px solid #333; padding: 4px 8px;">506</span>
+                            <span style="border-right: 1px solid #333; padding: 4px 8px;">507</span>
+                            <span style="border-right: 1px solid #333; padding: 4px 8px;">508</span>
+                            <span style="border-right: 1px solid #333; padding: 4px 8px;">509</span>
+                            <span style="border-right: 1px solid #333; padding: 4px 8px;">510</span>
+                            <span style="border-right: 1px solid #333; padding: 4px 8px;">511</span>
+                            <span style="border-right: 1px solid #333; padding: 4px 8px;">512</span>
                         </td>
                         <td>
-                            212, 215
+                            Dialysis Unit
+                        </td>
+                        <td>
+                            <span style="border-right: 1px solid #333; padding: 4px 8px;">901</span>
+                            <span style="padding: 4px 8px;">902</span>
                         </td>
                     </tr>
                 </tbody>
@@ -327,7 +345,7 @@
 
         <footer>
             <div class="pt-5" style="padding:0 0.5in;">
-                <div class="col-6 p-0 ml-auto">
+                <div class="col-4 p-0 ml-auto">
                     <div class="d-flex">
                         <p>
                             <Strong>
@@ -337,7 +355,7 @@
                         <p class="text-center" style="border-bottom: 2px dashed #727272; width: 100%;">
                         </p>
                     </div>
-                    <div class="text-center">
+                    <div class="text-right">
                         Prepared By : {{ auth('admin')->user()->name }}
                     </div>
                 </div>
