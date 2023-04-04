@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/',[LoginController::class, 'showLoginForm'])->name('home');
+Route::get('/welcome', function () {
+    return view('welcome');
+});

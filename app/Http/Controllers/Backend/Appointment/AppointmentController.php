@@ -183,12 +183,15 @@ class AppointmentController extends Controller
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
     }
 
-    public function getSerialNumber(Request $request)
+    public function getSerialNumber($request)
     {
-        $serialNumber = Appointment::where('doctor_id', $request->doctor_id)
-            ->where('appointment_date', $request->appointment_date)
-            ->count();
-        return response()->json(['serialNumber' => $serialNumber + 1]);
+        $lastSerialNumber = Appointment::where('doctor_id', $request->doctorID)
+        ->where('appointment_date', $request->appointment_date)
+        ->where('doctor_appointment_schedule_id', $request->appointment_schedule)
+        ->max('serial_number');
+        // ->count();
+        return $lastSerialNumber ? $lastSerialNumber + 1 : 1;
+        
     }
 
 }

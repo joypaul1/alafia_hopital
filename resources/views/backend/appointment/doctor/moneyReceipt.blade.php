@@ -100,12 +100,11 @@
                         </td>
                         <td rowspan="4">
                             <div class="d-flex justify-content-center align-items-center">
-                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-'.$appointment->invoice_number.' PID-'.optional($appointment->patient)->patientId , 'QRCODE')}}" alt="barcode"style="width: 100px;" />
-                                {{-- <img src="{{ asset("assets/moneyReceipt/code.png") }}" style="width: 100px;" alt=""> --}}
+                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center#'.$appointment->invoice_number, 'QRCODE')}}" alt="barcode"style="width: 100px;" />
                             </div>
                         </td>
                         <td style="text-align: right; width: 40%;">
-                            <strong>Bill Date</strong> : {{ date('d-m-Y', strtotime($appointment->created_at)) }}
+                            <strong>Bill Date</strong> : {{ date('d-m-Y h:i:a', strtotime($appointment->date)) }}
                         </td>
                     </tr>
                     <tr>
@@ -116,7 +115,7 @@
                             : {{ optional($appointment->patient)->patientId  }}
                         </td>
                         <td style="text-align: right;">
-                            <strong>Appt. No</strong> : {{ ($appointment->serial_number)  }}
+                            <strong>Serial Number </strong> : {{ ($appointment->serial_number)  }}
                         </td>
                     </tr>
                     <tr>
@@ -138,9 +137,9 @@
                     <tr>
                         <td>
                             <Strong>
-                                Sex
+                                Mobile
                             </Strong>
-                            : <span style="text-transform: capitalize;">{{  optional($appointment->patient)->gender}}</span>
+                            : <span style="text-transform: capitalize;">{{  optional($appointment->patient)->mobile}}</span>
                         </td>
                         <td style="text-align: right;">
                             <strong>Appt. Time </strong> : {{  date('d-m-Y', strtotime($appointment->appointment_date))  }}
@@ -149,9 +148,9 @@
                     <tr>
                         <td>
                             <Strong>
-                                Mobile
+                                Sex
                             </Strong>
-                            : <span style="text-transform: capitalize;">{{  optional($appointment->patient)->mobile}}</span>
+                            : <span style="text-transform: capitalize;">{{  optional($appointment->patient)->gender}}</span>
                         </td>
 
                     </tr>
@@ -221,14 +220,14 @@
                                     00.00
                                 </td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <td>
                                     Vat Amount
                                 </td>
                                 <td class="text-right">
                                     00.00
                                 </td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                                 <td>
                                     Payable Amount
