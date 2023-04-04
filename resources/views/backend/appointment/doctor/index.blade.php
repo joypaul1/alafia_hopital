@@ -191,6 +191,8 @@
                         var newOption = new Option(val.name, val.id, false, false);
                         $('#doctorID').append(newOption);
                         getDocFee();
+                          slot();
+
                     });
                 },
                 error: function(jqXHR, exception) {
@@ -254,7 +256,8 @@
         });
         // onchange doctorID  get value and set in input field by ajax request
         $(document).on('change', '#doctorID', function() {
-            getDocFee()
+            getDocFee();
+            slot();
         });
 
         function getDocFee(){
