@@ -8,49 +8,49 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-6">
                     <div class="form-group">
-                        @include('components.backend.forms.select2.option',[ 'name' => 'product_type', 'required'=>true, 'optionDatas' => [], ])
+                        @include('components.backend.forms.select2.option',[ 'name' => 'product_type', 'required'=>true, 'optionData' => [], ])
                         {{-- @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('product_type')]) --}}
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="form-group">
-                        @include('components.backend.forms.select2.option',[ 'label' => 'category', 'name' => 'category_id', 'optionDatas' => []])
+                        @include('components.backend.forms.select2.option',[ 'label' => 'category', 'name' => 'category_id', 'optionData' => []])
                         {{-- @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('category')]) --}}
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="form-group">
-                        @include('components.backend.forms.select2.option',[ 'label' => 'Subcategory', 'name' => 'subcategory_id', 'optionDatas' => [] ])
+                        @include('components.backend.forms.select2.option',[ 'label' => 'Subcategory', 'name' => 'subcategory_id', 'optionData' => [] ])
                         {{-- @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('category')]) --}}
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="form-group">
-                        @include('components.backend.forms.select2.option',[ 'label' => 'Childcategory', 'name' => 'childcategory_id', 'optionDatas' => [], 'onclick' =>true ])
+                        @include('components.backend.forms.select2.option',[ 'label' => 'Childcategory', 'name' => 'childcategory_id', 'optionData' => [], 'onclick' =>true ])
                         {{-- @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('category')]) --}}
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="form-group">
-                        @include('components.backend.forms.select2.option',[ 'label' => 'unit',  'name' => 'unit_id', 'required'=>true, 'optionDatas' => [],'onclick' =>true ])
+                        @include('components.backend.forms.select2.option',[ 'label' => 'unit',  'name' => 'unit_id', 'required'=>true, 'optionData' => [],'onclick' =>true ])
                         @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('unit_id')])
                     </div>
                 </div>
                 {{-- <div class="col-lg-3 col-md-6">
                     <div class="form-group">
-                        @include('components.backend.forms.select2.option',[ 'name' => 'tax', 'required'=>true, 'optionDatas' => [] ])
+                        @include('components.backend.forms.select2.option',[ 'name' => 'tax', 'required'=>true, 'optionData' => [] ])
                         @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                     </div>
                 </div> --}}
                 <div class="col-lg-3 col-md-6">
                     <div class="form-group">
-                        @include('components.backend.forms.select2.option',[ 'label' => 'brand','name' => 'brand_id', 'required'=>true, 'optionDatas' => [],'onclick' =>true ])
+                        @include('components.backend.forms.select2.option',[ 'label' => 'brand','name' => 'brand_id', 'required'=>true, 'optionData' => [],'onclick' =>true ])
                         {{-- @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('brand_id')]) --}}
                     </div>
                 </div>
                 {{-- <div class="col-lg-3 col-md-6">
                     <div class="form-group">
-                        @include('components.backend.forms.select2.option',[ 'name' => 'business_location', 'required'=>true, 'optionDatas' => [] ])
+                        @include('components.backend.forms.select2.option',[ 'name' => 'business_location', 'required'=>true, 'optionData' => [] ])
                         @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                     </div>
                 </div> --}}
@@ -62,7 +62,7 @@
                                 Not for sale
                             </label>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

@@ -33,7 +33,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group">
-                                @include('components.backend.forms.select2.option',[ 'label'=> 'status', 'name' => 'status','onchange'=>true,  'optionDatas' => $status ])
+                                @include('components.backend.forms.select2.option',[ 'label'=> 'status', 'name' => 'status','onchange'=>true,  'optionData' => $status ])
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
 <div class="modal fade category_modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg"" role=" document">
         <div class="modal-content">
-            
+
         </div>
     </div>
 </div>
@@ -116,7 +116,7 @@
                 }, {
                     data: 'name',
                     name: 'name'
-                }, 
+                },
                 // {
                 //     data: 'slug',
                 //     name: 'slug'
@@ -129,7 +129,7 @@
                 //     },
                 //     orderable: false,
                 //     searchable: false
-                // }, 
+                // },
                 {
                     data: 'status',
                     name: 'status',

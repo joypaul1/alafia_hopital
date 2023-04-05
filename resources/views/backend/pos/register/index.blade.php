@@ -28,12 +28,12 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group">
-                                @include('components.backend.forms.select2.option',[ 'label'=> 'outlet',  'name' => 'outlet_id','onclick'=>true , 'optionDatas' => $outlets ])
+                                @include('components.backend.forms.select2.option',[ 'label'=> 'outlet',  'name' => 'outlet_id','onclick'=>true , 'optionData' => $outlets ])
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group">
-                                @include('components.backend.forms.select2.option',[ 'label'=> 'status', 'name' => 'status','onclick'=>true,  'optionDatas' => $status ])
+                                @include('components.backend.forms.select2.option',[ 'label'=> 'status', 'name' => 'status','onclick'=>true,  'optionData' => $status ])
                             </div>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                 { data: 'name', name: 'name' },
                 { data: 'outlet_id', name: 'outlet_id' },
                 { data: 'status', name: 'status' },
-                { data: 'action', name: 'action', orderable: false, searchable: false },  
+                { data: 'action', name: 'action', orderable: false, searchable: false },
             ],
         });
     });
@@ -127,12 +127,12 @@
         });
     });
 
-   
+
     $('#toggleFilter').click(() => {
         $('#filterContainer').slideToggle();
     })
-    
-    function dataBaseCall(){      
+
+    function dataBaseCall(){
         table_name.ajax.reload();
     }
 </script>

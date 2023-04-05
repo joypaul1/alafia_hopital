@@ -22,7 +22,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-      
+
         <div class="card">
             <div class="body">
                 <h4 class="pointer text-info" id="toggleFilter">
@@ -33,7 +33,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group">
-                                @include('components.backend.forms.select2.option',[ 'label'=> 'status', 'name' => 'status','onchange'=>true,  'optionDatas' => $status ])
+                                @include('components.backend.forms.select2.option',[ 'label'=> 'status', 'name' => 'status','onchange'=>true,  'optionData' => $status ])
                             </div>
                         </div>
                     </div>
@@ -113,16 +113,16 @@
                     name: 'DT_RowIndex'
                 },{
                     data: 'name',
-                    name: 'name' 
+                    name: 'name'
                 },{
                     data: 'account_group_id',
                     name: 'account_group_id'
-                
+
                 },{
                     data: 'opening_balance',
                     name: 'opening_balance',
-                    
-                }, 
+
+                },
                 {
                     data: 'status',
                     name: 'status',
@@ -155,7 +155,7 @@
         });
     });
     $(document).on('click', '.edit_check', function(){
-       
+
         var href = $(this).data('href');
         $.ajax({
             url: href,
@@ -168,12 +168,12 @@
             }
         });
     });
-    
+
 
     $('#toggleFilter').click(() => {
         $('#filterContainer').slideToggle();
     })
-    function dataBaseCall(){  
+    function dataBaseCall(){
         table_name.ajax.reload();
     }
 
@@ -182,7 +182,7 @@
         var registerForm = $("form#accountledger_edit_form");
         var formData = registerForm.serialize();
         $('.edit_accountledger_button').attr('disabled',true);
-        
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -214,8 +214,8 @@
                         positionClass: $positionClass
                     });
                 }
-                
-            },error:function(res){ 
+
+            },error:function(res){
                 var errors =res;
                 console.log(errors.responseJSON.errors, 'errors');
                 var myObject = errors.responseJSON.errors;
@@ -232,20 +232,20 @@
                             positionClass: $positionClass
                         });
                     }
-                    
+
                 }
 
             }
         });
     });
-    
+
 
     $(document).on('submit', 'form#accountledger_add_form', function(e) {
         e.preventDefault();
         var registerForm = $("form#accountledger_add_form");
         var formData = registerForm.serialize();
         $('.save_accountledger_button').attr('disabled',true);
-        
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -277,8 +277,8 @@
                         positionClass: $positionClass
                     });
                 }
-                
-            },error:function(res){ 
+
+            },error:function(res){
                 var errors =res;
                 console.log(errors.responseJSON.errors, 'errors');
                 var myObject = errors.responseJSON.errors;
@@ -295,14 +295,14 @@
                             positionClass: $positionClass
                         });
                     }
-                    
+
                 }
-            
+
 
             }
         });
     });
-    
+
 </script>
 
 

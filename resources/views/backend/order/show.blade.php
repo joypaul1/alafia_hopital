@@ -157,7 +157,7 @@
                                         <i class="fa fa-money" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                @include('components.backend.forms.select2.option2',['label'=> 'Payment Method','name' =>'payment_method','optionDatas' => $payment_methods, 'required' => true])
+                                @include('components.backend.forms.select2.option2',['label'=> 'Payment Method','name' =>'payment_method','optionData' => $payment_methods, 'required' => true])
                                 @include('components.backend.forms.input.errorMessage', ['message'=>$errors->first('payment_method')])
                             </div>
                         </div>
@@ -172,7 +172,7 @@
                                         <i class="fa fa-money" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                @include('components.backend.forms.select2.option2',['label' =>'Payment Account' ,'name' =>'payment_account','optionDatas' => $payment_accounts, 'required' => true])
+                                @include('components.backend.forms.select2.option2',['label' =>'Payment Account' ,'name' =>'payment_account','optionData' => $payment_accounts, 'required' => true])
                                 @include('components.backend.forms.input.errorMessage', ['message'=>$errors->first('payment_account')])
                             </div>
                         </div>
@@ -193,7 +193,7 @@
                                         <i class="fa fa-money" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                @include('components.backend.forms.select2.option2',['name' =>'discount_type','optionDatas' => $dis_status])
+                                @include('components.backend.forms.select2.option2',['name' =>'discount_type','optionData' => $dis_status])
                                 @include('components.backend.forms.input.errorMessage', ['message'=>$errors->first('discount_type')])
                             </div>
                         </div>

@@ -36,7 +36,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    @include('components.backend.forms.select2.option',[ 'name' => 'type','optionDatas'=>$datas, 'required'=> true ])
+                                    @include('components.backend.forms.select2.option',[ 'name' => 'type','optionData'=>$datas, 'required'=> true ])
                                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('type')])
                                 </div>
                             </div>

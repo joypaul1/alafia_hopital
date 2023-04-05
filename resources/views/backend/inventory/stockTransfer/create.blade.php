@@ -40,21 +40,21 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    @include('components.backend.forms.select2.option',[ 'name' => 'status', 'optionDatas' => [], 'required'=> true ])
+                                    @include('components.backend.forms.select2.option',[ 'name' => 'status', 'optionData' => [], 'required'=> true ])
                                     @include('components.backend.forms.input.errorMessage', ['message' =>
                                     $errors->first('name')])
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    @include('components.backend.forms.select2.option',[ 'name' => 'location_(from)', 'optionDatas' => [], 'required'=> true ])
+                                    @include('components.backend.forms.select2.option',[ 'name' => 'location_(from)', 'optionData' => [], 'required'=> true ])
                                     @include('components.backend.forms.input.errorMessage', ['message' =>
                                     $errors->first('name')])
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    @include('components.backend.forms.select2.option',[ 'name' => 'location_(to)', 'optionDatas' => [], 'required'=> true ])
+                                    @include('components.backend.forms.select2.option',[ 'name' => 'location_(to)', 'optionData' => [], 'required'=> true ])
                                     @include('components.backend.forms.input.errorMessage', ['message' =>
                                     $errors->first('name')])
                                 </div>

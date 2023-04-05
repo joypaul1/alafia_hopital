@@ -26,7 +26,7 @@
                         <div class="row align-items-center">
                             <div class="col-lg-3 col-md-6">
                                 <div class="form-group">
-                                    @include('components.backend.forms.select2.option',[ 'name' => 'business_location', 'required'=>true, 'optionDatas' => [] ])
+                                    @include('components.backend.forms.select2.option',[ 'name' => 'business_location', 'required'=>true, 'optionData' => [] ])
                                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                                 </div>
                             </div>

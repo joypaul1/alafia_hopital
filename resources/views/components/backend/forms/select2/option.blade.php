@@ -36,7 +36,7 @@ required
 @endisset
 >
     <option value="{{ null }}"  >- select {{ $label??$name }} -</option>
-        @forelse ($optionDatas as $data)
+        @forelse ($optionData as $data)
             <option value="{{ $data['id'] }}" @isset($selectedKey) {{ ( $selectedKey == $data['id']) ? 'selected': ' ' }} @endisset>
                 {{ $data['name'] }}
             </option>

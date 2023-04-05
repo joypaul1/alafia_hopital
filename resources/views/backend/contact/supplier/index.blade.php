@@ -28,7 +28,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group">
-                                @include('components.backend.forms.select2.option',[ 'label'=> 'status', 'name' => 'status','onchange'=>true,  'optionDatas' => $status ])
+                                @include('components.backend.forms.select2.option',[ 'label'=> 'status', 'name' => 'status','onchange'=>true,  'optionData' => $status ])
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                 { data: 'mobile', name: 'mobile' },
                 { data: 'email', name: 'email' },
                 { data: 'status', name: 'status' },
-                { data: 'action', name: 'action', orderable: false, searchable: false },  
+                { data: 'action', name: 'action', orderable: false, searchable: false },
             ],
         });
     });
@@ -122,8 +122,8 @@
     $('#toggleFilter').click(() => {
         $('#filterContainer').slideToggle();
     })
-    
-    function dataBaseCall(){  
+
+    function dataBaseCall(){
         table_name.ajax.reload();
     }
 </script>

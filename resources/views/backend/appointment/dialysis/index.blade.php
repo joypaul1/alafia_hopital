@@ -121,7 +121,7 @@
                             <div class="col-4">
                                 @include('components.backend.forms.select2.option', [
                                 'name' => 'schedule',
-                                'optionDatas' => $appointment_schedule,
+                                'optionData' => $appointment_schedule,
                                 'required' => true
                                 ])
                             </div>
@@ -129,20 +129,20 @@
                                 @include('components.backend.forms.select2.option', [
                                 'label' => 'Asign To',
                                 'name' => 'employee_id',
-                                'optionDatas' => $employees,
+                                'optionData' => $employees,
                                 ])
                             </div>
                             {{-- <div class="col-4">
                                 @include('components.backend.forms.select2.option', [
                                 'name' => 'appointment_priority',
-                                'optionDatas' => $appointment_priority,
+                                'optionData' => $appointment_priority,
                                 'selectedKey' => "Normal"
                                 ])
                             </div> --}}
                             <div class="col-4">
                                 @include('components.backend.forms.select2.option', [
                                 'name' => 'payment_method',
-                                'optionDatas' => $paymentSystems,
+                                'optionData' => $paymentSystems,
                                 'required' => 'true',
                                 'selectedKey'=> 1,
                                 'required' => true
@@ -151,7 +151,7 @@
                             <div class="col-4">
                                 @include('components.backend.forms.select2.option', [
                                 'name' => 'status',
-                                'optionDatas' => $appointment_status,
+                                'optionData' => $appointment_status,
                                 'selectedKey' => '1',
                                 'required' => 'true',
                                 'selectedKey' => 'approved',
@@ -224,7 +224,7 @@
                             <div class="col-4">
                                 @include('components.backend.forms.select2.option', [
                                 'name' => 'gender',
-                                'optionDatas' => $genders,
+                                'optionData' => $genders,
                                 ])
                             </div>
 
@@ -245,20 +245,20 @@
                             <div class="col-4">
                                 @include('components.backend.forms.select2.option', [
                                     'name' => 'symptoms_type',
-                                    'optionDatas' => [],
+                                    'optionData' => [],
                                     'required' => 'true',
                                 ])
                             </div>--}}
                             <div class="col-4">
                                 @include('components.backend.forms.select2.option', [
                                 'name' => 'blood_group',
-                                'optionDatas' => $blood_group,
+                                'optionData' => $blood_group,
                                 ])
                             </div>
                             <div class="col-4">
                                 @include('components.backend.forms.select2.option', [
                                 'name' => 'marital_status',
-                                'optionDatas' => $marital_status,
+                                'optionData' => $marital_status,
                                 ])
                             </div>
                             <div class="col-4">

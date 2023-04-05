@@ -61,7 +61,7 @@
                                     @include('components.backend.forms.select2.option', [
                                         'label' => 'unit',
                                         'name' => 'unit_id',
-                                        'optionDatas' => [],
+                                        'optionData' => [],
                                         'required' => true,
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
@@ -72,7 +72,7 @@
                                     @include('components.backend.forms.select2.option', [
                                         'label' => 'strenght',
                                         'name' => 'strenght_id',
-                                        'optionDatas' => [],
+                                        'optionData' => [],
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
                                         'message' => $errors->first('strenght_id'),
@@ -82,19 +82,19 @@
                                     @include('components.backend.forms.select2.option', [
                                         'label' => 'Type',
                                         'name' => 'type_id',
-                                        'optionDatas' => [],
+                                        'optionData' => [],
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
                                         'message' => $errors->first('type_id'),
                                     ])
                                 </div>
-                                
+
 
                                 <div class="col-lg-4">
                                     @include('components.backend.forms.select2.option', [
                                         'label' => 'Category',
                                         'name' => 'category_id',
-                                        'optionDatas' => [],
+                                        'optionData' => [],
                                         // 'required' => true,
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
@@ -105,7 +105,7 @@
                                     @include('components.backend.forms.select2.option', [
                                         'label' => 'sub_category',
                                         'name' => 'subcategory_id',
-                                        'optionDatas' => [],
+                                        'optionData' => [],
                                         // 'required' => true,
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
@@ -116,19 +116,19 @@
                                     @include('components.backend.forms.select2.option', [
                                         'label' => 'child_category',
                                         'name' => 'childcategory_id',
-                                        'optionDatas' => [],
+                                        'optionData' => [],
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
                                         'message' => $errors->first('childcategory_id'),
                                     ])
                                 </div> --}}
-                                
+
 
                                 <div class="col-lg-4">
                                     @include('components.backend.forms.select2.option', [
                                         'name' => 'generic_id',
                                         'label' => 'generic_name',
-                                        'optionDatas' => [],
+                                        'optionData' => [],
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
                                         'message' => $errors->first('generic_id'),
@@ -138,7 +138,7 @@
                                     @include('components.backend.forms.select2.option', [
                                         'label' => 'Manufacturer',
                                         'name' => 'brand_id',
-                                        'optionDatas' => [],
+                                        'optionData' => [],
                                         // 'required' => true,
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
@@ -149,7 +149,7 @@
                                     @include('components.backend.forms.select2.option', [
                                         'label' => 'origin',
                                         'name' => 'origin_id',
-                                        'optionDatas' => $countries,
+                                        'optionData' => $countries,
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
                                         'message' => $errors->first('origin_id'),
@@ -159,7 +159,7 @@
                                     @include('components.backend.forms.select2.option', [
                                         'label' => 'Rack',
                                         'name' => 'rack_id',
-                                        'optionDatas' => [],
+                                        'optionData' => [],
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
                                         'message' => $errors->first('rack_id'),
@@ -170,7 +170,7 @@
                                     @include('components.backend.forms.select2.option', [
                                         'label' => 'Row',
                                         'name' => 'row_id',
-                                        'optionDatas' => [],
+                                        'optionData' => [],
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
                                         'message' => $errors->first('row_id'),
@@ -237,7 +237,7 @@
                                     @include('components.backend.forms.dropdown.option', [
                                         'label' => 'Applicable Tax Rate',
                                         'name' => 'tax_type',
-                                        'optionDatas' => $appilcationTax,
+                                        'optionData' => $appilcationTax,
                                         'required' => true,
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
@@ -248,7 +248,7 @@
                                     @include('components.backend.forms.dropdown.option', [
                                         'label' => 'Selling Price Tax Type',
                                         'name' => 'tax_id',
-                                        'optionDatas' => $taxs,
+                                        'optionData' => $taxs,
                                         'required' => true,
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
@@ -258,7 +258,7 @@
                                 <div class="col-lg-4">
                                     @include('components.backend.forms.dropdown.option', [
                                         'name' => 'product_type',
-                                        'optionDatas' => $product_types,
+                                        'optionData' => $product_types,
                                         'required' => true,
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [

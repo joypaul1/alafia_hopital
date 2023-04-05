@@ -10,27 +10,27 @@
             <small class="text-secondary pl-2">Keep this blank to generate SKU automatically </small>
         </div>
         <div class="col-lg-4">
-            @include('components.backend.forms.select2.option',[ 'name' => 'Barcode Type', 'optionDatas'=>[], 'required'=> true ])
+            @include('components.backend.forms.select2.option',[ 'name' => 'Barcode Type', 'optionData'=>[], 'required'=> true ])
             @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
         </div>
         <div class="col-lg-4">
-            @include('components.backend.forms.select2.option',[ 'name' => 'Units', 'optionDatas'=>[], 'required'=> true ])
+            @include('components.backend.forms.select2.option',[ 'name' => 'Units', 'optionData'=>[], 'required'=> true ])
             @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
         </div>
         <div class="col-lg-4">
-            @include('components.backend.forms.select2.option',[ 'name' => 'Brand', 'optionDatas'=>[], 'required'=> true ])
+            @include('components.backend.forms.select2.option',[ 'name' => 'Brand', 'optionData'=>[], 'required'=> true ])
             @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
         </div>
         <div class="col-lg-4">
-            @include('components.backend.forms.select2.option',[ 'name' => 'Category', 'optionDatas'=>[], 'required'=> true ])
+            @include('components.backend.forms.select2.option',[ 'name' => 'Category', 'optionData'=>[], 'required'=> true ])
             @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
         </div>
         <div class="col-lg-4">
-            @include('components.backend.forms.select2.option',[ 'name' => 'Sub Category', 'optionDatas'=>[], 'required'=> true ])
+            @include('components.backend.forms.select2.option',[ 'name' => 'Sub Category', 'optionData'=>[], 'required'=> true ])
             @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
         </div>
         <div class="col-lg-4">
-            @include('components.backend.forms.select2.option',[ 'name' => 'Business Locations', 'optionDatas'=>[], 'required'=> true ])
+            @include('components.backend.forms.select2.option',[ 'name' => 'Business Locations', 'optionData'=>[], 'required'=> true ])
             @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
             <small class="text-secondary pl-2">Location where products will be available.</small>
         </div>
@@ -99,15 +99,15 @@
             </div>
         </div>
         <div class="col-lg-4 pt-2">
-            @include('components.backend.forms.select2.option',[ 'name' => 'Applicable Tax Rate', 'optionDatas'=>[], 'required'=> true ])
+            @include('components.backend.forms.select2.option',[ 'name' => 'Applicable Tax Rate', 'optionData'=>[], 'required'=> true ])
             @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
         </div>
         <div class="col-lg-4">
-            @include('components.backend.forms.select2.option',[ 'name' => 'Selling Price Tax Type', 'optionDatas'=>[], 'required'=> true ])
+            @include('components.backend.forms.select2.option',[ 'name' => 'Selling Price Tax Type', 'optionData'=>[], 'required'=> true ])
             @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
         </div>
         <div class="col-lg-4">
-            @include('components.backend.forms.select2.option',[ 'name' => 'Product Type', 'optionDatas'=>[], 'required'=> true ])
+            @include('components.backend.forms.select2.option',[ 'name' => 'Product Type', 'optionData'=>[], 'required'=> true ])
             @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
         </div>
     </div>

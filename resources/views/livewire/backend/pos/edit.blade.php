@@ -222,7 +222,7 @@
                                 </div>
                                 @include('components.backend.forms.select2.option2', [
                                     'name' => 'product_category',
-                                    'optionDatas' => $this->categories,
+                                    'optionData' => $this->categories,
                                 ])
 
 
@@ -236,7 +236,7 @@
                                 </div>
                                 @include('components.backend.forms.select2.option2', [
                                     'name' => 'product_brand',
-                                    'optionDatas' => $this->brands,
+                                    'optionData' => $this->brands,
                                 ])
 
                             </div>

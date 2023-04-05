@@ -22,12 +22,12 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group">
-                                @include('components.backend.forms.select2.option',[ 'label'=> 'country',  'name' => 'country_id','onclick'=>true , 'optionDatas' => $countries ])
+                                @include('components.backend.forms.select2.option',[ 'label'=> 'country',  'name' => 'country_id','onclick'=>true , 'optionData' => $countries ])
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group">
-                                @include('components.backend.forms.select2.option',[ 'label'=> 'status', 'name' => 'status','onclick'=>true,  'optionDatas' => $status ])
+                                @include('components.backend.forms.select2.option',[ 'label'=> 'status', 'name' => 'status','onclick'=>true,  'optionData' => $status ])
                             </div>
                         </div>
                     </div>
@@ -114,10 +114,10 @@
                 { data: 'city', name: 'city' },
                 { data: 'country_id', name: 'country_id' },
                 { data: 'status', name: 'status' },
-                { data: 'action', name: 'action', orderable: false, searchable: false },  
+                { data: 'action', name: 'action', orderable: false, searchable: false },
             ],
         });
-        
+
     });
 
     $('#create_data').click(function(e) {
@@ -138,12 +138,12 @@
         });
     });
 
-   
+
     $('#toggleFilter').click(() => {
         $('#filterContainer').slideToggle();
     })
-    
-    function dataBaseCall(){      
+
+    function dataBaseCall(){
         table_name.ajax.reload();
     }
 </script>

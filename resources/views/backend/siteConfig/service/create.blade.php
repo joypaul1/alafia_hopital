@@ -12,11 +12,11 @@
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.select2.option',['label'=>'Unit', 'name' =>'unit_id', 'optionDatas'=>$unit , 'required'=>true])
+                    @include('components.backend.forms.select2.option',['label'=>'Unit', 'name' =>'unit_id', 'optionData'=>$unit , 'required'=>true])
                     @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('unit_id')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.select2.option',['label'=>'Service Type', 'name' =>'service_type_id', 'optionDatas'=>$type , 'required'=>true])
+                    @include('components.backend.forms.select2.option',['label'=>'Service Type', 'name' =>'service_type_id', 'optionData'=>$type , 'required'=>true])
                     @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('service_type_id')])
                 </div>
 

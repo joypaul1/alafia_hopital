@@ -44,7 +44,7 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
-                            @include('components.backend.forms.select2.option',[ 'label' => 'country','name' => 'country_id','optionDatas'=> $countries])
+                            @include('components.backend.forms.select2.option',[ 'label' => 'country','name' => 'country_id','optionData'=> $countries])
                             @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('country_id')])
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                 </div>
 
             </div> --}}
-           
+
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-primary save_supplier_button">SAVE</button>
@@ -138,8 +138,8 @@
                         positionClass: $positionClass
                     });
                 }
-                
-            },error:function(res){ 
+
+            },error:function(res){
                 var errors =res;
                 console.log(errors.responseJSON.errors, 'errors');
                 var myObject = errors.responseJSON.errors;
@@ -156,14 +156,14 @@
                             positionClass: $positionClass
                         });
                     }
-                    
+
                 }
-            
+
 
             }
         });
 
         table_name.ajax.reload();
     });
-    
+
 </script>

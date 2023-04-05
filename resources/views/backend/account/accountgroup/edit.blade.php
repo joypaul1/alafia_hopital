@@ -13,7 +13,7 @@
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.select2.option',['label' => 'Account Head','name' => 'account_head_id', 'optionDatas'=>$account_heads,'selectedKey'=>  $accountgroup->account_head_id ,'required'=> true ])
+                    @include('components.backend.forms.select2.option',['label' => 'Account Head','name' => 'account_head_id', 'optionData'=>$account_heads,'selectedKey'=>  $accountgroup->account_head_id ,'required'=> true ])
                     @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('account_head_id')])
                 </div>
                 <div class="form-group">
@@ -24,8 +24,8 @@
                     <input type="checkbox" class="form-check-input" name="status" {{$accountgroup->status == true ? 'Checked': ' '}} id="active_check">
                     <label class="form-check-label" for="active_check">Active ?</label>
                 </div>
-               
-                
+
+
             </div>
         </div>
         <div class="modal-footer">
@@ -35,6 +35,6 @@
     </form>
 </div>
 <script >
-   
-    
+
+
 </script>

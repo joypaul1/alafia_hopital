@@ -26,7 +26,7 @@ $label = ucfirst(str_replace($str,$rplc, $label));
 
 <select class="form-control show-tick ms select2" id="{{ $name }}" name="{{ $name  }}" @isset($multiple) multiple @endisset @isset($onclick) onclick="dataBaseCall()" @endisset @isset($onchange) onchange="dataBaseCall()" @endisset @isset($required) required @endisset>
     <option value="{{ null }}">- select {{ $label??$name }} -</option>
-    @forelse ($optionDatas as $data)
+    @forelse ($optionData as $data)
     <option value="{{ $data['id'] }}" @isset($selectedKey) {{ ( $selectedKey == $data['id']) ? 'selected': ' ' }} @endisset>
         {{ $data['name'] }}
     </option>

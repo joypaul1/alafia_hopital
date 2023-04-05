@@ -1,8 +1,8 @@
 {{-- label start --}}
 <label class="col-form-label"
 @isset($name)
-for="{{ $name }}" 
-@endisset> 
+for="{{ $name }}"
+@endisset>
 @php
     $str = ['_','[', ']'];
     $rplc =[' ',' ', ' '];
@@ -12,34 +12,34 @@ for="{{ $name }}"
 @isset($required)
 <span class="text-danger">* </span>
 @endisset
-</label> 
+</label>
 {{-- label end here --}}
 
 
-<select 
+<select
 @isset($class)
-class="form-control {{ $class }}" 
+class="form-control {{ $class }}"
 @else
 class="form-control"
 @endisset
 @isset($name)
-name="{{ $name }}" 
+name="{{ $name }}"
 @endisset
 @isset($id)
-id="{{ $id }}" 
+id="{{ $id }}"
 @else
-id="{{ $name }}" 
+id="{{ $name }}"
 @endisset
 
 >
 <option value="{{null}}" disabled>- select {{ $name }} -</option>
 
-@isset($optionDatas )
-    @forelse ($optionDatas as $data)
+@isset($optionData )
+    @forelse ($optionData as $data)
     <option value="{{ $data['id'] }}"
         @isset($selectedKey)
             {{ ( $selectedKey == $data['id']) ? 'selected': ' ' }}
-        @endisset    
+        @endisset
     >
         {{ $data['name'] }}
     </option>

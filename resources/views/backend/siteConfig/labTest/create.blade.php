@@ -23,7 +23,7 @@
                     @include('components.backend.forms.select2.option', [
                         'label' => 'LabTestTube',
                         'name' => 'lab_test_tube_id',
-                        'optionDatas' => $labTestTube,
+                        'optionData' => $labTestTube,
                     ])
                     @include('components.backend.forms.input.errorMessage', [
                         'message' => $errors->first('lab_test_tube_id'),

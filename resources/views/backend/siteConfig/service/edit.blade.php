@@ -12,11 +12,11 @@
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.select2.option',['label'=>'Unit', 'name' =>'unit_id', 'optionDatas'=>$unit , 'selectedKey'=>$serviceName->unit_id,'required'=>true])
+                    @include('components.backend.forms.select2.option',['label'=>'Unit', 'name' =>'unit_id', 'optionData'=>$unit , 'selectedKey'=>$serviceName->unit_id,'required'=>true])
                     @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('unit_id')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.select2.option',['label'=>'serviceName Type', 'name' =>'service_type_id', 'optionDatas'=>$type, 'selectedKey'=>$serviceName->service_type_id, 'required'=>true])
+                    @include('components.backend.forms.select2.option',['label'=>'serviceName Type', 'name' =>'service_type_id', 'optionData'=>$type, 'selectedKey'=>$serviceName->service_type_id, 'required'=>true])
                     @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('service_type_id')])
                 </div>
 
@@ -24,7 +24,7 @@
                     @include('components.backend.forms.input.input-type',[ 'name' => 'service_price', 'placeholder' => 'price will be here...', 'value' => number_format($serviceName->service_price ,2), 'required'=>true ])
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('service_price')])
                 </div>
-               
+
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" name="status" {{$serviceName->status == true ? 'Checked': ' '}} id="active_check">
                     <label class="form-check-label" for="active_check">Active ?</label>

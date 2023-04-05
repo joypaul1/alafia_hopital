@@ -12,7 +12,7 @@
         <div class="modal-body">
             <div class="form-validation">
 
-                <div class="form-row">    
+                <div class="form-row">
                     @include('components.backend.forms.input.input-type',[ 'name' => 'name', 'value' => old('name',$row->name), 'placeholder' => 'text will be here...' ])
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                 </div>
@@ -21,10 +21,10 @@
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('note')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.select2.option',[ 'name' => 'rack_id', 'selectedKey'=> '1', 'optionDatas'=> $racks, ])
+                    @include('components.backend.forms.select2.option',[ 'name' => 'rack_id', 'selectedKey'=> '1', 'optionData'=> $racks, ])
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('note')])
                 </div>
-               
+
             </div>
         </div>
         <div class="modal-footer">

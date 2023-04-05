@@ -48,28 +48,28 @@
                             </div>
 
                             <div class="col-lg-4">
-                                @include('components.backend.forms.select2.option',[ 'label' =>'unit', 'selectedKey' => $item->unit_id,'name' => 'unit_id','optionDatas'=>[], 'required'=> true ])
+                                @include('components.backend.forms.select2.option',[ 'label' =>'unit', 'selectedKey' => $item->unit_id,'name' => 'unit_id','optionData'=>[], 'required'=> true ])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('unit_id')])
                             </div>
                             <div class="col-lg-4">
-                                @include('components.backend.forms.select2.option',['label' =>'Brand','selectedKey' => $item->brand_id, 'name' => 'brand_id','optionDatas'=>[], 'required'=> true ])
+                                @include('components.backend.forms.select2.option',['label' =>'Brand','selectedKey' => $item->brand_id, 'name' => 'brand_id','optionData'=>[], 'required'=> true ])
                                 @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('brand_id')])
                             </div>
 
                             <div class="col-lg-4">
-                                @include('components.backend.forms.select2.option',[ 'label' =>'Category','selectedKey' => $item->category_id, 'name' => 'category_id','optionDatas'=>[], 'required'=> true ])
+                                @include('components.backend.forms.select2.option',[ 'label' =>'Category','selectedKey' => $item->category_id, 'name' => 'category_id','optionData'=>[], 'required'=> true ])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('category_id')])
                             </div>
                             <div class="col-lg-4">
-                                @include('components.backend.forms.select2.option',[ 'label' =>'sub_category',  'name' => 'subcategory_id','optionDatas'=>$subcategories,'selectedKey'=>$item->subcategory_id , 'required'=> true ])
+                                @include('components.backend.forms.select2.option',[ 'label' =>'sub_category',  'name' => 'subcategory_id','optionData'=>$subcategories,'selectedKey'=>$item->subcategory_id , 'required'=> true ])
                                 @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('subcategory_id')])
                             </div>
                             <div class="col-lg-4">
-                                @include('components.backend.forms.select2.option',[ 'label' =>'child_category',  'name' => 'childcategory_id', 'optionDatas'=>$childcategories,'selectedKey'=>$item->childcategory_id , ])
+                                @include('components.backend.forms.select2.option',[ 'label' =>'child_category',  'name' => 'childcategory_id', 'optionData'=>$childcategories,'selectedKey'=>$item->childcategory_id , ])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('childcategory_id')])
                             </div>
                             <div class="col-lg-4">
-                                @include('components.backend.forms.select2.option',[ 'label' => 'origin', 'name' => 'origin_id','selectedKey' => $item->origin_id, 'optionDatas'=>$countries, ])
+                                @include('components.backend.forms.select2.option',[ 'label' => 'origin', 'name' => 'origin_id','selectedKey' => $item->origin_id, 'optionData'=>$countries, ])
                                 @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('origin_id')])
                             </div>
 
@@ -84,12 +84,12 @@
                             </div>
 
                             <div class="col-lg-4">
-                                @include('components.backend.forms.select2.option',[ 'label' => 'Rack', 'name' => 'rack_id','optionDatas'=>[],])
+                                @include('components.backend.forms.select2.option',[ 'label' => 'Rack', 'name' => 'rack_id','optionData'=>[],])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('rack_id')])
                             </div>
 
                             <div class="col-lg-4">
-                                @include('components.backend.forms.select2.option',[ 'label' => 'Row',  'name' => 'row_id', 'optionDatas'=>[]])
+                                @include('components.backend.forms.select2.option',[ 'label' => 'Row',  'name' => 'row_id', 'optionData'=>[]])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('row_id')])
                             </div>
                         </div>
@@ -131,19 +131,19 @@
                             <div class="col-lg-4 pt-2">
                                 @include('components.backend.forms.dropdown.option',[ 'label'=>'Applicable Tax Rate' ,
                                 'selectedKey' => $item->tax_type,
-                                'name' => 'tax_type','optionDatas'=>$appilcationTax, 'required'=> true ])
+                                'name' => 'tax_type','optionData'=>$appilcationTax, 'required'=> true ])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('tax_type')])
                             </div>
                             <div class="col-lg-4">
                                 @include('components.backend.forms.dropdown.option',[ 'label' =>'Selling Price Tax Type','name' => 'tax_id',
                                 'selectedKey' => $item->tax_id,
-                                'optionDatas'=>$taxs, 'required'=> true ])
+                                'optionData'=>$taxs, 'required'=> true ])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('tax_id')])
                             </div>
                             <div class="col-lg-4">
                                 @include('components.backend.forms.dropdown.option',[ 'name' => 'product_type',
                                 'selectedKey' => $item->product_type,
-                                'optionDatas'=>$product_types, 'required'=> true ])
+                                'optionData'=>$product_types, 'required'=> true ])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('product_type')])
                             </div>
                         </div>

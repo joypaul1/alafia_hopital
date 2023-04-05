@@ -48,7 +48,7 @@
 
                             <div class="col-lg-8">
 
-                                @include('components.backend.forms.select2.option', ['name' =>'designation_id[]', 'multiple'=>true, 'selectedKey'=>$selectedId, 'optionDatas' =>$designations ])
+                                @include('components.backend.forms.select2.option', ['name' =>'designation_id[]', 'multiple'=>true, 'selectedKey'=>$selectedId, 'optionData' =>$designations ])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('designation_id')])
 
                             </div>

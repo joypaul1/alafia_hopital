@@ -21,7 +21,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-      
+
         <div class="card">
             {{-- <div class="body">
                 <h4 class="pointer text-info" id="toggleFilter">
@@ -32,7 +32,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group">
-                                @include('components.backend.forms.select2.option',[ 'label'=> 'Puchase status', 'name' => 'status','onchange'=>true,  'optionDatas' => $status ])
+                                @include('components.backend.forms.select2.option',[ 'label'=> 'Puchase status', 'name' => 'status','onchange'=>true,  'optionData' => $status ])
                             </div>
                         </div>
                     </div>
@@ -107,19 +107,19 @@ $(function() {
                 },
             },
             columns: [
-               
+
                 {
                     data: 'invoice_number',
                     name: 'invoice_number'
-                }, 
+                },
                 {
                     data: 'supplier_id',
                     name: 'supplier_id'
-                }, 
+                },
                 {
                     data: 'warehouse_id',
                     name: 'warehouse_id'
-                }, 
+                },
                 {
                     data: 'purchase_date',
                     name: 'purchase_date',
@@ -166,17 +166,17 @@ $(function() {
     });
 
 
-    
+
 
     $('#toggleFilter').click(() => {
         $('#filterContainer').slideToggle();
     })
-    function dataBaseCall(){  
+    function dataBaseCall(){
         table_name.ajax.reload();
     }
 
-   
-    
+
+
 </script>
 
 

@@ -28,7 +28,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group">
-                                @include('components.backend.forms.select2.option',[ 'label'=> 'supplier', 'name' => 'supplier_id','onchange'=>true,  'optionDatas' => $suppliers ])
+                                @include('components.backend.forms.select2.option',[ 'label'=> 'supplier', 'name' => 'supplier_id','onchange'=>true,  'optionData' => $suppliers ])
                             </div>
                         </div>
                     </div>

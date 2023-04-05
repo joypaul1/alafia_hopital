@@ -17,11 +17,11 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            @include('components.backend.forms.select2.option',['label'=>'outlet', 'name' => 'outlet_id', 'optionDatas'=> $outlets])
+                            @include('components.backend.forms.select2.option',['label'=>'outlet', 'name' => 'outlet_id', 'optionData'=> $outlets])
                             @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('outlet_id')])
                         </div>
                     </div>
-                    
+
                     <div class="col-md-4">
                         <div class="form-group form-check">
                             <input type="checkbox" class="form-check-input" name="status" id="active_check">
@@ -29,7 +29,7 @@
                         </div>
                     </div>
 
-                    
+
                 </div>
             </div>
         </div>
@@ -76,8 +76,8 @@
                         positionClass: $positionClass
                     });
                 }
-                
-            },error:function(res){ 
+
+            },error:function(res){
                 var errors =res;
                 console.log(errors.responseJSON.errors, 'errors');
                 var myObject = errors.responseJSON.errors;
@@ -94,14 +94,14 @@
                             positionClass: $positionClass
                         });
                     }
-                    
+
                 }
-            
+
 
             }
         });
 
         table_name.ajax.reload();
     });
-    
+
 </script>

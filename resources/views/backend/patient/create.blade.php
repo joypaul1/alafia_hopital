@@ -48,7 +48,7 @@
                     <div class="col-4">
                         @include('components.backend.forms.select2.option', [
                         'name' => 'gender',
-                        'optionDatas' => $genders,
+                        'optionData' => $genders,
                         ])
                     </div>
 
@@ -69,20 +69,20 @@
                     <div class="col-4">
                         @include('components.backend.forms.select2.option', [
                             'name' => 'symptoms_type',
-                            'optionDatas' => [],
+                            'optionData' => [],
                             'required' => 'true',
                         ])
                     </div>--}}
                     <div class="col-4">
                         @include('components.backend.forms.select2.option', [
                         'name' => 'blood_group',
-                        'optionDatas' => $blood_group,
+                        'optionData' => $blood_group,
                         ])
                     </div>
                     <div class="col-4">
                         @include('components.backend.forms.select2.option', [
                         'name' => 'marital_status',
-                        'optionDatas' => $marital_status,
+                        'optionData' => $marital_status,
                         ])
                     </div>
                     <div class="col-4">

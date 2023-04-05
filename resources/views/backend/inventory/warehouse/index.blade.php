@@ -28,12 +28,12 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group">
-                                @include('components.backend.forms.select2.option',[ 'label'=> 'country',  'name' => 'country_id','onclick'=>true , 'optionDatas' => $countries ])
+                                @include('components.backend.forms.select2.option',[ 'label'=> 'country',  'name' => 'country_id','onclick'=>true , 'optionData' => $countries ])
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group">
-                                @include('components.backend.forms.select2.option',[ 'label'=> 'status', 'name' => 'status','onchange'=>true,  'optionDatas' => $status ])
+                                @include('components.backend.forms.select2.option',[ 'label'=> 'status', 'name' => 'status','onchange'=>true,  'optionData' => $status ])
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                { data: 'action', name: 'action', orderable: false, searchable: false },  
+                { data: 'action', name: 'action', orderable: false, searchable: false },
                 { data: 'name', name: 'name' },
                 { data: 'mobile', name: 'mobile' },
                 { data: 'email', name: 'email' },
@@ -111,7 +111,7 @@
                 { data: 'city', name: 'city' },
                 { data: 'country_id', name: 'country_id' },
                 { data: 'status', name: 'status' },
-                
+
             ],
         });
 
@@ -120,7 +120,7 @@
 
     $('#create_data').click(function(e) {
         e.preventDefault();
-      
+
         var href = $(this).data('href');
         // AJAX request
         $.ajax({
@@ -138,12 +138,12 @@
     $('#toggleFilter').click(() => {
         $('#filterContainer').slideToggle();
     })
-    
-    function dataBaseCall(){  
-        console.log('call');    
+
+    function dataBaseCall(){
+        console.log('call');
         table_name.ajax.reload();
     }
-   
+
 
     $(document).on('submit', 'form#warehouse_add_form', function(e) {
         e.preventDefault();
@@ -172,8 +172,8 @@
                     $(modal).modal('hide');
                     dataBaseCall();
                 }
-                
-            },error:function(res){ 
+
+            },error:function(res){
                 var errors =res;
                 console.log(errors.responseJSON.errors, 'errors');
                 var myObject = errors.responseJSON.errors;
@@ -190,16 +190,16 @@
                             positionClass: $positionClass
                         });
                     }
-                    
+
                 }
-            
+
 
             }
         });
 
         table_name.ajax.reload();
     });
-    
+
 </script>
 @endpush
 

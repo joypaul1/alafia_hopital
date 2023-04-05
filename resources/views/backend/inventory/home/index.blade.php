@@ -29,12 +29,12 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group">
-                                @include('components.backend.forms.select2.option',[ 'label'=> 'warehouse',  'name' => 'warehouses_id','onclick'=>true , 'optionDatas' => $warehouses ])
+                                @include('components.backend.forms.select2.option',[ 'label'=> 'warehouse',  'name' => 'warehouses_id','onclick'=>true , 'optionData' => $warehouses ])
                             </div>
                         </div>
                         {{-- <div class="col-lg-3 col-md-6">
                             <div class="form-group">
-                                @include('components.backend.forms.select2.option',[ 'label'=> 'status', 'name' => 'status','onchange'=>true,  'optionDatas' => $status ])
+                                @include('components.backend.forms.select2.option',[ 'label'=> 'status', 'name' => 'status','onchange'=>true,  'optionData' => $status ])
                             </div>
                         </div> --}}
                     </div>
@@ -100,7 +100,7 @@
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                { data: 'date', name: 'date'},  
+                { data: 'date', name: 'date'},
                 { data: 'warehouses_id', name: 'warehouses_id' },
                 { data: 'item_id', name: 'item_id' },
                 { data: 'pur_qty', name: 'pur_qty' },
@@ -110,7 +110,7 @@
                 { data: 'sell_replacement_qty', name: 'sell_replacement_qty' },
                 { data: 'damage_qty', name: 'damage_qty' },
                 { data: 'available_qty', name: 'available_qty' },
-                
+
             ],
         });
 
@@ -119,7 +119,7 @@
 
     $('#create_data').click(function(e) {
         e.preventDefault();
-      
+
         var href = $(this).data('href');
         // AJAX request
         $.ajax({
@@ -137,14 +137,14 @@
     $('#toggleFilter').click(() => {
         $('#filterContainer').slideToggle();
     })
-    
-    function dataBaseCall(){  
-        console.log('call');    
+
+    function dataBaseCall(){
+        console.log('call');
         table_name.ajax.reload();
     }
-   
 
-    
+
+
 </script>
 @endpush
 

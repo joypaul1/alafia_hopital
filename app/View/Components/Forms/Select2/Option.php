@@ -8,7 +8,7 @@ class Option extends Component
 {
     public $name;
 
-    public $optionDatas;
+    public $optionData;
 
     public $multiple;
 
@@ -18,10 +18,10 @@ class Option extends Component
      *
      * @return void
      */
-    public function __construct( $optionDatas, $multiple, $selectedKey)
+    public function __construct( $optionData, $multiple, $selectedKey)
     {
         // $this->name         = $name;
-        $this->optionDatas  = $optionDatas;
+        $this->optionData  = $optionData;
         $this->multiple     = $multiple;
         $this->selectedKey  = $selectedKey;
     }

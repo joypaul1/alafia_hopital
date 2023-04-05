@@ -55,7 +55,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
                             </div>
-                            @include('components.backend.forms.select2.option2',[ 'name' => 'Walk in Customer', 'optionDatas' => [], 'required'=> true ])
+                            @include('components.backend.forms.select2.option2',[ 'name' => 'Walk in Customer', 'optionData' => [], 'required'=> true ])
                             @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                             <div class="input-group-prepend">
                                 <span class="input-group-text" data-toggle="modal" data-target="#customer-type-modal">
@@ -80,7 +80,7 @@
                     </div>
                 </div>
 
-                
+
 
                 <div class="table-responsive">
                     <table ellspacing='0' class="table table-bordered text-center">
@@ -162,7 +162,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-search-plus" aria-hidden="true"></i></span>
                             </div>
-                            @include('components.backend.forms.select2.option2',[ 'name' => 'Product Category', 'optionDatas' => [], 'required'=> true ])
+                            @include('components.backend.forms.select2.option2',[ 'name' => 'Product Category', 'optionData' => [], 'required'=> true ])
                             @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                         </div>
                     </div>
@@ -171,7 +171,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-search-plus" aria-hidden="true"></i></span>
                             </div>
-                            @include('components.backend.forms.select2.option2',[ 'name' => 'Product Brands', 'optionDatas' => [], 'required'=> true ])
+                            @include('components.backend.forms.select2.option2',[ 'name' => 'Product Brands', 'optionData' => [], 'required'=> true ])
                             @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                         </div>
                     </div>

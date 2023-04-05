@@ -13,7 +13,7 @@
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.select2.option',['label'=>'BloodBank Type', 'name' =>'type_id', 'optionDatas'=>$type, 'selectedKey'=>$bloodBank->type_id, 'required'=>true])
+                    @include('components.backend.forms.select2.option',['label'=>'BloodBank Type', 'name' =>'type_id', 'optionData'=>$type, 'selectedKey'=>$bloodBank->type_id, 'required'=>true])
                     @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('type_id')])
                 </div>
                 <div class="form-group form-check">

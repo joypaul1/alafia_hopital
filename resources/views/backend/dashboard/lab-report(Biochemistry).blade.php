@@ -34,7 +34,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/dl'
                 ])
@@ -65,7 +65,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 ])
             </div>
@@ -95,7 +95,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mmol/l'
                 ])
@@ -125,7 +125,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mmol/l'
                 ])
@@ -155,7 +155,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mmol/l'
                 ])
@@ -185,7 +185,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/dl'
                 ])
@@ -216,7 +216,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/dl'
                 ])
@@ -247,7 +247,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/dl'
                 ])
@@ -278,7 +278,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/dl'
                 ])
@@ -310,7 +310,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'µg/dl'
                 ])
@@ -337,7 +337,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/dl'
                 ])
@@ -365,7 +365,7 @@ New born: 0.5 – 10</textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/dl'
                 ])
@@ -392,7 +392,7 @@ New born: 0.5 – 10</textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/dl'
                 ])
@@ -419,7 +419,7 @@ New born: 0.5 – 10</textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'U/L'
                 ])
@@ -446,7 +446,7 @@ New born: 0.5 – 10</textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'U/L'
                 ])
@@ -473,7 +473,7 @@ New born: 0.5 – 10</textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'U/L'
                 ])
@@ -500,7 +500,7 @@ New born: 0.5 – 10</textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'g/dl'
                 ])
@@ -527,7 +527,7 @@ New born: 0.5 – 10</textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/dl'
                 ])
@@ -554,7 +554,7 @@ New born: 0.5 – 10</textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/dl'
                 ])
@@ -581,7 +581,7 @@ New born: 0.5 – 10</textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 ])
             </div>
@@ -607,7 +607,7 @@ New born: 0.5 – 10</textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'U/L'
                 ])
@@ -634,7 +634,7 @@ New born: 0.5 – 10</textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'U/L'
                 ])
@@ -661,7 +661,7 @@ New born: 0.5 – 10</textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'U/L'
                 ])
@@ -688,7 +688,7 @@ New born: 0.5 – 10</textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'U/L'
                 ])
@@ -716,7 +716,7 @@ Female : 26 - 140</textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/dl'
                 ])
@@ -744,7 +744,7 @@ Female 2.60 – 6.0 </textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/dl'
                 ])
@@ -773,7 +773,7 @@ Child: 8.8 -10.8 </textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/dl'
                 ])
@@ -801,7 +801,7 @@ Child 4.0 – 7.0 </textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/dl'
                 ])
@@ -828,7 +828,7 @@ Child 4.0 – 7.0 </textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mmol/l'
                 ])
@@ -855,7 +855,7 @@ Child 4.0 – 7.0 </textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mmol/l'
                 ])
@@ -882,7 +882,7 @@ Child 4.0 – 7.0 </textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mmol/l'
                 ])
@@ -909,7 +909,7 @@ Child 4.0 – 7.0 </textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mmol/l'
                 ])
@@ -936,7 +936,7 @@ Child 4.0 – 7.0 </textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/dl'
                 ])
@@ -963,7 +963,7 @@ Child 4.0 – 7.0 </textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/dl'
                 ])
@@ -990,7 +990,7 @@ Child 4.0 – 7.0 </textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/dl'
                 ])
@@ -1017,7 +1017,7 @@ Child 4.0 – 7.0 </textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/dl'
                 ])
@@ -1044,7 +1044,7 @@ Child 4.0 – 7.0 </textarea>
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => '%'
                 ])

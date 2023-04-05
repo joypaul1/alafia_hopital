@@ -36,14 +36,14 @@
                         @include('components.backend.forms.select2.option', [
                             'label' => 'department',
                             'name' => 'department_id',
-                            'optionDatas' => $department,
+                            'optionData' => $department,
                         ])
                     </div>
                     <div class="col-4">
                         @include('components.backend.forms.select2.option', [
                             'label' => 'doctor',
                             'name' => 'doctorID',
-                            'optionDatas' => $doctors,
+                            'optionData' => $doctors,
                         ])
                     </div>
                     <div class="col-4">
@@ -62,21 +62,21 @@
                     <div class="col-4">
                         @include('components.backend.forms.select2.option', [
                             'name' => 'appointment_schedule',
-                            'optionDatas' => [],
+                            'optionData' => [],
                             'required' => 'true',
                         ])
                     </div>
                     <div class="col-4">
                         @include('components.backend.forms.select2.option', [
                             'name' => 'appointment_priority',
-                            'optionDatas' => $appointment_priority,
+                            'optionData' => $appointment_priority,
                             'selectedKey' => 'Normal',
                         ])
                     </div>
                     <div class="col-4">
                         @include('components.backend.forms.select2.option', [
                             'name' => 'payment_method',
-                            'optionDatas' => $paymentSystems,
+                            'optionData' => $paymentSystems,
                             'required' => 'true',
                             'selectedKey' => 1,
                         ])
@@ -84,7 +84,7 @@
                     <div class="col-4">
                         @include('components.backend.forms.select2.option', [
                             'name' => 'status',
-                            'optionDatas' => $appointment_status,
+                            'optionData' => $appointment_status,
                             'selectedKey' => '1',
                             'required' => 'true',
                             'selectedKey' => 'approved',

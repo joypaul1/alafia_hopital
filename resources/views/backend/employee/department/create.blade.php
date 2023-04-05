@@ -31,7 +31,7 @@
 
                         {{-- <div class="mb-3 row">
                             <div class="col-lg-8">
-                                @include('components.backend.forms.select2.option', ['name' =>'designation_id[]', 'label'=>'designation', 'optionDatas' =>$designations ])
+                                @include('components.backend.forms.select2.option', ['name' =>'designation_id[]', 'label'=>'designation', 'optionData' =>$designations ])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('designation_id')])
                             </div>
                         </div> --}}

@@ -14,23 +14,23 @@
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.select2.option',['label'=>'Bed Group', 'name' =>'bed_group_id', 'optionDatas'=>$group  ])
+                    @include('components.backend.forms.select2.option',['label'=>'Bed Group', 'name' =>'bed_group_id', 'optionData'=>$group  ])
                     @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('bed_group_id')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.select2.option',['label'=>'Bed Type', 'name' =>'bed_type_id', 'optionDatas'=>$type  ])
+                    @include('components.backend.forms.select2.option',['label'=>'Bed Type', 'name' =>'bed_type_id', 'optionData'=>$type  ])
                     @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('bed_type_id')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.select2.option',['label'=>'Cabin', 'name' =>'bed_cabin_id', 'optionDatas'=>$cabin  ])
+                    @include('components.backend.forms.select2.option',['label'=>'Cabin', 'name' =>'bed_cabin_id', 'optionData'=>$cabin  ])
                     @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('bed_cabin_id')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.select2.option',['label'=>'Ward', 'name' =>'bed_ward_id', 'optionDatas'=>$ward  ])
+                    @include('components.backend.forms.select2.option',['label'=>'Ward', 'name' =>'bed_ward_id', 'optionData'=>$ward  ])
                     @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('bed_ward_id')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.select2.option',['label'=>'Floor', 'name' =>'floor_id', 'optionDatas'=>$floor  ])
+                    @include('components.backend.forms.select2.option',['label'=>'Floor', 'name' =>'floor_id', 'optionData'=>$floor  ])
                     @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('floor_id')])
                 </div>
                 <div class="form-group">

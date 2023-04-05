@@ -22,21 +22,21 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    @include('components.backend.forms.select2.option',[ 'name' => 'business_location', 'optionDatas' => [], 'required'=> true ])
+                                    @include('components.backend.forms.select2.option',[ 'name' => 'business_location', 'optionData' => [], 'required'=> true ])
                                     @include('components.backend.forms.input.errorMessage', ['message' =>
                                     $errors->first('name')])
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    @include('components.backend.forms.select2.option',[ 'name' => 'expense_category', 'optionDatas' => [], 'required'=> true ])
+                                    @include('components.backend.forms.select2.option',[ 'name' => 'expense_category', 'optionData' => [], 'required'=> true ])
                                     @include('components.backend.forms.input.errorMessage', ['message' =>
                                     $errors->first('name')])
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    @include('components.backend.forms.select2.option',[ 'name' => 'sub_category', 'optionDatas' => [], 'required'=> true ])
+                                    @include('components.backend.forms.select2.option',[ 'name' => 'sub_category', 'optionData' => [], 'required'=> true ])
                                     @include('components.backend.forms.input.errorMessage', ['message' =>
                                     $errors->first('name')])
                                 </div>
@@ -61,14 +61,14 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    @include('components.backend.forms.select2.option',[ 'name' => 'expense_for', 'optionDatas' => [], 'required'=> true ])
+                                    @include('components.backend.forms.select2.option',[ 'name' => 'expense_for', 'optionData' => [], 'required'=> true ])
                                     @include('components.backend.forms.input.errorMessage', ['message' =>
                                     $errors->first('name')])
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    @include('components.backend.forms.select2.option',[ 'name' => 'expense_for_contact', 'optionDatas' => [], 'required'=> true ])
+                                    @include('components.backend.forms.select2.option',[ 'name' => 'expense_for_contact', 'optionData' => [], 'required'=> true ])
                                     @include('components.backend.forms.input.errorMessage', ['message' =>
                                     $errors->first('name')])
                                 </div>
@@ -84,7 +84,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-info" aria-hidden="true"></i></span>
                                     </div>
-                                    @include('components.backend.forms.select2.option2',[ 'name' => 'expense_for_contact', 'optionDatas' => [], 'required'=> true ])
+                                    @include('components.backend.forms.select2.option2',[ 'name' => 'expense_for_contact', 'optionData' => [], 'required'=> true ])
                                     @include('components.backend.forms.input.errorMessage', ['message' =>
                                     $errors->first('name')])
                                 </div>
@@ -99,7 +99,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="document">Attach Document:</label>
-                                    @include('components.backend.forms.input.input-image',[ 'name' => 'expense-for-contact', 'optionDatas' => [], 'required'=> true ])
+                                    @include('components.backend.forms.input.input-image',[ 'name' => 'expense-for-contact', 'optionData' => [], 'required'=> true ])
                                     <small>
                                         <p class="help-block">Max File size: 5MB <br>
                                             Allowed File:
@@ -155,7 +155,7 @@
                                         <i class="fa fa-money" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                @include('components.backend.forms.select2.option2',[ 'name' => 'payment_method', 'optionDatas' => [], 'required'=> true ])
+                                @include('components.backend.forms.select2.option2',[ 'name' => 'payment_method', 'optionData' => [], 'required'=> true ])
                                 @include('components.backend.forms.input.errorMessage', ['message' =>
                                 $errors->first('name')])
                             </div>
@@ -168,7 +168,7 @@
                                         <i class="fa fa-money" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                @include('components.backend.forms.select2.option2',[ 'name' => 'payment_account', 'optionDatas' => [], 'required'=> true ])
+                                @include('components.backend.forms.select2.option2',[ 'name' => 'payment_account', 'optionData' => [], 'required'=> true ])
                                 @include('components.backend.forms.input.errorMessage', ['message' =>
                                 $errors->first('name')])
                             </div>

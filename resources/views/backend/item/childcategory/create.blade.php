@@ -16,19 +16,19 @@
 'name' => 'Childcategory List',
 'route' => route('backend.itemconfig.childcategory.index')
 ])
-  
+
 
 <div class="row">
     <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
                 <div class="form-validation">
-                    <form class="" 
+                    <form class=""
                     action="{{ route('backend.itemconfig.childcategory.store') }}" method="Post" enctype="multipart/form-data">
                         @method('POST')
                         @csrf
                         <div class="form-row">
-                            
+
                             @include('components.backend.forms.input.input-type',[ 'name' => 'name', 'placeholder' => 'name will be here...', 'required'=> 'yes' ])
                             @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
 
@@ -36,24 +36,24 @@
 
                         <div class="form-row">
 
-                            @include('components.backend.forms.select2.option',[ 'name' => 'category_id', 'label'=> 'Category','optionDatas'=>$categories])
+                            @include('components.backend.forms.select2.option',[ 'name' => 'category_id', 'label'=> 'Category','optionData'=>$categories])
                             @include('components.backend.forms.input.errorMessage', ['message' =>  $errors->first('category_id')])
-                          
+
                         </div>
-                        
+
                         <div class="form-row">
-                            @include('components.backend.forms.select2.option',[ 'name' => 'subcategory_id','label'=> 'Subcategory','optionDatas'=>[]])
+                            @include('components.backend.forms.select2.option',[ 'name' => 'subcategory_id','label'=> 'Subcategory','optionData'=>[]])
                             @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('subcategory_id')])
                         </div>
-                       
-                     
+
+
                         <div class="form-row">
 
                             @include('components.backend.forms.input.input-image', ['name' => 'image'])
                             @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('image')])
 
                         </div>
-                     
+
                         <div class="mb-3 row">
                             <div class="col-lg-12 text-right">
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -90,7 +90,7 @@
                 $.map( res.data, function( val, i ) {
                     var newOption = new Option(val.name, val.id, false, false);
                     $('#subcategory_id').append(newOption).trigger('change');
-                
+
                 });
             },
             error: function (jqXHR, exception) {
@@ -115,7 +115,7 @@
         });
 
     });
-   
+
 </script>
 
 @endpush

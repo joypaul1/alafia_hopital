@@ -44,13 +44,13 @@
 
                         <div class="form-row">
 
-                            @include('components.backend.forms.select2.option',[ 'name' => 'category_id','selectedKey' =>$childcategory->category_id, 'label'=> 'Category','optionDatas'=>$categories])
+                            @include('components.backend.forms.select2.option',[ 'name' => 'category_id','selectedKey' =>$childcategory->category_id, 'label'=> 'Category','optionData'=>$categories])
                             @include('components.backend.forms.input.errorMessage', ['message' =>  $errors->first('category_id')])
 
                         </div>
 
                         <div class="form-row">
-                            @include('components.backend.forms.select2.option',[ 'name' => 'subcategory_id','label'=> 'Subcategory', 'selectedKey' =>$childcategory->subcategory_id,'optionDatas'=>$subcategories])
+                            @include('components.backend.forms.select2.option',[ 'name' => 'subcategory_id','label'=> 'Subcategory', 'selectedKey' =>$childcategory->subcategory_id,'optionData'=>$subcategories])
                             @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('subcategory_id')])
                         </div>
 

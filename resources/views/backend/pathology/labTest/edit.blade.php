@@ -12,7 +12,7 @@
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.select2.option',['label'=>'LabTestTube', 'name' =>'lab_test_tube_id', 'optionDatas'=>$labTestTube, 'selectedKey'=>$labTest->lab_test_tube_id])
+                    @include('components.backend.forms.select2.option',['label'=>'LabTestTube', 'name' =>'lab_test_tube_id', 'optionData'=>$labTestTube, 'selectedKey'=>$labTest->lab_test_tube_id])
                     @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('lab_test_tube_id')])
                 </div>
                 <div class="form-group">

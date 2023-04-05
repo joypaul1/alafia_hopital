@@ -17,7 +17,7 @@
                 <div class="col-3">
                     @include('components.backend.forms.select2.option', [
                         'name' => 'doctor',
-                        'optionDatas' => [],
+                        'optionData' => [],
                     ])
                 </div>
                 <div class="col-3">
@@ -36,28 +36,28 @@
                 <div class="col-3">
                     @include('components.backend.forms.select2.option', [
                         'name' => 'Slot',
-                        'optionDatas' => [],
+                        'optionData' => [],
                         'required' => 'true',
                     ])
                 </div>
                 {{-- <div class="col-3">
                     @include('components.backend.forms.select2.option', [
                         'name' => 'Appointment Priority',
-                        'optionDatas' => [],
+                        'optionData' => [],
                         'required' => 'true',
                     ])
                 </div> --}}
                 <div class="col-3">
                     @include('components.backend.forms.select2.option', [
                         'name' => 'Payment Method',
-                        'optionDatas' => [],
+                        'optionData' => [],
                         'required' => 'true',
                     ])
                 </div>
                 <div class="col-3">
                     @include('components.backend.forms.select2.option', [
                         'name' => 'Status',
-                        'optionDatas' => [],
+                        'optionData' => [],
                         'required' => 'true',
                     ])
                 </div>

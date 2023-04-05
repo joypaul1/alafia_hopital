@@ -14,14 +14,14 @@
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.select2.option',['label' => 'Account Group','name' => 'account_group_id', 'optionDatas'=>$account_groups, 'required'=> true ])
+                    @include('components.backend.forms.select2.option',['label' => 'Account Group','name' => 'account_group_id', 'optionData'=>$account_groups, 'required'=> true ])
                     @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('account_group_id')])
                 </div>
                 <div class="form-group">
                     @include('components.backend.forms.input.input-type',[ 'name' => 'note', 'placeholder' => 'note will be here...'])
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('note')])
                 </div>
-               
+
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" name="" id="status">
                     <label class="form-check-label" for="status">Active ?</label>

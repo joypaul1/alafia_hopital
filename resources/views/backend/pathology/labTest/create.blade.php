@@ -73,11 +73,14 @@
                                 ])
                             </div>
                             <div class="col-md-4">
-                                <label class="col-form-label">
-                                    Description
-                                    <span class="text-danger">* </span>
-                                </label>
-                                <textarea name="description" class="form-control" placeholder="Enter Description Here ..."></textarea>
+                                @include('components.backend.forms.select2.option', [
+                                    'name' => 'doctor_id',
+                                    'label' => 'Referred By',
+                                    'optionData' =>$doctors,
+                                ])
+                                @include('components.backend.forms.input.errorMessage', [
+                                    'message' => $errors->first('doctor_id'),
+                                ])
                             </div>
                         </div>
                         <div class="body justify-content-center">
@@ -104,6 +107,7 @@
                                         <tr>
                                             <th> Test Name </th>
                                             <th> Price </th>
+                                            <th> Action </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -236,7 +240,11 @@
                             <td>
                                 <input type="text" name="test_price[]"
                                 value="${ui.item.price}" class="form-control test_price text-right"readonly>
-                            </td>\
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm removeLabTest"><i
+                                        class="fa fa-trash"></i></button>
+                            </td>
                         </tr>`;
                 $('#labTestAppend').last().after(row);
 

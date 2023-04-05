@@ -27,33 +27,33 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-6">
                     <div class="form-group">
-                        @include('components.backend.forms.select2.option',[ 'name' => 'business_location', 'required'=>true, 'optionDatas' => [] ])
+                        @include('components.backend.forms.select2.option',[ 'name' => 'business_location', 'required'=>true, 'optionData' => [] ])
                         @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="form-group">
-                        @include('components.backend.forms.select2.option',[ 'name' => 'expense_for', 'required'=>true, 'optionDatas' => [] ])
+                        @include('components.backend.forms.select2.option',[ 'name' => 'expense_for', 'required'=>true, 'optionData' => [] ])
                         @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="form-group">
-                        @include('components.backend.forms.select2.option',[ 'name' => 'contact', 'required'=>true, 'optionDatas' => [] ])
+                        @include('components.backend.forms.select2.option',[ 'name' => 'contact', 'required'=>true, 'optionData' => [] ])
                         @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="form-group">
                         @include('components.backend.forms.select2.option',[ 'name' => 'expense_category
-                        ', 'required'=>true, 'optionDatas' => [] ])
+                        ', 'required'=>true, 'optionData' => [] ])
                         @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="form-group">
                         @include('components.backend.forms.select2.option',[ 'name' => 'sub_category
-                        ', 'required'=>true, 'optionDatas' => [] ])
+                        ', 'required'=>true, 'optionData' => [] ])
                         @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="form-group">
                         @include('components.backend.forms.select2.option',[ 'name' => 'payment_status
-                        ', 'required'=>true, 'optionDatas' => [] ])
+                        ', 'required'=>true, 'optionData' => [] ])
                         @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                     </div>
                 </div>

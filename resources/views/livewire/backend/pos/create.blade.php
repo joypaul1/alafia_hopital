@@ -231,7 +231,7 @@
                                 </div>
                                 @include('components.backend.forms.select2.option2', [
                                     'name' => 'product_brand',
-                                    'optionDatas' => $this->units,
+                                    'optionData' => $this->units,
                                 ])
 
                             </div>

@@ -17,7 +17,7 @@
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('note')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.select2.option',[ 'name' => 'rack_id','optionDatas'=> $racks ])
+                    @include('components.backend.forms.select2.option',[ 'name' => 'rack_id','optionData'=> $racks ])
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('note')])
                 </div>
             </div>

@@ -31,7 +31,7 @@
                                             <i class="fa fa-user" aria-hidden="true"></i>
                                         </span>
                                     </div>
-                                    @include('components.backend.forms.select2.option2',[ 'name' => 'supplier','optionDatas' => []])
+                                    @include('components.backend.forms.select2.option2',[ 'name' => 'supplier','optionData' => []])
                                     @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('company_name')])
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
@@ -61,13 +61,13 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    @include('components.backend.forms.select2.option',[ 'name' => 'purchase_status', 'optionDatas'=> [] ])
+                                    @include('components.backend.forms.select2.option',[ 'name' => 'purchase_status', 'optionData'=> [] ])
                                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('mobile')])
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    @include('components.backend.forms.select2.option',[ 'name' => 'business_location', 'optionDatas'=> [] ])
+                                    @include('components.backend.forms.select2.option',[ 'name' => 'business_location', 'optionData'=> [] ])
                                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('mobile')])
                                 </div>
                             </div>
@@ -163,7 +163,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-4">
                             <div class="form-group">
-                                @include('components.backend.forms.select2.option',[ 'name' => 'discount_type', 'optionDatas'=> [] ])
+                                @include('components.backend.forms.select2.option',[ 'name' => 'discount_type', 'optionData'=> [] ])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('mobile')])
                             </div>
                         </div>
@@ -180,7 +180,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-4">
                             <div class="form-group">
-                                @include('components.backend.forms.select2.option',[ 'name' => 'purchase_tax', 'optionDatas'=> [] ])
+                                @include('components.backend.forms.select2.option',[ 'name' => 'purchase_tax', 'optionData'=> [] ])
                                 @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('mobile')])
                             </div>
                         </div>
@@ -258,7 +258,7 @@
                                         <i class="fa fa-money" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                @include('components.backend.forms.select2.option2',[ 'name' => 'payment_method','optionDatas' => []])
+                                @include('components.backend.forms.select2.option2',[ 'name' => 'payment_method','optionData' => []])
                                 @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('company_name')])
                             </div>
                         </div>
@@ -272,7 +272,7 @@
                                         <i class="fa fa-money" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                @include('components.backend.forms.select2.option2',[ 'name' => 'payment_account','optionDatas' => []])
+                                @include('components.backend.forms.select2.option2',[ 'name' => 'payment_account','optionData' => []])
                                 @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('company_name')])
                             </div>
                         </div>

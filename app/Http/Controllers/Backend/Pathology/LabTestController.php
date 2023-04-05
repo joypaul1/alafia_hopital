@@ -6,6 +6,7 @@ use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Pathology\Lab\StoreRequest;
+use App\Models\Doctor\Doctor;
 use App\Models\lab\LabInvoice;
 
 class LabTestController extends Controller
@@ -41,7 +42,8 @@ class LabTestController extends Controller
      */
     public function create()
     {
-        return view('backend.pathology.labTest.create');
+        $doctors= Doctor::active()->get();
+        return view('backend.pathology.labTest.create', compact('doctors'));
     }
 
     /**

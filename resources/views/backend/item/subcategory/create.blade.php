@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="form-group">
-                    @include('components.backend.forms.select2.option',[ 'name' =>'category_id','optionDatas'=>$categories, 'required'=> true ])
+                    @include('components.backend.forms.select2.option',[ 'name' =>'category_id','optionData'=>$categories, 'required'=> true ])
                     @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('category_id')])
                 </div>
 
@@ -27,7 +27,7 @@
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('image')])
                 </div> --}}
 
-               
+
             </div>
         </div>
         <div class="modal-footer">

@@ -114,7 +114,7 @@
                     <div class="row  ">
                         <div class="text-right justify-content-between">
                             <div class="form-group">
-                                @include('components.backend.forms.select2.option2',['label'=> 'Status', 'name' =>'status','optionDatas' => $status])
+                                @include('components.backend.forms.select2.option2',['label'=> 'Status', 'name' =>'status','optionData' => $status])
                                 @include('components.backend.forms.input.errorMessage', ['message'=>$errors->first('status')])
                             </div>
                         </div>

@@ -32,7 +32,7 @@
                                             <i class="fa fa-user" aria-hidden="true"></i>
                                         </span>
                                     </div>
-                                    @include('components.backend.forms.select2.option2',[ 'label' =>'supplier' ,'name' =>'supplier_id','optionDatas' => [] , 'required'=> true])
+                                    @include('components.backend.forms.select2.option2',[ 'label' =>'supplier' ,'name' =>'supplier_id','optionData' => [] , 'required'=> true])
                                     @include('components.backend.forms.input.errorMessage', ['message'=>$errors->first('supplier_id')])
                                     <div class="input-group-append">
                                         <span class="input-group-text" style="background-color:#17a2b8;color:white"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
@@ -70,13 +70,13 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    @include('components.backend.forms.select2.option',[ 'name' => 'purchase_status','optionDatas'=> $pur_status , 'required' => true])
+                                    @include('components.backend.forms.select2.option',[ 'name' => 'purchase_status','optionData'=> $pur_status , 'required' => true])
                                     @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('purchase_status')])
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    @include('components.backend.forms.select2.option',[ 'label' => 'Warehouse location','name' => 'warehouse_id','optionDatas'=> [], 'required' => true ])
+                                    @include('components.backend.forms.select2.option',[ 'label' => 'Warehouse location','name' => 'warehouse_id','optionData'=> [], 'required' => true ])
                                     @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('warehouse_id')])
                                 </div>
                             </div>
@@ -156,7 +156,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-4">
                             <div class="form-group">
-                                @include('components.backend.forms.select2.option',[ 'name' => 'discount_type', 'optionDatas'=> $dis_status ])
+                                @include('components.backend.forms.select2.option',[ 'name' => 'discount_type', 'optionData'=> $dis_status ])
                                 @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('discount_type')])
                             </div>
                         </div>
@@ -269,7 +269,7 @@
                                         <i class="fa fa-money" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                @include('components.backend.forms.select2.option2',['label'=> 'Payment Method','name' =>'payment_method','optionDatas' => $payment_methods])
+                                @include('components.backend.forms.select2.option2',['label'=> 'Payment Method','name' =>'payment_method','optionData' => $payment_methods])
                                 @include('components.backend.forms.input.errorMessage', ['message'=>$errors->first('payment_method')])
                             </div>
                         </div>
@@ -283,7 +283,7 @@
                                         <i class="fa fa-money" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                @include('components.backend.forms.select2.option2',['label' =>'Payment Account' ,'name' =>'payment_account','optionDatas' => $payment_accounts])
+                                @include('components.backend.forms.select2.option2',['label' =>'Payment Account' ,'name' =>'payment_account','optionData' => $payment_accounts])
                                 @include('components.backend.forms.input.errorMessage', ['message'=>$errors->first('payment_account')])
                             </div>
                         </div>

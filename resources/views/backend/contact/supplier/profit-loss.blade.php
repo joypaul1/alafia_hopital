@@ -31,7 +31,7 @@ Profit / Loss Report
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></span>
                         </div>
-                        @include('components.backend.forms.select2.option2',[ 'name' => 'business_location', 'required'=>true, 'optionDatas' => [] ])
+                        @include('components.backend.forms.select2.option2',[ 'name' => 'business_location', 'required'=>true, 'optionData' => [] ])
                         @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                     </div>
                 </div>
