@@ -34,6 +34,7 @@
                                     <th class="text-center">Name</th>
                                     <th class="text-center">Type</th>
                                     <th class="text-center">Price</th>
+                                    <th class="text-center">Delivery Time</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -100,6 +101,10 @@
                 }, {
                     data: 'price',
                     name: 'price',
+                    "className": "text-center"
+                }, {
+                    data: 'delivery_time',
+                    name: 'delivery_time',
                     className: "text-center",
                 }, {
                     data: 'status',

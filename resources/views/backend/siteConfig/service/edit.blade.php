@@ -24,10 +24,7 @@
                     @include('components.backend.forms.input.input-type',[ 'name' => 'service_price', 'placeholder' => 'price will be here...', 'value' => number_format($serviceName->service_price ,2), 'required'=>true ])
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('service_price')])
                 </div>
-                <div class=" form-group">
-                    <label for="description">Description</label>
-                    <textarea class="form-control" name="description" id="description" rows="3">{{$serviceName->description??' '}}</textarea>
-                </div>
+               
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" name="status" {{$serviceName->status == true ? 'Checked': ' '}} id="active_check">
                     <label class="form-check-label" for="active_check">Active ?</label>

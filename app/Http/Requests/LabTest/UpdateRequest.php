@@ -26,9 +26,11 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'          => ['required', 'string', Rule::unique('lab_tests')->ignore($this->labTest->id)],
-            'lab_test_tube_id'   => 'required|exists:lab_test_tubes,id',
-            'price'     => 'required',
+            'name'              => ['required', 'string', Rule::unique('lab_tests')->ignore($this->labTest->id)],
+            'lab_test_tube_id'  => 'required|exists:lab_test_tubes,id',
+            'price'             => 'required',
+            'time'              => 'nullable',
+            'time_type'         => 'nullable'
 
         ];
     }
@@ -40,6 +42,7 @@ class UpdateRequest extends FormRequest
             $data = $request->validated();
             $data['price'] = str_replace(',', '', $request->price);
             $data['status'] = $this->status == 'on' ? true : false;
+            // dd($data);
             $labTest->update($data);
             DB::commit();
         } catch (\Exception $ex) {

@@ -19,12 +19,20 @@
                     @include('components.backend.forms.input.input-type',[ 'name' => 'price', 'placeholder' => 'price will be here...', 'value' => number_format($labTest->labTest_price ,2), 'required'=>true ])
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('price')])
                 </div>
-
+                <div class="form-group">
+                    <label for="delivery">Delivery Time</label>
+                    <div class="d-flex" style="gap:10px">
+                        <input type="number"name="time" value="{{ $labTest->time }}" class="form-control" placeholder="Enter Delivery Time">
+                        <select name="time_type" id="time_type" class="form-control">
+                            <option value="hour" {{ $labTest->time_type== 'hour'? 'Selected': null }}>Hour</option>
+                            <option value="day" {{ $labTest->time_type== 'day'? 'Selected': null }}>Day</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" name="status" {{$labTest->status == true ? 'Checked': ' '}} id="active_check">
                     <label class="form-check-label" for="active_check">Active ?</label>
                 </div>
-
 
             </div>
         </div>

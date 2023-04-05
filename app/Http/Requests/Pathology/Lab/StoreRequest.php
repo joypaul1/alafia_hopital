@@ -44,6 +44,7 @@ class StoreRequest extends FormRequest
             'testTube_price.*' => 'nullable|numeric',
             'testSubTotal' => 'required',
             'tubeSubTotal' => 'required',
+            
         ];
     }
     public function getInvoiceNumber()

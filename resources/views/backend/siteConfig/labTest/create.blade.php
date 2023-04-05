@@ -40,6 +40,16 @@
                     ])
                 </div>
 
+                <div class="form-group">
+                    <label for="delivery">Delivery Time <span class="text-danger">*</span></label>
+                    <div class="d-flex" style="gap:10px">
+                        <input type="number"name="time" class="form-control" placeholder="Enter Delivery Time">
+                        <select name="time_type" id="time_type" class="form-control">
+                            <option value="hour" {{ $serviceName->time_type== 'hour'? 'Selected': null }}>Hour</option>
+                            <option value="day" {{ $serviceName->time_type== 'day'? 'Selected': null }}>Day</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" name="status" checked id="active_check">
                     <label class="form-check-label" for="active_check">Active ?</label>

@@ -27,7 +27,7 @@ class LabTestController extends Controller
             return response()->json(['data' => $data]);
         }
 
-        $data = LabTest::select(['id', 'name', 'status', 'price', 'lab_test_tube_id'])->latest();
+        $data = LabTest::select(['id', 'name', 'status', 'price', 'lab_test_tube_id', 'time', 'time_type'])->latest();
         if ($request->status) {
             $data = $data->active();
         } elseif ($request->status == '0') {
@@ -62,6 +62,9 @@ class LabTestController extends Controller
                 })
                 ->editColumn('price', function ($row) {
                     return number_format($row->price, 2) . ' TK';
+                })
+                ->addColumn('delivery_time', function ($row) {
+                    return $row->time . ' ' . $row->time_type;
                 })
                 ->removeColumn(['id'])
                 ->rawColumns(['action'])

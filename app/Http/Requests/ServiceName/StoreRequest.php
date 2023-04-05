@@ -30,7 +30,7 @@ class StoreRequest extends FormRequest
             'service_type_id'   => 'required|exists:service_types,id',
             'unit_id'           => 'required|exists:units,id',
             'description'       => 'nullable|string',
-            'service_price'       => 'required',
+            'service_price'     => 'required',
         ];
     }
 

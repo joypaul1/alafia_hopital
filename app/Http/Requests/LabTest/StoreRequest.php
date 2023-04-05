@@ -27,18 +27,20 @@ class StoreRequest extends FormRequest
     {
         return [
             'name'              => 'required|string|unique:lab_tests,name',
-            'lab_test_tube_id'   => 'required|exists:lab_test_tubes,id',
-            'price'     => 'required',
+            'lab_test_tube_id'  => 'required|exists:lab_test_tubes,id',
+            'price'             => 'required',
+            'time'              => 'nullable',
+            'time_type'         => 'nullable'
         ];
     }
 
     public function storeData($request)
     {
-
         try {
             DB::beginTransaction();
             $data = $request->validated();
             $data['status'] = $this->status == 'on' ? true : false;
+            dd($data);
             LabTest::create($data);
             DB::commit();
         } catch (\Exception $ex) {
