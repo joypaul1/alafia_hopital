@@ -8,6 +8,8 @@
     <title>Receipt</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         p {
             margin: 0;
@@ -185,7 +187,7 @@
                         $si = 0;
                     @endphp
 
-                    @foreach ($labInvoice->labTestDetails as $key => $labTest)
+                    @foreach ($labInvoice->labTestDetails as $labTest)
                         @php
                             $si += 1;
                         @endphp
@@ -206,7 +208,7 @@
                         </tr>
                     @endforeach
 
-                    @foreach ($labInvoice->labTestTube as $key => $labTest)
+                    @foreach ($labInvoice->labTestTube as $labTest)
                         @php
                             $si += 1;
                         @endphp
@@ -368,13 +370,14 @@
     </div>
 </body>
 
+
 </html>
+<script>
+    $(document).ready(function() {
+        window.print();
+    });
+</script>
 
 
-@push('js')
-    <script>
-        $(document).ready(function() {
-            window.print();
-        });
-    </script>
-@endpush
+
+
