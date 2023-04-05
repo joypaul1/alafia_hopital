@@ -84,8 +84,8 @@
                             </div>
                         </div>
                         <div class="body justify-content-center">
-                            <h3 class="mb-1 text-center">Test Items</h3>
-                            <hr>
+                            {{-- <h3 class="mb-1 text-center">Test Items</h3>
+                            <hr> --}}
                             <div class="row justify-content-center">
                                 <div class="col-md-6 input-group mb-3">
                                     <div class="input-group-prepend">
@@ -102,7 +102,7 @@
                             </div>
 
                             <div class="table-responsive">
-                                <table ellspacing='0' class="table table-bordered text-center">
+                                <table ellspacing='0' class="table table-bordered text-center testTable">
                                     <thead>
                                         <tr>
                                             <th> Test Name </th>
@@ -124,7 +124,7 @@
                                 </div>
                             </div>
                             <div class="table-responsive">
-                                <table ellspacing='0' class="table table-bordered text-center">
+                                <table ellspacing='0' class="table table-bordered text-center testTubeTable">
                                     <thead>
                                         <tr>
                                             <th> Tube Name </th>
@@ -155,9 +155,8 @@
                         <strong>Total : <span id="totalPrice">0.00</span>Tk </strong>
                     </div>
                 </div>
-                <div class="d-block text-right">
-
-                    <button class="btn btn-md btn-success ">Save</button>
+                <div class="d-block text-right mb-5">
+                    <button class="btn btn-lg btn-info ">Save</button>
                 </div>
             </form>
         </div>
@@ -181,13 +180,9 @@
                     success: function(res) {
                         var resArray = $.map(res.data, function(obj) {
                             return {
-                                value: obj
-                                    .name, //Fillable in input field
-                                value_id: obj
-                                    .id, //Fillable in input field
-                                label: 'Name:' + obj.name +
-                                    ' mobile:' + obj
-                                    .mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                                value: obj.name, //Fillable in input field
+                                value_id: obj.id, //Fillable in input field
+                                label: 'Name:' + obj.name +' mobile:' + obj.mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
                             }
                         })
                         response(resArray);
@@ -221,7 +216,6 @@
                                 price: obj.price, //Fillable in input field
                                 label: obj.name,
                                 value_id: obj.id
-
                             }
                         })
                         response(resArray);
@@ -233,7 +227,7 @@
                 // labTest data append in table
                 let row = `<tr>
                             <td>
-                                <input type="hidden"  name="labTest_id[]" value="${ui.item.value_id}">
+                                <input type="hidden" class="labTest_id"  name="labTest_id[]" value="${ui.item.value_id}">
                                 <input type="hidden" class="labTestCatName"  value="${ui.item.category}">
                                 ${ui.item.label}
                             </td>
@@ -242,8 +236,7 @@
                                 value="${ui.item.price}" class="form-control test_price text-right"readonly>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-danger btn-sm removeLabTest"><i
-                                        class="fa fa-trash"></i></button>
+                                <button type="button" class="btn btn-danger btn-sm removeLabTest"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>`;
                 $('#labTestAppend').last().after(row);
@@ -256,9 +249,7 @@
                 let labTestCatName = $('.labTestCatName').map(function() {
                     return $(this).val();
                 }).get();
-                if ($.inArray((ui.item.tube.id).toString(), testTube_id) != -1 && $.inArray((ui.item.category)
-                        .toString(), labTestCatName) != -1) {
-
+                if ($.inArray((ui.item.tube.id).toString(), testTube_id) != -1 && $.inArray((ui.item.category).toString(), labTestCatName) != -1) {
                 } else {
                     // testTube data append in table
                     let tube = `<tr>
@@ -280,17 +271,55 @@
         });
 
 
+        //removeLabTest
+        $(document).on('click', '.removeLabTest', function() {
+            // console.log($(this).parent('td').parent('tr').find('td >.labTest_id').val());
+            removeRow(this);
+            // remove all testTubeTable table tbody tr ignore tr id testTubeAppend
+            // console.log();
+            $('.testTubeTable tbody tr').not('#testTubeAppend').remove()
+            // get testTable all tbody tr td labTest_id value
+            $('.labTest_id').map(function() {
+                //ajax request
+                $.ajax({
+                    method: 'GET',
+                    url: "{{ route('backend.siteConfig.labTest.index') }}",
+                    data: {
+                        'labTest_id': $(this).val()
+                    },
+                    success: function(res) {
+
+                        let labTestCatName = $('.labTestCatName').map(function() {return $(this).val()}).get();
+                        let testTube_id = $('.testTube_id').map(function() {return $(this).val()}).get();
+                        // console.log(res);
+                        if ($.inArray((res.data.tube.id).toString(), testTube_id) != -1 && $.inArray((res.data.category).toString(), labTestCatName) != -1) {
+                        } else {
+                            // testTube data append in table
+                            let tube = `<tr>
+                                    <td>
+                                        <input type="hidden" name="testTube_id[]" class="testTube_id" value="${res.data.tube.id}">
+                                        ${res.data.tube.name}
+                                    </td>
+                                    <td>
+                                        <input type="text" name="testTube_price[]"
+                                        value="${res.data.tube.price}" class="form-control testTube_price text-right"
+                                        readonly>
+                                    </td>
+                                </tr>`;
+                            $('#testTubeAppend').last().after(tube);
+                        }
+                    }
+                });
+            }).get();
+            approximatePrice();
+
+        });
+
         // create a function to remove a row
         function removeRow(row) {
             $(row).closest('tr').remove();
-            approximatePrice();
-        }
 
-        function removeMRow(row) {
-            $(row).closest('tr').remove();
-            approximateCost();
         }
-
 
 
         approximatePrice = function() {

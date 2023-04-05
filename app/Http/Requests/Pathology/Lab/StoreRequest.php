@@ -44,7 +44,7 @@ class StoreRequest extends FormRequest
             'testTube_price.*' => 'nullable|numeric',
             'testSubTotal' => 'required',
             'tubeSubTotal' => 'required',
-            
+
         ];
     }
     public function getInvoiceNumber()
@@ -72,7 +72,7 @@ class StoreRequest extends FormRequest
             $data['paid_amount']        = Str::replace(',', '', ($this->tubeSubTotal + $this->testSubTotal));
             $data['total_amount']       = $data['paid_amount'];
             $labInvoice                 = LabInvoice::create($data);
-            // dd($labInvoice);
+            dd($labInvoice);
             // hasMany labTest data insert
             foreach ($this->labTest_id as $key => $labTest) {
                 $v = $labInvoice->labTestDetails()->create([

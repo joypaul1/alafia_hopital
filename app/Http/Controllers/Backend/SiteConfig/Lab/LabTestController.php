@@ -26,7 +26,11 @@ class LabTestController extends Controller
             $data = LabTest::whereLike($request->optionData)->select(['id', 'name','category', 'status', 'price', 'lab_test_tube_id'])->with('tube:id,name,price')->take(15)->get();
             return response()->json(['data' => $data]);
         }
-
+        if($request->labTest_id){
+            // dd($request->labTest_id);
+            $data = LabTest::where('id',$request->labTest_id)->select(['id', 'name','category', 'status', 'price', 'lab_test_tube_id'])->with('tube:id,name,price')->first();
+            return response()->json(['data' => $data]);
+        }
         $data = LabTest::select(['id', 'name', 'status', 'price', 'lab_test_tube_id', 'time', 'time_type'])->latest();
         if ($request->status) {
             $data = $data->active();
