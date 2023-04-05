@@ -174,6 +174,8 @@
                         </th>
                         <th>
                             Particulars
+                        <th>
+                            Delivery Time
                         </th>
                         <th class="text-right" style="width: 120px;">
                             Amount
@@ -191,8 +193,12 @@
                             <td>
                                 {{ $si }}
                             </td>
+
                             <td>
                                 {{ $labTest->testName->name }}
+                            </td>
+                            <td class="text-center">
+                                {{ date_format(date_create($labTest->delivery_time),('d-m-Y h:i A')) }}
                             </td>
                             <td class="text-right">
                                 {{ number_format($labTest->price, 2) }}
@@ -208,9 +214,10 @@
                             <td>
                                 {{ $si }}
                             </td>
-                            <td>
+                            <td colspan="2">
                                 Vacutainer {{ $labTest->tubeName->name }}
                             </td>
+                            {{-- <td></td> --}}
                             <td class="text-right">
                                 {{ number_format($labTest->price, 2) }}
                             </td>
@@ -245,7 +252,7 @@
                                     Discount Amount
                                 </td>
                                 <td class="text-right">
-                                    00
+                                    0.00
                                 </td>
                             </tr>
 
