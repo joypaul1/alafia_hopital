@@ -3,6 +3,7 @@
 namespace App\Models\lab;
 
 use App\Models\DailyAccountTransaction;
+use App\Models\Doctor\Doctor;
 use App\Models\Patient\Patient;
 use App\Models\Transaction\CashFlow;
 use App\Traits\AutoTimeStamp;
@@ -55,5 +56,10 @@ class LabInvoice extends Model
     public function labTestTube(): HasMany
     {
         return $this->hasMany(LabInvoiceTestTubeDetails::class, 'lab_invoice_id', 'id');
+    }
+
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class, 'doctor_id', 'id');
     }
 }

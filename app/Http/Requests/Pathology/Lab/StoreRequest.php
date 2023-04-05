@@ -6,8 +6,11 @@ use App\Helpers\InvoiceNumber;
 use App\Models\Account\AccountLedger;
 use App\Models\FinancialYearHistory;
 use App\Models\lab\LabInvoice;
+use App\Models\lab\LabInvoiceTestDetails;
+use App\Models\lab\LabTest;
 use App\Models\LedgerTransition;
 use App\Models\PaymentSystem;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -36,6 +39,7 @@ class StoreRequest extends FormRequest
             'date' => 'required',
             'labTest_id' => 'required|array',
             'labTest_id.*' => 'required|exists:lab_tests,id',
+            'doctor_id' => 'required|exists:doctors,id',
             'test_price' => 'required|array',
             'test_price.*' => 'required|numeric',
             'testTube_id' => 'nullable|array',
@@ -63,7 +67,6 @@ class StoreRequest extends FormRequest
      */
     public function storeData()
     {
-
         try {
             DB::beginTransaction();
             $data['invoice_no']         = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
@@ -71,13 +74,39 @@ class StoreRequest extends FormRequest
             $data['date']               = date('Y-m-d', strtotime($this->date)) . ' ' . date('h:i:s');
             $data['paid_amount']        = Str::replace(',', '', ($this->tubeSubTotal + $this->testSubTotal));
             $data['total_amount']       = $data['paid_amount'];
+            $data['doctor_id']          = $this->doctor_id;
             $labInvoice                 = LabInvoice::create($data);
-            dd($labInvoice);
+            // dd($labInvoice);
             // hasMany labTest data insert
             foreach ($this->labTest_id as $key => $labTest) {
-                $v = $labInvoice->labTestDetails()->create([
-                    'lab_test_id' => $labTest,
+                $labTest = LabTest::whereId($labTest)->first();
+                //delivery time set
+                if ($labTest->time_type == "day") {
+                    //carbon add day
+                    $finalTime = (Carbon::parse($this->date . date('h:i a'))->addDays($labTest->time)->format('Y-m-d h:i a'));
+                    $checkTime = (Carbon::parse($this->date . date('H:i a'))->addDays($labTest->time)->format('H:i a'));
+                    if ($checkTime >= "8:00" && $checkTime <= "18:00") {
+                        $deliveryTime = $finalTime;
+                    } else {
+                        $deliveryTime = (Carbon::parse($this->date . date('h:i a'))->addDays($labTest->time + 1)->format('Y-m-d h:i a'));
+                    }
+                }
+                if ($labTest->time_type == "hour") {
+                    //carbon add time
+                    $finalTime = (Carbon::parse($this->date . date('h:i a'))->addHours($labTest->time)->format('Y-m-d h:i a'));
+                    $checkTime = (Carbon::parse($this->date . date('H:i a'))->addHours($labTest->time)->format('H:i a'));
+                    if ($checkTime >= "8:00" && $checkTime <= "18:00") {
+                        $deliveryTime = $finalTime;
+                    } else {
+                        $deliveryTime = (Carbon::parse($this->date . date('h:i a'))->addDays($labTest->time + 1)->format('Y-m-d h:i a'));
+                    }
+                }
+                //end delivery time set
+
+                $labInvoice->labTestDetails()->create([
+                    'lab_test_id' => $labTest->id,
                     'price' => $this->test_price[$key],
+                    'delivery_time' => $deliveryTime,
                 ]);
             }
             // hasMany labTestTube data insert

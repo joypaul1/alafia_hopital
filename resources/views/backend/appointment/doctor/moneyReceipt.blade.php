@@ -220,14 +220,7 @@
                                     00.00
                                 </td>
                             </tr>
-                            {{-- <tr>
-                                <td>
-                                    Vat Amount
-                                </td>
-                                <td class="text-right">
-                                    00.00
-                                </td>
-                            </tr> --}}
+
                             <tr>
                                 <td>
                                     Payable Amount
