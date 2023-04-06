@@ -246,7 +246,7 @@
                                     Bill Amount
                                 </td>
                                 <td class="text-right" style="width: 120px;">
-                                    {{ number_format($labInvoice->doctor_fee, 2) }}
+                                    {{ number_format($labInvoice->total_amount, 2) }}
                                 </td>
                             </tr>
                             <tr>
