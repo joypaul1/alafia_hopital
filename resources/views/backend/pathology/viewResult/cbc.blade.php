@@ -2231,20 +2231,21 @@
                 <div style="display: flex;justify-content: space-between; margin-top: 60pt;">
                     <div>
                         <p class="c4"><span class="c13">Prepared by</span></p>
-                        <p class="c4"><span class="c13">Medical Technologist</span></p>
+                        <p class="c4"><span class="c13">{{ auth('admin')->user()->name }}</span></p>
                         <p class="c4 c10"><span class="c13"></span></p>
                     </div>
                     <div>
                         <p class="c4"><span class="c13">Check by</span></p>
-                        <p class="c4"><span class="c13">Lab In-charge</span></p>
+                        <p class="c4"><span class="c13"></span></p>
                     </div>
                     <div>
                         <h5 style="margin-bottom: 4px; margin: 0; padding: 0; font-weight: bold;">
-                            PROF.DR. MD. SAIDUR RAHMAN
+                            {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
+
                         </h5>
-                        <p><small>MBBS, DCP (MSMMU) M ,Phil (Path)</small></p>
-                        <p><small>Professor of Pathology</small></p>
-                        <p><small>Bangladesh Medical College</small></p>
+                        <p><small>{{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }}</small></p>
+                        {{-- <p><small>Professor of Pathology</small></p>
+                        <p><small>Bangladesh Medical College</small></p> --}}
                     </div>
                 </div>
             </div>

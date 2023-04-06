@@ -40,12 +40,7 @@ class LabTestResultController extends Controller
                 $data ['result']                        = json_encode($request->except('_token', '_method','lab_invoice_test_detail_id','test_id'));
                 $labTestReport                          = LabTestReport::create($data);
                 LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
-                if ($testName == 'CBC') {
-                    // return view('backend.pathology.viewResult.cbc', compact('labTestReport'));
-                    return redirect()->route('backend.pathology.make-test-result-show', $labTestReport->id);
-                }
-                // return view('backend.pathology.viewResult.show', compact('labTestReport'));
-                return redirect()->route('backend.pathology.make-test-result-show', $labTestReport->id);
+
             }
             DB::commit();
         } catch (\Exception $ex) {
@@ -53,12 +48,22 @@ class LabTestResultController extends Controller
             dd($ex->getMessage());
         }
 
+        return redirect()->route('backend.pathology.make-test-result-show', ['id'=>$labTestReport->id]);
+
 
     }
 
-    public function show($id)
+    public function show(Request $request)
     {
-        return $LabTestReport = LabTestReport::whereId($id)->with('details', 'patient')->first();
-        return view('backend.pathology.viewResult.show', compact('LabTestReport'));
+
+         $labTestReport = LabTestReport::whereId($request->id)->with('labInvoiceTestDetails.labInvoice', 'patient', 'testName')->first();
+        // dd($labTestReport);
+        if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'CBC') {
+            return view('backend.pathology.viewResult.cbc', compact('labTestReport'));
+        }
+        if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name != 'CBC') {
+            return view('backend.pathology.viewResult.show', compact('labTestReport'));
+        }
+
     }
 }

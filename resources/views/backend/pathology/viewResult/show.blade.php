@@ -1406,7 +1406,7 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c45" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">12.00am 31-01-2023</span></p>
+                            <p class="c23"><span class="c0">{{ date('dm-Y H:i', strtotime(optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->date)) }}</span></p>
                         </td>
                     </tr>
                     <tr class="c5">
@@ -1416,8 +1416,13 @@
                         <td class="c12" colspan="1" rowspan="1">
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
+                        @php
+                        $bday = new DateTime(optional($labTestReport->patient)->dob); // Your date of birth
+                        $today = new Datetime(date('m.d.y'));
+                        $diff = $today->diff($bday);
+                        @endphp
                         <td class="c36" colspan="1" rowspan="1">
-                            <p class="c23 c10"><span class="c13">Nabila Yeasmin</span></p>
+                            <p class="c23 c10"><span class="c13">{{ $labTestReport->patient->name }}</span></p>
                         </td>
                         <td class="c42" colspan="1" rowspan="1">
                             <p class="c50"><span class="c11">Prepare &nbsp;Time</span></p>
@@ -1426,7 +1431,7 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c15" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">12.40am 31-01-2023</span></p>
+                            <p class="c23"><span class="c0">{{ date('d-m-Y H:i', strtotime($labTestReport->created_at)) }}</span></p>
                         </td>
                     </tr>
                     <tr class="c5">
@@ -1437,7 +1442,7 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c36" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">26 Years</span></p>
+                            <p class="c23"><span class="c0"> {{ $diff->y }} Years {{ $diff->m }} Months {{ $diff->d }}</span></p>
                         </td>
                         <td class="c42" colspan="1" rowspan="1">
                             <p class="c50"><span class="c11">Print Time </span></p>
@@ -1446,7 +1451,7 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c15" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">01.12pm 12-02-2023</span></p>
+                            <p class="c23"><span class="c0">{{ date_format(now(),"d-m-Y H:i") }}</span></p>
                         </td>
                     </tr>
                     <tr class="c5">
@@ -1457,7 +1462,7 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c36" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">Male / Female</span></p>
+                            <p class="c23"><span class="c0">{{ optional($labTestReport->patient)->gender }}</span></p>
                         </td>
                         <td class="c42" colspan="1" rowspan="1">
                             <p class="c50"><span class="c11">Specimen</span></p>
@@ -1478,7 +1483,11 @@
                         </td>
                         <td class="c57" colspan="4" rowspan="1">
                             <p class="c23 c10"><span class="c13">
-                                </span></p>
+{{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
+   ( {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }})
+
+</span></p>
+
                         </td>
                     </tr>
                 </table>
@@ -1502,6 +1511,9 @@
                             <p class="c4"><span class="c24 c39">Ref. Value</span></p>
                         </td>
                     </tr>
+                    @php
+                        $data = json_decode($labTestReport->result);
+                    @endphp
                     <tr class="c73">
                         <td class="c52" colspan="1" rowspan="1">
                             <p class="c4 c10"><span class="c0"></span></p>
@@ -1518,16 +1530,16 @@
                     </tr>
                     <tr class="c5">
                         <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Fasting Blood Sugar (FBS)</span></p>
+                            <p class="c1"><span class="c0">{{ $data->name }}</span></p>
                         </td>
                         <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11">4.6</span></p>
+                            <p class="c17 c10"><span class="c11">{{ $data->result }}</span></p>
                         </td>
                         <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mmol/l</span></p>
+                            <p class="c1"><span class="c0">{{ $data->unit }}</span></p>
                         </td>
                         <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">3.5 &ndash; 5.5 </span></p>
+                            <p class="c1"><span class="c0">{{ $data->reference_value }}</span></p>
                         </td>
                     </tr>
 
@@ -1540,20 +1552,21 @@
                 <div style="display: flex;justify-content: space-between; margin-top: 60pt;">
                     <div>
                         <p class="c4"><span class="c13">Prepared by</span></p>
-                        <p class="c4"><span class="c13">Medical Technologist</span></p>
+                        <p class="c4"><span class="c13">{{ auth('admin')->user()->name }}</span></p>
                         <p class="c4 c10"><span class="c13"></span></p>
                     </div>
                     <div>
                         <p class="c4"><span class="c13">Check by</span></p>
-                        <p class="c4"><span class="c13">Lab In-charge</span></p>
+                        <p class="c4"><span class="c13"></span></p>
                     </div>
                     <div>
                         <h5 style="margin-bottom: 4px; margin: 0; padding: 0; font-weight: bold;">
-                            PROF.DR. MD. SAIDUR RAHMAN
+                            {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
+
                         </h5>
-                        <p><small>MBBS, DCP (MSMMU) M ,Phil (Path)</small></p>
-                        <p><small>Professor of Pathology</small></p>
-                        <p><small>Bangladesh Medical College</small></p>
+                        <p><small>{{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }}</small></p>
+                        {{-- <p><small>Professor of Pathology</small></p>
+                        <p><small>Bangladesh Medical College</small></p> --}}
                     </div>
                 </div>
             </div>
@@ -1563,6 +1576,6 @@
 </body>
 
 </html>
-<script>
+{{-- <script>
     window.print();
-</script>
+</script> --}}
