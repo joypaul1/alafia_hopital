@@ -292,7 +292,7 @@
 
         <footer>
             <div class="pt-5" style="padding:0 0.5in;">
-                <div class="col-6 p-0 ml-auto">
+                <div class="col-4 p-0 ml-auto">
                     <div class="d-flex">
                         <p>
                             <Strong>
@@ -302,7 +302,7 @@
                         <p class="text-center" style="border-bottom: 2px dashed #727272; width: 100%;">
                         </p>
                     </div>
-                    <div class="text-center">
+                    <div class="text-right">
                         Prepared By : {{ auth('admin')->user()->name }}
                     </div>
                 </div>
