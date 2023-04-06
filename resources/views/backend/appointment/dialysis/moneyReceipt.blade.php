@@ -255,7 +255,7 @@
             </div>
 
             <p class="text-center">
-                <i style="color: #727272;">
+                <i style="color: #000;">
                     <small style="text-transform:capitalize;">
                         Received with thanks : {!! Helper::wordConvertor(round($appointment->fee),)!!} Taka Only
                     </small>
