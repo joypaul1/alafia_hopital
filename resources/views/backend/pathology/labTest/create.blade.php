@@ -224,7 +224,8 @@
             },
 
             select: function(event, ui) {
-                $('#testItem').val(ui.item.value);
+                event.preventDefault();
+                console.log($(this).val(null));
                 // labTest data append in table
                 let row = `<tr>
                             <td>
