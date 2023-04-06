@@ -14,7 +14,7 @@
 <div class="card">
     <div class="body">
         <h5 class="mb-3">
-            <i class="fa fa-flask"></i> Serology Report
+            <i class="fa fa-flask"></i> Serology Reports
         </h5>
         <div class="row mb-2 align-items-center">
             <div class="col-3">
@@ -64,7 +64,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'N/A'
                 ])
@@ -89,7 +89,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'N/A'
                 ])
@@ -114,7 +114,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'N/A'
                 ])
@@ -139,7 +139,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'N/A'
                 ])
@@ -164,7 +164,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'mg/L'
                 ])
@@ -189,7 +189,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'IU/mL'
                 ])
@@ -214,7 +214,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'N/A'
                 ])
@@ -239,7 +239,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'N/A'
                 ])
@@ -264,7 +264,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'N/A'
                 ])
@@ -289,7 +289,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'N/A'
                 ])
@@ -314,7 +314,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'N/A'
                 ])
@@ -344,7 +344,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'N/A'
                 ])
@@ -370,7 +370,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'N/A'
                 ])
@@ -395,7 +395,7 @@
             <div class="col-3">
                 @include('components.backend.forms.select2.option2', [
                 'name' => 'unit[]',
-                'optionDatas' => $units,
+                'optionData' => $units,
                 'required' => true,
                 'selectedKey' => 'N/A'
                 ])
