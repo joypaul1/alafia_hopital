@@ -14,13 +14,23 @@ class LabTestResultController extends Controller
 {
     public function create(Request $request)
     {
+        $units = (object)[
+            ['id' => 'mg/dl', 'name' => 'mg/dl'],
+            ['id' => 'mmol/l', 'name' => 'mmol/l'],
+            ['id' => 'Nil', 'name' => 'Nil'],
+            ['id' => 'µg/dl' , 'name' => 'µg/dl' ],
+            ['id' => 'U/L' , 'name' => 'U/L' ],
+            ['id' => 'g/dl' , 'name' => 'g/dl' ],
+            ['id' => 'mmol/l' , 'name' => 'mmol/l' ],
+            ['id' => '%' , 'name' => '%' ],
+        ];
         $data = $request->all();
         $labTest = LabTest::whereId($request->labTest_id)->first();
         if($labTest->category == 'Biochemistry' && $labTest->name != 'CBC'){
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
         }
         if ($labTest->category == 'Biochemistry' && $labTest->name == 'CBC') {
-            return view('backend.pathology.makeResult.cbc', compact('data', 'labTest'));
+            return view('backend.pathology.makeResult.cbc', compact('data', 'labTest', 'units'));
         }
         if($labTest->category == 'Hematology' ){
             return view('backend.pathology.makeResult.hematology', compact('data', 'labTest'));

@@ -28,5 +28,6 @@ Route::get('/reportDesign', function () {
         ['id' => '%' , 'name' => '%' ],
     ];
     // return view('backend.dashboard.lab-report', compact('units'));
-    return view('backend.dashboard.lab-report(Serology)', compact('units'));
+    // return view('backend.dashboard.lab-report(Serology)', compact('units'));
+    return view('backend.dashboard.lab-report(Biochemistry)', compact('units'));
 });

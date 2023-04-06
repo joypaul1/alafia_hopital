@@ -1483,10 +1483,10 @@
                         </td>
                         <td class="c57" colspan="4" rowspan="1">
                             <p class="c23 c10"><span class="c13">
-{{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
-   ( {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }})
-
-</span></p>
+                                {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
+                                ( {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }})
+                                </span>
+                            </p>
 
                         </td>
                     </tr>

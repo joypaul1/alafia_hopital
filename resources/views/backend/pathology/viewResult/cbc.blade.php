@@ -1406,18 +1406,23 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c45" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">12.00am 31-01-2023</span></p>
+                            <p class="c23"><span class="c0">{{ date('dm-Y H:i', strtotime(optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->date)) }}</span></p>
                         </td>
                     </tr>
                     <tr class="c5">
                         <td class="c32" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c11">Name of Patient</span></p>
+                            <p class="c23"><span class="c11">Patient</span></p>
                         </td>
                         <td class="c12" colspan="1" rowspan="1">
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
+                        @php
+                        $bday = new DateTime(optional($labTestReport->patient)->dob); // Your date of birth
+                        $today = new Datetime(date('m.d.y'));
+                        $diff = $today->diff($bday);
+                        @endphp
                         <td class="c36" colspan="1" rowspan="1">
-                            <p class="c23 c10"><span class="c13">Nabila Yeasmin</span></p>
+                            <p class="c23 c10"><span class="c13">{{ $labTestReport->patient->name }}</span></p>
                         </td>
                         <td class="c42" colspan="1" rowspan="1">
                             <p class="c50"><span class="c11">Prepare &nbsp;Time</span></p>
@@ -1426,7 +1431,7 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c15" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">12.40am 31-01-2023</span></p>
+                            <p class="c23"><span class="c0">{{ date('d-m-Y H:i', strtotime($labTestReport->created_at)) }}</span></p>
                         </td>
                     </tr>
                     <tr class="c5">
@@ -1437,7 +1442,7 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c36" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">26 Years</span></p>
+                            <p class="c23"><span class="c0"> {{ $diff->y }} Years {{ $diff->m }} Months {{ $diff->d }}</span></p>
                         </td>
                         <td class="c42" colspan="1" rowspan="1">
                             <p class="c50"><span class="c11">Print Time </span></p>
@@ -1446,7 +1451,7 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c15" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">01.12pm 12-02-2023</span></p>
+                            <p class="c23"><span class="c0">{{ date_format(now(),"d-m-Y H:i") }}</span></p>
                         </td>
                     </tr>
                     <tr class="c5">
@@ -1457,7 +1462,7 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c36" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">Male / Female</span></p>
+                            <p class="c23"><span class="c0">{{ optional($labTestReport->patient)->gender }}</span></p>
                         </td>
                         <td class="c42" colspan="1" rowspan="1">
                             <p class="c50"><span class="c11">Specimen</span></p>
@@ -1478,7 +1483,11 @@
                         </td>
                         <td class="c57" colspan="4" rowspan="1">
                             <p class="c23 c10"><span class="c13">
-                            </span></p>
+                                {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
+                                ( {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }})
+                                </span>
+                            </p>
+
                         </td>
                     </tr>
                 </table>
@@ -1516,319 +1525,27 @@
                             <p class="c4 c10"><span class="c0"></span></p>
                         </td>
                     </tr>
-                    <tr class="c5">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Fasting Blood Sugar (FBS)</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11">4.6</span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mmol/l</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">3.5 &ndash; 5.5 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">CUS</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11">Nil</span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1 c10"><span class="c0"></span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Nil</span></p>
-                        </td>
-                    </tr>
-                    <tr class="c67">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c29 c24">Blood Glucose 2 &nbsp;Hrs. AFB</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11">5.4</span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mmol/l</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">&lt; 7.8 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">CUS</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11">Nil</span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1 c10"><span class="c0"></span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Nil</span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Blood Glucose 2 Hrs. After 75gm Glucose</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11">5.5</span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mmol/l</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">&lt; 7.8</span></p>
-                        </td>
-                    </tr>
-                    <tr class="c53">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Random Blood Sugar (RBS)</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11">4.6</span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mmol/l</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">&lt; 7.8 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">S. Urea</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mg/dl</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">15 &ndash; 40 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">S. BUN</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mg/dl</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">7 &ndash; 23 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">S. Creatinine</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mg/dl</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">0.7 &ndash; 1.3 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c37">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">S. Iron</span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">&micro;g/dl</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c31 c20">Male:49-181</span></p>
-                            <p class="c4"><span class="c20 c31">Female: 37-170</span></p>
-                            <p class="c4"><span class="c31 c20">Child: 50-120</span></p>
-                            <p class="c1"><span class="c20 c71">Newborn: 100-250</span></p>
-                        </td>
-                    </tr>
-                    <tr class="c60">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">S. T.I.B.C</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">&micro;g/dl</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c20 c24">255-450</span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">S. Bilirubin ( Total )</span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mg/dl</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c0">Adult: 0.3-12 </span></p>
-                            <p class="c4"><span class="c0">New born: 0.5 &ndash; 10 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">S. Bilirubin ( Direct )</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mg/dl</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Up to 0.25 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c67">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">S. Bilirubin ( Indirect )</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mg/dl</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Up to 12 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c60">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">SGOT ( AST )</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">U/L</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Up to 35 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">SGPT ( ALT )</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">U/L</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Up to 40 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Alkaline Phosphates</span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">U/L</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c13">Children: (1-14 Yrs) up to 645</span></p>
-                            <p class="c4"><span class="c20">Adult : &nbsp;98 - 279 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">S. Albumin</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">g/dl</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">3.5 &ndash; 4.0 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">S. Protein ( Total )</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mg/dl</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">63-82 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Globulin</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mg/dl</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">16-35 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">A/G Ratio</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1 c10"><span class="c0"></span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">1.2:1 &ndash; 2.5:1</span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">S. Lipase</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">U/L</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">&lt; 60 </span></p>
-                        </td>
-                    </tr>
+                    @php
+                        $data = json_decode($labTestReport->result);
+                        // dd($data);
+                    @endphp
+                    @foreach ($collection as $item)
+                        <tr class="c5">
+                            <td class="c14" colspan="1" rowspan="1">
+                                <p class="c1"><span class="c0">Fasting Blood Sugar (FBS)</span></p>
+                            </td>
+                            <td class="c27" colspan="1" rowspan="1">
+                                <p class="c17 c10"><span class="c11">4.6</span></p>
+                            </td>
+                            <td class="c6" colspan="1" rowspan="1">
+                                <p class="c1"><span class="c0">mmol/l</span></p>
+                            </td>
+                            <td class="c2" colspan="1" rowspan="1">
+                                <p class="c1"><span class="c0">3.5 – 5.5 </span></p>
+                            </td>
+                        </tr>
+                    @endforeach
+
                 </table>
             </div>
         </div>
