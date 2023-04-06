@@ -69,9 +69,9 @@
                 </div>
                 <div class="col-4">
                     <textarea class="form-control" name="referance[]" id="" rows="1">Adult:4,000-11,000
-Infant: 6,000-18,000
-Child: 5,000-15,000
-At Birth: 10,000-25,000</textarea>
+                    Infant: 6,000-18,000
+                    Child: 5,000-15,000
+                    At Birth: 10,000-25,000</textarea>
                 </div>
             </div>
 
