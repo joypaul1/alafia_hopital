@@ -211,7 +211,7 @@
                         var resArray = $.map(res.data, function(obj) {
                             return {
                                 tube: obj.tube, //Fillable in input field
-                                value: obj.name, //Fillable in input field
+                                value: null, //Fillable in input field
                                 category: obj.category, //Fillable in input field
                                 price: obj.price, //Fillable in input field
                                 label: obj.name,
@@ -224,6 +224,7 @@
             },
 
             select: function(event, ui) {
+                $('#testItem').val(ui.item.value);
                 // labTest data append in table
                 let row = `<tr>
                             <td>
