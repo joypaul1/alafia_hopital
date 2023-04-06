@@ -132,7 +132,7 @@
                             </div>
                             <div class="col-4">
                                 @include('components.backend.forms.select2.option', [
-                                'label' => 'Reffered By',
+                                'label' => 'Referred By',
                                 'name' => 'doctor_id',
                                 'optionData' => $doctors,
                                 ])
