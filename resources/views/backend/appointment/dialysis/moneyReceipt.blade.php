@@ -154,9 +154,9 @@
                     <tr>
                         <td colspan="3">
                             <Strong>
-                                Consultant By
+                                Referred By
                             </Strong>
-                            {{-- : {{ optional($appointment->doctor)->name}} {{ optional(optional($appointment->doctor)->designation)->name??' '}} --}}
+                            : {{ optional($appointment->doctor)->first_name.' '. optional($appointment->doctor)->last_name}} ({{ optional(optional($appointment->doctor)->designation)->name??' '}})
                             {{-- : {{ optional($appointment->asignEmp)->name}} {{ optional(optional($appointment->asignEmp)->designation)->name??' '}} --}}
                         </td>
                     </tr>

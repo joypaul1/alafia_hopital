@@ -11,6 +11,7 @@ use App\Http\Requests\Appointment\Dialysis\StoreRequest;
 use App\Http\Requests\Appointment\Dialysis\UpdateRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment\DialysisAppointment;
+use App\Models\Doctor\Doctor;
 use App\Models\Employee\Employee;
 use App\Models\Service\ServiceInvoice;
 
@@ -51,6 +52,11 @@ class DialysisAppointmentController extends Controller
         ];
 
         $employees = Employee::select('id', 'name')->get();
+        $doctors = Doctor::select('id', 'first_name', 'last_name')->get()->map(function($query){
+            $data['id'] = $query->id;
+            $data['name'] = $query->first_name.' '.$query->last_name;
+            return $data;
+        });
 
         $paymentSystems = PaymentSystem::select('id', 'name')->get();
 
@@ -65,7 +71,7 @@ class DialysisAppointmentController extends Controller
             ['name' => '6pm-10pm', 'id' => '6pm-10pm'],
         ];
 
-        $appointmentDatas = Appointment::with('patient', 'doctor')->latest()->get();
+        $appointmentDatas = DialysisAppointment::with('patient', 'doctor')->latest()->get();
         return view('backend.appointment.dialysis.index',compact(
                 'blood_group',
                 'genders',
@@ -75,7 +81,8 @@ class DialysisAppointmentController extends Controller
                 'appointment_priority',
                 'employees',
                 'paymentSystems',
-                'appointment_schedule'
+                'appointment_schedule',
+                'doctors'
             )
         );
     }
@@ -112,16 +119,9 @@ class DialysisAppointmentController extends Controller
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('Appointment Created');
             return redirect()->route('backend.dialysis-appointment.show', $returnData->getData()->data);
-            // $this->moneyReceipt($returnData->getData()->data);
-            // return back()->with('success', $returnData->getData()->msg);
-            // return redirect()->to('admin/appointment/money-receipt',  $returnData->getData()->data);
-            // return redirect(route("backend.appointment.moneyReceipt")."?id=".$returnData->getData()->data);
-            // return redirect()->route('admin/appointment/money-receipt',  $returnData->getData()->data);
-            // ->with('success', $returnData->getData()->msg);
-            // return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
+
         }
         return back()->with('error', $returnData->getData()->msg);
-        // return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
     }
 
 

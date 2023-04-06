@@ -60,7 +60,8 @@ class StoreRequest extends FormRequest
             $data = $this->all();
             $data['invoice_number'] = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
             $data['patient_id'] = $this->patient_Id;
-            $data['emoloyee_id'] = $this->emoloyee_id;
+            $data['employee_id'] = $this->employee_id;
+            $data['doctor_id'] = $this->doctor_id;
             $data['fee'] = $this->fee;
             $data['appointment_date'] = $this->appointment_date . ' ' . date("h:i:s");
             $data['appointment_priority'] = "Normal";

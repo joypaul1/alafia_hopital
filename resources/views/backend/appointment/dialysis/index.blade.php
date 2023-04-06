@@ -38,6 +38,7 @@
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Doctor Fee</th>
                                 <th class="text-center">Payment Method</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
 
@@ -52,7 +53,11 @@
                                 <td>{{ ($appointmentData->appointment_status) }}</td>
                                 <td>{{ number_format($appointmentData->doctor_fee, 2) }}</td>
                                 <td>{{ ($appointmentData->paymentHistories()->pluck('payment_method')) }}</td>
-
+                                <td>
+                                    <a href="{{ route('backend.dialysis-appointment.show', $appointmentData->id) }}">
+                                        <button class="btn btn-md btn-info">View</button>
+                                    </a>
+                                </td>
                             </tr>
                             @endforeach
 
@@ -123,6 +128,13 @@
                                 'name' => 'schedule',
                                 'optionData' => $appointment_schedule,
                                 'required' => true
+                                ])
+                            </div>
+                            <div class="col-4">
+                                @include('components.backend.forms.select2.option', [
+                                'label' => 'Reffered By',
+                                'name' => 'doctor_id',
+                                'optionData' => $doctors,
                                 ])
                             </div>
                             <div class="col-4">
