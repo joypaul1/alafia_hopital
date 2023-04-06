@@ -16,6 +16,17 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/',[LoginController::class, 'showLoginForm'])->name('home');
-Route::get('/welcome', function () {
-    return view('welcome');
+Route::get('/reportDesign', function () {
+    $units = (object)[
+        ['id' => 'mg/dl', 'name' => 'mg/dl'],
+        ['id' => 'mmol/l', 'name' => 'mmol/l'],
+        ['id' => 'Nil', 'name' => 'Nil'],
+        ['id' => 'µg/dl' , 'name' => 'µg/dl' ],
+        ['id' => 'U/L' , 'name' => 'U/L' ],
+        ['id' => 'g/dl' , 'name' => 'g/dl' ],
+        ['id' => 'mmol/l' , 'name' => 'mmol/l' ],
+        ['id' => '%' , 'name' => '%' ],
+    ];
+    return view('backend.dashboard.lab-report', compact('units'));
+    return view('backend.dashboard.lab-report(Serology)', compact('units'));
 });
