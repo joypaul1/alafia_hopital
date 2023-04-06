@@ -20,7 +20,7 @@
         <div class="card">
             <div class="body">
                 <h5 class="text-center mb-3">
-                    <i class="fa fa-flask"></i> Hematology Report
+                    <i class="fa fa-flask"></i> Biochemistry Report
                 </h5>
                 <div class="row mb-2 align-items-center">
                     <div class="col-4">

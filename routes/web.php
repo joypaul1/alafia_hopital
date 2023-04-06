@@ -27,6 +27,6 @@ Route::get('/reportDesign', function () {
         ['id' => 'mmol/l' , 'name' => 'mmol/l' ],
         ['id' => '%' , 'name' => '%' ],
     ];
-    return view('backend.dashboard.lab-report', compact('units'));
+    // return view('backend.dashboard.lab-report', compact('units'));
     return view('backend.dashboard.lab-report(Serology)', compact('units'));
 });
