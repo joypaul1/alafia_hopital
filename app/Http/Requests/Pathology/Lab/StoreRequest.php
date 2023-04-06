@@ -104,6 +104,7 @@ class StoreRequest extends FormRequest
                 //end delivery time set
 
                 $labInvoice->labTestDetails()->create([
+                    'status' => 'pending',
                     'lab_test_id' => $labTest->id,
                     'price' => $this->test_price[$key],
                     'delivery_time' => $deliveryTime,

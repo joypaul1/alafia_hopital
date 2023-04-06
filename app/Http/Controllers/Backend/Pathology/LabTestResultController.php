@@ -15,12 +15,14 @@ class LabTestResultController extends Controller
     public function create(Request $request)
     {
         $data = $request->all();
-
         $labTest = LabTest::whereId($request->labTest_id)->first();
-        if ($labTest->name == 'CBC') {
+        if($labTest->category == 'Biochemistry' && $labTest->name != 'CBC'){
+            return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
+        }
+        if ($labTest->category == 'Biochemistry' && $labTest->name == 'CBC') {
             return view('backend.pathology.makeResult.cbc', compact('data', 'labTest'));
         }
-        return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
+
     }
 
 
@@ -28,39 +30,35 @@ class LabTestResultController extends Controller
     {
         try {
             DB::beginTransaction();
-            $data['lab_test_id']                    = $request->test_id;
-            $data['lab_invoice_test_detail_id']     = $request->lab_invoice_test_detail_id;
-            $data['created_by']                     = auth('admin')->user()->id;
-            $data['created_date']                   = date('Y-m-d h:i:s');
-            $data['patient_id']                     = LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->with('labInvoice.patient')->first()->labInvoice->patient->id;
-            $labTestReport                          = LabTestReport::create($data);
-            dd($labTestReport);
-            foreach ($request->name as $key => $NameValue) {
-                $labTestReport->details()->create([
-                    'name'          => $NameValue,
-                    'result'        => $request->result[$key],
-                    'reference'     => $request->reference[$key]
-                ]);
+            $testName = LabTest::whereId($request->test_id)->first();
+            if($testName->category == 'Biochemistry'){
+                $data['lab_test_id']                    = $request->test_id;
+                $data['lab_invoice_test_detail_id']     = $request->lab_invoice_test_detail_id;
+                $data['created_by']                     = auth('admin')->user()->id;
+                $data['created_date']                   = date('Y-m-d h:i:s');
+                $data['patient_id']                     = LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->with('labInvoice.patient')->first()->labInvoice->patient->id;
+                $data ['result']                        = json_encode($request->except('_token', '_method','lab_invoice_test_detail_id','test_id'));
+                $labTestReport                          = LabTestReport::create($data);
+                LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
+                if ($testName == 'CBC') {
+                    // return view('backend.pathology.viewResult.cbc', compact('labTestReport'));
+                    return redirect()->route('backend.pathology.make-test-result-show', $labTestReport->id);
+                }
+                // return view('backend.pathology.viewResult.show', compact('labTestReport'));
+                return redirect()->route('backend.pathology.make-test-result-show', $labTestReport->id);
             }
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollback();
             dd($ex->getMessage());
         }
-          $testName = LabTest::whereId($request->test_id)->first()->name;
-        if ($testName == 'CBC') {
-            return view('backend.pathology.viewResult.cbc', compact('labTestReport'));
 
-            // ->with('success', 'Test Result Added Successfully');
-        }
 
-        return view('backend.pathology.viewResult.show', compact('labTestReport'));
     }
-
 
     public function show($id)
     {
-        $LabTestReport = LabTestReport::whereId($id)->first();
+        return $LabTestReport = LabTestReport::whereId($id)->with('details', 'patient')->first();
         return view('backend.pathology.viewResult.show', compact('LabTestReport'));
     }
 }
