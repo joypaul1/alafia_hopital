@@ -246,10 +246,6 @@ class Create extends Component
 
     public function serviceCharge()
     {
-
-        // if(!$this->service_charge){
-        //     $this->cartServiceCharge=0;
-        // }
         $this->cartCalculation();
     }
 }

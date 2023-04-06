@@ -102,7 +102,6 @@
                             <div class="d-flex justify-content-center align-items-center">
                                 <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# DIA-' . $serviceInvoice->invoice_no . ' PID-' . optional($serviceInvoice->patient)->patientId, 'QRCODE') }}"
                                     alt="barcode" style="width: 100px;" />
-                                {{-- <img src="{{ asset("assets/moneyReceipt/code.png") }}" style="width: 100px;" alt=""> --}}
                             </div>
                         </td>
                         <td style="text-align: right; width: 40%">
@@ -224,7 +223,7 @@
                                     Bill Amount
                                 </td>
                                 <td class="text-right">
-                                    {{ number_format($serviceInvoice->fee, 2) }}
+                                    {{ number_format($serviceInvoice->total, 2) }}
                                 </td>
                             </tr>
                             <tr>
