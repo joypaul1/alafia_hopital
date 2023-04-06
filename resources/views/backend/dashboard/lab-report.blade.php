@@ -2,152 +2,1144 @@
 @push('css')
 @endpush
 @section('page-header')
-    <i class="fa fa-plus-circle"></i> Lab Report
+<i class="fa fa-plus-circle"></i> Lab Report
 @stop
 
 @section('content')
-    @include('backend._partials.page_header', [
-        'fa' => 'fa fa-list',
-        'name' => 'Report Pages',
-        'route' => route('backend.siteConfig.slider.index'),
-    ])
-    <div class="card">
-        <div class="body">
-            <h5 class="mb-3">
-                <i class="fa fa-flask"></i> Hematology Report
-            </h5>
-            <div class="row mb-2 align-items-center">
-                <div class="col-4">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'name[]',
-                        'value' => 'Hemoglobin (Hb)',
-                    ])
-                </div>
-                <div class="col-4">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-4">
-                    <textarea class="form-control" name="referance[]" id="" rows="1">Male: 13-17
-                    Female: 12.0-16.5
-                    1 Month: 11-17, 2-6 Month:9.5-13.5
-                    2-6 Years: 11-14, 6-12
-                    Years:11.5-15.5</textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-4">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'name[]',
-                        'value' => 'ESR (Westergreen)',
-                    ])
-                </div>
-                <div class="col-4">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-4">
-                    <textarea class="form-control" name="referance[]" id="" rows="1">Male: 0.10, Female: 0.20</textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-4">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'name[]',
-                        'value' => 'Total WBC Count (TC)',
-                    ])
-                </div>
-                <div class="col-4">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-4">
-                    <textarea class="form-control" name="referance[]" id="" rows="1">Adult:4,000-11,000
-Infant: 6,000-18,000
-Child: 5,000-15,000
-At Birth: 10,000-25,000</textarea>
-                </div>
-            </div>
+@include('backend._partials.page_header', [
+'fa' => 'fa fa-list',
+'name' => 'Report Pages',
+'route' => route('backend.siteConfig.slider.index'),
+])
+<div class="card">
+    <div class="body">
+        <h5 class="mb-3">
+            <i class="fa fa-flask"></i> Culture of Blood
+        </h5>
 
-            <h6 class="my-2">
-                Diﬀerential WBC Count (DC)
-            </h6>
-            <div class="row mb-2 align-items-center">
-                <div class="col-4">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'name[]',
-                        'value' => 'Neutrophils',
-                    ])
-                </div>
-                <div class="col-4">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-4">
-                    <textarea class="form-control" name="referance[]" id="" rows="1">Adult:40-75 ,Child:20-50</textarea>
-                </div>
+        <p class="text-center"> S=Sensitive, R=Resistant, I=Intermediate Sensitive</p>
+
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Amikacin',
+                ])
             </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-4">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'name[]',
-                        'value' => 'Lymphocytes',
-                    ])
-                </div>
-                <div class="col-4">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-4">
-                    <textarea class="form-control" name="referance[]" id="" rows="1">Adult:20-50 ,Child:40-75</textarea>
-                </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
             </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-4">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'name[]',
-                        'value' => 'Monocytes',
-                    ])
-                </div>
-                <div class="col-4">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-4">
-                    <textarea class="form-control" name="referance[]" id="" rows="1">2-10</textarea>
-                </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
             </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-4">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'name[]',
-                        'value' => 'Eosinophils',
-                    ])
-                </div>
-                <div class="col-4">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-4">
-                    <textarea class="form-control" name="referance[]" id="" rows="1">2-6</textarea>
-                </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
             </div>
         </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Amoxyclav',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Amoxycillin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Ampicillin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Aztreonam',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Azithromycin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Cefepime',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Cefixime',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Cefotaxime',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Cefpirome',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Ceftazidime',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Cefuroxime',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Ceftriaxone',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Cephalexin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Cephradine',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Chloramphenicol',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Ciprofloxacin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Cloxacillin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Levofloxacin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Clindamycin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Cotrimoxazole',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Colistin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Doxycycline',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Erythromycin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Nalidexic acid',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Gatifloxacin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Gentamycin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Imipenem',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Mecillinum',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Meropenem',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Neomycin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Netilmicin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Nitrofurantoin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Tazobacpiperacillin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Penicillin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Linezolid',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Tetracycline',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Tigecycline',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Fusidic acid',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Cefoxitin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Cefaclor',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Ceftibuten',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+        <div class="row mb-2 align-items-center">
+            <div class="col-6">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'name[]',
+                'value' => 'Vancomycin',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'a[]',
+                'placeholder' => 'Enter result A',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'b[]',
+                'placeholder' => 'Enter result B',
+                ])
+            </div>
+            <div class="col-2">
+                @include('components.backend.forms.input.input-type2', [
+                'name' => 'c[]',
+                'placeholder' => 'Enter result C',
+                ])
+            </div>
+        </div>
+
     </div>
+</div>
 
 
 
