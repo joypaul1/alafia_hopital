@@ -80,11 +80,12 @@ class StoreRequest extends FormRequest
             // hasMany labTest data insert
             foreach ($this->labTest_id as $key => $labTest) {
                 $labTest = LabTest::whereId($labTest)->first();
+                // dd($labTest);
                 //delivery time set
                 if ($labTest->time_type == "day") {
                     //carbon add day
                     $finalTime = (Carbon::parse($this->date . date('h:i a'))->addDays($labTest->time)->format('Y-m-d h:i a'));
-                    $checkTime = (Carbon::parse($this->date . date('H:i a'))->addDays($labTest->time)->format('H:i a'));
+                    $checkTime = (Carbon::parse($this->date . date('h:i a'))->addDays($labTest->time)->format('h:i a'));
                     if ($checkTime >= "8:00" && $checkTime <= "18:00") {
                         $deliveryTime = $finalTime;
                     } else {
@@ -94,7 +95,8 @@ class StoreRequest extends FormRequest
                 if ($labTest->time_type == "hour") {
                     //carbon add time
                     $finalTime = (Carbon::parse($this->date . date('h:i a'))->addHours($labTest->time)->format('Y-m-d h:i a'));
-                    $checkTime = (Carbon::parse($this->date . date('H:i a'))->addHours($labTest->time)->format('H:i a'));
+                    // dd($finalTime);
+                    $checkTime = (Carbon::parse($this->date . date('h:i a'))->addHours($labTest->time)->format('h:i a'));
                     if ($checkTime >= "8:00" && $checkTime <= "18:00") {
                         $deliveryTime = $finalTime;
                     } else {
@@ -102,7 +104,7 @@ class StoreRequest extends FormRequest
                     }
                 }
                 //end delivery time set
-
+                // dd($deliveryTime);
                 $labInvoice->labTestDetails()->create([
                     'status' => 'pending',
                     'lab_test_id' => $labTest->id,
@@ -174,6 +176,7 @@ class StoreRequest extends FormRequest
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
+            dd($e->getMessage(), $e->getLine());
             return response()->json(['msg' => $e->getMessage(), $e->getLine(), 'status' => false], 400);
         }
         return response()->json(['data' => $labInvoice->id, 'status' => true], 200);
