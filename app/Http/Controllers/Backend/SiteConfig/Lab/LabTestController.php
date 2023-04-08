@@ -86,8 +86,16 @@ class LabTestController extends Controller
      */
     public function create()
     {
+        $department= (object)[
+            ['name' => 'Hematology', 'id' => 'Hematology'],
+            ['name' => 'Biochemistry', 'id' => 'Biochemistry'],
+            ['name' => 'Serology', 'id' => 'Serology'],
+            ['name' => 'Urine', 'id' => 'Urine'],
+            ['name' => 'Blood', 'id' => 'Blood'],
+            ['name' => 'Micro Biology', 'id' => 'Micro Biology'],
+        ];
         $labTestTube = LabTestTube::select(['id', 'name'])->get();
-        return view('backend.siteConfig.labTest.create', compact('labTestTube'));
+        return view('backend.siteConfig.labTest.create', compact('labTestTube', 'department'));
     }
 
     /**
@@ -98,12 +106,14 @@ class LabTestController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $returnData = $request->storeData($request);
+         $returnData = $request->storeData($request);
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('LabTest Created');
-            return response()->json(['success' => $returnData->getData()->msg, 'status' => true], 200);
+            return redirect()->route('backend.siteConfig.labTest.index')->with('success', $returnData->getData()->msg);
+            // return response()->json(['success' => $returnData->getData()->msg, 'status' => true], 200);
         }
-        return response()->json(['error' => $returnData->getData()->msg, 'status' => false], 400);
+        return redirect()->back()->with('error', $returnData->getData()->msg);
+        // return response()->json(['error' => $returnData->getData()->msg, 'status' => false], 400);
     }
 
     /**

@@ -232,8 +232,31 @@
                     $(modal).find('.modal-dialog').html(response); // Add response in Modal body
                 }
             });
+        });
+
+        $(document).on('change', 'discount_type', function(){
+            discountCal();
+        });
+
+        //discount calculation depend on discount type
+        $(document).on('keyup', '#discount', function(){
+            discountCal();
         })
 
+        function  discountCal(){
+            var discount_type = $('#discount_type').val();
+            var discount = $('#discount').val();
+            var doctor_fee = $('#doctor_fee').val();
+            var total = $('#total').val();
+            if(discount_type == 'percentage'){
+                var discount_amount = (doctor_fee * discount) / 100;
+                var total = doctor_fee - discount_amount;
+                $('#payable_amount').val(total);
+            }else{
+                var total = doctor_fee - discount;
+                $('#payable_amount').val(total);
+            }
+        }
 
         // appointment_modal
         $('#create_data').click(function(e) {
@@ -270,6 +293,8 @@
                 dataType: "json",
                 success: function(response) {
                     $('.appointment_modal #appointment_add_form .modal-body .col-4 #doctor_fees').val(Number(response).toFixed(2));
+                    $('.appointment_modal #appointment_add_form .modal-body .col-4 #subtotal').val(Number(response).toFixed(2));
+                    $('.appointment_modal #appointment_add_form .modal-body .col-4 #payable_amount').val(Number(response).toFixed(2));
                 }
             });
         }

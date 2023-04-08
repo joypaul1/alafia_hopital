@@ -44,6 +44,7 @@
                             'label' => 'doctor',
                             'name' => 'doctorID',
                             'optionData' => $doctors,
+                            'required' => true,
                         ])
                     </div>
                     <div class="col-4">
@@ -90,8 +91,57 @@
                             'selectedKey' => 'approved',
                         ])
                     </div>
-                </div>
+                    <div class="col-4">
+                        @include('components.backend.forms.input.input-type', [
+                            'name' => 'subtotal',
+                            'readonly' => 'true',
+                        ])
+                    </div>
+                    <div class="col-4">
+                        @include('components.backend.forms.select2.option', [
+                            'name' => 'discount_type',
+                            'optionData' => $discountType,
+                            // 'selectedKey' => 'discount',
+                            // 'selectedKey' => 'approved',
+                        ])
+                    </div>
+                    <div class="col-4">
+                        @include('components.backend.forms.input.input-type', [
+                            'name' => 'discount',
+                            // 'readonly' => 'true',
+                            'value' => 0,
+                        ])
+                    </div>
+                    <div class="col-4">
+                        @include('components.backend.forms.input.input-type', [
+                            'name' => 'discount_amount',
+                            // 'readonly' => 'true',
+                            'value' => 0.00,
+                        ])
+                    </div>
 
+                    <div class="col-4">
+                        @include('components.backend.forms.input.input-type', [
+                            'name' => 'payable_amount',
+                            'readonly' => 'true',
+                            'value' => 0.00,
+                        ])
+                    </div>
+
+                    <div class="col-4">
+                        @include('components.backend.forms.input.input-type', [
+                            'name' => 'paid_amount',
+                            'value' => 0.00,
+                        ])
+                    </div>
+                    <div class="col-4">
+                        @include('components.backend.forms.input.input-type', [
+                            'name' => 'due_amount',
+                            'readonly' => true,
+                            'value' => 0.00,
+                        ])
+                    </div>
+                </div>
 
             </div>
         </div>
