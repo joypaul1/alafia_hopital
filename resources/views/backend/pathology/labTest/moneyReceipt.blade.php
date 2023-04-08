@@ -299,7 +299,7 @@
                 </tbody>
             </table>
 
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-6">
                     <div class="d-flex justify-content-center align-items-center h-100">
                         <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;" class="h2 px-4 py-2">
@@ -358,7 +358,7 @@
                         </tfoot>
                     </table>
                 </div>
-            </div>
+            </div> --}}
 
             <p class="text-center">
                 <i style="color: #000;">
