@@ -6,10 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receipt</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         p {
             margin: 0;
@@ -79,6 +78,7 @@
                 margin: 0 auto;
             }
         }
+
     </style>
 </head>
 
@@ -92,7 +92,7 @@
                 </span>
             </div>
 
-            <table class="table table-borderless my-2" style="font-size: 12pt;">
+            <table class="table table-borderless my-2" style="font-size: 14pt;">
                 <tbody>
                     <tr>
                         <td style="width: 40%;">
@@ -103,8 +103,7 @@
                         </td>
                         <td rowspan="4">
                             <div class="d-flex justify-content-center align-items-center">
-                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $labInvoice->invoice_number . ' PID-' . optional($labInvoice->patient)->patientId, 'QRCODE') }}"
-                                    alt="QR Code" style="width: 100px;" />
+                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $labInvoice->invoice_number . ' PID-' . optional($labInvoice->patient)->patientId, 'QRCODE') }}" alt="QR Code" style="width: 100px;" />
                             </div>
                         </td>
                         <td style="text-align: right; width: 40%;">
@@ -120,14 +119,13 @@
                         </td>
                         <td style="text-align: right;">
                             <strong>Sex </strong> :
-                            <span
-                                style="text-transform: capitalize;">{{ optional($labInvoice->patient)->gender }}</span>
+                            <span style="text-transform: capitalize;">{{ optional($labInvoice->patient)->gender }}</span>
                         </td>
                     </tr>
                     @php
-                        $bday = new DateTime(optional($labInvoice->patient)->dob); // Your date of birth
-                        $today = new Datetime(date('m.d.y'));
-                        $diff = $today->diff($bday);
+                    $bday = new DateTime(optional($labInvoice->patient)->dob); // Your date of birth
+                    $today = new Datetime(date('m.d.y'));
+                    $diff = $today->diff($bday);
                     @endphp
                     <tr>
                         <td>
@@ -138,7 +136,7 @@
                         </td>
                         <td style="text-align: right;">
                             <strong>Mobile </strong> :
-                            {{  optional($labInvoice->patient)->mobile}}
+                            {{ optional($labInvoice->patient)->mobile}}
                         </td>
                     </tr>
                     <tr>
@@ -168,78 +166,149 @@
             </table>
 
 
-            <table style="font-size: 12pt;" class="table table-bordered t">
+            <table style="font-size: 14pt;" class="table table-bordered t">
                 <tbody>
-                    <tr class="text-center">
+                    <tr>
                         <th style="width: 50px;">
                             Sl.
                         </th>
                         <th>
-                            Particulars
-                        <th>
-                            Delivery Time
+                            Test Name
                         </th>
                         <th class="text-right" style="width: 120px;">
                             Amount
                         </th>
+                        <th style="width: 120px;" class="text-right">
+                            Discount
+                        </th>
+                        <th>
+                            Delivery Time
+                        </th>
+
                     </tr>
                     @php
-                        $si = 0;
+                    $si = 0;
                     @endphp
 
                     @foreach ($labInvoice->labTestDetails as $labTest)
-                        @php
-                            $si += 1;
-                        @endphp
-                        <tr>
-                            <td>
-                                {{ $si }}
-                            </td>
+                    @php
+                    $si += 1;
+                    @endphp
+                    <tr>
+                        <td>
+                            {{ $si }}
+                        </td>
 
-                            <td>
-                                {{ $labTest->testName->name }}
-                            </td>
-                            <td class="text-center">
-                                {{ date_format(date_create($labTest->delivery_time),('d-m-Y h:i A')) }}
-                            </td>
-                            <td class="text-right">
-                                {{ number_format($labTest->price, 2) }}
-                            </td>
-                        </tr>
+                        <td>
+                            {{ $labTest->testName->name }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ number_format($labTest->price, 2) }}
+                        </td>
+                        <td class="text-right">
+                            00
+                        </td>
+
+                        <td>
+                            {{ date_format(date_create($labTest->delivery_time),('d-m-Y h:i A')) }}
+                        </td>
+                    </tr>
                     @endforeach
 
                     @foreach ($labInvoice->labTestTube as $labTest)
-                        @php
-                            $si += 1;
-                        @endphp
-                        <tr>
-                            <td>
-                                {{ $si }}
-                            </td>
-                            <td colspan="2">
-                                Vacutainer {{ $labTest->tubeName->name }}
-                            </td>
-                            {{-- <td></td> --}}
-                            <td class="text-right">
-                                {{ number_format($labTest->price, 2) }}
-                            </td>
-                        </tr>
+                    @php
+                    $si += 1;
+                    @endphp
+                    <tr>
+                        <td>
+                            {{ $si }}
+                        </td>
+                        <td>
+                            Vacutainer {{ $labTest->tubeName->name }}
+                        </td>
+                        <td class="text-right">
+                            {{ number_format($labTest->price, 2) }}
+                        </td>
+                        <td colspan="2" style="border: none !important;"></td>
+                    </tr>
                     @endforeach
+                    <tr>
+                        <td colspan="5"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            Bill Amount
+                        </td>
+                        <td class="text-right" style="width: 120px;">
+                            {{ number_format($labInvoice->total_amount, 2) }}
+                        </td>
+                        <td rowspan="6" colspan="2" style="vertical-align: middle;">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;" class="h2 px-4 py-2">
+                                    PAID
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            Discount Amount
+                        </td>
+                        <td class="text-right">
+                            0.00
+                        </td>
+                    </tr>
 
+                    <tr>
+                        <td colspan="2">
+                            Payable Amount
+                        </td>
+                        <td class="text-right">
+                            {{ number_format($labInvoice->total_amount, 2) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            Cash Paid
+                        </td>
+                        <td class="text-right">
+                            {{ number_format($labInvoice->total_amount, 2) }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <strong>
+                                Due Amount
+                            </strong>
+                        </td>
+                        <td class="text-right ">
+                            <strong> 0.00 </strong>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            Payment Type
+                        </td>
+                        <td class="text-right">
+                            Cash
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
             <div class="row">
                 <div class="col-6">
                     <div class="d-flex justify-content-center align-items-center h-100">
-                        <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;"
-                            class="h2 px-4 py-2">
+                        <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;" class="h2 px-4 py-2">
                             PAID
                         </div>
                     </div>
                 </div>
                 <div class="col-6">
-                    <table class="table table-bordered t" style="font-size: 12pt;">
+                    <table class="table table-bordered t" style="font-size: 14pt;">
                         <tbody>
                             <tr>
                                 <td>
@@ -278,14 +347,12 @@
                         <tfoot>
                             <tr>
                                 <td>
-
-                                    Due Amount
-
+                                    <strong>
+                                        Due Amount
+                                    </strong>
                                 </td>
                                 <td class="text-right ">
-
-                                    0.00
-
+                                    <strong> 0.00 </strong>
                                 </td>
                             </tr>
                         </tfoot>
@@ -303,17 +370,17 @@
             <p class="mt-5 pt-4">
                 Room You have to visit:
             </p>
-            <table style="font-size: 12pt;" class="table table-bordered mt-0 t">
+            <table style="font-size: 14pt;" class="table table-bordered mt-0 t">
 
                 <tbody>
                     <tr>
-                        <th>
+                        <th style="text-align: center">
                             5th Floor
                         </th>
-                        <th>
+                        <th style="text-align: center">
                             8th Floor
                         </th>
-                        <th>
+                        <th style="text-align: center">
                             9th Floor
                         </th>
                     </tr>
@@ -330,24 +397,35 @@
                             <span style="border-right: 1px solid #333; padding: 4px 8px;">509</span>
                             <span style="border-right: 1px solid #333; padding: 4px 8px;">510</span>
                             <span style="border-right: 1px solid #333; padding: 4px 8px;">511</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">512</span>
+                            <span style="padding: 4px 8px;">512</span>
                         </td>
                         <td>
                             Dialysis Unit
                         </td>
                         <td>
                             <span style="border-right: 1px solid #333; padding: 4px 8px;">901</span>
-                            <span style="padding: 4px 8px;">902</span>
+                            <span style="border-right: 1px solid #333; padding: 4px 8px;">902</span>
+                            <span style="border-right: 1px solid #333; padding: 4px 8px;">903</span>
+                            <span style="padding: 4px 8px;">904</span>
                         </td>
                     </tr>
                 </tbody>
             </table>
 
+            <p class="text-center">
+                <small>
+                    <i>
+                        <strong>
+                            ডেলিভারি তারিখ হতে ৩০ দিনের মধ্যে রিপোর্ট সংগ্রহ করা যাবে।
+                        </strong>
+                    </i>
+                </small>
+            </p>
         </div>
 
         <footer>
             <div class="pt-5" style="padding:0 0.5in;">
-                <div class="col-4 p-0 ml-auto">
+                <div class="col-3 p-0 ml-auto">
                     <div class="d-flex">
                         <p>
                             <Strong>
@@ -376,8 +454,5 @@
     $(document).ready(function() {
         window.print();
     });
+
 </script>
-
-
-
-
