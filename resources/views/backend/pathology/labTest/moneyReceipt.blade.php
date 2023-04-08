@@ -368,7 +368,7 @@
                 </i>
             </p>
             <p class="mt-5 pt-4">
-                Room You have to visit:
+                যে সকল রুমে যাবেন ।
             </p>
             <table style="font-size: 14pt;" class="table table-bordered mt-0 t">
 
