@@ -41,6 +41,10 @@ class StoreRequest extends FormRequest
             'appointment_priority' => 'required',
             'payment_method' => 'required',
             'status' => 'required',
+            'paid_amount' => 'required',
+            'payable_amount' => 'required',
+            'due_amount' => 'required',
+            'subtotal' => 'required',
         ];
     }
 
@@ -55,15 +59,15 @@ class StoreRequest extends FormRequest
 
     public function storeData()
     {
-        // dd($this->serial_number());
+        // dd($this->all());
         try {
             DB::beginTransaction();
             $data = $this->all();
             $data['invoice_number'] = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
             $data['doctor_appointment_schedule_id'] = $this->appointment_schedule;
             $data['patient_id'] = $this->patient_Id;
-            $data['doctor_id'] = $this->doctorID;
-            $data['doctor_fee']        = $this->doctor_fees;
+            $data['doctor_id']      = $this->doctorID;
+            $data['doctor_fee']     = $this->doctor_fees;
             $data['appointment_date'] = $this->appointment_date;
             $data['schedule'] = $this->schedule;
             $data['appointment_priority'] = $this->appointment_priority;
@@ -72,6 +76,12 @@ class StoreRequest extends FormRequest
             $data['payment_status'] = 'Paid';
             $data['date'] = now();
             $data['serial_number'] = $this->serial_number();
+            $data['discount_type'] = $this->discount_type;
+            $data['discount'] =  Str::replace(',', '', $this->discount);
+            $data['paid_amount'] =  Str::replace(',', '', $this->paid_amount);
+            $data['subtotal_amount'] = Str::replace(',', '', $this->subtotal);
+            $data['total_amount'] = Str::replace(',', '', $this->payable_amount);
+            $data['due_amount'] =  Str::replace(',', '', $this->due_amount);
             $appointment = Appointment::create($data);
             // dd($appointment);
             // appointment paymentHistories
@@ -81,7 +91,7 @@ class StoreRequest extends FormRequest
                 'payment_system_id' => $this->payment_method,
                 'date' => $appointment['appointment_date'],
                 'note' => $this->payment_note,
-                'paid_amount' => Str::replace(',', '', $appointment['doctor_fee']),
+                'paid_amount' => Str::replace(',', '', $this->paid_amount),
                 'payment_received_id' => auth('admin')->id(),
             ]);
 
@@ -97,13 +107,13 @@ class StoreRequest extends FormRequest
 
             // cashflowHistories
             $cashflowTransition->cashflowHistory()->create([
-                'debit' => Str::replace(',', '', $appointment['doctor_fee'])
+                'debit' => Str::replace(',', '', $this->paid_amount)
             ]);
             //<----end of cash flow Transition------->
 
             //<----start of dailyTransition book transaction------->
             $dailyTransition = $appointment->dailyTransactions()->create([
-                'url'               =>  "Backend\Appointment\AppointmentController@show,['id' =>" . $appointment->id . "]",
+                'url'               => "Backend\Appointment\AppointmentController@show,['id' =>" . $appointment->id . "]",
                 'description'       => 'Patient Payment',
                 'transaction_type'  => 'Payment',
                 'date'              =>  $appointment['appointment_date'],
@@ -113,13 +123,13 @@ class StoreRequest extends FormRequest
             //credit transactionHistories // sell increase
             $dailyTransition->transactionHistories()->create([
                 'entry_name' => 'Patient Payment',
-                'credit'      => Str::replace(',', '', $appointment['doctor_fee']),
+                'credit'      => Str::replace(',', '', $this->paid_amount),
             ]);
 
             //debit transactionHistories // amount increase
             $dailyTransition->transactionHistories()->create([
                 'entry_name' => AccountLedger::find(AccountLedger::first()->id)->name,
-                'debit' => Str::replace(',', '', $appointment['doctor_fee']),
+                'debit' => Str::replace(',', '', $this->paid_amount),
             ]);
 
             // LedgerTransition --->increment costing
@@ -127,7 +137,7 @@ class StoreRequest extends FormRequest
                 'ledger_id' => AccountLedger::first()->id,
                 'date'     => FinancialYearHistory::latest()->first()->start_date
             ], [
-                'debit' => DB::raw('debit+' . Str::replace(',', '', $appointment['doctor_fee']))
+                'debit' => DB::raw('debit+' . Str::replace(',', '', $this->paid_amount))
             ]);
 
             DB::commit();
@@ -143,7 +153,7 @@ class StoreRequest extends FormRequest
             ->where('appointment_date', $this->appointment_date)
             ->where('doctor_appointment_schedule_id', $this->appointment_schedule)
             ->max('serial_number');
-            // ->count();
+        // ->count();
         return $lastSerialNumber ? $lastSerialNumber + 1 : 1;
     }
 }

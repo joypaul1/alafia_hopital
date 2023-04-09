@@ -201,6 +201,7 @@
                         </div>
                     </div>
                 </div>
+                {{-- @dd($appointment->discount) --}}
                 <div class="col-6">
                     <table class="table table-bordered t" style="font-size: 12pt;">
                         <tbody>
@@ -209,15 +210,16 @@
                                     Bill Amount
                                 </td>
                                 <td class="text-right" style="width: 120px;">
-                                    {{ number_format($appointment->doctor_fee, 2) }}
+                                    {{ number_format($appointment->total_amount, 2) }}
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    Discount Amount
+                                    Discount  {{ number_format($appointment->discount, 2)   }} {{ ($appointment->discount_type == 'fixed')?"Tk": '%' }}
                                 </td>
                                 <td class="text-right">
-                                    00.00
+                                    {{ number_format($appointment->discount_amount, 2) }}
+
                                 </td>
                             </tr>
 
@@ -226,7 +228,7 @@
                                     Payable Amount
                                 </td>
                                 <td class="text-right">
-                                    {{ number_format($appointment->doctor_fee, 2) }}
+                                    {{ number_format($appointment->total_amount, 2) }}
                                 </td>
                             </tr>
                             <tr>
@@ -234,7 +236,7 @@
                                     Cash Paid
                                 </td>
                                 <td class="text-right">
-                                    {{ number_format($appointment->doctor_fee, 2) }}
+                                    {{ number_format($appointment->paid_amount, 2) }}
                                 </td>
                             </tr>
                         </tbody>
@@ -247,7 +249,7 @@
                                 </td>
                                 <td class="text-right">
                                     <strong>
-                                        0.00
+                                       {{ number_format($appointment->due_amount, 2) }}
                                     </strong>
                                 </td>
                             </tr>
@@ -259,7 +261,7 @@
             <p class="text-center">
                 <i style="color: #000;">
                     <small style="text-transform:capitalize;">
-                        Received with thanks : {!! Helper::wordConvertor(round($appointment->doctor_fee))!!} Taka Only
+                        Received with thanks : {!! Helper::wordConvertor(round($appointment->paid_amount))!!} Taka Only
                     </small>
                 </i>
             </p>

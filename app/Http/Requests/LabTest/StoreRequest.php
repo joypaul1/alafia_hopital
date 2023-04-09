@@ -30,18 +30,24 @@ class StoreRequest extends FormRequest
             'lab_test_tube_id'  => 'required|exists:lab_test_tubes,id',
             'price'             => 'required',
             'time'              => 'nullable',
-            'time_type'         => 'nullable'
+            'time_type'         => 'nullable',
+            'department'        => 'required',
+            'reference'         => 'nullable',
+            'unit'              => 'nullable',
         ];
     }
 
     public function storeData($request)
     {
+        // dd($request->all());
         try {
             DB::beginTransaction();
             $data = $request->validated();
             $data['status'] = $this->status == 'on' ? true : false;
-            dd($data);
-            LabTest::create($data);
+            $data['reference_value'] = $this->reference;
+
+            $v =LabTest::create($data);
+        
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();

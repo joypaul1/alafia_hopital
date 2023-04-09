@@ -70,7 +70,10 @@ class DialysisAppointmentController extends Controller
             ['name' => '1pm-4pm', 'id' => '1pm-4pm'],
             ['name' => '6pm-10pm', 'id' => '6pm-10pm'],
         ];
-
+        $discountType = (object)[
+            ['name' => 'Fixed', 'id' => 'fixed'],
+            ['name' => 'Percentage', 'id' => 'percentage'],
+        ];
         $appointmentDatas = DialysisAppointment::with('patient', 'doctor')->latest()->get();
         return view('backend.appointment.dialysis.index',compact(
                 'blood_group',
@@ -82,7 +85,8 @@ class DialysisAppointmentController extends Controller
                 'employees',
                 'paymentSystems',
                 'appointment_schedule',
-                'doctors'
+                'doctors',
+                'discountType'
             )
         );
     }
@@ -101,7 +105,12 @@ class DialysisAppointmentController extends Controller
      */
     public function create()
     {
-        return view('backend.appointment.dialysis.create');
+        //appointment status option create
+        $discountType = (object)[
+            ['name' => 'Fixed', 'id' => 'fixed'],
+            ['name' => 'Percentage', 'id' => 'percentage'],
+        ];
+        return view('backend.appointment.dialysis.create', compact('discountType'));
     }
 
     /**

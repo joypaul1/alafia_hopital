@@ -91,10 +91,11 @@ class AppointmentController extends Controller
 
         $paymentSystems = PaymentSystem::select('id', 'name')->get();
 
+
         //appointment status option create
-        $appointment_status = (object)[
-            ['name' => 'Approved', 'id' => 'approved'],
-            ['name' => 'Pending', 'id' => 'pending'],
+        $discountType = (object)[
+            ['name' => 'Fixed', 'id' => 'fixed'],
+            ['name' => 'Percentage', 'id' => 'percentage'],
         ];
 
         $doctors = Doctor::active()->select('id', 'first_name', 'last_name')->get()->map(function ($doctor) {
@@ -109,7 +110,8 @@ class AppointmentController extends Controller
             'department',
             'appointment_status',
             'appointment_priority',
-            'paymentSystems'
+            'paymentSystems',
+            'discountType'
         ));
     }
 
@@ -121,7 +123,7 @@ class AppointmentController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $returnData = $request->storeData();
+         $returnData = $request->storeData();
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('Appointment Created');
             return redirect()->route('backend.appointment.show', $returnData->getData()->data);
@@ -191,7 +193,7 @@ class AppointmentController extends Controller
         ->max('serial_number');
         // ->count();
         return $lastSerialNumber ? $lastSerialNumber + 1 : 1;
-        
+
     }
 
 }

@@ -7,7 +7,6 @@
 @stop
 
 @section('content')
-    {{-- @dd(123123) --}}
 
     @include('backend._partials.page_header')
 
@@ -20,7 +19,7 @@
                 <div class="body">
                     <div class="d-flex justify-content-between aling-items-center mb-4">
                         <h4 class="card-title mb-0">LabTest List</h4>
-                        <a id="create_data" data-href="{{ route('backend.siteConfig.labTest.create') }}"
+                        <a href="{{ route('backend.siteConfig.labTest.create') }}"
                             class="btn btn-info btn-md text-white">
                             <i class="fa fa-plus-circle me-2"></i> Create LabTest
                         </a>
