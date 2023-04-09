@@ -54,7 +54,6 @@ class LabTestResultController extends Controller
                 $data ['result']                        = json_encode($request->except('_token', '_method','lab_invoice_test_detail_id','test_id'));
                 $labTestReport                          = LabTestReport::create($data);
                 LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
-                // dd( $labTestReport);
             }
             DB::commit();
         } catch (\Exception $ex) {

@@ -107,6 +107,10 @@
                                         <tr>
                                             <th> Test Name </th>
                                             <th> Price </th>
+                                            <th> Discount Type </th>
+                                            <th> Discount  </th>
+                                            <th> Discount Amount  </th>
+                                            <th> SubTotal </th>
                                             <th> Action </th>
                                         </tr>
                                     </thead>
@@ -226,21 +230,40 @@
             select: function(event, ui) {
                 event.preventDefault();
                 console.log($(this).val(null));
-                // labTest data append in table
-                let row = `<tr>
-                            <td>
-                                <input type="hidden" class="labTest_id"  name="labTest_id[]" value="${ui.item.value_id}">
-                                <input type="hidden" class="labTestCatName"  value="${ui.item.category}">
-                                ${ui.item.label}
-                            </td>
-                            <td>
-                                <input type="text" name="test_price[]"
-                                value="${ui.item.price}" class="form-control test_price text-right"readonly>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger btn-sm removeLabTest"><i class="fa fa-trash"></i></button>
-                            </td>
-                        </tr>`;
+                // labTest data append in table also added table row discount_type dropdown & discount & discount_amount with html event attribute
+                let row=`<tr>
+                                <td>
+                                    <input type="hidden" class="labTest_id"  name="labTest_id[]" value="${ui.item.value_id}">
+                                    <input type="hidden" class="labTestCatName"  value="${ui.item.category}">
+                                    ${ui.item.label}
+                                </td>
+                                <td>
+                                    <input type="text" name="test_price[]"
+                                    value="${ui.item.price}" class="form-control test_price text-right"readonly>
+                                </td>
+                                <td>
+                                    <select name="discount_type[]" class="form-control discount_type" onChange=>"discount_type()">
+                                        <option value="${null}">No Discount</option>
+                                        <option value="fixed">Fixed</option>
+                                        <option value="percentage">Percentage</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" name="discount[]" class="form-control discount text-right"  value="0">
+                                </td>
+                                <td>
+                                    <input type="text" name="discount_amount[]" class="form-control discount_amount text-right" value="0" readonly>
+                                </td>
+
+                                <td>
+                                    <input type="text" name="subtotal[]"
+                                    value="${ui.item.price}" class="form-control subtotal text-right"readonly>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm removeLabTest"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>`;
+
                 $('#labTestAppend').last().after(row);
 
 
@@ -275,10 +298,8 @@
 
         //removeLabTest
         $(document).on('click', '.removeLabTest', function() {
-            // console.log($(this).parent('td').parent('tr').find('td >.labTest_id').val());
             removeRow(this);
             // remove all testTubeTable table tbody tr ignore tr id testTubeAppend
-            // console.log();
             $('.testTubeTable tbody tr').not('#testTubeAppend').remove()
             // get testTable all tbody tr td labTest_id value
             $('.labTest_id').map(function() {
@@ -317,25 +338,71 @@
 
         });
 
+        //discount_type change event
+        $(document).on('change', '.discount_type', function() {
+            let discountPrice = 0;
+            let discount_type = $(this).val();
+            let discount = $(this).parent('td').next('td').find('.discount').val();
+            let test_price = $(this).parent('td').prev('td').find('.test_price').val();
+            let discount_amount = $(this).parent('td').next('td').next('td').find('.discount_amount');
+            let subtotal = $(this).parent('td').next('td').next('td').next('td').find('.subtotal');
+            if (discount_type == 'fixed') {
+                discountPrice = Number(discount)
+                discount_amount.val(discountPrice.toFixed(2));
+
+            } else if (discount_type == 'percentage') {
+                discountPrice = (Number(test_price) * Number(discount)) / 100
+                discount_amount.val(discountPrice.toFixed(2));
+            } else {
+                discount_amount.val(0);
+            }
+            subtotal.val((Number(test_price) - Number(discountPrice)).toFixed(2));
+
+            approximatePrice();
+        });
+
+        //discount change event
+        $(document).on('input', '.discount', function() {
+            let discountPrice = 0;
+            let discount_type = $(this).parent('td').prev('td').find('.discount_type').val();
+            let discount = $(this).val();
+            let test_price = $(this).parent('td').prev('td').prev('td').find('.test_price').val();
+            let discount_amount = $(this).parent('td').next('td').find('.discount_amount');
+            let subtotal = $(this).parent('td').next('td').next('td').find('.subtotal');
+
+            if (discount_type == 'fixed') {
+                discountPrice = Number(discount)
+                discount_amount.val(discountPrice.toFixed(2));
+            } else if (discount_type == 'percentage') {
+                discountPrice = (Number(test_price) * Number(discount)) / 100
+                discount_amount.val(discountPrice.toFixed(2));
+            } else {
+                discount_amount.val(0);
+            }
+            subtotal.val((Number(test_price) - Number(discountPrice)).toFixed(2));
+            approximatePrice();
+        });
+
+
+
         // create a function to remove a row
         function removeRow(row) {
             $(row).closest('tr').remove();
 
         }
 
-
         approximatePrice = function() {
-            var test_price = tube_price = 0;
-            $('.test_price').each(function() {
-                test_price += Number($(this).val().replace(/[^0-9\.]+/g, ""));
+            var subtotal = tube_price = 0;
+            $('.subtotal').each(function() {
+                subtotal += Number($(this).val().replace(/[^0-9\.]+/g, ""));
             });
             $('.testTube_price').each(function() {
                 tube_price += Number($(this).val().replace(/[^0-9\.]+/g, ""));
             });
-            $('#testSubTotal').val(test_price.toFixed(2));
+            $('#testSubTotal').val(subtotal.toFixed(2));
             $('#tubeSubTotal').val(tube_price.toFixed(2));
 
-            var total = test_price + tube_price;
+            var total = subtotal + tube_price;
             $('#totalPrice').text(total.toFixed(2));
         }
     </script>

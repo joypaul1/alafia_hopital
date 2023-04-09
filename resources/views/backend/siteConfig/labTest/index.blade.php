@@ -31,10 +31,10 @@
                                 <tr>
                                     <th class="text-center">Sl.</th>
                                     <th class="text-center">Name</th>
-                                    <th class="text-center">Type</th>
+                                    <th class="text-center">Tube </th>
+                                    <th class="text-center">Department</th>
                                     <th class="text-center">Price</th>
                                     <th class="text-center">Delivery Time</th>
-                                    <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -97,7 +97,14 @@
                     data: 'lab_test_tube_id',
                     name: 'lab_test_tube_id',
                     "className": "text-center"
-                }, {
+                },
+                {
+                    data: 'category',
+                    name: 'category',
+                    "className": "text-center",
+                    // orderable: false,
+                    // searchable: false
+                },{
                     data: 'price',
                     name: 'price',
                     "className": "text-center"
@@ -105,13 +112,7 @@
                     data: 'delivery_time',
                     name: 'delivery_time',
                     className: "text-center",
-                }, {
-                    data: 'status',
-                    name: 'status',
-                    "className": "text-center",
-                    orderable: false,
-                    searchable: false
-                }, {
+                },  {
                     data: 'action',
                     name: 'action',
                     orderable: false,

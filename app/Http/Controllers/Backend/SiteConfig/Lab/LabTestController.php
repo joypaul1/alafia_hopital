@@ -31,7 +31,7 @@ class LabTestController extends Controller
             $data = LabTest::where('id',$request->labTest_id)->select(['id', 'name','category', 'status', 'price', 'lab_test_tube_id'])->with('tube:id,name,price')->first();
             return response()->json(['data' => $data]);
         }
-        $data = LabTest::select(['id', 'name', 'status', 'price', 'lab_test_tube_id', 'time', 'time_type'])->latest();
+        $data = LabTest::select(['id', 'name', 'status', 'price', 'lab_test_tube_id','category', 'time', 'time_type'])->latest();
         if ($request->status) {
             $data = $data->active();
         } elseif ($request->status == '0') {
@@ -92,6 +92,7 @@ class LabTestController extends Controller
             ['name' => 'Serology', 'id' => 'Serology'],
             ['name' => 'Urine', 'id' => 'Urine'],
             ['name' => 'Blood', 'id' => 'Blood'],
+            ['name' => 'Immunology', 'id' => 'Immunology'],
             ['name' => 'Micro Biology', 'id' => 'Micro Biology'],
         ];
         $labTestTube = LabTestTube::select(['id', 'name'])->get();
@@ -142,6 +143,7 @@ class LabTestController extends Controller
             ['name' => 'Serology', 'id' => 'Serology'],
             ['name' => 'Urine', 'id' => 'Urine'],
             ['name' => 'Blood', 'id' => 'Blood'],
+            ['name' => 'Immunology', 'id' => 'Immunology'],
             ['name' => 'Micro Biology', 'id' => 'Micro Biology'],
         ];
         return view('backend.siteConfig.labTest.edit', compact('labTest', 'labTestTube','department'));
