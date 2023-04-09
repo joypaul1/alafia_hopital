@@ -155,8 +155,29 @@
 
 
                 <div class="card text-right">
-                    <div class="body">
-                        <strong>Total : <span id="totalPrice">0.00</span>Tk </strong>
+                    <div class="body row">
+                        <div class="col-4">
+                            @include('components.backend.forms.input.input-type', [
+                                'name' => 'payable_amount',
+                                'readonly' => 'true',
+                                'value' => 0.00,
+                            ])
+                        </div>
+
+                        <div class="col-4">
+                            @include('components.backend.forms.input.input-type', [
+                                'name' => 'paid_amount',
+                                'value' => 0.00,
+                            ])
+                        </div>
+                        <div class="col-4">
+                            @include('components.backend.forms.input.input-type', [
+                                'name' => 'due_amount',
+                                'readonly' => true,
+                                'value' => 0.00,
+                            ])
+                        </div>
+                        {{-- <strong>Total : <span id="totalPrice">0.00</span>Tk </strong> --}}
                     </div>
                 </div>
                 <div class="d-block text-right mb-5">

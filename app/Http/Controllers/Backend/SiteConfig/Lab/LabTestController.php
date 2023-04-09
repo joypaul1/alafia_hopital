@@ -92,6 +92,7 @@ class LabTestController extends Controller
             ['name' => 'Serology', 'id' => 'Serology'],
             ['name' => 'Urine', 'id' => 'Urine'],
             ['name' => 'Blood', 'id' => 'Blood'],
+            ['name' => 'Stool', 'id' => 'Stool'],
             ['name' => 'Immunology', 'id' => 'Immunology'],
             ['name' => 'Micro Biology', 'id' => 'Micro Biology'],
         ];
@@ -143,6 +144,7 @@ class LabTestController extends Controller
             ['name' => 'Serology', 'id' => 'Serology'],
             ['name' => 'Urine', 'id' => 'Urine'],
             ['name' => 'Blood', 'id' => 'Blood'],
+            ['name' => 'Stool', 'id' => 'Stool'],
             ['name' => 'Immunology', 'id' => 'Immunology'],
             ['name' => 'Micro Biology', 'id' => 'Micro Biology'],
         ];
