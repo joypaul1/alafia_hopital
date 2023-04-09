@@ -16,6 +16,7 @@
     <div class="row col-9">
         <div class="card">
             <div class="body">
+                <div class="modal-content">
                 <form class="needs-validation" id="labTest_add_form" action="{{ route('backend.siteConfig.labTest.store') }}"
                     method="Post" enctype="multipart/form-data">
                     @method('POST')
@@ -105,10 +106,10 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
                         <button type="submit" class="btn btn-outline-primary save_labTest_button">SAVE</button>
                     </div>
                 </form>
+                </div>
 
             </div>
         </div>

@@ -30,7 +30,10 @@ class UpdateRequest extends FormRequest
             'lab_test_tube_id'  => 'required|exists:lab_test_tubes,id',
             'price'             => 'required',
             'time'              => 'nullable',
-            'time_type'         => 'nullable'
+            'time_type'         => 'nullable',
+            'department'        => 'required',
+            'reference'         => 'nullable',
+            'unit'              => 'nullable',
 
         ];
     }
@@ -42,7 +45,7 @@ class UpdateRequest extends FormRequest
             $data = $request->validated();
             $data['price'] = str_replace(',', '', $request->price);
             $data['status'] = $this->status == 'on' ? true : false;
-            // dd($data);
+            $data['reference_value'] = $this->reference;
             $labTest->update($data);
             DB::commit();
         } catch (\Exception $ex) {

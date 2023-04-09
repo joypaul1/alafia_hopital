@@ -46,8 +46,8 @@ class StoreRequest extends FormRequest
             $data['status'] = $this->status == 'on' ? true : false;
             $data['reference_value'] = $this->reference;
 
-            $v =LabTest::create($data);
-        
+            LabTest::create($data);
+
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();

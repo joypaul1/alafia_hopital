@@ -159,9 +159,12 @@ class LabTestController extends Controller
         $returnData = $request->updateData($request, $labTest);
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('LabTest Updated');
-            return response()->json(['success' => $returnData->getData()->msg, 'status' => true], 200);
+            return redirect()->route('backend.siteConfig.labTest.index')->with('success', $returnData->getData()->msg);
+
         }
-        return response()->json(['error' => $returnData->getData()->msg, 'status' => false], 400);
+        return redirect()->back()->with('error', $returnData->getData()->msg);
+
+        // return response()->json(['error' => $returnData->getData()->msg, 'status' => false], 400);
     }
 
     /**

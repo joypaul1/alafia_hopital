@@ -19,9 +19,9 @@
                     <form class="needs-validation" id="labTest_edit_form"
                         action="{{ route('backend.siteConfig.labTest.update', $labTest) }}" method="Post"
                         enctype="multipart/form-data">
-                        @method('POST')
+                        @method('PUT')
                         @csrf
-                        
+
                         <div class="modal-body">
                             <div class="form-validation">
                                 <div class="form-group">
@@ -113,7 +113,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
+
                             <button type="submit" class="btn btn-primary edit_labTest_button">SAVE</button>
                         </div>
                     </form>
