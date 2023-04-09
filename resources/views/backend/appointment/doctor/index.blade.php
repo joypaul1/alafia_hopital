@@ -271,6 +271,7 @@
             }
         }
 
+        //paid amount calculation
         function paid_amount(){
             var paid_amount = $('#paid_amount').val();
             var payable_amount = $('#payable_amount').val();

@@ -51,7 +51,7 @@
                                 <td>{{ optional($appointmentData->patient)->name }}</td>
                                 <td>{{ optional($appointmentData->doctor)->first_name }}</td>
                                 <td>{{ ($appointmentData->appointment_status) }}</td>
-                                <td>{{ number_format($appointmentData->doctor_fee, 2) }}</td>
+                                <td>{{ number_format($appointmentData->fee, 2) }}</td>
                                 <td>{{ ($appointmentData->paymentHistories()->pluck('payment_method')) }}</td>
                                 <td>
                                     <a href="{{ route('backend.dialysis-appointment.show', $appointmentData->id) }}">
@@ -168,6 +168,55 @@
                                 'required' => 'true',
                                 'selectedKey' => 'approved',
                                 'required' => true
+                                ])
+                            </div>
+                            <div class="col-4">
+                                @include('components.backend.forms.input.input-type', [
+                                    'name' => 'subtotal',
+                                    'readonly' => 'true',
+                                    'value' => 5000,
+                                ])
+                            </div>
+                            <div class="col-4">
+                                @include('components.backend.forms.select2.option', [
+                                    'name' => 'discount_type',
+                                    'optionData' => $discountType,
+                                ])
+                            </div>
+                            <div class="col-4">
+                                @include('components.backend.forms.input.input-type', [
+                                    'name' => 'discount',
+                                    // 'readonly' => 'true',
+                                    'value' => 0,
+                                ])
+                            </div>
+                            <div class="col-4">
+                                @include('components.backend.forms.input.input-type', [
+                                    'name' => 'discount_amount',
+                                    'readonly' => 'true',
+                                    'value' => 0.00,
+                                ])
+                            </div>
+
+                            <div class="col-4">
+                                @include('components.backend.forms.input.input-type', [
+                                    'name' => 'payable_amount',
+                                    'readonly' => 'true',
+                                    'value' => 5000,
+                                ])
+                            </div>
+
+                            <div class="col-4">
+                                @include('components.backend.forms.input.input-type', [
+                                    'name' => 'paid_amount',
+                                    'value' => 0.00,
+                                ])
+                            </div>
+                            <div class="col-4">
+                                @include('components.backend.forms.input.input-type', [
+                                    'name' => 'due_amount',
+                                    'readonly' => true,
+                                    'value' => 5000,
                                 ])
                             </div>
                         </div>
@@ -333,7 +382,7 @@
             , type: 'GET'
             , dataType: "json"
             , success: function(response) {
-                $('.appointment_modal #appointment_add_form .modal-body .col-4 #doctor_fees').val(Number(response).toFixed(2));
+                $('.appointment_modal #appointment_add_form .modal-body .col-4 #fee').val(Number(response).toFixed(2));
             }
         });
     });
@@ -369,6 +418,48 @@
         }
     });
 
+    $(document).on('change', '.appointment_modal #appointment_add_form .modal-body .col-4 #discount_type', function(){
+            discountCal();
+            paid_amount();
+        });
+
+        //discount calculation depend on discount type
+        $(document).on('input', '.appointment_modal #appointment_add_form .modal-body .col-4 #discount', function(){
+            discountCal();
+            paid_amount();
+        });
+
+
+        $(document).on('input', '.appointment_modal #appointment_add_form .modal-body .col-4 #paid_amount', function(){
+            paid_amount();
+            // discountCal();
+        })
+
+        //discount calculation depend on discount type
+        function  discountCal(){
+            var discount_type = $('#discount_type').val();
+            var discount = $('#discount').val();
+            var fee = $('#fee').val()||0;
+            var payable_amount = $('#payable_amount').val();
+            if(discount_type == 'percentage'){
+                var discount_amount = (Number(fee) * Number(discount)) / 100;
+                var payable_amount = Number(fee) - Number(discount_amount);
+                $('#discount_amount').val((discount_amount).toFixed(2));
+                $('#payable_amount').val((payable_amount).toFixed(2));
+            }else{
+                $('#discount_amount').val(Number(discount).toFixed(2));
+                var payable_amount = Number(fee) - Number(discount);
+                $('#payable_amount').val((payable_amount).toFixed(2));
+            }
+        }
+
+        //paid amount calculation
+        function paid_amount(){
+            var paid_amount = $('#paid_amount').val();
+            var payable_amount = $('#payable_amount').val();
+            var due_amount = Number(payable_amount) - Number(paid_amount);
+            $('#due_amount').val((due_amount).toFixed(2));
+        }
     // get slot time on change date by ajax request
     $(document).on('change', '#appointment_date', function() {
         slot();
