@@ -234,28 +234,48 @@
             });
         });
 
-        $(document).on('change', 'discount_type', function(){
+        $(document).on('change', '.appointment_modal #appointment_add_form .modal-body .col-4 #discount_type', function(){
             discountCal();
+            paid_amount();
         });
 
         //discount calculation depend on discount type
-        $(document).on('keyup', '#discount', function(){
+        $(document).on('input', '.appointment_modal #appointment_add_form .modal-body .col-4 #discount', function(){
             discountCal();
+            paid_amount();
+        });
+
+
+        $(document).on('input', '.appointment_modal #appointment_add_form .modal-body .col-4 #paid_amount', function(){
+            paid_amount();
+            // discountCal();
         })
 
+        //discount calculation depend on discount type
         function  discountCal(){
             var discount_type = $('#discount_type').val();
             var discount = $('#discount').val();
-            var doctor_fee = $('#doctor_fee').val();
-            var total = $('#total').val();
+            var doctor_fee = $('#doctor_fees').val()||0;
+            var payable_amount = $('#payable_amount').val();
             if(discount_type == 'percentage'){
-                var discount_amount = (doctor_fee * discount) / 100;
-                var total = doctor_fee - discount_amount;
-                $('#payable_amount').val(total);
+                var discount_amount = (Number(doctor_fee) * Number(discount)) / 100;
+                var payable_amount = Number(doctor_fee) - Number(discount_amount);
+
+                $('#discount_amount').val((discount_amount).toFixed(2));
+                $('#payable_amount').val((payable_amount).toFixed(2));
             }else{
-                var total = doctor_fee - discount;
-                $('#payable_amount').val(total);
+                $('#discount_amount').val(Number(discount).toFixed(2));
+                var payable_amount = Number(doctor_fee) - Number(discount);
+                // console.log(payable_amount);
+                $('#payable_amount').val((payable_amount).toFixed(2));
             }
+        }
+
+        function paid_amount(){
+            var paid_amount = $('#paid_amount').val();
+            var payable_amount = $('#payable_amount').val();
+            var due_amount = Number(payable_amount) - Number(paid_amount);
+            $('#due_amount').val((due_amount).toFixed(2));
         }
 
         // appointment_modal
@@ -295,6 +315,8 @@
                     $('.appointment_modal #appointment_add_form .modal-body .col-4 #doctor_fees').val(Number(response).toFixed(2));
                     $('.appointment_modal #appointment_add_form .modal-body .col-4 #subtotal').val(Number(response).toFixed(2));
                     $('.appointment_modal #appointment_add_form .modal-body .col-4 #payable_amount').val(Number(response).toFixed(2));
+                    discountCal();
+                    paid_amount();
                 }
             });
         }
