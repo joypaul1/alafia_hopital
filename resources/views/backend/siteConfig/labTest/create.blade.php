@@ -91,7 +91,7 @@
                             @include('components.backend.forms.texteditor.editor', [
                                 'name' => 'reference',
                                 'placeholder' => 'reference  here ...',
-                                'number' => true,
+
                             ])
                             @include('components.backend.forms.input.errorMessage', [
                                 'message' => $errors->first('reference'),

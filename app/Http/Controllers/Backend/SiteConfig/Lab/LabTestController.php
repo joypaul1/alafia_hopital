@@ -47,7 +47,7 @@ class LabTestController extends Controller
                     $action = '<div class="dropdown text-center">
                    <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                        <div class="dropdown-menu" style="min-width:auto !important">
-                       <a data-href="' . route('backend.siteConfig.labTest.edit', $row) . '" class="dropdown-item edit_check"
+                       <a href="' . route('backend.siteConfig.labTest.edit', $row) . '" class="dropdown-item edit_check"
                            data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit" aria-hidden="true"></i>
                        </a>
                        <div class="dropdown-divider"></div>
@@ -136,8 +136,15 @@ class LabTestController extends Controller
     public function edit(LabTest $labTest)
     {
         $labTestTube = LabTestTube::select(['id', 'name'])->get();
-
-        return view('backend.siteConfig.labTest.edit', compact('labTest', 'labTestTube'));
+        $department= (object)[
+            ['name' => 'Hematology', 'id' => 'Hematology'],
+            ['name' => 'Biochemistry', 'id' => 'Biochemistry'],
+            ['name' => 'Serology', 'id' => 'Serology'],
+            ['name' => 'Urine', 'id' => 'Urine'],
+            ['name' => 'Blood', 'id' => 'Blood'],
+            ['name' => 'Micro Biology', 'id' => 'Micro Biology'],
+        ];
+        return view('backend.siteConfig.labTest.edit', compact('labTest', 'labTestTube','department'));
     }
 
     /**
