@@ -156,7 +156,7 @@ class LabTestController extends Controller
      */
     public function update(UpdateRequest $request, LabTest $labTest)
     {
-        $returnData = $request->updateData($request, $labTest);
+         $returnData = $request->updateData($request, $labTest);
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('LabTest Updated');
             return redirect()->route('backend.siteConfig.labTest.index')->with('success', $returnData->getData()->msg);

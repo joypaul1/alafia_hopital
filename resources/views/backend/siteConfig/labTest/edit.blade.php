@@ -41,7 +41,7 @@
                                         'name' => 'department',
                                         'optionData' => $department,
                                         'required' => true,
-                                        'selectedKey' => $labTest->department,
+                                        'selectedKey' => $labTest->category,
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
                                         'message' => $errors->first('department'),

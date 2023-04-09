@@ -45,7 +45,7 @@ class StoreRequest extends FormRequest
             $data = $request->validated();
             $data['status'] = $this->status == 'on' ? true : false;
             $data['reference_value'] = $this->reference;
-
+            $data['category'] = $this->department;
             LabTest::create($data);
 
             DB::commit();

@@ -120,37 +120,37 @@
             });
         });
 
-        $('#create_data').click(function(e) {
-            e.preventDefault();
-            var modal = ".labTest_modal";
-            var href = $(this).data('href');
+        // $('#create_data').click(function(e) {
+        //     e.preventDefault();
+        //     var modal = ".labTest_modal";
+        //     var href = $(this).data('href');
 
-            // AJAX request
-            $.ajax({
-                url: href,
-                type: 'GET',
-                dataType: "html",
-                success: function(response) {
-                    $(modal).modal('show');
-                    $(modal).find('.modal-dialog').html('');
-                    $(modal).find('.modal-dialog').html(response); // Add response in Modal body
-                }
-            });
-        });
-        $(document).on('click', '.edit_check', function() {
+        //     // AJAX request
+        //     $.ajax({
+        //         url: href,
+        //         type: 'GET',
+        //         dataType: "html",
+        //         success: function(response) {
+        //             $(modal).modal('show');
+        //             $(modal).find('.modal-dialog').html('');
+        //             $(modal).find('.modal-dialog').html(response); // Add response in Modal body
+        //         }
+        //     });
+        // });
+        // $(document).on('click', '.edit_check', function() {
 
-            var href = $(this).data('href');
-            $.ajax({
-                url: href,
-                type: 'GET',
-                dataType: "html",
-                success: function(response) {
-                    $(modal).modal('show');
-                    $(modal).find('.modal-dialog').html('');
-                    $(modal).find('.modal-dialog').html(response); // Add response in Modal body
-                }
-            });
-        });
+        //     var href = $(this).data('href');
+        //     $.ajax({
+        //         url: href,
+        //         type: 'GET',
+        //         dataType: "html",
+        //         success: function(response) {
+        //             $(modal).modal('show');
+        //             $(modal).find('.modal-dialog').html('');
+        //             $(modal).find('.modal-dialog').html(response); // Add response in Modal body
+        //         }
+        //     });
+        // });
 
 
         $('#toggleFilter').click(() => {
