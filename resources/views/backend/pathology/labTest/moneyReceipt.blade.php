@@ -92,7 +92,7 @@
                 </span>
             </div>
 
-            <table class="table table-borderless my-2" style="font-size: 14pt;">
+            <table class="table table-borderless my-2" style="font-size: 12pt;">
                 <tbody>
                     <tr>
                         <td style="width: 40%;">
@@ -166,22 +166,22 @@
             </table>
 
 
-            <table style="font-size: 14pt;" class="table table-bordered t">
+            <table style="font-size: 12pt;" class="table table-bordered t">
                 <tbody>
                     <tr>
-                        <th style="width: 50px;">
+                        <th style="width: 5%;">
                             Sl.
                         </th>
-                        <th>
+                        <th style="width: 50%;">
                             Test Name
                         </th>
-                        <th class="text-right" style="width: 120px;">
+                        <th class="text-right" style="width: 15%;">
                             Amount
                         </th>
-                        <th style="width: 120px;" class="text-right">
+                        <th style="width: 10%;" class="text-right">
                             Discount
                         </th>
-                        <th>
+                        <th style="width: 20%">
                             Delivery Time
                         </th>
 
@@ -215,7 +215,10 @@
                         </td>
                     </tr>
                     @endforeach
-
+                    <tr>
+                        <td colspan="3"></td>
+                        <td colspan="2" rowspan="{{ count($labInvoice->labTestTube) + 1 }}"></td>
+                    </tr>
                     @foreach ($labInvoice->labTestTube as $labTest)
                     @php
                     $si += 1;
@@ -230,29 +233,32 @@
                         <td class="text-right">
                             {{ number_format($labTest->price, 2) }}
                         </td>
-                        <td colspan="2" style="border: none !important;"></td>
+                        {{-- <td colspan="2" style="border: none !important;"></td> --}}
                     </tr>
                     @endforeach
+                </tbody>
+            </table>
+
+            <table class="table table-bordered t">
+                <tbody>
                     <tr>
-                        <td colspan="5"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            Bill Amount
-                        </td>
-                        <td class="text-right" style="width: 120px;">
-                            {{ number_format($labInvoice->total_amount, 2) }}
-                        </td>
-                        <td rowspan="6" colspan="2" style="vertical-align: middle;">
+                        <td rowspan="6" style="vertical-align: middle; width:30%;">
                             <div class="d-flex justify-content-center align-items-center">
                                 <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;" class="h2 px-4 py-2">
                                     PAID
                                 </div>
                             </div>
                         </td>
+                        <td style="width:25%;">
+                            Bill Amount
+                        </td>
+                        <td class="text-right" style="width: 15%;">
+                            {{ number_format($labInvoice->total_amount, 2) }}
+                        </td>
+                        <td style="width: 30%;" rowspan="6"></td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td>
                             Discount Amount
                         </td>
                         <td class="text-right">
@@ -261,7 +267,7 @@
                     </tr>
 
                     <tr>
-                        <td colspan="2">
+                        <td>
                             Payable Amount
                         </td>
                         <td class="text-right">
@@ -269,7 +275,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td>
                             Cash Paid
                         </td>
                         <td class="text-right">
@@ -278,7 +284,7 @@
                     </tr>
 
                     <tr>
-                        <td colspan="2">
+                        <td>
                             <strong>
                                 Due Amount
                             </strong>
@@ -289,7 +295,7 @@
                     </tr>
 
                     <tr>
-                        <td colspan="2">
+                        <td>
                             Payment Type
                         </td>
                         <td class="text-right">
@@ -308,7 +314,7 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <table class="table table-bordered t" style="font-size: 14pt;">
+                    <table class="table table-bordered t" style="font-size: 12pt;">
                         <tbody>
                             <tr>
                                 <td>
@@ -368,9 +374,9 @@
                 </i>
             </p>
             <p class="mt-5 pt-4">
-                যে সকল রুমে যাবেন ।
+                যে সকল রুমে যাবেন।
             </p>
-            <table style="font-size: 14pt;" class="table table-bordered mt-0 t">
+            <table style="font-size: 12pt;" class="table table-bordered mt-0 t">
 
                 <tbody>
                     <tr>
@@ -450,9 +456,9 @@
 
 
 </html>
-<script>
+{{-- <script>
     $(document).ready(function() {
         window.print();
     });
 
-</script>
+</script> --}}

@@ -89,7 +89,7 @@
                     MONEY RECEIPT
                 </span>
             </div>
-            <table class="table table-borderless my-2" style="font-size: 14pt;">
+            <table class="table table-borderless my-2" style="font-size: 12pt;">
                 <tbody>
                     <tr>
                         <td style="width: 40%;">
@@ -166,7 +166,7 @@
             </table>
 
 
-            <table style="font-size: 14pt;" class="table table-bordered t">
+            <table style="font-size: 12pt;" class="table table-bordered t">
                 <tbody>
                     <tr>
                         <th style="width: 50px;">
@@ -202,7 +202,7 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <table class="table table-bordered t" style="font-size: 14pt;">
+                    <table class="table table-bordered t" style="font-size: 12pt;">
                         <tbody>
                             <tr>
                                 <td>
@@ -266,7 +266,7 @@
             {{-- <p class="mt-5 pt-4">
                 Room You have to visit:
             </p>
-            <table style="font-size: 14pt;" class="table table-bordered mt-0 t">
+            <table style="font-size: 12pt;" class="table table-bordered mt-0 t">
 
                 <tbody>
                     <tr>
