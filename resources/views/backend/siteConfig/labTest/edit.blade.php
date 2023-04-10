@@ -59,6 +59,18 @@
                                     ])
                                 </div>
                                 <div class="form-group">
+                                    @include('components.backend.forms.select2.option', [
+                                        'name' => 'specimen',
+                                        'optionData' => $specimen,
+                                        'required' => true,
+                                        'selectedKey' => $labTest->specimen,
+
+                                    ])
+                                    @include('components.backend.forms.input.errorMessage', [
+                                        'message' => $errors->first('specimen'),
+                                    ])
+                                </div>
+                                <div class="form-group">
                                     @include('components.backend.forms.input.input-type', [
                                         'name' => 'price',
                                         'placeholder' => 'price will be here...',
@@ -77,6 +89,43 @@
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
                                         'message' => $errors->first('unit'),
+                                    ])
+                                </div>
+                                <div class="form-group">
+                                    @include('components.backend.forms.input.input-type', [
+                                        'name' => 'needle',
+                                        'number' => true,
+                                        'placeholder' => 'needle qty will be here...',
+                                        'value' => $labTest->needle,
+
+
+                                    ])
+                                    @include('components.backend.forms.input.errorMessage', [
+                                        'message' => $errors->first('needle'),
+                                    ])
+                                </div>
+                                <div class="form-group">
+                                    @include('components.backend.forms.input.input-type', [
+                                        'name' => 'glucose',
+                                        'number' => true,
+                                        'placeholder' => 'glucose qty will be here...',
+                                        'value' => $labTest->glucose,
+
+                                    ])
+                                    @include('components.backend.forms.input.errorMessage', [
+                                        'message' => $errors->first('glucose'),
+                                    ])
+                                </div>
+                                <div class="form-group">
+                                    @include('components.backend.forms.input.input-type', [
+                                        'name' => 'pot',
+                                        'number' => true,
+                                        'placeholder' => 'pot qty will be here...',
+                                        'value' => $labTest->pot,
+
+                                    ])
+                                    @include('components.backend.forms.input.errorMessage', [
+                                        'message' => $errors->first('pot'),
                                     ])
                                 </div>
                                 <div class="form-group">

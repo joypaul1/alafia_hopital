@@ -96,9 +96,16 @@ class LabTestController extends Controller
             ['name' => 'Immunology', 'id' => 'Immunology'],
             ['name' => 'Micro Biology', 'id' => 'Micro Biology'],
         ];
+        $specimen= (object)[
+            ['name' => 'Blood', 'id' => 'Blood'],
+            ['name' => 'Urine', 'id' => 'Urine'],
+            ['name' => 'Stool', 'id' => 'Stool']
+        ];
         $labTestTube = LabTestTube::select(['id', 'name'])->get();
-        return view('backend.siteConfig.labTest.create', compact('labTestTube', 'department'));
+        return view('backend.siteConfig.labTest.create', compact('labTestTube', 'department', 'specimen'));
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -148,7 +155,12 @@ class LabTestController extends Controller
             ['name' => 'Immunology', 'id' => 'Immunology'],
             ['name' => 'Micro Biology', 'id' => 'Micro Biology'],
         ];
-        return view('backend.siteConfig.labTest.edit', compact('labTest', 'labTestTube','department'));
+        $specimen= (object)[
+            ['name' => 'Blood', 'id' => 'Blood'],
+            ['name' => 'Urine', 'id' => 'Urine'],
+            ['name' => 'Stool', 'id' => 'Stool']
+        ];
+        return view('backend.siteConfig.labTest.edit', compact('labTest', 'labTestTube','department','specimen'));
     }
 
     /**

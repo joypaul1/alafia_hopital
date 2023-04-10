@@ -181,7 +181,7 @@
                     </div>
                 </div>
                 <div class="d-block text-right mb-5">
-                    <button class="btn btn-lg btn-info ">Save</button>
+                    <button class="btn btn-lg btn-info">Save</button>
                 </div>
             </form>
         </div>
