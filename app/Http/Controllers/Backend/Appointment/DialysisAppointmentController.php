@@ -121,9 +121,8 @@ class DialysisAppointmentController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        // dd($request->all(),AccountLedger::first());
+
         $returnData = $request->storeData($request);
-        // dd(  $returnData );
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('Appointment Created');
             return redirect()->route('backend.dialysis-appointment.show', $returnData->getData()->data);

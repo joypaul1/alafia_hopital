@@ -67,13 +67,15 @@ class StoreRequest extends FormRequest
      */
     public function storeData()
     {
+        // dd($this->all());
         try {
             DB::beginTransaction();
             $data['invoice_no']         = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
             $data['patient_id']         = $this->patient_id;
             $data['date']               = date('Y-m-d', strtotime($this->date)) . ' ' . date('h:i:s');
-            $data['paid_amount']        = Str::replace(',', '', ($this->tubeSubTotal + $this->testSubTotal));
-            $data['total_amount']       = $data['paid_amount'];
+            $data['paid_amount']        = Str::replace(',', '', ($this->paid_amount));
+            $data['subtotal_amount']        = Str::replace(',', '', ($this->payable_amount));
+            $data['total_amount']        = Str::replace(',', '', ($this->payable_amount));
             $data['doctor_id']          = $this->doctor_id;
             $labInvoice                 = LabInvoice::create($data);
             // dd($labInvoice);
@@ -82,6 +84,7 @@ class StoreRequest extends FormRequest
                 $labTest = LabTest::whereId($labTest)->first();
                 // dd($labTest);
                 //delivery time set
+                //12:00 am blood sample ar report 7:30 pm pabe( 7.30 hours pore report pabe), Except microbiology report.
                 if ($labTest->time_type == "day") {
                     //carbon add day
                     $finalTime = (Carbon::parse($this->date . date('h:i a'))->addDays($labTest->time)->format('Y-m-d h:i a'));
@@ -95,7 +98,6 @@ class StoreRequest extends FormRequest
                 if ($labTest->time_type == "hour") {
                     //carbon add time
                     $finalTime = (Carbon::parse($this->date . date('h:i a'))->addHours($labTest->time)->format('Y-m-d h:i a'));
-                    // dd($finalTime);
                     $checkTime = (Carbon::parse($this->date . date('h:i a'))->addHours($labTest->time)->format('h:i a'));
                     if ($checkTime >= "8:00" && $checkTime <= "18:00") {
                         $deliveryTime = $finalTime;

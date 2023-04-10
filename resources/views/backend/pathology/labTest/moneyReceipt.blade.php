@@ -375,7 +375,7 @@
                 </i>
             </p>
             <p class="mt-5 pt-4">
-                যে সকল রুমে যাবেন।
+                যে সকল রুমে যাবেন:
             </p>
             <table style="font-size: 12pt;" class="table table-bordered mt-0 t">
 

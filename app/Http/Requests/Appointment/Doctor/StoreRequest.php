@@ -62,26 +62,27 @@ class StoreRequest extends FormRequest
         // dd($this->all());
         try {
             DB::beginTransaction();
-            $data = $this->all();
-            $data['invoice_number'] = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
+            // $data = $this->all();
+            $data['invoice_number']                 = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
             $data['doctor_appointment_schedule_id'] = $this->appointment_schedule;
-            $data['patient_id'] = $this->patient_Id;
-            $data['doctor_id']      = $this->doctorID;
-            $data['doctor_fee']     = $this->doctor_fees;
-            $data['appointment_date'] = $this->appointment_date;
-            $data['schedule'] = $this->schedule;
-            $data['appointment_priority'] = $this->appointment_priority;
-            $data['payment_mode'] = PaymentSystem::find($this->payment_method)->name; //payment method name
-            $data['appointment_status'] = $this->status;
-            $data['payment_status'] = 'Paid';
-            $data['date'] = now();
-            $data['serial_number'] = $this->serial_number();
-            $data['discount_type'] = $this->discount_type;
-            $data['discount'] =  Str::replace(',', '', $this->discount);
-            $data['paid_amount'] =  Str::replace(',', '', $this->paid_amount);
-            $data['subtotal_amount'] = Str::replace(',', '', $this->subtotal);
-            $data['total_amount'] = Str::replace(',', '', $this->payable_amount);
+            $data['patient_id']             = $this->patient_Id;
+            $data['doctor_id']              = $this->doctorID;
+            $data['doctor_fee']             = $this->doctor_fees;
+            $data['appointment_date']       = $this->appointment_date;
+            $data['schedule']               = $this->schedule;
+            $data['appointment_priority']   = $this->appointment_priority;
+            $data['payment_mode']           = PaymentSystem::find($this->payment_method)->name; //payment method name
+            $data['appointment_status']     = $this->status;
+            $data['payment_status']         = $this->payable_amount > $this->paid_amount ?'due':'paid';
+            $data['date']                   = now();
+            $data['serial_number']          = $this->serial_number();
+            $data['discount_type']          = $this->discount_type;
+            $data['discount']               =  Str::replace(',', '', $this->discount);
+            $data['paid_amount']            =  Str::replace(',', '', $this->paid_amount??0);
+            $data['subtotal_amount']        = Str::replace(',', '', $this->subtotal);
+            $data['total_amount']           = Str::replace(',', '', $this->payable_amount);
             $data['due_amount'] =  Str::replace(',', '', $this->due_amount);
+            // dd($data);
             $appointment = Appointment::create($data);
             // dd($appointment);
             // appointment paymentHistories

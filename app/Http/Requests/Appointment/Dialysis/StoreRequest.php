@@ -67,7 +67,7 @@ class StoreRequest extends FormRequest
             $data['appointment_priority'] = "Normal";
             $data['payment_mode'] = PaymentSystem::find($this->payment_method)->name; //payment method name
             $data['appointment_status'] = $this->status;
-            $data['payment_status'] = 'Paid';
+            $data['payment_status']         = $this->payable_amount > $this->paid_amount ?'due':'paid';
             $data['date'] = now();
             $data['discount_type'] = $this->discount_type;
             $data['discount'] =  Str::replace(',', '', $this->discount);
