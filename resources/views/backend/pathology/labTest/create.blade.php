@@ -76,7 +76,7 @@
                                 @include('components.backend.forms.select2.option', [
                                     'name' => 'doctor_id',
                                     'label' => 'Referred By',
-                                    'optionData' =>$doctors,
+                                    'optionData' => $doctors,
                                 ])
                                 @include('components.backend.forms.input.errorMessage', [
                                     'message' => $errors->first('doctor_id'),
@@ -108,8 +108,8 @@
                                             <th> Test Name </th>
                                             <th> Price </th>
                                             <th> Discount Type </th>
-                                            <th> Discount  </th>
-                                            <th> Discount Amount  </th>
+                                            <th> Discount </th>
+                                            <th> Discount Amount </th>
                                             <th> SubTotal </th>
                                             <th> Action </th>
                                         </tr>
@@ -160,21 +160,21 @@
                             @include('components.backend.forms.input.input-type', [
                                 'name' => 'payable_amount',
                                 'readonly' => 'true',
-                                'value' => 0.00,
+                                'value' => 0.0,
                             ])
                         </div>
 
                         <div class="col-4">
                             @include('components.backend.forms.input.input-type', [
                                 'name' => 'paid_amount',
-                                'value' => 0.00,
+                                'value' => 0.0,
                             ])
                         </div>
                         <div class="col-4">
                             @include('components.backend.forms.input.input-type', [
                                 'name' => 'due_amount',
                                 'readonly' => true,
-                                'value' => 0.00,
+                                'value' => 0.0,
                             ])
                         </div>
                         {{-- <strong>Total : <span id="totalPrice">0.00</span>Tk </strong> --}}
@@ -207,7 +207,8 @@
                             return {
                                 value: obj.name, //Fillable in input field
                                 value_id: obj.id, //Fillable in input field
-                                label: 'Name:' + obj.name +' mobile:' + obj.mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                                label: 'Name:' + obj.name + ' mobile:' + obj
+                                .mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
                             }
                         })
                         response(resArray);
@@ -240,7 +241,9 @@
                                 category: obj.category, //Fillable in input field
                                 price: obj.price, //Fillable in input field
                                 label: obj.name,
-                                value_id: obj.id
+                                value_id: obj.id,
+                                needle: obj.needle,
+                                glucose: obj.glucose,
                             }
                         })
                         response(resArray);
@@ -250,9 +253,8 @@
 
             select: function(event, ui) {
                 event.preventDefault();
-                console.log($(this).val(null));
                 // labTest data append in table also added table row discount_type dropdown & discount & discount_amount with html event attribute
-                let row=`<tr>
+                let row = `<tr>
                                 <td>
                                     <input type="hidden" class="labTest_id"  name="labTest_id[]" value="${ui.item.value_id}">
                                     <input type="hidden" class="labTestCatName"  value="${ui.item.category}">
@@ -295,8 +297,8 @@
                 let labTestCatName = $('.labTestCatName').map(function() {
                     return $(this).val();
                 }).get();
-                if ($.inArray((ui.item.tube.id).toString(), testTube_id) != -1 && $.inArray((ui.item.category).toString(), labTestCatName) != -1) {
-                } else {
+                if ($.inArray((ui.item.tube.id).toString(), testTube_id) != -1 && $.inArray((ui.item.category)
+                        .toString(), labTestCatName) != -1) {} else {
                     // testTube data append in table
                     let tube = `<tr>
                             <td>
@@ -311,7 +313,67 @@
                         </tr>`;
                     $('#testTubeAppend').last().after(tube);
                 }
+                console.log(ui.item.needle);
 
+
+                //append needle data in testTubeAppend row
+
+                if (ui.item.needle > 0) {
+
+
+                    let needle_id = $('.needle_id').map(function() {
+                        return $(this).val();
+                    }).get();
+                    let needle_for = $('.needle_for').map(function() {
+                        return $(this).val();
+                    }).get();
+
+                    if ((ui.item.label).toString() == "Fasting Blood Sugar (FBS)" || (ui.item.label)
+                    .toString() == "Random Blood Sugar (RBS)") {
+                        let needle = `<tr>
+                                    <td>
+                                        <input type="hidden" name="needle_id[]"  class="needle_id" value="needle">
+                                        <input type="hidden" class="needle_for" value="${ui.item.label}">
+                                        Needle
+                                    </td>
+                                    <td>
+                                        <input type="text" name="needle_price[]"
+                                        value="${20}" class="form-control testTube_price text-right"
+                                        readonly>
+                                    </td>
+                                </tr>`;
+                            let classLength= $('.needle_id').length;
+                            if(classLength ==1){
+                                $('#testTubeAppend').last().after(needle);
+
+                            }else if(classLength == 0){
+                                $('#testTubeAppend').last().after(needle);
+                                $('#testTubeAppend').last().after(needle);
+                            }
+                    } else {
+                        //first check needle not exist
+                        if ($.inArray('needle', needle_id) != -1 ) {
+                            console.log('exist');
+                        } else {
+                            let needle = `<tr>
+                                <td>
+                                    <input type="hidden" name="needle_id[]"  class="needle_id" value="needle">
+                                    <input type="hidden" class="needle_for" value="${ui.item.label}">
+                                    Needle
+                                </td>
+                                <td>
+                                    <input type="text" name="needle_price[]"
+                                    value="${20}" class="form-control testTube_price text-right"
+                                    readonly>
+                                </td>
+                            </tr>`;
+                            $('#testTubeAppend').last().after(needle);
+                        }
+                    }
+
+
+
+                }
                 approximatePrice();
             }
         });
@@ -332,12 +394,18 @@
                         'labTest_id': $(this).val()
                     },
                     success: function(res) {
-
-                        let labTestCatName = $('.labTestCatName').map(function() {return $(this).val()}).get();
-                        let testTube_id = $('.testTube_id').map(function() {return $(this).val()}).get();
+                        let labTestCatName = $('.labTestCatName').map(function() {
+                            return $(this).val()
+                        }).get();
+                        let testTube_id = $('.testTube_id').map(function() {
+                            return $(this).val()
+                        }).get();
                         // console.log(res);
-                        if ($.inArray((res.data.tube.id).toString(), testTube_id) != -1 && $.inArray((res.data.category).toString(), labTestCatName) != -1) {
-                        } else {
+                        if ($.inArray((res.data.tube.id).toString(), testTube_id) != -1 && $
+                            .inArray((res.data.category).toString(), labTestCatName) != -1
+                            ) {
+                            console.log('exist');
+                            } else {
                             // testTube data append in table
                             let tube = `<tr>
                                     <td>
@@ -425,6 +493,20 @@
 
             var total = subtotal + tube_price;
             $('#totalPrice').text(total.toFixed(2));
+            $('#payable_amount').val(total.toFixed(2));
+            $('#due_amount').val(total.toFixed(2));
         }
+
+        //paid amount change event
+        $(document).on('input', '#paid_amount', function() {
+            let paid_amount = $(this).val();
+            let payable_amount = $('#payable_amount').val();
+            let due_amount = $('#due_amount');
+            if (paid_amount > payable_amount) {
+                due_amount.val(0);
+            } else {
+                due_amount.val((Number(payable_amount) - Number(paid_amount)).toFixed(2));
+            }
+        });
     </script>
 @endpush

@@ -233,7 +233,6 @@
                         <td class="text-right">
                             {{ number_format($labTest->price, 2) }}
                         </td>
-                        {{-- <td colspan="2" style="border: none !important;"></td> --}}
                     </tr>
                     @endforeach
                 </tbody>
@@ -290,7 +289,9 @@
                             </strong>
                         </td>
                         <td class="text-right ">
-                            <strong> 0.00 </strong>
+                            <strong>
+                                {{ number_format($labInvoice->due_amount, 2) }}
+                            </strong>
                         </td>
                     </tr>
 
