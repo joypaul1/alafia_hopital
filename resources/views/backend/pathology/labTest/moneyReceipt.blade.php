@@ -253,7 +253,7 @@
                             {{ number_format($labTest->price, 2) }}
                         </td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <td>
                             {{ $si }}
                         </td>
@@ -263,12 +263,12 @@
                         <td colspan="3" class="text-right">
                             {{ number_format($labTest->price, 2) }}
                         </td>
-                    </tr>
+                    </tr> --}}
 
                     @endforeach
                     @php
                         $otherService = json_decode($labInvoice->other_service);
-                        // dd($otherService,$labInvoice->other_service);
+                        // dd($otherService);
                     @endphp
                     {{-- @if($otherService) --}}
                     {{-- @foreach ($otherService as $key=>$service)

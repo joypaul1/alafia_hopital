@@ -24,25 +24,25 @@
                 <div class="row mb-2 align-items-center">
                     <div class="col-4">
                         @include('components.backend.forms.input.input-type', [
-                            'name' => 'name',
+                            'name' => 'name[]',
                             'value' => $labTest->name,
                         ])
                     </div>
                     <div class="col-4">
                         @include('components.backend.forms.input.input-type', [
-                            'name' => 'result',
+                            'name' => 'result[]',
                             'placeholder' => 'Enter result here...',
                         ])
                     </div>
                     <div class="col-4">
                         @include('components.backend.forms.input.input-type', [
-                            'name' => 'unit',
+                            'name' => 'unit[]',
                             'value' => $labTest->unit,
                         ])
                     </div>
                     <div class="col-12 mt-3">
                         @include('components.backend.forms.texteditor.editor', [
-                            'name' => 'reference_value',
+                            'name' => 'reference_value[]',
                             'placeholder' => 'reference  here ...',
                             'value' => $labTest->reference_value,
 
@@ -51,7 +51,30 @@
                             'message' => $errors->first('reference'),
                         ])
                     </div>
-                    
+                    <div class="col-4">
+                        @include('components.backend.forms.input.input-type', [
+                            'name' => 'name[]',
+                            'value' => 'CUS',
+                        ])
+                    </div>
+                    <div class="col-4">
+                        @include('components.backend.forms.input.input-type', [
+                            'name' => 'result[]',
+                        ])
+                    </div>
+                    <div class="col-4">
+                        @include('components.backend.forms.input.input-type', [
+                            'name' => 'unit[]',
+                            'value' => '-',
+                        ])
+                    </div>
+                    <div class="col-4">
+                        @include('components.backend.forms.input.input-type', [
+                            'name' => 'reference_value[]',
+                            'value' => 'nill',
+                        ])
+                    </div>
+
                 </div>
                 <div class="row text-right">
                     <div class="col-12">

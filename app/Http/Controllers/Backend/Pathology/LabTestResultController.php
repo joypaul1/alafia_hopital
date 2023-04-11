@@ -25,8 +25,11 @@ class LabTestResultController extends Controller
             ['id' => '%' , 'name' => '%' ],
         ];
         $data = $request->all();
-        $labTest = LabTest::whereId($request->labTest_id)->first();
+         $labTest = LabTest::whereId($request->labTest_id)->first();
         if($labTest->category == 'Biochemistry' && $labTest->name == 'Fasting Blood Sugar (FBS)'){
+            return view('backend.pathology.makeResult.fbs', compact('data', 'labTest'));
+        }
+        if($labTest->category == 'Biochemistry' && $labTest->name == 'Blood Glucose 2 Hrs. After 75gm Glucose'){
             return view('backend.pathology.makeResult.fbs', compact('data', 'labTest'));
         }
         if($labTest->category == 'Biochemistry' && $labTest->name != 'CBC'){
@@ -44,6 +47,7 @@ class LabTestResultController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         try {
             DB::beginTransaction();
             $labTestReport = null;
@@ -55,6 +59,7 @@ class LabTestResultController extends Controller
                 $data['created_date']                   = date('Y-m-d h:i:s');
                 $data['patient_id']                     = LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->with('labInvoice.patient')->first()->labInvoice->patient->id;
                 $data ['result']                        = json_encode($request->except('_token', '_method','lab_invoice_test_detail_id','test_id'));
+
                 $labTestReport                          = LabTestReport::create($data);
                 LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
             }
@@ -75,6 +80,12 @@ class LabTestResultController extends Controller
 
         if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'CBC') {
             return view('backend.pathology.viewResult.cbc', compact('labTestReport'));
+        }
+        if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'Fasting Blood Sugar (FBS)') {
+            return view('backend.pathology.viewResult.fbs', compact('labTestReport'));
+        }
+        if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'Blood Glucose 2 Hrs. After 75gm Glucose') {
+            return view('backend.pathology.viewResult.fbs', compact('labTestReport'));
         }
         if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name != 'CBC') {
             return view('backend.pathology.viewResult.show', compact('labTestReport'));
