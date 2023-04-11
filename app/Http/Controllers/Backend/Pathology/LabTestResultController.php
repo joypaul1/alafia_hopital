@@ -26,24 +26,35 @@ class LabTestResultController extends Controller
         ];
         $data = $request->all();
         $labTest = LabTest::whereId($request->labTest_id)->first();
+
+        // start Biochemistry
         if($labTest->category == 'Biochemistry' && $labTest->name == 'Fasting Blood Sugar (FBS)'){
             return view('backend.pathology.makeResult.fbs', compact('data', 'labTest'));
         }
         if($labTest->category == 'Biochemistry' && $labTest->name == 'Blood Glucose 2 Hrs. After 75gm Glucose'){
             return view('backend.pathology.makeResult.fbs', compact('data', 'labTest'));
         }
-        if($labTest->category == 'Biochemistry' && $labTest->name != 'CBC'){
-            return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
-        }
         if ($labTest->category == 'Biochemistry' && $labTest->name == 'CBC') {
             return view('backend.pathology.makeResult.cbc', compact('data', 'labTest', 'units'));
         }
-        if($labTest->category == 'Hematology' ){
-            return view('backend.pathology.makeResult.hematology', compact('data', 'labTest'));
+
+        if($labTest->category == 'Biochemistry'){
+            return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
         }
+
+        // End Biochemistry
+
+        // Serology
         if($labTest->category == 'Serology' ){
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
         }
+        // end Serology
+
+        // Hematology
+        if($labTest->category == 'Hematology' ){
+            return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
+        }
+        // end Hematology
 
     }
 
@@ -65,7 +76,6 @@ class LabTestResultController extends Controller
 
                 $labTestReport                          = LabTestReport::create($data);
                 LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
-                // dd( $labTestReport  );
             }
             DB::commit();
         } catch (\Exception $ex) {
@@ -82,6 +92,7 @@ class LabTestResultController extends Controller
     {
         $labTestReport = LabTestReport::whereId($request->id)->with('labInvoiceTestDetails.labInvoice', 'patient', 'testName')->first();
 
+        // start Biochemistry
         if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'CBC') {
             return view('backend.pathology.viewResult.cbc', compact('labTestReport'));
         }
@@ -91,15 +102,27 @@ class LabTestResultController extends Controller
         if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'Blood Glucose 2 Hrs. After 75gm Glucose') {
             return view('backend.pathology.viewResult.fbs', compact('labTestReport'));
         }
-        if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name != 'CBC') {
-            return view('backend.pathology.viewResult.show', compact('labTestReport'));
-        }
-        if ($labTestReport->testName->category == 'Hematology') {
-            return view('backend.pathology.viewResult.hematology', compact('labTestReport'));
-        }
-        if ($labTestReport->testName->category == 'Serology') {
+        if ($labTestReport->testName->category == 'Biochemistry') {
             return view('backend.pathology.viewResult.show', compact('labTestReport'));
         }
 
+        // end Biochemistry
+
+        // start Serology
+        if ($labTestReport->testName->category == 'Serology') {
+            return view('backend.pathology.viewResult.show', compact('labTestReport'));
+        }
+        // end Serology
+
+        // start Hematology
+        if ($labTestReport->testName->category == 'Hematology') {
+            return view('backend.pathology.viewResult.show', compact('labTestReport'));
+        }
+        // end Hematology
+        // start Hematology
+        if ($labTestReport->testName->category == 'Hematology') {
+            return view('backend.pathology.viewResult.show', compact('labTestReport'));
+        }
+        // end Hematology
     }
 }

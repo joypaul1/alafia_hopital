@@ -156,8 +156,8 @@ class PrescriptionController extends Controller
      */
     public function show(Prescription $prescription)
     {
-        // dd($prescription);
-         $prescription= $prescription->with('patient','doctor:id,first_name,last_name', 'appointment', 'diseasesSymptoms.symptom', 'medicines.item.strength', 'otherSpecifications')->first();
+        // dd($$prescription);
+        $prescription= $prescription->with('patient','doctor:id,first_name,last_name', 'appointment', 'diseasesSymptoms.symptom', 'medicines.item.strength', 'otherSpecifications')->first();
         return view('backend.prescription.show', compact('prescription'));
 
     }

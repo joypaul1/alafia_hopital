@@ -6,11 +6,6 @@
 @stop
 
 @section('content')
-    {{-- @include('backend._partials.page_header', [
-        'fa' => 'fa fa-list',
-        'name' => 'Report Pages',
-        'route' => route('backend.siteConfig.slider.index'),
-    ]) --}}
     <form action="{{ route('backend.pathology.make-test-result-store') }}" method="post">
         @csrf
         @method('POST')

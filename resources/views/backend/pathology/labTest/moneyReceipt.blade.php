@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receipt</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
@@ -78,7 +79,6 @@
                 margin: 0 auto;
             }
         }
-
     </style>
 </head>
 
@@ -103,7 +103,8 @@
                         </td>
                         <td rowspan="5">
                             <div class="d-flex justify-content-center align-items-center">
-                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $labInvoice->invoice_number . ' PID-' . optional($labInvoice->patient)->patientId, 'QRCODE') }}" alt="QR Code" style="width: 100px;" />
+                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $labInvoice->invoice_number . ' PID-' . optional($labInvoice->patient)->patientId, 'QRCODE') }}"
+                                    alt="QR Code" style="width: 100px;" />
                             </div>
                         </td>
                         {{-- @dd($labInvoice->date); --}}
@@ -120,13 +121,14 @@
                         </td>
                         <td style="text-align: right;">
                             <strong>Sex </strong> :
-                            <span style="text-transform: capitalize;">{{ optional($labInvoice->patient)->gender }}</span>
+                            <span
+                                style="text-transform: capitalize;">{{ optional($labInvoice->patient)->gender }}</span>
                         </td>
                     </tr>
                     @php
-                    $bday = new DateTime(optional($labInvoice->patient)->dob); // Your date of birth
-                    $today = new Datetime(date('m.d.y'));
-                    $diff = $today->diff($bday);
+                        $bday = new DateTime(optional($labInvoice->patient)->dob); // Your date of birth
+                        $today = new Datetime(date('m.d.y'));
+                        $diff = $today->diff($bday);
                     @endphp
                     <tr>
                         <td>
@@ -137,7 +139,7 @@
                         </td>
                         <td style="text-align: right;">
                             <strong>Mobile </strong> :
-                            {{ optional($labInvoice->patient)->mobile}}
+                            {{ optional($labInvoice->patient)->mobile }}
                         </td>
                     </tr>
                     <tr>
@@ -149,7 +151,7 @@
                         </td>
                         <td style="text-align: right;">
                             <strong>Emergency Contact </strong> :
-                            {{ optional($labInvoice->patient)->emergency_contact}}
+                            {{ optional($labInvoice->patient)->emergency_contact }}
                         </td>
                     </tr>
                     <tr>
@@ -185,7 +187,7 @@
                         <th style="width: 5%;">
                             Sl.
                         </th>
-                        <th style="width: 50%;">
+                        <th style="width: 40%;">
                             Test Name
                         </th>
                         <th class="text-right" style="width: 15%;">
@@ -197,63 +199,64 @@
                         <th style="width: 10%;" class="text-right">
                             SubTotal
                         </th>
-                        <th style="width: 20%">
+                        <th style="width: 30%">
                             Delivery Time
                         </th>
 
                     </tr>
                     @php
-                    $si = 0;
+                        $si = 0;
                     @endphp
 
                     @foreach ($labInvoice->labTestDetails as $labTest)
-                    @php
-                    $si += 1;
-                    @endphp
-                    <tr>
-                        <td>
-                            {{ $si }}
-                        </td>
+                        @php
+                            $si += 1;
+                        @endphp
+                        <tr>
+                            <td>
+                                {{ $si }}
+                            </td>
 
-                        <td>
-                            {{ $labTest->testName->name }}
-                        </td>
+                            <td>
+                                {{ $labTest->testName->name }}
+                            </td>
 
-                        <td class="text-right">
-                            {{ number_format($labTest->price, 2) }}
-                        </td>
-                        <td class="text-right">
-                            {{ number_format($labTest->discount_amount, 2) }} {{ $labTest->discount_type == 'percentage' ? '%' : 'TK' }}
-                        </td>
-                        <td class="text-right">
-                            {{ number_format($labTest->subtotal, 2) }}
-                        </td>
+                            <td class="text-right">
+                                {{ number_format($labTest->price, 2) }}
+                            </td>
+                            <td class="text-right">
+                                {{ number_format($labTest->discount_amount, 2) }}
+                                {{ $labTest->discount_type == 'percentage' ? '%' : 'TK' }}
+                            </td>
+                            <td class="text-right">
+                                {{ number_format($labTest->subtotal, 2) }}
+                            </td>
 
-                        <td>
-                            {{ date_format(date_create($labTest->delivery_time),('d-m-Y h:i A')) }}
-                        </td>
-                    </tr>
+                            <td>
+                                {{ date_format(date_create($labTest->delivery_time), 'd-m-Y h:i A') }}
+                            </td>
+                        </tr>
                     @endforeach
                     <tr>
                         <td colspan="3"></td>
 
                     </tr>
-                    @foreach ($labInvoice->labTestTube as $key=>$labTest)
-                    @php
-                    $si += 1;
-                    @endphp
-                    <tr>
-                        <td>
-                            {{ $si }}
-                        </td>
-                        <td >
-                            Vacutainer {{ $labTest->tubeName->name }}
-                        </td>
-                        <td colspan="3" class="text-right">
-                            {{ number_format($labTest->price, 2) }}
-                        </td>
-                    </tr>
-                    {{-- <tr>
+                    @foreach ($labInvoice->labTestTube as $key => $labTest)
+                        @php
+                            $si += 1;
+                        @endphp
+                        <tr>
+                            <td>
+                                {{ $si }}
+                            </td>
+                            <td>
+                                Vacutainer {{ $labTest->tubeName->name }}
+                            </td>
+                            <td colspan="3" class="text-right">
+                                {{ number_format($labTest->price, 2) }}
+                            </td>
+                        </tr>
+                        {{-- <tr>
                         <td>
                             {{ $si }}
                         </td>
@@ -264,17 +267,16 @@
                             {{ number_format($labTest->price, 2) }}
                         </td>
                     </tr> --}}
-
                     @endforeach
                     @php
                         $otherService = json_decode($labInvoice->other_service);
                         // dd($otherService);
                     @endphp
-                    {{-- @if($otherService) --}}
-                    {{-- @foreach ($otherService as $key=>$service)
+                    {{-- @if ($otherService) --}}
+                    {{-- @foreach ($otherService as $key => $service)
                     @dd($service, $key) --}}
                     @php
-                    // $si += 1;
+                        // $si += 1;
                     @endphp
                     {{-- <tr>
                         <td>
@@ -295,9 +297,10 @@
             <table class="table table-bordered t">
                 <tbody>
                     <tr>
-                        <td rowspan="6" style="vertical-align: middle; width:30%;">
+                        <td rowspan="6" style="vertical-align: middle; width:20%;">
                             <div class="d-flex justify-content-center align-items-center">
-                                <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;" class="h2 px-4 py-2">
+                                <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;"
+                                    class="h2 px-4 py-2">
                                     {{ ucwords($labInvoice->payment_status) }}
                                 </div>
                             </div>
@@ -308,7 +311,15 @@
                         <td class="text-right" style="width: 35%;">
                             {{ number_format($labInvoice->total_amount, 2) }}
                         </td>
-                        <td style="width: 30%;" rowspan="6"></td>
+                        <td style="width: 45%;vertical-align: middle;" rowspan="6">
+                            <div class="d-flex justify-content-center align-items-center h-100">
+                                <div class="text-center">
+                                    <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $labInvoice->invoice_number . ' PID-' . optional($labInvoice->patient)->patientId, 'QRCODE') }}"
+                                        alt="QR Code" style="width: 100px;" />
+                                    <p>Online Test Report</p>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td>
