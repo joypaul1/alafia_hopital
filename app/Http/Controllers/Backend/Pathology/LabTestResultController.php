@@ -71,7 +71,7 @@ class LabTestResultController extends Controller
 
     public function show(Request $request)
     {
-         $labTestReport = LabTestReport::whereId($request->id)->with('labInvoiceTestDetails.labInvoice', 'patient', 'testName')->first();
+        $labTestReport = LabTestReport::whereId($request->id)->with('labInvoiceTestDetails.labInvoice', 'patient', 'testName')->first();
 
         if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'CBC') {
             return view('backend.pathology.viewResult.cbc', compact('labTestReport'));

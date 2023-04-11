@@ -51,10 +51,7 @@
                             'message' => $errors->first('reference'),
                         ])
                     </div>
-                    {{-- <div class="col-12 mt-3">
-                        <label class="col-form-label" for="">Reference Value</label>
-                        <textarea class="form-control" name="reference_value" id="" readonly rows="5">{{ $labTest->reference_value }}</textarea>
-                    </div> --}}
+                    
                 </div>
                 <div class="row text-right">
                     <div class="col-12">

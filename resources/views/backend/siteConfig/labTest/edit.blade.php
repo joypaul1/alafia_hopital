@@ -74,7 +74,7 @@
                                     @include('components.backend.forms.input.input-type', [
                                         'name' => 'price',
                                         'placeholder' => 'price will be here...',
-                                        'value' => number_format($labTest->labTest_price, 2),
+                                        'value' => number_format($labTest->price, 2),
                                         'required' => true,
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
