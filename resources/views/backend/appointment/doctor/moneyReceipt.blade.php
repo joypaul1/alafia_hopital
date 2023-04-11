@@ -98,7 +98,7 @@
                             </Strong>
                             AP-{{ $appointment->invoice_number }}
                         </td>
-                        <td rowspan="4">
+                        <td rowspan="5">
                             <div class="d-flex justify-content-center align-items-center">
                                 <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center#'.$appointment->invoice_number, 'QRCODE')}}" alt="barcode"style="width: 100px;" />
                             </div>
