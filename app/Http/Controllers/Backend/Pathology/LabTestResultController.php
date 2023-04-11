@@ -25,7 +25,7 @@ class LabTestResultController extends Controller
             ['id' => '%' , 'name' => '%' ],
         ];
         $data = $request->all();
-         $labTest = LabTest::whereId($request->labTest_id)->first();
+        $labTest = LabTest::whereId($request->labTest_id)->first();
         if($labTest->category == 'Biochemistry' && $labTest->name == 'Fasting Blood Sugar (FBS)'){
             return view('backend.pathology.makeResult.fbs', compact('data', 'labTest'));
         }
@@ -41,6 +41,9 @@ class LabTestResultController extends Controller
         if($labTest->category == 'Hematology' ){
             return view('backend.pathology.makeResult.hematology', compact('data', 'labTest'));
         }
+        if($labTest->category == 'Serology' ){
+            return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
+        }
 
     }
 
@@ -52,7 +55,7 @@ class LabTestResultController extends Controller
             DB::beginTransaction();
             $labTestReport = null;
             $testName = LabTest::whereId($request->test_id)->first();
-            if($testName->category == 'Biochemistry' || $testName->category == 'Hematology'){
+            if($testName->category == 'Biochemistry' || $testName->category == 'Hematology'|| $testName->category == 'Serology' ){
                 $data['lab_test_id']                    = $request->test_id;
                 $data['lab_invoice_test_detail_id']     = $request->lab_invoice_test_detail_id;
                 $data['created_by']                     = auth('admin')->user()->id;
@@ -62,6 +65,7 @@ class LabTestResultController extends Controller
 
                 $labTestReport                          = LabTestReport::create($data);
                 LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
+                // dd( $labTestReport  );
             }
             DB::commit();
         } catch (\Exception $ex) {
@@ -92,6 +96,9 @@ class LabTestResultController extends Controller
         }
         if ($labTestReport->testName->category == 'Hematology') {
             return view('backend.pathology.viewResult.hematology', compact('labTestReport'));
+        }
+        if ($labTestReport->testName->category == 'Serology') {
+            return view('backend.pathology.viewResult.show', compact('labTestReport'));
         }
 
     }
