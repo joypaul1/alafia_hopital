@@ -1513,7 +1513,7 @@
                     </tr>
                     @php
                         $data = json_decode($labTestReport->result);
-                        // dd($data);
+                        // dd($data->name);
                     @endphp
                     <tr class="c73">
                         <td class="c52" colspan="1" rowspan="1">
@@ -1529,19 +1529,32 @@
                             <p class="c4 c10"><span class="c0"></span></p>
                         </td>
                     </tr>
-
                     <tr class="c5">
                         <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{{ $data->name }}</span></p>
+                            <p class="c1"><span class="c0">{{ $data->name[0] }}</span></p>
                         </td>
                         <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11">{{ $data->result }}</span></p>
+                            <p class="c17 c10"><span class="c11">{{ $data->result[0] }}</span></p>
                         </td>
                         <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{{ $data->unit }}</span></p>
+                            <p class="c1"><span class="c0">{{ $data->unit[0] }}</span></p>
                         </td>
                         <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{!! $data->reference_value !!}</span></p>
+                            <p class="c1"><span class="c0">{!! $data->reference_value[0] !!}</span></p>
+                        </td>
+                    </tr>
+                    <tr class="c5">
+                        <td class="c14" colspan="1" rowspan="1">
+                            <p class="c1"><span class="c0">{{ $data->name[1] }}</span></p>
+                        </td>
+                        <td class="c27" colspan="1" rowspan="1">
+                            <p class="c17 c10"><span class="c11">{{ $data->result[1] }}</span></p>
+                        </td>
+                        <td class="c6" colspan="1" rowspan="1">
+                            <p class="c1"><span class="c0">{{ $data->unit[1] }}</span></p>
+                        </td>
+                        <td class="c2" colspan="1" rowspan="1">
+                            <p class="c1"><span class="c0">{!! $data->reference_value[1] !!}</span></p>
                         </td>
                     </tr>
 
@@ -1567,7 +1580,8 @@
 
                         </h5>
                         <p><small>{{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }}</small></p>
-                        
+                        {{-- <p><small>Professor of Pathology</small></p>
+                        <p><small>Bangladesh Medical College</small></p> --}}
                     </div>
                 </div>
             </div>
