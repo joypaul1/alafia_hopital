@@ -129,6 +129,18 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>
+                        <Strong>
+                            Guardian Name
+                        </Strong>
+                        : {{ optional($appointment->patient)->guardian_name }}
+                    </td>
+                    <td style="text-align: right;">
+                        <strong>Emergency Contact </strong> :
+                        {{ optional($appointment->patient)->emergency_contact}}
+                    </td>
+                </tr>
+                <tr>
                     {{-- @if (optional($appointment->asignEmp)->name) --}}
                         <td>
                             <Strong>

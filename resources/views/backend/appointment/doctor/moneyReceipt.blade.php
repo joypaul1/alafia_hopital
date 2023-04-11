@@ -148,6 +148,18 @@
                     <tr>
                         <td>
                             <Strong>
+                                Guardian Name
+                            </Strong>
+                            : {{ optional($appointment->patient)->guardian_name }}
+                        </td>
+                        <td style="text-align: right;">
+                            <strong>Emergency Contact </strong> :
+                            {{ optional($appointment->patient)->emergency_contact}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <Strong>
                                 Sex
                             </Strong>
                             : <span style="text-transform: capitalize;">{{  optional($appointment->patient)->gender}}</span>
@@ -197,7 +209,7 @@
                 <div class="col-6">
                     <div class="d-flex justify-content-center align-items-center h-100">
                         <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;" class="h2 px-4 py-2">
-                            PAID
+                            {{ ucwords($appointment->payment_status) }}
                         </div>
                     </div>
                 </div>

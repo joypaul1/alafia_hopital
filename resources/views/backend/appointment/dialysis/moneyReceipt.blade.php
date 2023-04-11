@@ -195,7 +195,7 @@
                 <div class="col-6">
                     <div class="d-flex justify-content-center align-items-center h-100">
                         <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;" class="h2 px-4 py-2">
-                            PAID
+                            {{ ucwords($appointment->payment_status) }}
                         </div>
                     </div>
                 </div>
