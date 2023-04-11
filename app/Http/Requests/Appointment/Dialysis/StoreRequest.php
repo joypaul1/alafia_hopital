@@ -34,11 +34,11 @@ class StoreRequest extends FormRequest
     {
         // return [];
         return [
-            'patient_Id' => 'required|exists:patients,id',
-            'employee_id' => 'nullable|exists:employees,id',
-            'fee' => 'required',
+            'patient_Id'    => 'required|exists:patients,id',
+            'employee_id'   => 'nullable|exists:employees,id',
+            'fee'           => 'required',
             'appointment_date' => 'required',
-            'schedule' => 'required',
+            'schedule'      => 'required',
             'payment_method' => 'required',
             'status' => 'required',
         ];
