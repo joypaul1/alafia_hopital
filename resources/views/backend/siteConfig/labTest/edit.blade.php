@@ -147,7 +147,7 @@
                                     @include('components.backend.forms.texteditor.editor', [
                                         'name' => 'reference',
                                         'placeholder' => 'reference  here ...',
-                                        'value' => $labTest->reference,
+                                        'value' => $labTest->reference_value,
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
                                         'message' => $errors->first('reference'),

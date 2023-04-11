@@ -207,8 +207,7 @@
                             return {
                                 value: obj.name, //Fillable in input field
                                 value_id: obj.id, //Fillable in input field
-                                label: 'Name:' + obj.name + ' mobile:' + obj
-                                .mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                                label: 'Name:' + obj.name + ' mobile:' + obj.mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
                             }
                         })
                         response(resArray);
@@ -297,6 +296,7 @@
                 let labTestCatName = $('.labTestCatName').map(function() {
                     return $(this).val();
                 }).get();
+
                 if ($.inArray((ui.item.tube.id).toString(), testTube_id) != -1 && $.inArray((ui.item.category)
                         .toString(), labTestCatName) != -1) {} else {
                     // testTube data append in table
@@ -313,13 +313,12 @@
                         </tr>`;
                     $('#testTubeAppend').last().after(tube);
                 }
-                console.log(ui.item.needle);
+                // console.log(ui.item.needle);
 
 
                 //append needle data in testTubeAppend row
 
                 if (ui.item.needle > 0) {
-
 
                     let needle_id = $('.needle_id').map(function() {
                         return $(this).val();
@@ -370,8 +369,6 @@
                             $('#testTubeAppend').last().after(needle);
                         }
                     }
-
-
 
                 }
                 approximatePrice();

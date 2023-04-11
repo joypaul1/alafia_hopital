@@ -26,6 +26,9 @@ class LabTestResultController extends Controller
         ];
         $data = $request->all();
         $labTest = LabTest::whereId($request->labTest_id)->first();
+        if($labTest->category == 'Biochemistry' && $labTest->name == 'Fasting Blood Sugar (FBS)'){
+            return view('backend.pathology.makeResult.fbs', compact('data', 'labTest'));
+        }
         if($labTest->category == 'Biochemistry' && $labTest->name != 'CBC'){
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
         }
