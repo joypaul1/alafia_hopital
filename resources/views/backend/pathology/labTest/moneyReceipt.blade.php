@@ -106,8 +106,9 @@
                                 <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $labInvoice->invoice_number . ' PID-' . optional($labInvoice->patient)->patientId, 'QRCODE') }}" alt="QR Code" style="width: 100px;" />
                             </div>
                         </td>
+                        {{-- @dd($labInvoice->date); --}}
                         <td style="text-align: right; width: 40%;">
-                            <strong>Bill Date</strong> : {{ date('d-m-Y h:i:s', strtotime($labInvoice->date)) }}
+                            <strong>Bill Date</strong> : {{ date('d-m-Y h:i a', strtotime($labInvoice->date)) }}
                         </td>
                     </tr>
                     <tr>
@@ -137,6 +138,18 @@
                         <td style="text-align: right;">
                             <strong>Mobile </strong> :
                             {{ optional($labInvoice->patient)->mobile}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <Strong>
+                                Guardian Name
+                            </Strong>
+                            : {{ optional($labInvoice->patient)->guardian_name }}
+                        </td>
+                        <td style="text-align: right;">
+                            <strong>Emergency Contact </strong> :
+                            {{ optional($labInvoice->patient)->emergency_contact}}
                         </td>
                     </tr>
                     <tr>
@@ -181,6 +194,9 @@
                         <th style="width: 10%;" class="text-right">
                             Discount
                         </th>
+                        <th style="width: 10%;" class="text-right">
+                            SubTotal
+                        </th>
                         <th style="width: 20%">
                             Delivery Time
                         </th>
@@ -207,7 +223,10 @@
                             {{ number_format($labTest->price, 2) }}
                         </td>
                         <td class="text-right">
-                            00
+                            {{ number_format($labTest->discount_amount, 2) }}
+                        </td>
+                        <td class="text-right">
+                            {{ number_format($labTest->subtotal, 2) }}
                         </td>
 
                         <td>
@@ -217,9 +236,9 @@
                     @endforeach
                     <tr>
                         <td colspan="3"></td>
-                        <td colspan="2" rowspan="{{ count($labInvoice->labTestTube) + 1 }}"></td>
+
                     </tr>
-                    @foreach ($labInvoice->labTestTube as $labTest)
+                    @foreach ($labInvoice->labTestTube as $key=>$labTest)
                     @php
                     $si += 1;
                     @endphp
@@ -227,14 +246,38 @@
                         <td>
                             {{ $si }}
                         </td>
-                        <td>
+                        <td >
                             Vacutainer {{ $labTest->tubeName->name }}
                         </td>
-                        <td class="text-right">
+                        <td colspan="3" class="text-right">
+                            {{ number_format($labTest->price, 2) }}
+                        </td>
+                    </tr>
+
+                    @endforeach
+                    @php
+                        $otherService = json_decode($labInvoice->other_service);
+                        dd($otherService,$labInvoice->other_service);
+                    @endphp
+                    @if($otherService)
+                    @foreach ($otherService as $key=>$service)
+                    @dd($service, $key)
+                    @php
+                    $si += 1;
+                    @endphp
+                    <tr>
+                        <td>
+                            {{ $si }}
+                        </td>
+                        <td >
+                            Vacutainer {{ $service->name }}
+                        </td>
+                        <td colspan="3" class="text-right">
                             {{ number_format($labTest->price, 2) }}
                         </td>
                     </tr>
                     @endforeach
+                    @endif
                 </tbody>
             </table>
 
@@ -244,14 +287,14 @@
                         <td rowspan="6" style="vertical-align: middle; width:30%;">
                             <div class="d-flex justify-content-center align-items-center">
                                 <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;" class="h2 px-4 py-2">
-                                    PAID
+                                    {{ ucwords($labInvoice->payment_status) }}
                                 </div>
                             </div>
                         </td>
                         <td style="width:25%;">
                             Bill Amount
                         </td>
-                        <td class="text-right" style="width: 15%;">
+                        <td class="text-right" style="width: 35%;">
                             {{ number_format($labInvoice->total_amount, 2) }}
                         </td>
                         <td style="width: 30%;" rowspan="6"></td>
@@ -278,7 +321,7 @@
                             Cash Paid
                         </td>
                         <td class="text-right">
-                            {{ number_format($labInvoice->total_amount, 2) }}
+                            {{ number_format($labInvoice->paid_amount, 2) }}
                         </td>
                     </tr>
 
@@ -423,7 +466,7 @@
                 <small>
                     <i>
                         <strong>
-                            ডেলিভারি তারিখ হতে ৩০ দিনের মধ্যে রিপোর্ট সংগ্রহ করতে হবে।
+                            ডেলিভারী তারিখ হতে ৩০ দিনের মধ্যে রিপোর্ট সংগ্রহ করতে হবে।
                         </strong>
                     </i>
                 </small>

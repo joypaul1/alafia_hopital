@@ -39,7 +39,7 @@ class StoreRequest extends FormRequest
             'date' => 'required',
             'labTest_id' => 'required|array',
             'labTest_id.*' => 'required|exists:lab_tests,id',
-            'doctor_id' => 'required|exists:doctors,id',
+            'doctor_id' => 'nullable|exists:doctors,id',
             'test_price' => 'required|array',
             'test_price.*' => 'required|numeric',
             'testTube_id' => 'nullable|array',
@@ -74,45 +74,61 @@ class StoreRequest extends FormRequest
             $data['patient_id']         = $this->patient_id;
             $data['date']               = date('Y-m-d', strtotime($this->date)) . ' ' . date('h:i:s');
             $data['paid_amount']        = Str::replace(',', '', ($this->paid_amount));
-            $data['subtotal_amount']        = Str::replace(',', '', ($this->payable_amount));
+            $data['payment_status']     = Str::replace(',', '', ($this->payable_amount)) > Str::replace(',', '', ($this->paid_amount)) ? 'due' : 'paid';
+            $data['subtotal_amount']     = Str::replace(',', '', ($this->payable_amount));
             $data['total_amount']        = Str::replace(',', '', ($this->payable_amount));
             $data['doctor_id']          = $this->doctor_id;
             $labInvoice                 = LabInvoice::create($data);
-            // dd($labInvoice);
+            $array_value = [];
+            $array_name = [];
+            if($this->needle_id){
+                //push needle_id array in array_name
+                foreach ($this->needle_price as $key => $needleValue) {
+                    array_push($array_name, 'needle');
+                    array_push($array_value, $needleValue);
+                }
+                $valueMergeJson=(json_encode(array_merge($array_name,$array_value)));
+                $labInvoice->update(['other_service' => $valueMergeJson]);
+
+            }
             // hasMany labTest data insert
             foreach ($this->labTest_id as $key => $labTest) {
                 $labTest = LabTest::whereId($labTest)->first();
-                // dd($labTest);
                 //delivery time set
                 //12:00 am blood sample ar report 7:30 pm pabe( 7.30 hours pore report pabe), Except microbiology report.
                 if ($labTest->time_type == "day") {
                     //carbon add day
-                    $finalTime = (Carbon::parse($this->date . date('h:i a'))->addDays($labTest->time)->format('Y-m-d h:i a'));
-                    $checkTime = (Carbon::parse($this->date . date('h:i a'))->addDays($labTest->time)->format('h:i a'));
-                    if ($checkTime >= "8:00" && $checkTime <= "18:00") {
-                        $deliveryTime = $finalTime;
-                    } else {
-                        $deliveryTime = (Carbon::parse($this->date . date('h:i a'))->addDays($labTest->time + 1)->format('Y-m-d h:i a'));
+                    if(date('H:i') <= "12:00" ){
+                        $finalTime = (Carbon::parse($this->date . date('h:i a'))->addDays($labTest->time)->format('Y-m-d h:i a'));
+                    }else{
+                        $finalTime = (Carbon::parse($this->date . date('h:i a'))->addDays($labTest->time + 1)->format('Y-m-d h:i a'));
                     }
+                    $deliveryTime = $finalTime;
+
                 }
                 if ($labTest->time_type == "hour") {
                     //carbon add time
-                    $finalTime = (Carbon::parse($this->date . date('h:i a'))->addHours($labTest->time)->format('Y-m-d h:i a'));
-                    $checkTime = (Carbon::parse($this->date . date('h:i a'))->addHours($labTest->time)->format('h:i a'));
-                    if ($checkTime >= "8:00" && $checkTime <= "18:00") {
-                        $deliveryTime = $finalTime;
-                    } else {
-                        $deliveryTime = (Carbon::parse($this->date . date('h:i a'))->addDays($labTest->time + 1)->format('Y-m-d h:i a'));
+                    if(date('H:i') <= "12:00" ){
+                        $finalTime = (Carbon::parse($this->date . date('h:i a'))->addHours(7)->addMinutes(30)->format('Y-m-d h:i a'));
+                    }else{
+                        $finalTime = (Carbon::parse($this->date . date('h:i a'))->addDays(1)->format('Y-m-d h:i a'));
                     }
+                    $deliveryTime = $finalTime;
+
                 }
                 //end delivery time set
-                // dd($deliveryTime);
+                // dd($this->all());
                 $labInvoice->labTestDetails()->create([
                     'status' => 'pending',
                     'lab_test_id' => $labTest->id,
                     'price' => $this->test_price[$key],
                     'delivery_time' => $deliveryTime,
+                    'discount_type' =>$this->discount_type[$key],
+                    'discount' =>$this->discount[$key],
+                    'discount_amount' =>$this->discount_amount[$key],
+                    'subtotal' =>$this->subtotal[$key],
                 ]);
+                // dd($v);
             }
             // hasMany labTestTube data insert
             foreach ($this->testTube_id as $key => $testTube) {
@@ -136,7 +152,7 @@ class StoreRequest extends FormRequest
 
             // cashflowHistories
             $cashflowTransition->cashflowHistory()->create([
-                'debit' => Str::replace(',', '', $labInvoice->total_amount)
+                'debit' => Str::replace(',', '',  $labInvoice->paid_amount)
             ]);
 
             //<----end of cash flow Transition------->
@@ -154,7 +170,7 @@ class StoreRequest extends FormRequest
             //labInvoice full amount
             $dailyTransition->transactionHistories()->create([
                 'entry_name' => 'labInvoice Item',
-                'debit' => Str::replace(',', '', $labInvoice->total_amount),
+                'debit' => Str::replace(',', '',  $labInvoice->paid_amount),
             ]);
 
             $labInvoice->paymentHistories()->create([
@@ -163,7 +179,7 @@ class StoreRequest extends FormRequest
                 'payment_system_id' => PaymentSystem::first()->name,
                 'date' => $this->date,
                 'note' => $this->payment_note,
-                'paid_amount' => Str::replace(',', '', $labInvoice->total_amount),
+                'paid_amount' => Str::replace(',', '',  $labInvoice->paid_amount),
                 'payment_received_id' => auth('admin')->id(),
             ]);
 
@@ -172,7 +188,7 @@ class StoreRequest extends FormRequest
                 'ledger_id' => AccountLedger::first()->id,
                 'date'     => FinancialYearHistory::latest()->first()->start_date
             ], [
-                'debit' => DB::raw('debit +' . Str::replace(',', '', $labInvoice->total_amount))
+                'debit' => DB::raw('debit +' . Str::replace(',', '',  $labInvoice->paid_amount))
             ]);
             // dd($data);
             DB::commit();
