@@ -171,13 +171,13 @@
                         <th>
                             Particular Service
                         </th>
-                        <th class="text-center">
+                        <th class="text-right">
                             Qty
                         </th>
-                        <th class="text-center">
+                        <th class="text-right">
                             U.Price
                         </th>
-                        <th class="text-center">
+                        <th class="text-right" style="width: 150px">
                             Sub Total
                         </th>
                     </tr>
@@ -222,7 +222,7 @@
                                 <td>
                                     Bill Amount
                                 </td>
-                                <td class="text-right">
+                                <td class="text-right" style="width: 150px">
                                     {{ number_format($serviceInvoice->total, 2) }}
                                 </td>
                             </tr>
@@ -276,7 +276,7 @@
             </div>
 
             <p class="text-center">
-                <i style="color: #727272;">
+                <i style="color: #000000;">
                     <small style="text-transform:capitalize;">
                         Received with thanks : {!! Helper::wordConvertor(round($serviceInvoice->total)) !!} Taka Only
                     </small>
@@ -311,7 +311,7 @@
 
         <footer>
             <div class="pt-5" style="padding:0 0.5in;">
-                <div class="col-6 p-0 ml-auto">
+                <div class="col-3 p-0 ml-auto">
                     <div class="d-flex">
                         <p>
                             <Strong>

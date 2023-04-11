@@ -98,7 +98,7 @@
                             </Strong>
                             AP-{{ $appointment->invoice_number }}
                         </td>
-                        <td rowspan="4">
+                        <td rowspan="5">
                             <div class="d-flex justify-content-center align-items-center">
                                 <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-'.$appointment->invoice_number.' PID-'.optional($appointment->patient)->patientId , 'QRCODE')}}" alt="barcode" style="width: 100px;" />
                                 {{-- <img src="{{ asset("assets/moneyReceipt/code.png") }}" style="width: 100px;" alt=""> --}}
@@ -218,7 +218,7 @@
                                 <td>
                                     Bill Amount
                                 </td>
-                                <td class="text-right" style="width: 120px;">
+                                <td class="text-right" style="width: 150px;">
                                     {{ number_format($appointment->total_amount, 2) }}
                                 </td>
                             </tr>
