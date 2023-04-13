@@ -33,5 +33,5 @@ Route::get('/reportDesign', function () {
     // return view('backend.dashboard.lab-report', compact('units'));
     // return view('backend.dashboard.lab-report(CultureofBlood)', compact('units'));
     // return view('backend.dashboard.lab-report(Serology)', compact('units'));
-    return view('backend.dashboard.lab-report(Biochemistry)', compact('units'));
+    return view('backend.dashboard.lab-report(CultureofBlood)', compact('units'));
 });

@@ -39,23 +39,27 @@
                                     <td>{{$labInvoice['invoice_no']}}</td>
                                     <td> {{ date('d-m-y', strtotime($labInvoice['created_date'])) }}</td>
                                     <td> {{ date('d-m-y', strtotime($labInvoice['created_date'])) }}</td>
-                                    <td>{{ $labInvoice['patient'] }}</td>
-
+                                    <td>{{ $labInvoice->patient->name}}</td>
+                                    {{-- @dd($labInvoice->labTestDetails) --}}
                                     <td>
-                                        @foreach ($labInvoice['category'] as $category)
-                                        <div class="btn-group">
-                                            <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             {{ $category }}
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                @foreach ($labInvoice['testName'] as $key=>$testName)
-                                                    <a class="dropdown-item"
-                                                     href="{{ route('backend.pathology.make-test-result',
-                                                     ['labTest_id' => $labInvoice['labTest_id'][$key],'labDetails_id' => $labInvoice['labDetails_id'][$key] ]) }}">
-                                                    {{ $testName }}</a>
-                                                @endforeach
-                                            </div>
-                                          </div>
+                                        @foreach ($labInvoice->labTestDetails->where('status','!=', 'completed') as $labTestDetails)
+                                            <a class="btn btn-info btn-sm"
+                                            href="{{ route('backend.pathology.make-test-result',
+                                            ['labTest_id' => $labTestDetails->lab_test_id,'labDetails_id' => $labTestDetails->id ]) }}">
+                                            {{ $labTestDetails->testName->name }}</a>
+
+
+                                        @endforeach
+
+                                    </td>
+                                    <td>
+                                        @foreach ($labInvoice->labTestDetails->where('status', 'completed') as $labTestDetails)
+                                            <a class="btn btn-info btn-sm"
+                                            href="{{ route('backend.pathology.make-test-result',
+                                            ['labTest_id' => $labTestDetails->lab_test_id,'labDetails_id' => $labTestDetails->id ]) }}">
+                                            {{ $labTestDetails->testName->name }}</a>
+
+
                                         @endforeach
 
                                     </td>
@@ -69,14 +73,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Modal HTML -->
-
-    <div class="modal fade labTest_modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-md" role=" document">
-
         </div>
     </div>
 
