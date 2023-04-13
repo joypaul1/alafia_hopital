@@ -31,6 +31,9 @@ class LabTestResultController extends Controller
         if($labTest->category == 'Biochemistry' && $labTest->name == 'Electrolytes'){
             return view('backend.pathology.makeResult.electrolytes', compact('data', 'labTest'));
         }
+        if($labTest->category == 'Biochemistry' && $labTest->name == 'Fasting Lipid Profile'){
+            return view('backend.pathology.makeResult.flp', compact('data', 'labTest'));
+        }
         if($labTest->category == 'Biochemistry' && $labTest->name == 'Fasting Blood Sugar (FBS)'){
             return view('backend.pathology.makeResult.fbs', compact('data', 'labTest'));
         }
