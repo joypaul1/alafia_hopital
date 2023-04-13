@@ -79,16 +79,19 @@ class StoreRequest extends FormRequest
             $data['total_amount']        = Str::replace(',', '', ($this->payable_amount));
             $data['doctor_id']          = $this->doctor_id;
             $labInvoice                 = LabInvoice::create($data);
-            $array_value = [];
-            $array_name = [];
+            $multidimensionalArray = array();
             if($this->needle_id){
                 //push needle_id array in array_name
                 foreach ($this->needle_price as $key => $needleValue) {
-                    array_push($array_name, 'needle');
-                    array_push($array_value, $needleValue);
+
+                    $multidimensionalArray[$key] = array(
+                        'needle' => $needleValue,
+                    );
                 }
-                $valueMergeJson=(json_encode(array_merge($array_name,$array_value)));
-                $labInvoice->update(['other_service' => $valueMergeJson]);
+                // dd( ($multidimensionalArray));
+                // $valueMergeJson=(json_encode(array_merge($array_name,$array_value)));
+                // dd( $valueMergeJson);
+                $labInvoice->update(['other_service' => json_encode($multidimensionalArray)]);
 
             }
             // hasMany labTest data insert

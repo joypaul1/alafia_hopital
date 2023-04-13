@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -101,7 +102,6 @@
                         <td rowspan="5">
                             <div class="d-flex justify-content-center align-items-center">
                                 <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-'.$appointment->invoice_number.' PID-'.optional($appointment->patient)->patientId , 'QRCODE')}}" alt="barcode" style="width: 100px;" />
-                                {{-- <img src="{{ asset("assets/moneyReceipt/code.png") }}" style="width: 100px;" alt=""> --}}
                             </div>
                         </td>
                         <td style="text-align: right; width: 40%">
@@ -155,12 +155,17 @@
                             </Strong>
                             : <span style="text-transform: capitalize;">{{  optional($appointment->patient)->gender}}</span>
                         </td>
-
-
                         <td style="text-align: right;">
                             <strong>Appt. Time </strong> : {{ date('d-m-Y h.i A', strtotime($appointment->appointment_date))  }}
-
                         </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <Strong>Schedule Time</Strong>
+                            : <span style="text-transform: capitalize;">{{  ($appointment->schedule)}}</span>
+                        </td>
+
                     </tr>
 
                     <tr>

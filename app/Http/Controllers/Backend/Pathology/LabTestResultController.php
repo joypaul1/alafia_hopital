@@ -85,11 +85,11 @@ class LabTestResultController extends Controller
                 $data['patient_id']                     = LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->with('labInvoice.patient')->first()->labInvoice->patient->id;
                 // make multidimensional associative array for input name
                 // dd($request->except('_token', '_method','lab_invoice_test_detail_id','test_id'));
-                $value = [];
-                $value['name'] = [];
-                $value['result'] = [];
-                $value['unit'] = [];
-                $value['reference_value'] = [];
+                // $value = [];
+                // $value['name'] = [];
+                // $value['result'] = [];
+                // $value['unit'] = [];
+                // $value['reference_value'] = [];
 
                 $multidimensionalArray = array();
                 for ($i=0; $i < count($request->except('_token', '_method','lab_invoice_test_detail_id','test_id')['name']); $i++) {

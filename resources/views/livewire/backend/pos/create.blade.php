@@ -424,7 +424,7 @@
                 var optionData = request.term;
                 $.ajax({
                     method: 'GET',
-                    url: "{{ route('backend.user.index') }}",
+                    url: "{{ route('backend.patient.index') }}",
                     data: {
                         'optionData': optionData
                     },

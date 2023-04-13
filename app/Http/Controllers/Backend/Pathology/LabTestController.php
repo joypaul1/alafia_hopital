@@ -63,7 +63,7 @@ class LabTestController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $returnData = $request->storeData();
+         $returnData = $request->storeData();
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('Pathology Lab Test Invoice Created');
             return redirect()->route('backend.pathology.labTest.show', $returnData->getData()->data);

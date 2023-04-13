@@ -272,25 +272,25 @@
                         $otherService = json_decode($labInvoice->other_service);
                         // dd($otherService);
                     @endphp
-                    {{-- @if ($otherService) --}}
-                    {{-- @foreach ($otherService as $key => $service)
-                    @dd($service, $key) --}}
+                    @if ($otherService)
+                    @foreach ($otherService as $key => $service)
+                    {{-- @dd($service->needle, $key) --}}
                     @php
-                        // $si += 1;
+                        $si += 1;
                     @endphp
-                    {{-- <tr>
+                    <tr>
                         <td>
                             {{ $si }}
                         </td>
                         <td >
-                            Vacutainer {{ $service->name }}
+                             {{ 'Needle' }}
                         </td>
                         <td colspan="3" class="text-right">
-                            {{ number_format($labTest->price, 2) }}
+                            {{ number_format($service->needle, 2) }}
                         </td>
-                    </tr> --}}
-                    {{-- @endforeach
-                    @endif --}}
+                    </tr>
+                     @endforeach
+                    @endif
                 </tbody>
             </table>
 
