@@ -1511,7 +1511,7 @@
                     </tr>
                     @php
                         $data = json_decode($labTestReport->result);
-                        // DD($data);
+
                     @endphp
                     <tr class="c73">
                         <td class="c52" colspan="1" rowspan="1">

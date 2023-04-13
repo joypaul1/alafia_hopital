@@ -1527,7 +1527,7 @@
                     </tr>
                     @php
                         $data = json_decode($labTestReport->result);
-                        // dd($data);
+                        dd($data);
                     @endphp
                     @foreach ($collection as $item)
                         <tr class="c5">

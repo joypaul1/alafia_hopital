@@ -53,6 +53,8 @@
                 @include('components.backend.forms.input.input-type2', [
                 'name' => 'name[]',
                 'value' => 'HBs Ag (ICT)',
+                'selectedKey' => 'N/A'
+
                 ])
             </div>
             <div class="col-3">

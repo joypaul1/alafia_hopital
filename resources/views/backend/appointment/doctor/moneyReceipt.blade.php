@@ -231,7 +231,6 @@
                                 </td>
                                 <td class="text-right">
                                     {{ number_format($appointment->discount_amount, 2) }}
-
                                 </td>
                             </tr>
 

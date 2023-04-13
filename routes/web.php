@@ -26,8 +26,12 @@ Route::get('/reportDesign', function () {
         ['id' => 'g/dl' , 'name' => 'g/dl' ],
         ['id' => 'mmol/l' , 'name' => 'mmol/l' ],
         ['id' => '%' , 'name' => '%' ],
+        ['id' => 'N/A' , 'name' => 'N/A' ],
+        ['id' => 'IU/mL' , 'name' => 'IU/mL' ],
+        ['id' => 'mg/L' , 'name' => 'mg/L' ],
     ];
     // return view('backend.dashboard.lab-report', compact('units'));
+    // return view('backend.dashboard.lab-report(CultureofBlood)', compact('units'));
     // return view('backend.dashboard.lab-report(Serology)', compact('units'));
     return view('backend.dashboard.lab-report(Biochemistry)', compact('units'));
 });

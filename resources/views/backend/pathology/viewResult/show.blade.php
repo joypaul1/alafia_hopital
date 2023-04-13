@@ -1381,7 +1381,8 @@
         }
     </style>
 </head>
-{{-- @dd($labTestReport->details); --}}
+{{-- @dd($labTestReport->testName->category); --}}
+{{-- @dd($labTestReport->test->name
 {{-- @dd($labTestReport->patient); --}}
 <body class="c46 doc-content">
     <div class="content">
@@ -1493,7 +1494,7 @@
                 </table>
                 <h2
                     style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
-                    Biochemistry Report
+                    {{ $labTestReport->testName->category }} Report
                 </h2>
 
                 <table class="c68">
@@ -1530,20 +1531,22 @@
                         </td>
                     </tr>
 
+                    @foreach ($data as $item)
                     <tr class="c5">
                         <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{{ $data->name }}</span></p>
+                            <p class="c1"><span class="c0">{{ $item->name }}</span></p>
                         </td>
                         <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11">{{ $data->result }}</span></p>
+                            <p class="c17 c10"><span class="c11">{{ $item->result }}</span></p>
                         </td>
                         <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{{ $data->unit }}</span></p>
+                            <p class="c1"><span class="c0">{{ $item->unit }}</span></p>
                         </td>
                         <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{!! $data->reference_value !!}</span></p>
+                            <p class="c1"><span class="c0">{!! $item->reference_value !!}</span></p>
                         </td>
                     </tr>
+                    @endforeach
 
                 </table>
             </div>
@@ -1567,7 +1570,7 @@
 
                         </h5>
                         <p><small>{{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }}</small></p>
-                        
+
                     </div>
                 </div>
             </div>

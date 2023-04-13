@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Pathology\Lab\StoreRequest;
 use App\Models\Doctor\Doctor;
 use App\Models\lab\LabInvoice;
+use App\Models\lab\LabTestReport;
 
 class LabTestController extends Controller
 {
@@ -18,7 +19,7 @@ class LabTestController extends Controller
      */
     public function index()
     {
-        $labInvoices = LabInvoice::with('labTestDetails.testName:id,name,category')->latest()->get()
+        $labInvoices = LabInvoice::with('labTestDetails.testName:id,name,category', 'labTestDetails.viewResult')->latest()->get()
             ->map(function ($query) {
                 $data['id'] = $query->id;
                 $data['invoice_no'] = $query->invoice_no;
@@ -31,6 +32,9 @@ class LabTestController extends Controller
                 $data['labTest_id'] = $query->labTestDetails->pluck('testName.id');
                 return $data;
             });
+
+
+        //  $result = LabInvoice::with('labTestDetails.viewResult')->latest()->get();
 
         return view('backend.pathology.labTest.index', compact('labInvoices'));
     }
