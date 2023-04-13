@@ -80,9 +80,9 @@ class StoreRequest extends FormRequest
             $data['discount']               =  Str::replace(',', '', $this->discount);
             $data['paid_amount']            =  Str::replace(',', '', $this->paid_amount??0);
             $data['subtotal_amount']        = Str::replace(',', '', $this->subtotal);
-            $data['total_amount']           = Str::replace(',', '', $this->payable_amount);
-            $data['due_amount'] =  Str::replace(',', '', $this->due_amount);
-            // dd($data);
+            $data['total_amount']           = Str::replace(',', '', $this->subtotal);
+            $data['due_amount']             =  Str::replace(',', '', $this->due_amount);
+            dd($data);
             $appointment = Appointment::create($data);
             // dd($appointment);
             // appointment paymentHistories

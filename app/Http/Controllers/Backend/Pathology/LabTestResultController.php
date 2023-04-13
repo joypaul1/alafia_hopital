@@ -49,7 +49,7 @@ class LabTestResultController extends Controller
         }
 
         // End Biochemistry
-        // dd($labTest);
+
         // Serology
         if($labTest->category == 'Serology' &&  $labTest->name== 'Dengue Ns1'){
             return view('backend.pathology.makeResult.serology.dengue', compact('data', 'labTest'));
