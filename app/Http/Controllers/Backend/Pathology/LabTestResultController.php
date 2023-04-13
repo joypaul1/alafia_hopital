@@ -37,7 +37,7 @@ class LabTestResultController extends Controller
         if($labTest->category == 'Biochemistry' && $labTest->name == 'Fasting Blood Sugar (FBS)'){
             return view('backend.pathology.makeResult.fbs', compact('data', 'labTest'));
         }
-        if($labTest->category == 'Biochemistry' && $labTest->name == 'Blood Glucose 2 Hrs. After 75gm Glucose'){
+        if($labTest->category == 'Biochemistry' && $labTest->name == 'Blood Glucose 2 Hrs. AFB'){
             return view('backend.pathology.makeResult.fbs', compact('data', 'labTest'));
         }
         if ($labTest->category == 'Biochemistry' && $labTest->name == 'CBC') {
@@ -49,8 +49,15 @@ class LabTestResultController extends Controller
         }
 
         // End Biochemistry
-
+        // dd($labTest);
         // Serology
+        if($labTest->category == 'Serology' &&  $labTest->name== 'Dengue Ns1'){
+            return view('backend.pathology.makeResult.serology.dengue', compact('data', 'labTest'));
+        }
+        if($labTest->category == 'Serology' &&  $labTest->name== 'Widal Test'){
+            return view('backend.pathology.makeResult.serology.widal_test', compact('data', 'labTest'));
+        }
+
         if($labTest->category == 'Serology' ){
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
         }
@@ -83,13 +90,6 @@ class LabTestResultController extends Controller
                 $data['created_by']                     = auth('admin')->user()->id;
                 $data['created_date']                   = date('Y-m-d h:i:s');
                 $data['patient_id']                     = LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->with('labInvoice.patient')->first()->labInvoice->patient->id;
-                // make multidimensional associative array for input name
-                // dd($request->except('_token', '_method','lab_invoice_test_detail_id','test_id'));
-                // $value = [];
-                // $value['name'] = [];
-                // $value['result'] = [];
-                // $value['unit'] = [];
-                // $value['reference_value'] = [];
 
                 $multidimensionalArray = array();
                 for ($i=0; $i < count($request->except('_token', '_method','lab_invoice_test_detail_id','test_id')['name']); $i++) {

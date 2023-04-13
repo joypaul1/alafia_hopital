@@ -67,7 +67,6 @@ class StoreRequest extends FormRequest
      */
     public function storeData()
     {
-        // dd($this->all());
         try {
             DB::beginTransaction();
             $data['invoice_no']         = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
@@ -75,22 +74,19 @@ class StoreRequest extends FormRequest
             $data['date']               = date('Y-m-d', strtotime($this->date)) . ' ' . date('h:i:s');
             $data['paid_amount']        = Str::replace(',', '', ($this->paid_amount));
             $data['payment_status']     = Str::replace(',', '', ($this->payable_amount)) > Str::replace(',', '', ($this->paid_amount)) ? 'due' : 'paid';
-            $data['subtotal_amount']     = Str::replace(',', '', ($this->payable_amount));
-            $data['total_amount']        = Str::replace(',', '', ($this->payable_amount));
+            $data['subtotal_amount']    = Str::replace(',', '', ($this->payable_amount));
+            $data['total_amount']       = Str::replace(',', '', ($this->payable_amount));
             $data['doctor_id']          = $this->doctor_id;
             $labInvoice                 = LabInvoice::create($data);
             $multidimensionalArray = array();
             if($this->needle_id){
                 //push needle_id array in array_name
                 foreach ($this->needle_price as $key => $needleValue) {
-
                     $multidimensionalArray[$key] = array(
                         'needle' => $needleValue,
                     );
                 }
-                // dd( ($multidimensionalArray));
-                // $valueMergeJson=(json_encode(array_merge($array_name,$array_value)));
-                // dd( $valueMergeJson);
+
                 $labInvoice->update(['other_service' => json_encode($multidimensionalArray)]);
 
             }
@@ -131,7 +127,6 @@ class StoreRequest extends FormRequest
                     'discount_amount' =>$this->discount_amount[$key],
                     'subtotal' =>$this->subtotal[$key],
                 ]);
-                // dd($v);
             }
             // hasMany labTestTube data insert
             foreach ($this->testTube_id as $key => $testTube) {

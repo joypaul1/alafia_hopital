@@ -24,18 +24,18 @@
                 <div class="row mb-2 align-items-center">
                     <div class="col-4">
                         @include('components.backend.forms.input.input-type2', [
-                            'name' => 'name',
+                            'name' => 'name[]',
                             'value' => $labTest->name,
                         ])
                     </div>
                     <div class="col-4">
                         @include('components.backend.forms.input.input-type2', [
-                            'name' => 'result',
+                            'name' => 'result[]',
                             'placeholder' => 'Enter result here...',
                         ])
                     </div>
                     <div class="col-4">
-                        <textarea class="form-control" name="reference" id="" rows="1">Male: 13-17
+                        <textarea class="form-control" name="reference_value[]" id="" rows="1">Male: 13-17
                         Female: 12.0-16.5
                         1 Month: 11-17, 2-6 Month:9.5-13.5
                         2-6 Years: 11-14, 6-12
