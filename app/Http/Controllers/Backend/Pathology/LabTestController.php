@@ -32,9 +32,8 @@ class LabTestController extends Controller
         //         $data['labTest_id'] = $query->labTestDetails->pluck('testName.id');
         //         return $data;
         //     });
-         $labInvoices =   LabInvoice::with('labTestDetails.testName:id,name,category', 'labTestDetails.viewResult', 'patient:id,name')->latest()->get();
+        $labInvoices =   LabInvoice::with('labTestDetails.testName:id,name,category', 'labTestDetails.viewResult', 'patient:id,name')->latest()->get();
 
-        //  $result = LabInvoice::with('labTestDetails.viewResult')->latest()->get();
 
         return view('backend.pathology.labTest.index', compact('labInvoices'));
     }

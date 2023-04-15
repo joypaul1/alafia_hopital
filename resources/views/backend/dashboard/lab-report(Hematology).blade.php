@@ -30,7 +30,8 @@
                     ])
                 </div>
                 <div class="col-4">
-                    <textarea class="form-control" name="referance[]" id="" rows="1">Male: 13-17
+
+                    <textarea class="form-control" name="reference_value[]" id="" rows="1">Male: 13-17
                     Female: 12.0-16.5
                     1 Month: 11-17, 2-6 Month:9.5-13.5
                     2-6 Years: 11-14, 6-12
@@ -51,7 +52,7 @@
                     ])
                 </div>
                 <div class="col-4">
-                    <textarea class="form-control" name="referance[]" id="" rows="1">Male: 0.10, Female: 0.20</textarea>
+                    <textarea class="form-control" name="reference_value[]" id="" rows="1">Male: 0.10, Female: 0.20</textarea>
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
@@ -68,10 +69,10 @@
                     ])
                 </div>
                 <div class="col-4">
-                    <textarea class="form-control" name="referance[]" id="" rows="1">Adult:4,000-11,000
-Infant: 6,000-18,000
-Child: 5,000-15,000
-At Birth: 10,000-25,000</textarea>
+                    <textarea class="form-control" name="reference_value[]" id="" rows="1">Adult:4,000-11,000
+                    Infant: 6,000-18,000
+                    Child: 5,000-15,000
+                    At Birth: 10,000-25,000</textarea>
                 </div>
             </div>
 
@@ -92,7 +93,7 @@ At Birth: 10,000-25,000</textarea>
                     ])
                 </div>
                 <div class="col-4">
-                    <textarea class="form-control" name="referance[]" id="" rows="1">Adult:40-75 ,Child:20-50</textarea>
+                    <textarea class="form-control" name="reference_value[]" id="" rows="1">Adult:40-75 ,Child:20-50</textarea>
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
@@ -109,7 +110,7 @@ At Birth: 10,000-25,000</textarea>
                     ])
                 </div>
                 <div class="col-4">
-                    <textarea class="form-control" name="referance[]" id="" rows="1">Adult:20-50 ,Child:40-75</textarea>
+                    <textarea class="form-control" name="reference_value[]" id="" rows="1">Adult:20-50 ,Child:40-75</textarea>
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
@@ -126,7 +127,7 @@ At Birth: 10,000-25,000</textarea>
                     ])
                 </div>
                 <div class="col-4">
-                    <textarea class="form-control" name="referance[]" id="" rows="1">2-10</textarea>
+                    <textarea class="form-control" name="reference_value[]" id="" rows="1">2-10</textarea>
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
@@ -143,7 +144,7 @@ At Birth: 10,000-25,000</textarea>
                     ])
                 </div>
                 <div class="col-4">
-                    <textarea class="form-control" name="referance[]" id="" rows="1">2-6</textarea>
+                    <textarea class="form-control" name="reference_value[]" id="" rows="1">2-6</textarea>
                 </div>
             </div>
         </div>

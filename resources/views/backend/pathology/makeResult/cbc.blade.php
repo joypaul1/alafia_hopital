@@ -18,1043 +18,555 @@
             </h3>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
+                    @include('components.backend.forms.input.input-type', [
 
                         'name' => 'name[]',
-                        'value' => 'Fasting Blood Sugar (FBS)',
+                        'value' => 'Hemoglobin (Hb)',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mg/dl',
+                        'value' => 'g/dl',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'reference[]',
-                        'required' => true,
-                        'value' => '3.5 – 5.5',
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => 'Male: 13-17
+                        Female: 12.0-16.5
+                        1 Month: 11-17, 2-6 Month:9.5-13.5
+                        2-6 Years: 11-14, 6-12 Years:11.5-15.5',
                     ])
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
-                        'value' => 'CUS',
+                        'value' => 'ESR (Westergreen)',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
+                        'value' => 'mm/1st hr',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'reference[]',
-                        'required' => true,
-                        'value' => 'Nil',
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => 'Male: 0.10, Female: 0.20',
                     ])
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
-                        'value' => 'Blood Glucose 2 Hrs. AFB',
+                        'value' => 'Total WBC Count (TC)',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mmol/l',
+                        'value' => 'cumm',
                     ])
                 </div>
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => 'Adult:4,000-11,000
+                            Infant: 6,000-18,000
+                            Child: 5,000-15,000
+                            At Birth: 10,000-25,000',
+                    ])
+                </div>
+            </div>
+            <h6 class="my-2">
+                Differential WBC Count (DC)
+            </h6>
+            <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'reference[]',
-                        'required' => true,
-                        'value' => '< 7.8 ',
+                    @include('components.backend.forms.input.input-type', [
+                        'name' => 'name[]',
+                        'value' => 'Neutrophils',
+                    ])
+                </div>
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
+                        'name' => 'result[]',
+                        'placeholder' => 'Enter result here...',
+                    ])
+                </div>
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
+                        'name' => 'unit[]',
+                        'value' => '%',
+                    ])
+                </div>
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => 'Adult:40-75 ,Child:20-50',
                     ])
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include(' components.backend.forms.input.input-type2', [
-                        // 'label'=> 'doctor name',
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
-                        'value' => 'Blood Glucose 2 Hrs. After 75gm Glucose',
+                        'value' => 'Lymphocytes',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mmol/l',
+                        'value' => '%',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'reference[]',
-                        'required' => true,
-                        'value' => '< 7.8 ',
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => 'Adult:20-50 ,Child:40-75',
                     ])
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include(' components.backend.forms.input.input-type2', [
-                        // 'label'=> 'doctor name',
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
-                        'value' => 'Random Blood Sugar (RBS)',
+                        'value' => 'Monocytes',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mmol/l',
+                        'value' => '%',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'reference[]',
-                        'required' => true,
-                        'value' => '< 7.8 ',
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => '2-10',
                     ])
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include(' components.backend.forms.input.input-type2', [
-                        // 'label'=> 'doctor name',
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
-                        'value' => 'S. Urea',
+                        'value' => 'Eosinophils',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mg/dl',
+                        'value' => '%',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'reference[]',
-                        'required' => true,
-                        'value' => '15 – 40',
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => '2-6',
                     ])
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
-                        'value' => 'S. BUN',
+                        'value' => 'Basophils',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mg/dl',
+                        'value' => '%',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'reference[]',
-                        'required' => true,
-                        'value' => '7 - 23',
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => '<1.0',
                     ])
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
-                        'value' => 'S. Creatinine',
+                        'value' => 'Total Cir. Eosinophils',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mg/dl',
+                        'value' => 'Cumm',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-                        'name' => 'reference[]',
-                        'required' => true,
-                        'value' => '0.7 – 1.3 ',
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => '50-500',
                     ])
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
-                        'value' => 'S. Iron',
+                        'value' => 'Total RBC Count',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mg/dl',
+                        'value' => 'm/ul',
                     ])
                 </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">Adult: 0.3-12
 
-                    New born: 0.5 – 10 Male:49-181
-                    Female: 37-170
-                    Child: 50-120
-                    Newborn: 100-250</textarea>
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => 'Male: 4.5-6.5, Female: 3.8-5.8',
+                    ])
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
-                        'value' => 'S. T.I.B.C',
+                        'value' => 'HCT/PCV',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'µg/dl',
+                        'value' => '%',
                     ])
                 </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">255-450</textarea>
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => 'Male: 40-54, Female: 37-47',
+                    ])
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
-                        'value' => 'S. Bilirubin ( Total )',
+                        'value' => 'MCV',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mg/dl',
+                        'value' => 'fL',
                     ])
                 </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">Adult: 0.3-12
-New born: 0.5 – 10</textarea>
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => '76-94',
+                    ])
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
-                        'value' => 'S. Bilirubin ( Direct )',
+                        'value' => 'MCH',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mg/dl',
+                        'value' => 'Pg',
                     ])
                 </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">Up to 0.25 </textarea>
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => '27-32',
+                    ])
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
-                        'value' => 'S. Bilirubin ( Indirect )',
+                        'value' => 'MCHC',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mg/dl',
+                        'value' => 'g/dl',
                     ])
                 </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">Up to 12 </textarea>
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => '29-34',
+                    ])
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
-                        'value' => 'SGOT ( AST )',
+                        'value' => 'RDW-CV',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'U/L',
+                        'value' => '%',
                     ])
                 </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">Up to 35</textarea>
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => '11-16',
+                    ])
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
-                        'value' => 'SGPT ( ALT )',
+                        'value' => 'RDW-SD',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'U/L',
+                        'value' => 'fL',
                     ])
                 </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">Up to 40</textarea>
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => '35-56',
+                    ])
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
-                        'value' => 'Alkaline Phosphates',
+                        'value' => 'PDW',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'U/L',
+                        'value' => 'fL',
                     ])
                 </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">Children: (1-14 Yrs) up to 645</textarea>
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => '11.00-22.00',
+                    ])
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
-                        'value' => 'S. Albumin',
+                        'value' => 'Total Platelet Count',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'g/dl',
+                        'value' => 'Cmm',
                     ])
                 </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">3.5 – 4.0</textarea>
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => '1,50,000-4,50,000',
+                    ])
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
-                        'value' => 'S. Protein ( Total )',
+                        'value' => 'MPV',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mg/dl',
+                        'value' => 'fL',
                     ])
                 </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">63-82</textarea>
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => '7-11',
+                    ])
                 </div>
             </div>
             <div class="row mb-2 align-items-center">
                 <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
-                        'value' => 'Globulin',
+                        'value' => 'PCT',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
+                <div class="col-2">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
                     ])
                 </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
+                <div class="col-1">
+                    @include('components.backend.forms.input.input-type', [
                         'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mg/dl',
+                        'value' => '%',
                     ])
                 </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">16-35</textarea>
+
+                <div class="col-6">
+                    @include('components.backend.forms.texteditor.editor', [
+                        'name' => 'reference_value[]',
+                        'value' => '0.1-0.2',
+                    ])
                 </div>
             </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
 
-                        'name' => 'name[]',
-                        'value' => 'A/G Ratio',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
-                        'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                    ])
-                </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">1.2:1 – 2.5:1</textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'name[]',
-                        'value' => 'S. Lipase',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
-                        'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'U/L',
-                    ])
-                </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">< 60</textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'name[]',
-                        'value' => 'S. Amylase',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
-                        'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'U/L',
-                    ])
-                </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">Up to 100 </textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'name[]',
-                        'value' => 'CK-MB',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
-                        'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'U/L',
-                    ])
-                </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">Up to 25 </textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'name[]',
-                        'value' => 'CPK',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
-                        'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'U/L',
-                    ])
-                </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">Male: 38 – 174
-Female : 26 - 140</textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'name[]',
-                        'value' => 'S. Uric Acid',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
-                        'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mg/dl',
-                    ])
-                </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">Male 3.50 – 7.20
-Female 2.60 – 6.0 </textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'name[]',
-                        'value' => 'S. Calcium',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
-                        'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mg/dl',
-                    ])
-                </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">New born: 7.6-10.4
-Adult: 8.6-10.2
-Child: 8.8 -10.8 </textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'name[]',
-                        'value' => 'S. Inorganic Phosphate',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
-                        'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mg/dl',
-                    ])
-                </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">Adult 2.5 – 5.0
-Child 4.0 – 7.0 </textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'name[]',
-                        'value' => 'S. Magnesium',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
-                        'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mg/dl',
-                    ])
-                </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">1.9 – 2.5 </textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'name[]',
-                        'value' => 'Sodium (Na+)',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
-                        'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mmol/l',
-                    ])
-                </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">132-146</textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'name[]',
-                        'value' => 'Potassium ( K+)',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
-                        'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mmol/l',
-                    ])
-                </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">3.50-5.50</textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'name[]',
-                        'value' => 'Chloride ( CL-)',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
-                        'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mmol/l',
-                    ])
-                </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">99-109</textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'name[]',
-                        'value' => 'Carbon dioxide ( CO2+)',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
-                        'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mmol/l',
-                    ])
-                </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">20-31</textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'name[]',
-                        'value' => 'S. Cholesterol',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
-                        'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mg/dl',
-                    ])
-                </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">200</textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'name[]',
-                        'value' => 'S. Triglyceride',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
-                        'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mg/dl',
-                    ])
-                </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">150</textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'name[]',
-                        'value' => 'HDL',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
-                        'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mg/dl',
-                    ])
-                </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1"> >35 </textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'name[]',
-                        'value' => 'LDL',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
-                        'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => 'mg/dl',
-                    ])
-                </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">< 130</textarea>
-                </div>
-            </div>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'name[]',
-                        'value' => 'HBA 1c',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type2', [
-
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-3">
-                    @include('components.backend.forms.select2.option2', [
-                        'name' => 'unit[]',
-                        'optionData' => $units,
-                        'required' => true,
-                        'selectedKey' => '%',
-                    ])
-                </div>
-                <div class="col-3">
-                    <textarea class="form-control" name="reference[]" id="" rows="1">4.8 – 6.0</textarea>
-                </div>
-            </div>
             <div class="row text-right">
                 <div class="col-12">
                     <button class="btn btn-primary btn-md" type="submit">Save</button>

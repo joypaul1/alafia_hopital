@@ -1527,21 +1527,24 @@
                     </tr>
                     @php
                         $data = json_decode($labTestReport->result);
-                        dd($data);
+                        // $array1 = array_slice($data, 0, 19);
+                        // $array2 = array_slice($data, 10, 19);
+
+
                     @endphp
-                    @foreach ($collection as $item)
+                    @foreach ($data as $item)
                         <tr class="c5">
                             <td class="c14" colspan="1" rowspan="1">
-                                <p class="c1"><span class="c0">Fasting Blood Sugar (FBS)</span></p>
+                                <p class="c1"><span class="c0">{{ $item->name }}</span></p>
                             </td>
                             <td class="c27" colspan="1" rowspan="1">
-                                <p class="c17 c10"><span class="c11">4.6</span></p>
+                                <p class="c17 c10"><span class="c11">{{ $item->result }}</span></p>
                             </td>
                             <td class="c6" colspan="1" rowspan="1">
-                                <p class="c1"><span class="c0">mmol/l</span></p>
+                                <p class="c1"><span class="c0">{{ $item->unit }}</span></p>
                             </td>
                             <td class="c2" colspan="1" rowspan="1">
-                                <p class="c1"><span class="c0">3.5 – 5.5 </span></p>
+                                <p class="c1"><span class="c0">{!! $item->reference_value !!}</span></p>
                             </td>
                         </tr>
                     @endforeach
@@ -1550,398 +1553,32 @@
             </div>
         </div>
 
-        <div id="page-break"></div>
+        {{-- <div id="page-break"></div>
         <div>
             <img src="{{ asset('assets/moneyReceipt/hpathology.png') }}"style="width: 100%;" alt="header">
             <div style="padding: 0 0.5in;">
                 <table class="c55">
-                    <tr class="c5">
-                        <td class="c74" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c11">ID No</span></p>
-                        </td>
-                        <td class="c62" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">:</span></p>
-                        </td>
-                        <td class="c43" colspan="1" rowspan="1">
-                            <p class="c23 c10"><span class="c13">5546</span></p>
-                        </td>
-                        <td class="c25" colspan="1" rowspan="1">
-                            <p class="c50"><span class="c11">Collection Time</span></p>
-                        </td>
-                        <td class="c16" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">:</span></p>
-                        </td>
-                        <td class="c45" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">12.00am 31-01-2023</span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c32" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c11">Name of Patient</span></p>
-                        </td>
-                        <td class="c12" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">:</span></p>
-                        </td>
-                        <td class="c36" colspan="1" rowspan="1">
-                            <p class="c23 c10"><span class="c13">Nabila Yeasmin</span></p>
-                        </td>
-                        <td class="c42" colspan="1" rowspan="1">
-                            <p class="c50"><span class="c11">Prepare &nbsp;Time</span></p>
-                        </td>
-                        <td class="c38" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">:</span></p>
-                        </td>
-                        <td class="c15" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">12.40am 31-01-2023</span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c32" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c11">Age </span></p>
-                        </td>
-                        <td class="c12" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">:</span></p>
-                        </td>
-                        <td class="c36" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">26 Years</span></p>
-                        </td>
-                        <td class="c42" colspan="1" rowspan="1">
-                            <p class="c50"><span class="c11">Reporting Status </span></p>
-                        </td>
-                        <td class="c38" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">:</span></p>
-                        </td>
-                        <td class="c15" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">Final</span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c32" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c11">Sex</span></p>
-                        </td>
-                        <td class="c12" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">:</span></p>
-                        </td>
-                        <td class="c36" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">Male / Female</span></p>
-                        </td>
-                        <td class="c42" colspan="1" rowspan="1">
-                            <p class="c50"><span class="c11">Specimen</span></p>
-                        </td>
-                        <td class="c38" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">:</span></p>
-                        </td>
-                        <td class="c15" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">Blood </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c72" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c11">Referred by</span></p>
-                        </td>
-                        <td class="c56" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">:</span></p>
-                        </td>
-                        <td class="c57" colspan="4" rowspan="1">
-                            <p class="c23 c10"><span class="c13"></span></p>
-                        </td>
-                    </tr>
-                </table>
-                <h2
-                    style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
-                    Biochemistry Report
-                </h2>
-                <table class="c68">
-                    <tr class="c7">
-                        <td class="c40" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c39 c24">Name of Test</span></p>
-                        </td>
-                        <td class="c59" colspan="1" rowspan="1">
-                            <p class="c33"><span class="c39 c24">Result</span></p>
-                        </td>
-                        <td class="c35" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c39 c24">Unit</span></p>
-                        </td>
-                        <td class="c61" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c24 c39">Ref. Value</span></p>
-                        </td>
-                    </tr>
+                    @foreach ($array2 as $item2)
+                        <tr class="c5">
+                            <td class="c14" colspan="1" rowspan="1">
+                                <p class="c1"><span class="c0">{{ $item2->name }}</span></p>
+                            </td>
+                            <td class="c27" colspan="1" rowspan="1">
+                                <p class="c17 c10"><span class="c11">{{ $item2->result }}</span></p>
+                            </td>
+                            <td class="c6" colspan="1" rowspan="1">
+                                <p class="c1"><span class="c0">{{ $item2->unit }}</span></p>
+                            </td>
+                            <td class="c2" colspan="1" rowspan="1">
+                                <p class="c1"><span class="c0">{!! $item2->reference_value !!}</span></p>
+                            </td>
+                        </tr>
+                    @endforeach
 
-                    <tr class="c21">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">S. Amylase</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">U/L</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Up to 100 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c5">
-                        <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">CK-MB</span></p>
-                        </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">U/L</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Up to 25</span></p>
-                        </td>
-                    </tr>
-                    <tr class="c7">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">CPK</span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">U/L</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Male: 38 &ndash; 174</span></p>
-                            <p class="c1"><span class="c0">Female : 26 - 140</span></p>
-                        </td>
-                    </tr>
-                    <tr class="c7">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">S. Uric Acid</span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mg/dl</span></p>
-                        </td>
-                        <td class="c3" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c0">Male 3.50 &ndash; 7.20 </span></p>
-                            <p class="c4"><span class="c0">Female 2.60 &ndash; 6.0 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c7">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">S. Calcium</span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mg/dl</span></p>
-                        </td>
-                        <td class="c3" colspan="1" rowspan="1">
-                            <p class="c66"><span class="c0">New born: 7.6-10.4 </span></p>
-                            <p class="c66"><span class="c0">Adult: 8.6-10.2</span></p>
-                            <p class="c66"><span class="c0">Child: 8.8 -10.8 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c7">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">S. Inorganic Phosphate</span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mg/dl</span></p>
-                        </td>
-                        <td class="c3" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Adult 2.5 &ndash; 5.0 </span></p>
-                            <p class="c1"><span class="c0">Child 4.0 &ndash; 7.0 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c7">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">S. Magnesium</span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mg/dl</span></p>
-                        </td>
-                        <td class="c3" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">1.9 &ndash; 2.5 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c7">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c48">Electrolytes</span><span class="c11">:</span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c10 c17"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c10 c22"><span class="c11"></span></p>
-                        </td>
-                        <td class="c3" colspan="1" rowspan="1">
-                            <p class="c1 c10"><span class="c0"></span></p>
-                        </td>
-                    </tr>
-                    <tr class="c7">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Sodium (Na+)</span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mmol/l</span></p>
-                        </td>
-                        <td class="c3" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c29 c24">132-146</span></p>
-                        </td>
-                    </tr>
-                    <tr class="c7">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Potassium ( K+)</span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mmol/l</span></p>
-                        </td>
-                        <td class="c3" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c29 c24">3.50-5.50</span></p>
-                        </td>
-                    </tr>
-                    <tr class="c7">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Chloride ( CL-)</span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mmol/l</span></p>
-                        </td>
-                        <td class="c3" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c24 c29">99-109</span></p>
-                        </td>
-                    </tr>
-                    <tr class="c7">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">Carbon dioxide ( CO2+)</span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mmol/l</span></p>
-                        </td>
-                        <td class="c3" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c29 c24">20-31</span></p>
-                        </td>
-                    </tr>
-                    <tr class="c7">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c48">Fasting Lipid Profile</span><span class="c11">:</span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c22 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c3" colspan="1" rowspan="1">
-                            <p class="c1 c10"><span class="c0"></span></p>
-                        </td>
-                    </tr>
-                    <tr class="c7">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">S. Cholesterol </span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mg/dl</span></p>
-                        </td>
-                        <td class="c3" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">200 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c7">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">S. Triglyceride</span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mg/dl</span></p>
-                        </td>
-                        <td class="c3" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">150 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c7">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">HDL </span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mg/dl</span></p>
-                        </td>
-                        <td class="c3" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">&gt;35 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c7">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">LDL </span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">mg/dl</span></p>
-                        </td>
-                        <td class="c3" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">&lt; 130 </span></p>
-                        </td>
-                    </tr>
-                    <tr class="c19">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c4 c10"><span class="c0"></span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c41 c10"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c4 c10"><span class="c0"></span></p>
-                        </td>
-                        <td class="c3" colspan="1" rowspan="1">
-                            <p class="c4 c10"><span class="c0"></span></p>
-                        </td>
-                    </tr>
-                    <tr class="c7">
-                        <td class="c8" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c0">HBA 1c</span></p>
-                        </td>
-                        <td class="c18" colspan="1" rowspan="1">
-                            <p class="c10 c41"><span class="c11"></span></p>
-                        </td>
-                        <td class="c9" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c0">%</span></p>
-                        </td>
-                        <td class="c3" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c0">4.8 &ndash; 6.0</span></p>
-                        </td>
-                    </tr>
 
                 </table>
             </div>
-        </div>
+        </div> --}}
 
         <footer>
             <div style="padding: 0 0.5in;">
