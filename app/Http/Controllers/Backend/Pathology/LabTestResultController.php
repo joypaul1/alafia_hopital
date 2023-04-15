@@ -27,7 +27,7 @@ class LabTestResultController extends Controller
         $data = $request->all();
         $labTest = LabTest::whereId($request->labTest_id)->first();
 
-        // start Biochemistry
+    // start Biochemistry
         if($labTest->category == 'Biochemistry' && $labTest->name == 'Electrolytes'){
             return view('backend.pathology.makeResult.electrolytes', compact('data', 'labTest'));
         }
@@ -63,6 +63,14 @@ class LabTestResultController extends Controller
         }
         // end Serology
 
+        // Blood
+        if($labTest->category == 'Blood' &&  $labTest->name== 'Blood CS Growth'){
+            return view('backend.pathology.makeResult.blood.blood_cs_growth', compact('data', 'labTest'));
+        }
+
+        if($labTest->category == 'Blood' &&  $labTest->name== 'Blood CS No Growth'){
+            return view('backend.pathology.makeResult.blood.blood_cs_no_growth', compact('data', 'labTest'));
+        }
         // Hematology
         if($labTest->category == 'Hematology' ){
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
@@ -105,6 +113,36 @@ class LabTestResultController extends Controller
                 $labTestReport                          = LabTestReport::create($data);
                 LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
             }
+            if($testName->category == 'Blood' && $testName->name == 'Blood CS Growth'){
+                $data['lab_test_id']                    = $request->test_id;
+                $data['lab_invoice_test_detail_id']     = $request->lab_invoice_test_detail_id;
+                $data['created_by']                     = auth('admin')->user()->id;
+                $data['created_date']                   = date('Y-m-d h:i:s');
+                $data['patient_id']                     = LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->with('labInvoice.patient')->first()->labInvoice->patient->id;
+
+                    $multidimensionalArray = array();
+                    for ($i=0; $i < count($request->except('_token', '_method','lab_invoice_test_detail_id','test_id')['name']); $i++) {
+                        $multidimensionalArray[$i] = array(
+                            'name' =>$request->except('_token', '_method','lab_invoice_test_detail_id','test_id')['name'][$i]??'',
+                            'a' =>$request->except('_token', '_method','lab_invoice_test_detail_id','test_id')['a'][$i]??'',
+                            'b' =>$request->except('_token', '_method','lab_invoice_test_detail_id','test_id')['b'][$i]??'',
+                            'c' =>$request->except('_token', '_method','lab_invoice_test_detail_id','test_id')['c'][$i]??'',
+                        );
+                    }
+                    $data['result'] = json_encode($multidimensionalArray);
+                    $labTestReport                          = LabTestReport::create($data);
+                    LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
+            }
+            if($testName->category == 'Blood' && $testName->name == 'Blood CS No Growth'){
+                $data['lab_test_id']                    = $request->test_id;
+                $data['lab_invoice_test_detail_id']     = $request->lab_invoice_test_detail_id;
+                $data['created_by']                     = auth('admin')->user()->id;
+                $data['created_date']                   = date('Y-m-d h:i:s');
+                $data['patient_id']                     = LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->with('labInvoice.patient')->first()->labInvoice->patient->id;
+                $data['result'] = json_encode($request->reference_value);
+                $labTestReport                          = LabTestReport::create($data);
+                LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
+            }
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollback();
@@ -118,7 +156,7 @@ class LabTestResultController extends Controller
 
     public function show(Request $request)
     {
-        $labTestReport = LabTestReport::whereId($request->id)->with('labInvoiceTestDetails.labInvoice', 'patient', 'testName')->first();
+         $labTestReport = LabTestReport::whereId($request->id)->with('labInvoiceTestDetails.labInvoice', 'patient', 'testName')->first();
 
         // start Biochemistry
         if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'CBC') {
@@ -130,7 +168,7 @@ class LabTestResultController extends Controller
         if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'Electrolytes') {
             return view('backend.pathology.viewResult.fbs', compact('labTestReport'));
         }
-        if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'Blood Glucose 2 Hrs. After 75gm Glucose') {
+        if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'Blood Glucose 2 Hrs. AFB') {
             return view('backend.pathology.viewResult.fbs', compact('labTestReport'));
         }
 
@@ -156,5 +194,13 @@ class LabTestResultController extends Controller
             return view('backend.pathology.viewResult.show', compact('labTestReport'));
         }
         // end Hematology
+        // start Blood
+        if ($labTestReport->testName->category == 'Blood') {
+            // return view('backend.pathology.viewResult.blood.blood_cs_growth', compact('labTestReport'));
+        }
+        if ($labTestReport->testName->category == 'Blood' && $labTestReport->testName->name== 'Blood CS No Growth') {
+            return view('backend.pathology.viewResult.blood.blood_cs_no_growth', compact('labTestReport'));
+        }
+        // end Blood
     }
 }

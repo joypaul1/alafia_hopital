@@ -1502,51 +1502,35 @@
                         <td class="c40" colspan="1" rowspan="1">
                             <p class="c4"><span class="c39 c24">Name of Test</span></p>
                         </td>
-                        <td class="c59" colspan="1" rowspan="1">
-                            <p class="c33"><span class="c39 c24">Result</span></p>
-                        </td>
-                        <td class="c35" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c39 c24">Unit</span></p>
-                        </td>
+
                         <td class="c61" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c24 c39">Ref. Value</span></p>
+                            <p class="c4"><span class="c24 c39">Comment</span></p>
                         </td>
                     </tr>
                     @php
                         $data = json_decode($labTestReport->result);
-
                     @endphp
                     <tr class="c73">
                         <td class="c52" colspan="1" rowspan="1">
                             <p class="c4 c10"><span class="c0"></span></p>
                         </td>
-                        <td class="c44" colspan="1" rowspan="1">
-                            <p class="c10 c33"><span class="c11"></span></p>
-                        </td>
-                        <td class="c34" colspan="1" rowspan="1">
-                            <p class="c4 c10"><span class="c11"></span></p>
-                        </td>
+
                         <td class="c70" colspan="1" rowspan="1">
                             <p class="c4 c10"><span class="c0"></span></p>
                         </td>
                     </tr>
 
-                    @foreach ($data as $item)
+                    {{-- @foreach ($data as $item) --}}
                     <tr class="c5">
                         <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{{ $item->name }}</span></p>
+                            <p class="c1"><span class="c0">{{ "Blood CS No Growth" }}</span></p>
                         </td>
-                        <td class="c27" colspan="1" rowspan="1">
-                            <p class="c17 c10"><span class="c11">{{ $item->result }}</span></p>
-                        </td>
-                        <td class="c6" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{{ $item->unit }}</span></p>
-                        </td>
+
                         <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{!! $item->reference_value !!}</span></p>
+                            <p class="c1"><span class="c0">{!! $data[0] !!}</span></p>
                         </td>
                     </tr>
-                    @endforeach
+                    {{-- @endforeach --}}
 
                 </table>
             </div>

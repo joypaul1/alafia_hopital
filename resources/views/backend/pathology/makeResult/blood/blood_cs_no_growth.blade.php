@@ -17,32 +17,13 @@
                     <i class="fa fa-flask"></i> {{ $labTest->category }} Report
                 </h5>
                 <div class="row mb-2 align-items-center">
-                    <div class="col-4">
-                        @include('components.backend.forms.input.input-type', [
-                            'name' => 'name[]',
-                            'value' => $labTest->name,
-                            // 'readonly' => true,
-                        ])
-                    </div>
-                    <div class="col-4">
-                        @include('components.backend.forms.input.input-type', [
-                            'name' => 'result[]',
-                            'placeholder' => 'Enter result here...',
-                        ])
-                    </div>
-                    <div class="col-4">
-                        @include('components.backend.forms.input.input-type', [
-                            'name' => 'unit[]',
-                            'value' => $labTest->unit,
-                            // 'readonly' => true,
-                        ])
-                    </div>
+
 
                     <div class="col-12 mt-3">
                         @include('components.backend.forms.texteditor.editor', [
                             'name' => 'reference_value[]',
-                            'placeholder' => 'reference  here ...',
-                            'value' => $labTest->reference_value,
+                            'placeholder' => 'reference  here...',
+
 
                         ])
                         @include('components.backend.forms.input.errorMessage', [
