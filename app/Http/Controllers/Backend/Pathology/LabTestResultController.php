@@ -64,11 +64,11 @@ class LabTestResultController extends Controller
         // end Serology
 
         // Blood
-        if($labTest->category == 'Blood' &&  $labTest->name== 'Blood CS Growth'){
+        if($labTest->category == 'Micro Biology' &&  $labTest->name== 'Blood CS Growth'){
             return view('backend.pathology.makeResult.blood.blood_cs_growth', compact('data', 'labTest'));
         }
 
-        if($labTest->category == 'Blood' &&  $labTest->name== 'Blood CS No Growth'){
+        if($labTest->category == 'Micro Biology' &&  $labTest->name== 'Blood CS No Growth'){
             return view('backend.pathology.makeResult.blood.blood_cs_no_growth', compact('data', 'labTest'));
         }
         // Hematology
@@ -81,6 +81,12 @@ class LabTestResultController extends Controller
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
         }
         // end Immunology
+
+        //Start Urine
+        if($labTest->category == 'Urine' && $labTest->name== 'Urine RE') {
+            return view('backend.pathology.makeResult.urine.urine_re', compact('data', 'labTest'));
+        }
+        //End Urine
 
     }
 
@@ -113,7 +119,7 @@ class LabTestResultController extends Controller
                 $labTestReport                          = LabTestReport::create($data);
                 LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
             }
-            if($testName->category == 'Blood' && $testName->name == 'Blood CS Growth'){
+            if($testName->category == 'Micro Biology' && $testName->name == 'Blood CS Growth'){
                 $data['lab_test_id']                    = $request->test_id;
                 $data['lab_invoice_test_detail_id']     = $request->lab_invoice_test_detail_id;
                 $data['created_by']                     = auth('admin')->user()->id;
@@ -133,13 +139,33 @@ class LabTestResultController extends Controller
                     $labTestReport                          = LabTestReport::create($data);
                     LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
             }
-            if($testName->category == 'Blood' && $testName->name == 'Blood CS No Growth'){
+            if($testName->category == 'Micro Biology' && $testName->name == 'Blood CS No Growth'){
                 $data['lab_test_id']                    = $request->test_id;
                 $data['lab_invoice_test_detail_id']     = $request->lab_invoice_test_detail_id;
                 $data['created_by']                     = auth('admin')->user()->id;
                 $data['created_date']                   = date('Y-m-d h:i:s');
                 $data['patient_id']                     = LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->with('labInvoice.patient')->first()->labInvoice->patient->id;
                 $data['result'] = json_encode($request->reference_value);
+                $labTestReport                          = LabTestReport::create($data);
+                LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
+            }
+            // DD($testName);
+            if($testName->category == 'Urine' && $testName->name == 'Urine RE'){
+                $data['lab_test_id']                    = $request->test_id;
+                $data['lab_invoice_test_detail_id']     = $request->lab_invoice_test_detail_id;
+                $data['created_by']                     = auth('admin')->user()->id;
+                $data['created_date']                   = date('Y-m-d h:i:s');
+                $data['patient_id']                     = LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->with('labInvoice.patient')->first()->labInvoice->patient->id;
+                // $data['result']                         = json_encode($request->reference_value);
+                $multidimensionalArray = array();
+                for ($i=0; $i < count($request->except('_token', '_method','lab_invoice_test_detail_id','test_id')['name']); $i++) {
+                    $multidimensionalArray[$i] = array(
+                        'name' =>$request->except('_token', '_method','lab_invoice_test_detail_id','test_id')['name'][$i]??'',
+                        'result' =>$request->except('_token', '_method','lab_invoice_test_detail_id','test_id')['result'][$i]??'',
+                    );
+                }
+                $data['result']                         = json_encode($multidimensionalArray);
+                // dd($data);
                 $labTestReport                          = LabTestReport::create($data);
                 LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
             }
@@ -195,12 +221,23 @@ class LabTestResultController extends Controller
         }
         // end Hematology
         // start Blood
-        if ($labTestReport->testName->category == 'Blood') {
-            // return view('backend.pathology.viewResult.blood.blood_cs_growth', compact('labTestReport'));
-        }
-        if ($labTestReport->testName->category == 'Blood' && $labTestReport->testName->name== 'Blood CS No Growth') {
+        if ($labTestReport->testName->category == 'Micro Biology' && $labTestReport->testName->name== 'Blood CS No Growth') {
             return view('backend.pathology.viewResult.blood.blood_cs_no_growth', compact('labTestReport'));
         }
+        if ($labTestReport->testName->category == 'Micro Biology' && $labTestReport->testName->name== 'Blood CS Growth') {
+            // return view('backend.pathology.viewResult.blood.blood_cs_growth', compact('labTestReport'));
+        }
+
         // end Blood
+        // start urine
+        // if ($labTestReport->testName->category == 'Urine') {
+            // return view('backend.pathology.viewResult.blood.blood_cs_growth', compact('labTestReport'));
+        // }
+        if ($labTestReport->testName->category == 'Urine' && $labTestReport->testName->name== 'Urine RE') {
+            return view('backend.pathology.viewResult.urine.urine_re', compact('labTestReport'));
+        }
+        // end Blood
+
+
     }
 }
