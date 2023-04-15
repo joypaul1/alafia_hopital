@@ -288,16 +288,16 @@
 
                 $('#labTestAppend').last().after(row);
 
+                if(ui.item.tube){
+                    //get all labTestCatName value by class name labTestCatName
+                    let testTube_id = $('.testTube_id').map(function() {
+                        return $(this).val();
+                    }).get();
+                    let labTestCatName = $('.labTestCatName').map(function() {
+                        return $(this).val();
+                    }).get();
 
-                //get all labTestCatName value by class name labTestCatName
-                let testTube_id = $('.testTube_id').map(function() {
-                    return $(this).val();
-                }).get();
-                let labTestCatName = $('.labTestCatName').map(function() {
-                    return $(this).val();
-                }).get();
-
-                if ($.inArray((ui.item.tube.id).toString(), testTube_id) != -1 && $.inArray((ui.item.category)
+                    if ($.inArray((ui.item.tube.id).toString(), testTube_id) != -1 && $.inArray((ui.item.category)
                         .toString(), labTestCatName) != -1) {} else {
                     // testTube data append in table
                     let tube = `<tr>
@@ -313,6 +313,8 @@
                         </tr>`;
                     $('#testTubeAppend').last().after(tube);
                 }
+                }
+
                 // console.log(ui.item.needle);
 
 

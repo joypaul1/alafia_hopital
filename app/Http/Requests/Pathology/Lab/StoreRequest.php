@@ -78,18 +78,19 @@ class StoreRequest extends FormRequest
             $data['total_amount']       = Str::replace(',', '', ($this->payable_amount));
             $data['doctor_id']          = $this->doctor_id;
             $labInvoice                 = LabInvoice::create($data);
-            $multidimensionalArray = array();
+            // dd($labInvoice );
             if($this->needle_id){
+                $multidimensionalArray = array();
                 //push needle_id array in array_name
                 foreach ($this->needle_price as $key => $needleValue) {
                     $multidimensionalArray[$key] = array(
                         'needle' => $needleValue,
                     );
                 }
-
                 $labInvoice->update(['other_service' => json_encode($multidimensionalArray)]);
 
             }
+
             // hasMany labTest data insert
             foreach ($this->labTest_id as $key => $labTest) {
                 $labTest = LabTest::whereId($labTest)->first();
@@ -128,12 +129,14 @@ class StoreRequest extends FormRequest
                     'subtotal' =>$this->subtotal[$key],
                 ]);
             }
-            // hasMany labTestTube data insert
-            foreach ($this->testTube_id as $key => $testTube) {
-                $labInvoice->labTestTube()->create([
-                    'lab_test_tube_id' => $testTube,
-                    'price' => $this->testTube_price[$key],
-                ]);
+            if($this->testTube_id ){
+                // hasMany labTestTube data insert
+                foreach ($this->testTube_id as $key => $testTube) {
+                    $labInvoice->labTestTube()->create([
+                        'lab_test_tube_id' => $testTube,
+                        'price' => $this->testTube_price[$key],
+                    ]);
+                }
             }
             //<----start of cash flow Transition------->
             // cashflowTransactions

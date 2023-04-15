@@ -27,7 +27,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name'              => ['required', 'string', Rule::unique('lab_tests')->ignore($this->labTest->id)],
-            'lab_test_tube_id'  => 'required|exists:lab_test_tubes,id',
+            'lab_test_tube_id'  => 'nullable|exists:lab_test_tubes,id',
             'price'             => 'required',
             'time'              => 'nullable',
             'time_type'         => 'nullable',

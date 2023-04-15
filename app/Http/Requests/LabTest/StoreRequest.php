@@ -27,7 +27,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'name'              => 'required|string|unique:lab_tests,name',
-            'lab_test_tube_id'  => 'required|exists:lab_test_tubes,id',
+            'lab_test_tube_id'  => 'nullable|exists:lab_test_tubes,id',
             'price'             => 'required',
             'time'              => 'nullable',
             'time_type'         => 'nullable',
