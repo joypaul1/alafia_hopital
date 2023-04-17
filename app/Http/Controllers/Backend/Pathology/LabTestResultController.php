@@ -62,9 +62,9 @@ class LabTestResultController extends Controller
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
         }
         // end Serology
-
+        // dd($labTest->category);
         // Micro Biolo
-        if($labTest->category == 'Micro Biology' &&  $labTest->name== 'Blood CS Growth'){
+        if($labTest->category == 'Blood' &&  $labTest->name== 'Blood CS Growth'){
             return view('backend.pathology.makeResult.blood.blood_cs_growth', compact('data', 'labTest'));
         }
 
@@ -82,7 +82,7 @@ class LabTestResultController extends Controller
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
         }
         // end Immunology
-        // dd($labTest);
+
         //Start Urine
         if($labTest->category == 'Urine' && $labTest->name== 'Urine RE') {
             return view('backend.pathology.makeResult.urine.urine_re', compact('data', 'labTest'));
@@ -91,9 +91,12 @@ class LabTestResultController extends Controller
             return view('backend.pathology.makeResult.urine.urine_cs_growth', compact('data', 'labTest'));
         }
 
-        if($labTest->category == 'Urine' &&  $labTest->name== 'Urine CS NO Growth'){
-            // dd(23123);
+        if($labTest->category == 'Urine' &&  $labTest->name == 'Urine CS NO Growth'){
             return view('backend.pathology.makeResult.urine.urine_cs_no_growth', compact('data', 'labTest'));
+        }
+        if($labTest->category == 'Urine' &&  $labTest->name == 'Pregnancy test (PT)'){
+            return view('backend.pathology.makeResult.urine.pregnancy', compact('data', 'labTest'));
+            // return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
         }
         //End Urine
 
@@ -102,7 +105,6 @@ class LabTestResultController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         try {
             DB::beginTransaction();
             $labTestReport = null;
@@ -181,18 +183,38 @@ class LabTestResultController extends Controller
             }
 
             if($testName->category == 'Urine' && $testName->name == 'Urine CS NO Growth'){
+
+                $data['lab_test_id']                    = $request->test_id;
+                $data['lab_invoice_test_detail_id']     = $request->lab_invoice_test_detail_id;
+                $data['created_by']                     = auth('admin')->user()->id;
+                $data['created_date']                   = date('Y-m-d h:i:s');
+                $data['patient_id']                     = LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->with('labInvoice.patient')->first()->labInvoice->patient->id;
+                $data['result']                         = json_encode($request->reference_value);
+                $labTestReport                          = LabTestReport::create($data);
+                LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
+            }
+            // $testName->name == 'Pregnancy test (PT)'
+            if($testName->category == 'Urine' && $testName->name == 'Pregnancy test (PT)'){
                 // dd(213123);
                 $data['lab_test_id']                    = $request->test_id;
                 $data['lab_invoice_test_detail_id']     = $request->lab_invoice_test_detail_id;
                 $data['created_by']                     = auth('admin')->user()->id;
                 $data['created_date']                   = date('Y-m-d h:i:s');
                 $data['patient_id']                     = LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->with('labInvoice.patient')->first()->labInvoice->patient->id;
-                $data['result'] = json_encode($request->reference_value);
+                $multidimensionalArray = array();
+                for ($i=0; $i < count($request->except('_token', '_method','lab_invoice_test_detail_id','test_id')['name']); $i++) {
+                    $multidimensionalArray[$i] = array(
+                        'name' =>$request->except('_token', '_method','lab_invoice_test_detail_id','test_id')['name'][$i]??'',
+                        'result' =>$request->except('_token', '_method','lab_invoice_test_detail_id','test_id')['result'][$i]??'',
+                        'reference_value' =>$request->except('_token', '_method','lab_invoice_test_detail_id','test_id')['reference_value'][$i]??'',
+                    );
+                }
+                $data['result'] = json_encode($multidimensionalArray);
+
                 $labTestReport                          = LabTestReport::create($data);
                 LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
             }
 
-            // DD($testName);
             if($testName->category == 'Urine' && $testName->name == 'Urine RE'){
                 $data['lab_test_id']                    = $request->test_id;
                 $data['lab_invoice_test_detail_id']     = $request->lab_invoice_test_detail_id;
@@ -208,7 +230,6 @@ class LabTestResultController extends Controller
                     );
                 }
                 $data['result']                         = json_encode($multidimensionalArray);
-                // dd($data);
                 $labTestReport                          = LabTestReport::create($data);
                 LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
             }
@@ -270,12 +291,12 @@ class LabTestResultController extends Controller
         if ($labTestReport->testName->category == 'Micro Biology' && $labTestReport->testName->name== 'Blood CS Growth') {
             // return view('backend.pathology.viewResult.blood.blood_cs_growth', compact('labTestReport'));
         }
-
+        // return redirect()->route('')
         // end Blood
         // start urine
-        // if ($labTestReport->testName->category == 'Urine') {
-            // return view('backend.pathology.viewResult.blood.blood_cs_growth', compact('labTestReport'));
-        // }
+        if ($labTestReport->testName->category == 'Urine') {
+            return view('backend.pathology.viewResult.blood.blood_cs_growth', compact('labTestReport'));
+        }
         if ($labTestReport->testName->category == 'Urine' && $labTestReport->testName->name== 'Urine RE') {
             return view('backend.pathology.viewResult.urine.urine_re', compact('labTestReport'));
         }
@@ -284,6 +305,10 @@ class LabTestResultController extends Controller
         }
         if ($labTestReport->testName->category == 'Urine' && $labTestReport->testName->name== 'Urine CS NO Growth') {
             return view('backend.pathology.viewResult.urine.urine_cs_no_growth', compact('labTestReport'));
+        }
+        // dd($labTestReport->testName->name);
+        if ($labTestReport->testName->category == 'Urine' && $labTestReport->testName->name== 'Pregnancy test (PT)') {
+            return view('backend.pathology.viewResult.urine.pregnancy', compact('labTestReport'));
         }
         // end Blood
 

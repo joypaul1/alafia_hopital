@@ -315,7 +315,7 @@
             border-top-width: 0pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -333,7 +333,7 @@
             border-top-width: 0pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -369,7 +369,7 @@
             border-top-width: 0pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -387,7 +387,7 @@
             border-top-width: 0pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -441,7 +441,7 @@
             border-top-width: 0pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -461,7 +461,7 @@
             border-top-width: 0pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -479,7 +479,7 @@
             border-top-width: 1pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -497,7 +497,7 @@
             border-top-width: 0pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -515,7 +515,7 @@
             border-top-width: 1pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -533,7 +533,7 @@
             border-top-width: 0pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -557,7 +557,7 @@
             border-top-style: solid;
             border-left-style: solid;
             border-bottom-width: 1pt;
-            width: 120pt;
+            width: 81pt;
             border-top-color: #3b3b3b;
             border-bottom-style: solid
         }
@@ -569,7 +569,7 @@
             border-top-width: 0pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -677,7 +677,7 @@
             border-top-width: 0pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -713,7 +713,7 @@
             border-top-width: 0pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -749,7 +749,7 @@
             border-top-width: 1pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -767,7 +767,7 @@
             border-top-width: 0pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -785,7 +785,7 @@
             border-top-width: 0pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -803,7 +803,7 @@
             border-top-width: 1pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -875,7 +875,7 @@
             border-top-width: 1pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -911,7 +911,7 @@
             border-top-width: 1pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -929,7 +929,7 @@
             border-top-width: 0pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -947,7 +947,7 @@
             border-top-width: 0pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -965,7 +965,7 @@
             border-top-width: 0pt;
             border-right-width: 0pt;
             border-left-color: #000000;
-            vertical-align: top;
+            vertical-align: middle;
             border-right-color: #000000;
             border-left-width: 0pt;
             border-top-style: solid;
@@ -1004,10 +1004,6 @@
             font-size: 11pt;
             font-family: "Times New Roman";
             font-style: normal
-        }
-
-        .c6 .c0 {
-            font-weight: 800;
         }
 
         .c41 {
@@ -1079,6 +1075,7 @@
             line-height: 1.0;
             orphans: 2;
             widows: 2;
+            text-align: center
         }
 
         .c1 {
@@ -1149,7 +1146,7 @@
         .c46 {
             background-color: #ffffff;
             max-width: 560pt;
-            margin: 10px auto;
+            margin: 0 auto;
             position: relative;
         }
 
@@ -1377,31 +1374,20 @@
                 bottom: 0;
                 left: 0;
                 right: 0;
-                width: 95%;
+                width: 100%;
                 margin: 0 auto;
-                padding: 10pt;
+                padding: 0pt;
             }
         }
-
-        .main-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 10pt;
-        }
-
-        .main-table td {
-            border: 1px solid #333;
-            padding: 5px;
-        }
     </style>
-
-
 </head>
-
+{{-- @dd($labTestReport->testName->category); --}}
+{{-- @dd($labTestReport->test->name
+{{-- @dd($labTestReport->patient); --}}
 <body class="c46 doc-content">
     <div class="content">
         <div>
-            <img src="./hpathology.png" style="width: 100%;" alt="header">
+            <img src="{{ asset('assets/moneyReceipt/hpathology.png') }}" style="width: 100%;" alt="header">
             <div style="padding: 0 0.5in;">
                 <table class="c55">
                     <tr class="c5">
@@ -1421,7 +1407,7 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c45" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">12.00am 31-01-2023</span></p>
+                            <p class="c23"><span class="c0">{{ date('dm-Y H:i', strtotime(optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->date)) }}</span></p>
                         </td>
                     </tr>
                     <tr class="c5">
@@ -1431,8 +1417,13 @@
                         <td class="c12" colspan="1" rowspan="1">
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
+                        @php
+                        $bday = new DateTime(optional($labTestReport->patient)->dob); // Your date of birth
+                        $today = new Datetime(date('m.d.y'));
+                        $diff = $today->diff($bday);
+                        @endphp
                         <td class="c36" colspan="1" rowspan="1">
-                            <p class="c23 c10"><span class="c13">Nabila Yeasmin</span></p>
+                            <p class="c23 c10"><span class="c13">{{ $labTestReport->patient->name }}</span></p>
                         </td>
                         <td class="c42" colspan="1" rowspan="1">
                             <p class="c50"><span class="c11">Prepare &nbsp;Time</span></p>
@@ -1441,7 +1432,7 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c15" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">12.40am 31-01-2023</span></p>
+                            <p class="c23"><span class="c0">{{ date('d-m-Y H:i', strtotime($labTestReport->created_at)) }}</span></p>
                         </td>
                     </tr>
                     <tr class="c5">
@@ -1452,16 +1443,16 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c36" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">26 Years</span></p>
+                            <p class="c23"><span class="c0"> {{ $diff->y }} Years {{ $diff->m }} Months {{ $diff->d }}</span></p>
                         </td>
                         <td class="c42" colspan="1" rowspan="1">
-                            <p class="c50"><span class="c11">Phone </span></p>
+                            <p class="c50"><span class="c11">Print Time </span></p>
                         </td>
                         <td class="c38" colspan="1" rowspan="1">
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c15" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">0123456789</span></p>
+                            <p class="c23"><span class="c0">{{ date_format(now(),"d-m-Y H:i") }}</span></p>
                         </td>
                     </tr>
                     <tr class="c5">
@@ -1472,7 +1463,7 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c36" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">Male / Female</span></p>
+                            <p class="c23"><span class="c0">{{ optional($labTestReport->patient)->gender }}</span></p>
                         </td>
                         <td class="c42" colspan="1" rowspan="1">
                             <p class="c50"><span class="c11">Specimen</span></p>
@@ -1492,802 +1483,97 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c57" colspan="4" rowspan="1">
-                            <p class="c23 c10"><span class="c13"></span></p>
+                            <p class="c23 c10"><span class="c13">
+                        {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
+                        ( {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }})
+
+                        </span></p>
+
                         </td>
                     </tr>
                 </table>
                 <h2
                     style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
-                    MICROBIOLOGY ROUTINE C/S
+                    {{ $labTestReport->testName->category }} Report
                 </h2>
 
-                <p style="text-align: center;">
-                    Culture (Aerobic) & Sensitivity shows Growth of: Cfu/ml
-                </p>
-                <table style="width: 80%; margin: 0 auto; border-collapse: collapse; text-align: center;">
-                    <tr>
-                        <td style="border: 1px solid #333;">
-                            (A)
+                <table class="c68">
+                    <tr class="c7">
+                        <td class="c40" colspan="1" rowspan="1">
+                            <p class="c4"><span class="c39 c24">Name of Test</span></p>
                         </td>
-                        <td style="border: 1px solid #333;">
-                            Escherichia Coli
+                        <td class="c59" colspan="1" rowspan="1">
+                            <p class="c33"><span class="c39 c24">Result</span></p>
                         </td>
-                        <td style="border: 1px solid #333;">
-                            >1x104
+
+                        <td class="c61" colspan="1" rowspan="1">
+                            <p class="c4"><span class="c24 c39">Ref. Value</span></p>
                         </td>
                     </tr>
-                    <tr>
-                        <td style="border: 1px solid #333;">
-                            (B)
-                        </td>
-                        <td style="border: 1px solid #333;">
+                    @php
+                        $data = json_decode($labTestReport->result);
 
+                    @endphp
+                    <tr class="c73">
+                        <td class="c52" colspan="1" rowspan="1">
+                            <p class="c4 c10"><span class="c0"></span></p>
                         </td>
-                        <td style="border: 1px solid #333;">
+                        <td class="c44" colspan="1" rowspan="1">
+                            <p class="c10 c33"><span class="c11"></span></p>
+                        </td>
 
+                        <td class="c70" colspan="1" rowspan="1">
+                            <p class="c4 c10"><span class="c0"></span></p>
                         </td>
                     </tr>
-                    <tr>
-                        <td style="border: 1px solid #333;">
-                            (C)
-                        </td>
-                        <td style="border: 1px solid #333;">
 
+                    @foreach ($data as $item)
+                    <tr class="c5">
+                        <td class="c14" colspan="1" rowspan="1">
+                            <p class="c1"><span class="c0">{{ $item->name }}</span></p>
                         </td>
-                        <td style="border: 1px solid #333;">
+                        <td class="c27" colspan="1" rowspan="1">
+                            <p class="c17 c10"><span class="c11">{{ $item->result }}</span></p>
+                        </td>
 
+                        <td class="c2" colspan="1" rowspan="1">
+                            <p class="c1"><span class="c0">{!! $item->reference_value !!}</span></p>
                         </td>
                     </tr>
+                    @endforeach
+
                 </table>
-
-                <table class="main-table" style="margin-top:20pt;">
-                    <tr>
-                        <td>
-                            <p style="padding: 10px;"></p>
-                        </td>
-                        <td>
-                            <strong>Antibiotics</strong>
-                        </td>
-                        <td>
-                            A
-                        </td>
-                        <td>
-                            B
-                        </td>
-                        <td>
-                            C
-                        </td>
-                        <td>
-                            <p style="padding: 10px;"></p>
-                        </td>
-                        <td>
-                            <strong>Antibiotics</strong>
-                        </td>
-                        <td>
-                            A
-                        </td>
-                        <td>
-                            B
-                        </td>
-                        <td>
-                            C
-                        </td>
-                        <td>
-                            <p style="padding: 10px;"></p>
-                        </td>
-                        <td>
-                            <strong>Antibiotics</strong>
-                        </td>
-                        <td>
-                            A
-                        </td>
-                        <td>
-                            B
-                        </td>
-                        <td>
-                            C
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            Amikacin
-                        </td>
-                        <td>
-                            S
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            15
-                        </td>
-                        <td>
-                            Ciprofloxacin
-                        </td>
-                        <td>
-                            S
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            29
-                        </td>
-                        <td>
-                            Norfloxacin
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            2
-                        </td>
-                        <td>
-                            Ampicillin
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            16
-                        </td>
-                        <td>
-                            Cotrimoxazole
-                        </td>
-                        <td>
-                            R
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            30
-                        </td>
-                        <td>
-                            Linezolid
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            3
-                        </td>
-                        <td>
-                            Amoxyclav
-                        </td>
-                        <td>
-                            R
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            17
-                        </td>
-                        <td>
-                            Cefoxitin
-                        </td>
-                        <td>
-                            R
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            31
-                        </td>
-                        <td>
-                            Levofloxacin
-                        </td>
-                        <td>
-                            S
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            4
-                        </td>
-                        <td>
-                            Azithromycin
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            18
-                        </td>
-                        <td>
-                            Colistin
-                        </td>
-                        <td>
-                            S
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            32
-                        </td>
-                        <td>
-                            Oxacillin
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            5
-                        </td>
-                        <td>
-                            Aztreonam
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            19
-                        </td>
-                        <td>
-                            Clindamycin
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            33
-                        </td>
-                        <td>
-                            Pefloxacin
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            6
-                        </td>
-                        <td>
-                            Carbenicillin
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            20
-                        </td>
-                        <td>
-                            Doxycycline
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            34
-                        </td>
-                        <td>
-                            Penicillin
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            7
-                        </td>
-                        <td>
-                            Cefotaxime
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            21
-                        </td>
-                        <td>
-                            Fusidic
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            35
-                        </td>
-                        <td>
-                            Piperacillin
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            8
-                        </td>
-                        <td>
-                            Cefixime
-                        </td>
-                        <td>
-                            S
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            22
-                        </td>
-                        <td>
-                            Gentamycin
-                        </td>
-                        <td>
-                            S
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            36
-                        </td>
-                        <td>
-                            Tazobactam
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            9
-                        </td>
-                        <td>
-                            Ceftazidime
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            23
-                        </td>
-                        <td>
-                            Imipenem
-                        </td>
-                        <td>
-                            S
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            37
-                        </td>
-                        <td>
-                            Rifampicin
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            10
-                        </td>
-                        <td>
-                            Ceftriaxone
-                        </td>
-                        <td>
-                            S
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            24
-                        </td>
-                        <td>
-                            Methicillin
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            38
-                        </td>
-                        <td>
-                            Streptomycin
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            11
-                        </td>
-                        <td>
-                            Cefuroxime
-                        </td>
-                        <td>
-                            S
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            25
-                        </td>
-                        <td>
-                            Meropenem
-                        </td>
-                        <td>
-                            S
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            39
-                        </td>
-                        <td>
-                            Sulfamethoxazole
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            12
-                        </td>
-                        <td>
-                            Cephradine
-                        </td>
-                        <td>
-                            R
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            26
-                        </td>
-                        <td>
-                            Nalidixic Acid
-                        </td>
-                        <td>
-                            R
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            40
-                        </td>
-                        <td>
-                            Tetracycline
-                        </td>
-                        <td>
-                            R
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            13
-                        </td>
-                        <td>
-                            Cefepime
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            27
-                        </td>
-                        <td>
-                            Netilmicin
-                        </td>
-                        <td>
-                            S
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            41
-                        </td>
-                        <td>
-                            Tigecycline
-                        </td>
-                        <td>
-                            S
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            14
-                        </td>
-                        <td>
-                            Chloramphenicol
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            27
-                        </td>
-                        <td>
-                            Nitrofurantion
-                        </td>
-                        <td>
-                            R
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-                            42
-                        </td>
-                        <td>
-                            Vancomycin
-                        </td>
-                        <td>
-                            S
-                        </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                </table>
-                <div style="display: flex;justify-content: space-between; margin-top: 10pt;">
-                    <p>
-                        S = Sensitive
-                    </p>
-                    <p>
-                        R = Resistant
-                    </p>
-                    <p>
-                        I = Intermediate Sensitive
-                    </p>
-                </div>
             </div>
         </div>
-
-
-
 
         <footer>
             <div style="padding: 0 0.5in;">
                 <div style="display: flex;justify-content: space-between; margin-top: 60pt;">
                     <div>
                         <p class="c4"><span class="c13">Prepared by</span></p>
-                        <p class="c4"><span class="c13">Medical Technologist</span></p>
+                        <p class="c4"><span class="c13">{{ auth('admin')->user()->name }}</span></p>
                         <p class="c4 c10"><span class="c13"></span></p>
                     </div>
                     <div>
                         <p class="c4"><span class="c13">Check by</span></p>
-                        <p class="c4"><span class="c13">Lab In-charge</span></p>
+                        <p class="c4"><span class="c13"></span></p>
                     </div>
                     <div>
                         <h5 style="margin-bottom: 4px; margin: 0; padding: 0; font-weight: bold;">
-                            PROF.DR. MD. SAIDUR RAHMAN
+                            {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
+
                         </h5>
-                        <p><small>MBBS, DCP (MSMMU) M ,Phil (Path)</small></p>
-                        <p><small>Professor of Pathology</small></p>
-                        <p><small>Bangladesh Medical College</small></p>
+                        <p><small>{{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }}</small></p>
+
                     </div>
                 </div>
             </div>
-            <img src="./fpathology.png" style="width: 100%;" alt="">
+            <img src="{{ asset('assets/moneyReceipt/fpathology.png') }}" style="width: 100%;" alt="">
         </footer>
     </div>
 </body>
 
 </html>
+{{-- <script>
+    window.print();
+</script> --}}
