@@ -29,190 +29,6 @@
                             name="Dashboard" link='backend.dashboard.index' icon='icon-home' />
 
 
-                        {{-- order Panel --}}
-                        {{-- <li class="{{ strpos($strpos, 'backend.order') === 0 ? 'active' : ' ' }}">
-                        <a href="javascript:void(0)" class="has-arrow">
-                            <i class="icon-user-following"></i>
-                            <span>Order Panel</span>
-                        </a>
-                        <ul>
-                            <x-backend.side-bar class="{{ request()->segment(2) == 'order-list-pending' ? 'active' : ' ' }}" name="Pending" link='backend.order.order-list-pending.index' icon='#' />
-                            <x-backend.side-bar class="{{ request()->segment(2) == 'order-list-processing' ? 'active' : ' ' }}" name="Processing" link='backend.order.order-list-processing.index' icon='#' />
-                            <x-backend.side-bar class="{{ request()->segment(2) == 'order-list-delivered' ? 'active' : ' ' }}" name="Delivered" link='backend.order.order-list-delivered.index' icon='#' />
-                            <x-backend.side-bar class="{{ request()->segment(2) == 'order-list' ? 'active' : ' ' }}" name="Paid" link='backend.order.order-list.index' icon='#' />
-
-                        </ul>
-                        </li> --}}
-                        {{-- End order Panel --}}
-
-
-                        {{-- purchase Panel --}}
-                        {{-- <li class="{{ strpos($strpos, 'backend.purchase') === 0 ? 'active' : ' ' }}">
-                        <a href="javascript:void(0)" class="has-arrow">
-                            <i class="icon-user-following"></i>
-                            <span>Purchase Panel</span>
-                        </a>
-                        <ul>
-                            <x-backend.side-bar class="{{ request()->is('admin/purchase') ? 'active' : ' ' }}" name="List" link='backend.purchase.index' icon='#' />
-                            <x-backend.side-bar class="{{ request()->is('admin/purchase/create') ? 'active' : ' ' }}" name="Create" link='backend.purchase.create' icon='#' />
-
-                        </ul>
-                        </li> --}}
-                        {{-- End purchase Panel --}}
-
-                        {{-- Pos Panel --}}
-                        {{-- <li
-                            class="{{ strpos($strpos, 'backend.outlet') === 0 ? 'active' : ' ' }}{{ strpos($strpos, 'backend.register') === 0 ? 'active' : ' ' }}">
-                        <a href="javascript:void(0)" class="has-arrow">
-                            <i class="icon-user-following"></i>
-                            <span>Pos Panel</span>
-                        </a>
-                        <ul>
-                            <x-backend.side-bar class="{{ request()->segment(2) == 'admin' ? 'active' : ' ' }}" name="Create" link='backend.pos.index' icon='#' />
-                            <x-backend.side-bar class="{{ request()->segment(3) == 'outlet' ? 'active' : ' ' }}" name="Outlet" link='backend.outlet.index' icon='#' />
-                            <x-backend.side-bar class="{{ request()->segment(3) == 'register' ? 'active' : ' ' }}" name="Register" link='backend.register.index' icon='#' />
-                        </ul>
-                        </li> --}}
-                        {{-- End Pos Panel --}}
-
-                        {{-- production Panel --}}
-                        {{-- <li class="{{ strpos($strpos, 'backend.production') === 0 ? 'active' : ' ' }}">
-                        <a href="javascript:void(0)" class="has-arrow">
-                            <i class="icon-user-following"></i>
-                            <span>Production Panel</span>
-                        </a>
-                        <ul>
-                            <x-backend.side-bar class="{{ request()->segment(2) == 'production' ? 'active' : ' ' }}" name="production" link='backend.production.index' icon='#' />
-
-                        </ul>
-                        </li> --}}
-                        {{-- End production Panel --}}
-
-                        {{-- Inventory Panel --}}
-                        {{-- <li class="{{ strpos($strpos, 'backend.inventory') === 0 ? 'active' : ' ' }}">
-                        <a href="javascript:void(0)" class="has-arrow">
-                            <i class="icon-user-following"></i>
-                            <span>Inventory Panel</span>
-                        </a>
-                        <ul>
-                            <x-backend.side-bar class="{{ request()->segment(2) == 'invetory' ? 'active' : ' ' }}" name="Invetory" link='backend.inventory.inventoryitem.index' icon='#' />
-                            <x-backend.side-bar class="{{ request()->segment(2) == 'warehouse' ? 'active' : ' ' }}" name="Warehouse" link='backend.inventory.warehouse.index' icon='#' />
-
-                        </ul>
-                        </li> --}}
-                        {{-- End Inventory Panel --}}
-
-                        {{-- appointment Panel --}}
-                        <li
-                            class="{{ strpos($strpos, 'backend.appointment') === 0 ? 'active' : ' ' }} {{ strpos($strpos, 'backend.dialysis-appointment') === 0 ? 'active' : ' ' }}">
-                            <a href="javascript:void(0)" class="has-arrow">
-                                <i class="icon-user-following"></i>
-                                <span>Appointment Panel</span>
-                            </a>
-                            <ul>
-                                <x-backend.side-bar
-                                    class="{{ request()->segment(2) == 'appointment' ? 'active' : ' ' }}"
-                                    name="Doctor Appoint." link='backend.appointment.index' icon='#' />
-                                <x-backend.side-bar
-                                    class="{{ request()->segment(2) == 'dialysis-appointment' ? 'active' : ' ' }}"
-                                    name="Dialysis Appoint." link='backend.dialysis-appointment.index' icon='#' />
-
-                            </ul>
-                        </li>
-                        {{-- End appointment Panel --}}
-                        {{-- Pathology Panel --}}
-                        <li class="{{ strpos($strpos, 'backend.pathology') === 0 ? 'active' : ' ' }}">
-                            <a href="javascript:void(0)" class="has-arrow">
-                                <i class="icon-user-following"></i>
-                                <span>Pathology Panel</span>
-                            </a>
-                            <ul>
-                                <x-backend.side-bar class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}"
-                                    name="Create" link='backend.pathology.labTest.create' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}"
-                                    name="List" link='backend.pathology.labTest.index' icon='#' />
-                                {{-- <x-backend.side-bar
-                                    class="{{ request()->segment(2) == 'dialysis-appointment' ? 'active' : ' ' }}"
-                                    name="Dailyses Appoint." link='backend.dialysis-appointment.index' icon='#' /> --}}
-
-                            </ul>
-                        </li>
-                        {{-- End Pathology Panel --}}
-
-                        {{-- prescription Panel --}}
-                        {{-- <li class="{{ strpos($strpos, 'backend.prescription') === 0 ? 'active' : ' ' }}">
-                            <a href="javascript:void(0)" class="has-arrow">
-                                <i class="icon-user-following"></i>
-                                <span>Prescription Panel</span>
-                            </a>
-                            <ul>
-                                <x-backend.side-bar class="{{ request()->segment(2) == 'prescription' ? 'active' : ' ' }}" name="Prescription" link='backend.prescription.index' icon='#' />
-
-                            </ul>
-                        </li> --}}
-                        {{-- End prescription Panel --}}
-
-                        {{-- patient Panel --}}
-                        <li class="{{ strpos($strpos, 'backend.patient') === 0 ? 'active' : ' ' }}">
-                            <a href="javascript:void(0)" class="has-arrow">
-                                <i class="icon-user-following"></i>
-                                <span>Patient Panel</span>
-                            </a>
-                            <ul>
-                                <x-backend.side-bar class="{{ request()->segment(2) == 'patient' ? 'active' : ' ' }}"
-                                    name="Patient" link='backend.patient.index' icon='#' />
-
-                            </ul>
-                        </li>
-                        {{-- End patient Panel --}}
-
-                        {{-- Doctor Panel --}}
-                        <li class="{{ strpos($strpos, 'backend.doctor') === 0 ? 'active' : ' ' }}">
-                            <a href="javascript:void(0)" class="has-arrow">
-                                <i class="icon-user-following"></i>
-                                <span>Doctor Panel</span>
-                            </a>
-                            <ul>
-
-                                <x-backend.side-bar class="{{ request()->segment(2) == 'doctor' ? 'active' : ' ' }}"
-                                    name="Appointment" link='backend.doctor.index' icon='#' />
-
-                            </ul>
-                        </li>
-                        {{-- End Doctor Panel --}}
-                        {{-- Employee Panel --}}
-                        <li class="{{ strpos($strpos, 'backend.employee') === 0 ? 'active' : ' ' }}">
-                            <a href="javascript:void(0)" class="has-arrow">
-                                <i class="icon-user-following"></i>
-                                <span>Employee Panel</span>
-                            </a>
-                            <ul>
-                                <x-backend.side-bar class="{{ request()->segment(2) == 'employee' ? 'active' : ' ' }}"
-                                    name="Employee" link='backend.employee.index' icon='#' />
-                                <x-backend.side-bar
-                                    class="{{ request()->segment(2) == 'designation' ? 'active' : ' ' }}"
-                                    name="Designation" link='backend.employee.designation.index' icon='#' />
-                                <x-backend.side-bar
-                                    class="{{ request()->segment(2) == 'department' ? 'active' : ' ' }}"
-                                    name="Department" link='backend.employee.department.index' icon='#' />
-                                {{-- <x-backend.side-bar class="{{ request()->segment(2) == 'shift' ? 'active' : ' ' }}" name="Shift" link='backend.employee.shift.index' icon='#' /> --}}
-                            </ul>
-                        </li>
-                        {{-- End Employee Panel --}}
-
-                        {{-- supplier Panel --}}
-                        {{-- <li class="{{ strpos($strpos, 'backend.supplier') === 0 ? 'active' : ' ' }}">
-                        <a href="javascript:void(0)" class="has-arrow">
-                            <i class="icon-user-following"></i>
-                            <span>Supplier Panel</span>
-                        </a>
-                        <ul>
-                            <x-backend.side-bar class="{{ request()->segment(2) == 'supplier' ? 'active' : ' ' }}" name="Supplier" link='backend.supplier.index' icon='#' />
-
-                        </ul>
-                        </li> --}}
-                        {{-- End supplier Panel --}}
-
                         {{-- Admin Panel --}}
                         <li class="{{ strpos($strpos, 'backend.admin') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
@@ -230,7 +46,7 @@
                         {{-- End Admin Panel --}}
 
                         {{-- user Panel --}}
-                        {{-- <li class="{{ strpos($strpos, 'backend.user') === 0 ? 'active' : ' ' }}">
+                        <li class="{{ strpos($strpos, 'backend.user') === 0 ? 'active' : ' ' }}">
                         <a href="javascript:void(0)" class="has-arrow">
                             <i class="icon-user-following"></i>
                             <span>Customer Panel</span>
@@ -238,45 +54,9 @@
                         <ul>
                             <x-backend.side-bar class="{{ request()->segment(2) == 'user' ? 'active' : ' ' }}" name="Customer" link='backend.user.index' icon='#' />
                         </ul>
-                        </li> --}}
-                        {{-- End user Panel --}}
-                        {{-- Item Config --}}
-                        <li class="{{ strpos($strpos, 'backend.itemconfig') === 0 ? 'active' : ' ' }}">
-                            <a href="javascript:void(0)" class="has-arrow">
-                                <i class="icon-settings"></i>
-                                <span>Medicine Panel</span>
-                            </a>
-                            <ul>
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'item' ? 'active' : ' ' }}"
-                                    name="Medicine" link='backend.itemconfig.item.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'category' ? 'active' : ' ' }}"
-                                    name="Category" link='backend.itemconfig.category.index' icon='#' />
-                                <x-backend.side-bar
-                                    class="{{ request()->segment(3) == 'subcategory' ? 'active' : ' ' }}"
-                                    name="Subcategory" link='backend.itemconfig.subcategory.index' icon='#' />
-                                <x-backend.side-bar
-                                    class="{{ request()->segment(3) == 'childcategory' ? 'active' : ' ' }}"
-                                    name="Childcategory" link='backend.itemconfig.childcategory.index'
-                                    icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'brand' ? 'active' : ' ' }}"
-                                    name="Manufacturer" link='backend.itemconfig.brand.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'type' ? 'active' : ' ' }}"
-                                    name="Type" link='backend.itemconfig.type.index' icon='#' />
-                                <x-backend.side-bar
-                                    class="{{ request()->segment(3) == 'generic-name' ? 'active' : ' ' }}"
-                                    name="Generic Name" link='backend.itemconfig.generic-name.index'
-                                    icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'strenght' ? 'active' : ' ' }}"
-                                    name="Strenght" link='backend.itemconfig.strenght.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'unit' ? 'active' : ' ' }}"
-                                    name="Unit" link='backend.itemconfig.unit.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'rack' ? 'active' : ' ' }}"
-                                    name="Rack" link='backend.itemconfig.rack.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'row' ? 'active' : ' ' }}"
-                                    name="Row" link='backend.itemconfig.row.index' icon='#' />
-                            </ul>
                         </li>
-                        {{-- End Item Config --}}
+                        {{-- End user Panel --}}
+
                         {{-- Account Panel --}}
                         <li class="{{ strpos($strpos, 'backend.account') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
@@ -332,19 +112,19 @@
                             <ul>
                                 <x-backend.side-bar class="{{ request()->is('admin/site-config' ? 'active' : ' ') }}"
                                     name="Site Info" link='backend.siteConfig.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'bed' ? 'active' : ' ' }}"
+                                {{--<x-backend.side-bar class="{{ request()->segment(3) == 'bed' ? 'active' : ' ' }}"
                                     name="Bed Config" link='backend.siteConfig.bed.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(3) == 'symptom' ? 'active' : ' ' }}"
+                                 <x-backend.side-bar class="{{ request()->segment(3) == 'symptom' ? 'active' : ' ' }}"
                                     name="Symptom Config" link='backend.siteConfig.symptom.index' icon='#' />
                                 <x-backend.side-bar
                                     class="{{ request()->segment(3) == 'serviceName' ? 'active' : ' ' }}"
                                     name="Service Config" link='backend.siteConfig.serviceName.index'
                                     icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'labTest' ? 'active' : ' ' }}"
-                                    name="Lab Test Config" link='backend.siteConfig.labTest.index' icon='#' />
-                                <x-backend.side-bar
+                                    name="Lab Test Config" link='backend.siteConfig.labTest.index' icon='#' /> --}}
+                                {{-- <x-backend.side-bar
                                     class="{{ request()->segment(3) == 'bloodBank' ? 'active' : ' ' }}"
-                                    name="Blood Config" link='backend.siteConfig.bloodBank.index' icon='#' />
+                                    name="Blood Config" link='backend.siteConfig.bloodBank.index' icon='#' /> --}}
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'slider' ? 'active' : ' ' }}"
                                     name="Slider" link='backend.siteConfig.slider.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'banner' ? 'active' : ' ' }}"
@@ -371,7 +151,7 @@
                                     name="Invoice Prefix Config" link='backend.siteConfig.prefix-system.index'
                                     icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'tax-rate' ? 'active' : ' ' }}"
-                                    name="Taxt Config" link='backend.siteConfig.tax-rate.index' icon='#' />
+                                    name="Tax Config" link='backend.siteConfig.tax-rate.index' icon='#' />
                             </ul>
                         </li>
                         {{-- End Site Configuration --}}
