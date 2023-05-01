@@ -1493,7 +1493,7 @@
                 </table>
                 <h2
                     style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
-                    Biochemistry Report
+                    {{ $labTestReport->testName->category }} Report
                 </h2>
 
                 <table class="c68">
@@ -1513,18 +1513,7 @@
                         $data = json_decode($labTestReport->result);
 
                     @endphp
-                    <tr class="c73">
-                        <td class="c52" colspan="1" rowspan="1">
-                            <p class="c4 c10"><span class="c0"></span></p>
-                        </td>
-                        <td class="c44" colspan="1" rowspan="1">
-                            <p class="c10 c33"><span class="c11"></span></p>
-                        </td>
 
-                        <td class="c70" colspan="1" rowspan="1">
-                            <p class="c4 c10"><span class="c0"></span></p>
-                        </td>
-                    </tr>
                     <tr class="c5">
                         <td class="c14" colspan="1" rowspan="1">
                             <p class="c1"><span class="c0">{{ $data->name }}</span></p>

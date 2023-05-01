@@ -1515,23 +1515,9 @@
                     </tr>
                     @php
                         $data = json_decode($labTestReport->result);
-                        // dd($data);
-                    @endphp
-                    <tr class="c73">
-                        <td class="c52" colspan="1" rowspan="1">
-                            <p class="c4 c10"><span class="c0"></span></p>
-                        </td>
 
-                        <td class="c70" colspan="1" rowspan="1">
-                            <p class="c4 c10"><span class="c0"></span></p>
-                        </td>
-                        <td class="c70" colspan="1" rowspan="1">
-                            <p class="c4 c10"><span class="c0"></span></p>
-                        </td>
-                        <td class="c70" colspan="1" rowspan="1">
-                            <p class="c4 c10"><span class="c0"></span></p>
-                        </td>
-                    </tr>
+                    @endphp
+
 
                     @foreach ($data as $item)
                     <tr class="c5">

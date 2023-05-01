@@ -1521,19 +1521,6 @@
                     </tr>
                     @endforeach
 
-
-
-                    <tr>
-                        <td>
-                            <p>
-
-                            </p>
-                        </td>
-                        <td>
-                            <p>
-                            </p>
-                        </td>
-                    </tr>
                     <tr>
                         <td>
                             <p style="margin-bottom: 0; padding-top: 6px !important;">
