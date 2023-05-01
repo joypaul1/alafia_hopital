@@ -101,8 +101,12 @@ class LabTestController extends Controller
             ['name' => 'Urine', 'id' => 'Urine'],
             ['name' => 'Stool', 'id' => 'Stool']
         ];
+        $type= (object)[
+            ['name' => 'sm', 'id' => 'sm'],
+            ['name' => 'lg', 'id' => 'lg']
+        ];
         $labTestTube = LabTestTube::select(['id', 'name'])->get();
-        return view('backend.siteConfig.labTest.create', compact('labTestTube', 'department', 'specimen'));
+        return view('backend.siteConfig.labTest.create', compact('labTestTube', 'department', 'specimen', 'type'));
     }
 
 
@@ -160,7 +164,11 @@ class LabTestController extends Controller
             ['name' => 'Urine', 'id' => 'Urine'],
             ['name' => 'Stool', 'id' => 'Stool']
         ];
-        return view('backend.siteConfig.labTest.edit', compact('labTest', 'labTestTube','department','specimen'));
+        $type= (object)[
+            ['name' => 'sm', 'id' => 'sm'],
+            ['name' => 'lg', 'id' => 'lg']
+        ];
+        return view('backend.siteConfig.labTest.edit', compact('labTest', 'labTestTube','department','specimen', 'type'));
     }
 
     /**

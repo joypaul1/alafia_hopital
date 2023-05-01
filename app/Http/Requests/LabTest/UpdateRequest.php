@@ -35,6 +35,8 @@ class UpdateRequest extends FormRequest
             'reference'         => 'nullable',
             'specimen'          => 'required',
             'unit'              => 'nullable',
+            'type'              => 'required',
+
 
         ];
     }
