@@ -49,17 +49,6 @@
                                 </div>
                                 <div class="form-group">
                                     @include('components.backend.forms.select2.option', [
-                                        'name' => 'type',
-                                        'optionData' => $type,
-                                        'required' => true,
-                                        'selectedKey' => $labTest->type,
-                                    ])
-                                    @include('components.backend.forms.input.errorMessage', [
-                                        'message' => $errors->first('type'),
-                                    ])
-                                </div>
-                                <div class="form-group">
-                                    @include('components.backend.forms.select2.option', [
                                         'label' => 'LabTestTube',
                                         'name' => 'lab_test_tube_id',
                                         'optionData' => $labTestTube,

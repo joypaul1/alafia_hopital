@@ -27,6 +27,7 @@
                             <div class="form-group">
                                 @include('components.backend.forms.input.input-type', [
                                     'name' => 'name',
+                                    'type' => 'text',
                                     'placeholder' => 'name will be here...',
                                     'required' => true,
                                 ])
@@ -44,16 +45,6 @@
                                 ])
                                 @include('components.backend.forms.input.errorMessage', [
                                     'message' => $errors->first('department'),
-                                ])
-                            </div>
-                            <div class="form-group">
-                                @include('components.backend.forms.select2.option', [
-                                    'name' => 'type',
-                                    'optionData' => $type,
-                                    'required' => true,
-                                ])
-                                @include('components.backend.forms.input.errorMessage', [
-                                    'message' => $errors->first('type'),
                                 ])
                             </div>
 
