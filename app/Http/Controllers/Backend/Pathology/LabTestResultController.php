@@ -299,7 +299,8 @@ class LabTestResultController extends Controller
         }
         // end urine
         // start Blood
-        // dd($labTestReport->testName,$labTestReport->testName->category == 'Blood' , $labTestReport->testName->name == 'Blood CS No Growth');
+        // dd($labTestReport);
+        // dd($labTestReport->testName,$labTestReport->testName->category == 'Blood' , $labTestReport->testName->name == 'Blood CS Growth');
         if ($labTestReport->testName->category == 'Blood' && $labTestReport->testName->name == 'Blood CS Growth') {
             return view('backend.pathology.viewResult.blood.blood_cs_growth', compact('labTestReport'));
         }
