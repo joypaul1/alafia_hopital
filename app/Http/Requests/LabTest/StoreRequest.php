@@ -34,6 +34,7 @@ class StoreRequest extends FormRequest
             'department'        => 'required',
             'reference'         => 'nullable',
             'unit'              => 'nullable',
+            'specimen'          => 'required',
         ];
     }
 

@@ -83,17 +83,24 @@ class LabTestResultController extends Controller
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
         }
         // end Immunology
-        // dd($labTest);
+
         //Start Urine
         if ($labTest->category == 'Urine' && $labTest->name == 'Urine RE') {
-            return view('backend.pathology.makeResult.urine.urine_re', compact('data', 'labTest'));
+            return view('backend.pathology.makeResult.urine.urine_`re', compact('data', 'labTest'));
         }
         if ($labTest->category == 'Urine' &&  $labTest->name == 'Urine CS Growth') {
             return view('backend.pathology.makeResult.urine.urine_cs_growth', compact('data', 'labTest'));
         }
 
         if ($labTest->category == 'Urine' &&  $labTest->name == 'Urine CS NO Growth') {
-            // dd(23123);
+            return view('backend.pathology.makeResult.urine.urine_cs_no_growth', compact('data', 'labTest'));
+        }
+        //End Urine
+        //Start blood
+        if ($labTest->category == 'Blood' &&  $labTest->name == 'Urine CS Growth') {
+            return view('backend.pathology.makeResult.urine.urine_cs_growth', compact('data', 'labTest'));
+        }
+        if ($labTest->category == 'Blood' &&  $labTest->name == 'Urine CS NO Growth') {
             return view('backend.pathology.makeResult.urine.urine_cs_no_growth', compact('data', 'labTest'));
         }
         //End Urine
@@ -233,9 +240,7 @@ class LabTestResultController extends Controller
                 ->with('labInvoiceTestDetails.labInvoice', 'patient', 'testName')->first();
         }
         // start Biochemistry
-        if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'CBC') {
-            return view('backend.pathology.viewResult.cbc', compact('labTestReport'));
-        }
+
         if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'Fasting Blood Sugar (FBS)') {
             return view('backend.pathology.viewResult.fbs', compact('labTestReport'));
         }
@@ -259,6 +264,9 @@ class LabTestResultController extends Controller
         // end Serology
 
         // start Hematology
+        if ($labTestReport->testName->category == 'Hematology' && $labTestReport->testName->name == 'CBC') {
+            return view('backend.pathology.viewResult.cbc', compact('labTestReport'));
+        }
         if ($labTestReport->testName->category == 'Hematology') {
             return view('backend.pathology.viewResult.show', compact('labTestReport'));
         }
@@ -299,7 +307,7 @@ class LabTestResultController extends Controller
     public function printCat(Request $request)
     {
         // category, invoice_id
-        // dd(LabInvoice::whereId($request->invoice_id)->first());
+        // dd(LabInvoice::whereId($request->invxoice_id)->first());
         if ($request->category == 'Biochemistry') {
             $labInvoice = LabInvoice::whereId($request->invoice_id)
                 ->with('patient', 'doctor')

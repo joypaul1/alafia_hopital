@@ -33,6 +33,7 @@ class UpdateRequest extends FormRequest
             'time_type'         => 'nullable',
             'department'        => 'required',
             'reference'         => 'nullable',
+            'specimen'          => 'required',
             'unit'              => 'nullable',
 
         ];
@@ -48,7 +49,6 @@ class UpdateRequest extends FormRequest
             $data['reference_value'] = $this->reference;
             $data['category'] = $this->department;
             $labTest->update($data);
-            // dd($labTest);
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();
