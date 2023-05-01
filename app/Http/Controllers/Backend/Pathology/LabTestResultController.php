@@ -88,7 +88,7 @@ class LabTestResultController extends Controller
 
         //Start Urine
         if ($labTest->category == 'Urine' && $labTest->name == 'Urine RE') {
-            return view('backend.pathology.makeResult.urine.urine_`re', compact('data', 'labTest'));
+            return view('backend.pathology.makeResult.urine.urine_re', compact('data', 'labTest'));
         }
         if ($labTest->category == 'Urine' &&  $labTest->name == 'Urine CS Growth') {
             return view('backend.pathology.makeResult.urine.urine_cs_growth', compact('data', 'labTest'));
