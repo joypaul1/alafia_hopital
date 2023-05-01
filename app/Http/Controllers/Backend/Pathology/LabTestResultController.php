@@ -307,8 +307,8 @@ class LabTestResultController extends Controller
     public function printCat(Request $request)
     {
         // category, invoice_id
-        // dd(LabInvoice::whereId($request->invxoice_id)->first());
-        if ($request->category == 'Biochemistry') {
+        // dd(LabInvoice::whereId($request->invoice_id)->first());
+        if ($request->category == 'Biochemistry' || $request->category == 'Serology' || $request->category == 'Hematology' || $request->category == 'Immunology') {
             $labInvoice = LabInvoice::whereId($request->invoice_id)
                 ->with('patient', 'doctor')
                 ->with(['labTestDetails'
@@ -320,6 +320,9 @@ class LabTestResultController extends Controller
                             ['name', '!=', 'Fasting Blood Sugar (FBS)'],
                             ['name', '!=', 'Electrolytes'],
                             ['name', '!=', 'Blood Glucose 2 Hrs. AFB'],
+                            ['name', '!=', 'Urine RE'],
+                            ['name', '!=', 'Urine CS Growth'],
+                            ['name', '!=', 'Urine CS NO Growth'],
                         ]);
                     })
                         ->with('testName:id,name,category')
