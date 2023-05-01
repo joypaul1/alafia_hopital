@@ -41,9 +41,7 @@ class LabTestResultController extends Controller
         if ($labTest->category == 'Biochemistry' && $labTest->name == 'Blood Glucose 2 Hrs. AFB') {
             return view('backend.pathology.makeResult.fbs', compact('data', 'labTest'));
         }
-        if ($labTest->category == 'Biochemistry' && $labTest->name == 'CBC') {
-            return view('backend.pathology.makeResult.cbc', compact('data', 'labTest', 'units'));
-        }
+
 
         if ($labTest->category == 'Biochemistry') {
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
@@ -58,6 +56,7 @@ class LabTestResultController extends Controller
         if ($labTest->category == 'Serology' &&  $labTest->name == 'Widal Test') {
             return view('backend.pathology.makeResult.serology.widal_test', compact('data', 'labTest'));
         }
+
 
         if ($labTest->category == 'Serology') {
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
@@ -74,6 +73,9 @@ class LabTestResultController extends Controller
         }
         // Micro Biolo
         // Hematology
+        if ($labTest->category == 'Hematology' && $labTest->name == 'CBC') {
+            return view('backend.pathology.makeResult.cbc', compact('data', 'labTest', 'units'));
+        }
         if ($labTest->category == 'Hematology') {
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
         }
@@ -265,7 +267,7 @@ class LabTestResultController extends Controller
 
         // start Hematology
         if ($labTestReport->testName->category == 'Hematology' && $labTestReport->testName->name == 'CBC') {
-            return view('backend.pathology.viewResult.cbc', compact('labTestReport'));
+            return view('backend.pathology.viewResult.fbs', compact('labTestReport'));
         }
         if ($labTestReport->testName->category == 'Hematology') {
             return view('backend.pathology.viewResult.show', compact('labTestReport'));
