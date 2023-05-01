@@ -252,6 +252,7 @@
 
             select: function(event, ui) {
                 event.preventDefault();
+                $("#testItem").val(null);
                 // labTest data append in table also added table row discount_type dropdown & discount & discount_amount with html event attribute
                 let row = `<tr>
                                 <td>

@@ -68,7 +68,7 @@
             </div>
         </div>
         <div class="bg order-2 order-md-1"
-            style="background-image: url('{{ asset('/assets/login/logo.jpg') }}'); background-position:center;">
+            style="background-image: url('https://al-afiyah.icicle.dev/img/hero_bg2.jpg'); background-postion:center;">
         </div>
 
     </div>

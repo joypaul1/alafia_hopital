@@ -28,6 +28,7 @@
                                     <th class="text-center">P-Name</th>
                                     <th class="text-center"> Make  Result</th>
                                     <th class="text-center">View Result </th>
+                                    <th class="text-center">Print Result </th>
                                     {{-- <th class="text-center">Delivery Date </th> --}}
                                 </tr>
                             </thead>
@@ -38,17 +39,14 @@
                                 <tr class="text-center">
                                     <td>{{$labInvoice['invoice_no']}}</td>
                                     <td> {{ date('d-m-y', strtotime($labInvoice['date'])) }}</td>
-                                    {{-- <td> {{ date('d-m-y', strtotime($labInvoice['created_date'])) }}</td> --}}
                                     <td>{{ $labInvoice->patient->name}}</td>
-                                    {{-- @dd($labInvoice->labTestDetails) --}}
                                     <td>
                                         @foreach ($labInvoice->labTestDetails->where('status','!=', 'completed') as $labTestDetails)
                                             <a class="btn btn-info btn-sm"
                                             href="{{ route('backend.pathology.make-test-result',
                                             ['labTest_id' => $labTestDetails->lab_test_id,'labDetails_id' => $labTestDetails->id ]) }}">
-                                            {{ $labTestDetails->testName->name }}</a>
-
-
+                                            {{ $labTestDetails->testName->name }}
+                                            </a>
                                         @endforeach
 
                                     </td>
@@ -58,9 +56,21 @@
                                             href="{{ route('backend.pathology.make-test-result-show',
                                             ['labTest_id' => $labTestDetails->lab_test_id,'labDetails_id' => $labTestDetails->id ]) }}">
                                             {{ $labTestDetails->testName->name }}</a>
-
-
                                         @endforeach
+
+                                    </td>
+                                    <td>
+                                        @php
+                                            $categoryData = $labInvoice->labTestDetails->pluck('testName.category')->unique()->all();
+                                        @endphp
+                                        @foreach ($categoryData as $cat)
+                                        <a class="btn btn-success btn-sm"
+                                        href="{{ route('backend.pathology.printCat',
+                                        ['invoice_id' => $labInvoice->id,'category' => $cat ]) }}">
+                                        {{ $cat }} <i class="fa fa-print " aria-hidden="true"></i>
+                                        @endforeach
+
+                                        </a>
 
                                     </td>
                                 </tr>

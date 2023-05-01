@@ -13,27 +13,18 @@ use App\Models\LedgerTransition;
 use App\Models\PaymentSystem;
 use App\Models\Service\ServiceInvoice;
 use App\Models\Service\ServiceName;
-use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 class Create extends Component
 {
     public $brand_id, $userId, $unit_id, $userDetails, $serviceNames, $units, $total, $subTotal, $discount, $discount_type,
-    $discount_amount = 0, $invoice_url = null, $taxAmount = 0, $taxId, $cartSubTotal = 0, $itemCount = 0, $serviceNameQty = 0, $cartTotal = 0;
+        $discount_amount = 0, $invoice_url = null, $taxAmount = 0, $taxId, $cartSubTotal = 0, $itemCount = 0, $serviceNameQty = 0, $cartTotal = 0;
     public $basket = array();
-    public $dateTable = array();
-    public $selectedDate =null;
+    public $dataTable = array();
     protected $listeners = ['refreshComponent' => '$refresh', 'updateQty'];
 
     public function mount()
     {
-        $this->dateTable= [];
-        for ($i=0; $i < 7; $i++) {
-            $date = Carbon::now()->addDay($i)->format('d');
-            $date2 = Carbon::now()->addDay($i)->format('d-M-y');
-            $this->dateTable[$date] = $date2;
-        }
-        // dd( $this->dateTable);
         $this->units   = Unit::active()->select('id', 'name')->get();
         $this->serviceNames = $this->serviceNameQuery();
     }
@@ -256,10 +247,5 @@ class Create extends Component
     public function serviceCharge()
     {
         $this->cartCalculation();
-    }
-
-    public function selectedDate($date)
-    {
-        dd($date);
     }
 }

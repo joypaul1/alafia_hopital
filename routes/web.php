@@ -35,7 +35,3 @@ Route::get('/reportDesign', function () {
     // return view('backend.dashboard.lab-report(Serology)', compact('units'));
     return view('backend.dashboard.lab-report(CultureofBlood)', compact('units'));
 });
-
-Route::get('/barCodePrint', function () {
-    return view('barCode');
-});

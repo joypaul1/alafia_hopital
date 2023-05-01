@@ -23,9 +23,4 @@ class LabTest extends Model
         return $this->belongsTo(LabTestTube::class, 'lab_test_tube_id', 'id');
     }
 
-    public function labInvoiceTest()
-    {
-        return $this->hasMany(LabInvoiceTestDetails::class, 'lab_test_id');
-    }
-
 }
