@@ -46,11 +46,13 @@ class UpdateRequest extends FormRequest
         try {
             DB::beginTransaction();
             $data = $request->validated();
+            // dd($data );
             $data['price'] = str_replace(',', '', $request->price);
             $data['status'] = $this->status == 'on' ? true : false;
             $data['reference_value'] = $this->reference;
             $data['category'] = $this->department;
             $labTest->update($data);
+            // dd($labTest);
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();
