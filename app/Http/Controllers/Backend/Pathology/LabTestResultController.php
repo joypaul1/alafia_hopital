@@ -41,6 +41,9 @@ class LabTestResultController extends Controller
         if ($labTest->category == 'Biochemistry' && $labTest->name == 'Blood Glucose 2 Hrs. AFB') {
             return view('backend.pathology.makeResult.fbs', compact('data', 'labTest'));
         }
+        if ($labTest->category == 'Biochemistry' && $labTest->name == 'Blood Glucose 2 Hrs. After 75gm Glucose') {
+            return view('backend.pathology.makeResult.fbs', compact('data', 'labTest'));
+        }
 
 
         if ($labTest->category == 'Biochemistry') {
