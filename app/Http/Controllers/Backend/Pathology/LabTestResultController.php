@@ -87,6 +87,10 @@ class LabTestResultController extends Controller
         // end Immunology
 
         //Start Urine
+        if ($labTest->category == 'Urine' && $labTest->name == 'Pregnancy Test (PT)') {
+            return view('backend.pathology.makeResult.urine.urine_pt', compact('data', 'labTest'));
+        }
+
         if ($labTest->category == 'Urine' && $labTest->name == 'Urine RE') {
             return view('backend.pathology.makeResult.urine.urine_re', compact('data', 'labTest'));
         }
@@ -112,7 +116,6 @@ class LabTestResultController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         try {
             DB::beginTransaction();
             $labTestReport = null;
@@ -327,9 +330,9 @@ class LabTestResultController extends Controller
                         $query->where([
                             ['category', $request->category],
                             ['name', '!=', 'CBC'],
-                            ['name', '!=', 'Fasting Blood Sugar (FBS)'],
+                            // ['name', '!=', 'Fasting Blood Sugar (FBS)'],
                             ['name', '!=', 'Electrolytes'],
-                            ['name', '!=', 'Blood Glucose 2 Hrs. AFB'],
+                            // ['name', '!=', 'Blood Glucose 2 Hrs. AFB'],
                             ['name', '!=', 'Urine RE'],
                             ['name', '!=', 'Urine CS Growth'],
                             ['name', '!=', 'Urine CS NO Growth'],
