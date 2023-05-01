@@ -25,10 +25,10 @@
                                 <tr>
                                     <th class="text-center">Sl.</th>
                                     <th class="text-center">Created Date </th>
-                                    <th class="text-center">Delivery Date </th>
                                     <th class="text-center">P-Name</th>
                                     <th class="text-center"> Make  Result</th>
                                     <th class="text-center">View Result </th>
+                                    {{-- <th class="text-center">Delivery Date </th> --}}
                                 </tr>
                             </thead>
 
@@ -37,8 +37,8 @@
                                 @foreach ($labInvoices as $key=> $labInvoice)
                                 <tr class="text-center">
                                     <td>{{$labInvoice['invoice_no']}}</td>
-                                    <td> {{ date('d-m-y', strtotime($labInvoice['created_date'])) }}</td>
-                                    <td> {{ date('d-m-y', strtotime($labInvoice['created_date'])) }}</td>
+                                    <td> {{ date('d-m-y', strtotime($labInvoice['date'])) }}</td>
+                                    {{-- <td> {{ date('d-m-y', strtotime($labInvoice['created_date'])) }}</td> --}}
                                     <td>{{ $labInvoice->patient->name}}</td>
                                     {{-- @dd($labInvoice->labTestDetails) --}}
                                     <td>
@@ -55,7 +55,7 @@
                                     <td>
                                         @foreach ($labInvoice->labTestDetails->where('status', 'completed') as $labTestDetails)
                                             <a class="btn btn-info btn-sm"
-                                            href="{{ route('backend.pathology.make-test-result',
+                                            href="{{ route('backend.pathology.make-test-result-show',
                                             ['labTest_id' => $labTestDetails->lab_test_id,'labDetails_id' => $labTestDetails->id ]) }}">
                                             {{ $labTestDetails->testName->name }}</a>
 

@@ -78,7 +78,6 @@ class StoreRequest extends FormRequest
             $data['total_amount']       = Str::replace(',', '', ($this->payable_amount));
             $data['doctor_id']          = $this->doctor_id;
             $labInvoice                 = LabInvoice::create($data);
-            // dd($labInvoice );
             if($this->needle_id){
                 $multidimensionalArray = array();
                 //push needle_id array in array_name

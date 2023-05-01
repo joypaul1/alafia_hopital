@@ -246,7 +246,12 @@ class LabTestResultController extends Controller
 
     public function show(Request $request)
     {
-         $labTestReport = LabTestReport::whereId($request->id)->with('labInvoiceTestDetails.labInvoice', 'patient', 'testName')->first();
+        // dd($request->all());
+        $labTestReport = LabTestReport::whereId($request->id)->with('labInvoiceTestDetails.labInvoice', 'patient', 'testName')->first();
+        if($request->labDetails_id){
+            $labTestReport = LabTestReport::where([['lab_invoice_test_detail_id',$request->labDetails_id], ['lab_test_id',$request->labTest_id]])->with('labInvoiceTestDetails.labInvoice', 'patient', 'testName')->first();
+
+        }
 
         // start Biochemistry
         if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'CBC') {
