@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
+Route::get('print', function () {
+    return view('welcome');
+});
 Route::get('/',[LoginController::class, 'showLoginForm'])->name('home');
 Route::get('/reportDesign', function () {
     $units = (object)[

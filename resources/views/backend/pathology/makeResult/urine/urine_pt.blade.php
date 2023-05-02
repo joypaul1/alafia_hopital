@@ -17,17 +17,29 @@
                     <i class="fa fa-flask"></i> Pregnancy Test (PT) Report
                 </h5>
                 <div class="row mb-2 align-items-center">
-
-
-                    <div class="col-12 mt-3">
-                        @include('components.backend.forms.texteditor.editor', [
-                            'name' => 'reference_value[]',
-                            'placeholder' => 'reference  here...',
-
+                    <div class="col-3">
+                        @include('components.backend.forms.input.input-type', [
+                            'name' => 'name[]',
+                            'value' => 'Pregnancy Test (PT)',
+                            'required' => true,
 
                         ])
-                        @include('components.backend.forms.input.errorMessage', [
-                            'message' => $errors->first('reference'),
+                    </div>
+                    <div class="col-3">
+                        @include('components.backend.forms.select2.option', [
+                            'label' => 'result',
+                            'name' => 'result[]',
+                            'required' => true,
+                            'optionData' => (object)[['id'=>'True', 'name' => 'True'], ['id'=>'False', 'name' => 'False']],
+                        ])
+                    </div>
+                    <div class="col-3">
+                        @include('components.backend.forms.input.input-type', [
+                            'label' => 'Reference Value',
+                            'name' => 'reference_value[]',
+                            'value' => 'True/False',
+                            'required' => true,
+
                         ])
                     </div>
 
