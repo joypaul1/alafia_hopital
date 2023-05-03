@@ -62,9 +62,11 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
                                     </div>
-                                    <input type="text" name="patient" id="patient" class="form-control" placeholder="Patient Name/Id/Mobile num.." autocomplete="off" required="">
+                                    <input type="text" name="patient" id="patient" class="form-control"
+                                        placeholder="Patient Name/Id/Mobile num.." autocomplete="off" required="">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="create_patient" data-href="{{ route('backend.patient.create') }}" >
+                                        <span class="input-group-text" id="create_patient"
+                                            data-href="{{ route('backend.patient.create') }}">
                                             <i class="fa fa-plus" style="cursor: pointer;"></i>
                                         </span>
                                     </div>
@@ -208,19 +210,18 @@
         </div>
     </div>
 
-{{-- Patient modal --}}
-<div class="modal fade" id="patient_modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role=" document">
+    {{-- Patient modal --}}
+    <div class="modal fade" id="patient_modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role=" document">
 
+        </div>
     </div>
-</div>
 @endsection
 
 @push('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script>
-
-        // $("#dob").change(function(){
+        // date_of_birth
         $(document).on('change', '#date_of_birth', function(e) {
             console.log('ok');
             var today = new Date();
@@ -230,13 +231,12 @@
             if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
                 age--;
             }
-            if(isNaN(age)|| age < 0){
+            if (isNaN(age) || age < 0) {
                 age = 0;
             }
             return $('#age').val(age);
         });
-           //get date of birth form age
-
+        //get date of birth form age
         $(document).on('input', '#age', function(e) {
             var today = new Date();
             var birthDate = new Date();
@@ -245,13 +245,13 @@
             if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
                 birthDate.setFullYear(birthDate.getFullYear() - 1);
             }
-            if(isNaN(birthDate)|| birthDate < 0){
+            if (isNaN(birthDate) || birthDate < 0) {
                 birthDate = 0;
             }
-            return $('#date_of_birth').val(birthDate.toISOString().slice(0,10));
-
+            return $('#date_of_birth').val(birthDate.toISOString().slice(0, 10));
 
         });
+
         // $('.appointment_modal #appointment_add_form .modal-body .col-4 #doctor_fees')
         $(document).on('click', '#create_patient', function(e) {
             e.preventDefault();
@@ -321,7 +321,7 @@
                                 value: obj.name, //Fillable in input field
                                 value_id: obj.id, //Fillable in input field
                                 label: 'Name:' + obj.name + ' mobile:' + obj
-                                .mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                                    .mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
                             }
                         })
                         response(resArray);

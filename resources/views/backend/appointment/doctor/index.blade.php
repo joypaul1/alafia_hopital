@@ -362,6 +362,38 @@
             });
         }
 
+
+         // date_of_birth
+         $(document).on('change', '#date_of_birth', function(e) {
+            console.log('ok');
+            var today = new Date();
+            var birthDate = new Date($(this).val());
+            var age = today.getFullYear() - birthDate.getFullYear();
+            var m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            if (isNaN(age) || age < 0) {
+                age = 0;
+            }
+            return $('#age').val(age);
+        });
+        //get date of birth form age
+        $(document).on('input', '#age', function(e) {
+            var today = new Date();
+            var birthDate = new Date();
+            birthDate.setFullYear(today.getFullYear() - $(this).val());
+            var m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                birthDate.setFullYear(birthDate.getFullYear() - 1);
+            }
+            if (isNaN(birthDate) || birthDate < 0) {
+                birthDate = 0;
+            }
+            return $('#date_of_birth').val(birthDate.toISOString().slice(0, 10));
+
+        });
+        // patient_add_form
         $(document).on('submit', '#patient_add_form', function(e) {
             e.preventDefault();
             var form = $(this);
