@@ -46,16 +46,30 @@
                 @method('POST')
                 <div class="card">
                     <div class="body">
-
-
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <input type="hidden" name="patient_id" id="patient_Id">
-                                @include('components.backend.forms.input.input-type', [
+                                {{-- @include('components.backend.forms.input.input-type', [
                                     'name' => 'patient',
                                     'placeholder' => 'Enter Name Here ... ',
                                     'required' => true,
-                                ])
+                                ]) --}}
+                                <label class="col-form-label" for="date">
+                                    Patient
+                                    <span class="text-danger">* </span>
+                                </label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                                    </div>
+                                    <input type="text" name="patient" id="patient" class="form-control" placeholder="Patient Name/Id/Mobile num.." autocomplete="off" required="">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="create_patient" data-href="{{ route('backend.patient.create') }}" >
+                                            <i class="fa fa-plus" style="cursor: pointer;"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
                                 @include('components.backend.forms.input.errorMessage', [
                                     'message' => $errors->first('name'),
                                 ])
@@ -87,7 +101,7 @@
                             {{-- <h3 class="mb-1 text-center">Test Items</h3>
                             <hr> --}}
                             <div class="row justify-content-center">
-                                <div class="col-md-6 input-group mb-3">
+                                {{-- <div class="col-md-6 input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-search-plus"
                                                 aria-hidden="true"></i></span>
@@ -96,8 +110,15 @@
                                         'name' => 'testItem',
                                         'placeholder' => 'Enter Test Name Here ...',
                                     ])
-
-
+                                </div> --}}
+                                <div class="col-md-6 input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-search-plus"
+                                                aria-hidden="true"></i></span>
+                                    </div>
+                                    <input type="text" name="testItem" id="testItem"
+                                        class="form-control ui-autocomplete-input" placeholder="Enter Test Name Here ..."
+                                        autocomplete="off">
                                 </div>
                             </div>
 
@@ -187,12 +208,101 @@
         </div>
     </div>
 
+{{-- Patient modal --}}
+<div class="modal fade" id="patient_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role=" document">
 
+    </div>
+</div>
 @endsection
 
 @push('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script>
+
+        // $("#dob").change(function(){
+        $(document).on('change', '#date_of_birth', function(e) {
+            console.log('ok');
+            var today = new Date();
+            var birthDate = new Date($(this).val());
+            var age = today.getFullYear() - birthDate.getFullYear();
+            var m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            if(isNaN(age)|| age < 0){
+                age = 0;
+            }
+            return $('#age').val(age);
+        });
+        $(document).on('input', '#age', function(e) {
+            console.log('ok', $(this).val());
+            // var today = new Date();
+            // var birthDate = new Date($(this).val());
+            // var age = today.getFullYear() - birthDate.getFullYear();
+            // var m = today.getMonth() - birthDate.getMonth();
+            // if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            //     age--;
+            // }
+            if(isNaN(age)|| age < 0){
+                age = 0;
+            }
+            return $('#age').val(age);
+        });
+        // $('.appointment_modal #appointment_add_form .modal-body .col-4 #doctor_fees')
+        $(document).on('click', '#create_patient', function(e) {
+            e.preventDefault();
+            var modal = "#patient_modal";
+            var href = $(this).data('href');
+            // AJAX request
+            $.ajax({
+                url: href,
+                type: 'GET',
+                dataType: "html",
+                success: function(response) {
+                    $(modal).modal('show');
+                    $(modal).find('.modal-dialog').html('');
+                    $(modal).find('.modal-dialog').html(response); // Add response in Modal body
+                }
+            });
+        });
+
+        $(document).on('submit', '#patient_add_form', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var url = "{{ route('backend.patient.store') }}";
+            var method = "POST";
+            var data = {
+                name: form.find('#name').val(),
+                mobile: form.find('#mobile').val(),
+                email: form.find('#email').val(),
+                address: form.find('#address').val(),
+                blood_group: form.find('#blood_group').val(),
+                marital_status: form.find('#marital_status').val(),
+                emergency_contact: form.find('#emargency_contact').val(),
+                guardian_name: form.find('#guardian_name').val(),
+                gender: form.find('#gender').val(),
+                dob: form.find('#date_of_birth').val(),
+            };
+            $.ajax({
+                url: url,
+                type: method,
+                data: data,
+                success: function(response) {
+                    if (response.status_code == 200) {
+                        $('#patient').val(response.data.name);
+                        $('#patient_Id').val(response.data.id);
+                        $('#patient_modal').modal('hide');
+                    }
+                },
+                error: function(response) {
+                    console.log(response);
+                }
+            });
+        });
+
+
+        //patient autocomplete
         $("#patient").autocomplete({
             source: function(request, response) {
                 var optionData = request.term;
@@ -207,7 +317,8 @@
                             return {
                                 value: obj.name, //Fillable in input field
                                 value_id: obj.id, //Fillable in input field
-                                label: 'Name:' + obj.name + ' mobile:' + obj.mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                                label: 'Name:' + obj.name + ' mobile:' + obj
+                                .mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
                             }
                         })
                         response(resArray);
@@ -289,7 +400,7 @@
 
                 $('#labTestAppend').last().after(row);
 
-                if(ui.item.tube){
+                if (ui.item.tube) {
                     //get all labTestCatName value by class name labTestCatName
                     let testTube_id = $('.testTube_id').map(function() {
                         return $(this).val();
@@ -298,10 +409,11 @@
                         return $(this).val();
                     }).get();
 
-                    if ($.inArray((ui.item.tube.id).toString(), testTube_id) != -1 && $.inArray((ui.item.category)
-                        .toString(), labTestCatName) != -1) {} else {
-                    // testTube data append in table
-                    let tube = `<tr>
+                    if ($.inArray((ui.item.tube.id).toString(), testTube_id) != -1 && $.inArray((ui.item
+                                .category)
+                            .toString(), labTestCatName) != -1) {} else {
+                        // testTube data append in table
+                        let tube = `<tr>
                             <td>
                                 <input type="hidden" name="testTube_id[]" class="testTube_id" value="${ui.item.tube.id}">
                                 ${ui.item.tube.name}
@@ -312,8 +424,8 @@
                                 readonly>
                             </td>
                         </tr>`;
-                    $('#testTubeAppend').last().after(tube);
-                }
+                        $('#testTubeAppend').last().after(tube);
+                    }
                 }
 
                 // console.log(ui.item.needle);
@@ -331,7 +443,7 @@
                     }).get();
 
                     if ((ui.item.label).toString() == "Fasting Blood Sugar (FBS)" || (ui.item.label)
-                    .toString() == "Random Blood Sugar (RBS)") {
+                        .toString() == "Random Blood Sugar (RBS)") {
                         let needle = `<tr>
                                     <td>
                                         <input type="hidden" name="needle_id[]"  class="needle_id" value="needle">
@@ -344,17 +456,17 @@
                                         readonly>
                                     </td>
                                 </tr>`;
-                            let classLength= $('.needle_id').length;
-                            if(classLength ==1){
-                                $('#testTubeAppend').last().after(needle);
+                        let classLength = $('.needle_id').length;
+                        if (classLength == 1) {
+                            $('#testTubeAppend').last().after(needle);
 
-                            }else if(classLength == 0){
-                                $('#testTubeAppend').last().after(needle);
-                                $('#testTubeAppend').last().after(needle);
-                            }
+                        } else if (classLength == 0) {
+                            $('#testTubeAppend').last().after(needle);
+                            $('#testTubeAppend').last().after(needle);
+                        }
                     } else {
                         //first check needle not exist
-                        if ($.inArray('needle', needle_id) != -1 ) {
+                        if ($.inArray('needle', needle_id) != -1) {
                             console.log('exist');
                         } else {
                             let needle = `<tr>
@@ -403,9 +515,9 @@
                         // console.log(res);
                         if ($.inArray((res.data.tube.id).toString(), testTube_id) != -1 && $
                             .inArray((res.data.category).toString(), labTestCatName) != -1
-                            ) {
+                        ) {
                             console.log('exist');
-                            } else {
+                        } else {
                             // testTube data append in table
                             let tube = `<tr>
                                     <td>

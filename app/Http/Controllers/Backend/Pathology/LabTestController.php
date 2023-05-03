@@ -9,6 +9,7 @@ use App\Http\Requests\Pathology\Lab\StoreRequest;
 use App\Models\Doctor\Doctor;
 use App\Models\lab\LabInvoice;
 use App\Models\lab\LabTestReport;
+use Carbon\Carbon;
 
 class LabTestController extends Controller
 {
@@ -34,7 +35,6 @@ class LabTestController extends Controller
         //     });
         $labInvoices =   LabInvoice::with('labTestDetails.testName:id,name,category', 'labTestDetails.viewResult', 'patient:id,name')->latest()->get();
 
-
         return view('backend.pathology.labTest.index', compact('labInvoices'));
     }
 
@@ -45,6 +45,9 @@ class LabTestController extends Controller
      */
     public function create()
     {
+        // return $dt =  Carbon\Carbon::create(2012, 1, 31, 0)->subYears(7)->format('Y-m-d');
+        // return  $dt->(5);
+        // return  $dt->(5);
         $doctors = Doctor::active()->get()->map(function ($query) {
             return [
                 'id' => $query->id,

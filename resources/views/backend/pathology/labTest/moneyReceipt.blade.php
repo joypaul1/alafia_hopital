@@ -97,7 +97,7 @@
                     <tr>
                         <td style="width: 40%;">
                             <Strong>
-                                Invoice No.
+                                Invoice No:
                             </Strong>
                             LB-{{ $labInvoice->invoice_no }}
                         </td>

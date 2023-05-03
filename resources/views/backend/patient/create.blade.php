@@ -51,7 +51,11 @@
                         'optionData' => $genders,
                         ])
                     </div>
-
+                    <div class="col-4">
+                        @include('components.backend.forms.input.input-type', [
+                            'name' => 'age',
+                        ])
+                    </div>
                     <div class="col-4">
                         @include('components.backend.forms.input.input-type', [
                         'name' => 'dob',
@@ -59,14 +63,8 @@
                         'id' => 'date_of_birth',
                         ])
                     </div>
-                    {{-- <div class="col-4">
-                        @include('components.backend.forms.input.input-type', [
-                            'name' => 'Age ',
-                            'readonly' => 'true',
-                            'id' => 'age',
-                        ])
-                    </div>
-                    <div class="col-4">
+
+                     {{-- <div class="col-4">
                         @include('components.backend.forms.select2.option', [
                             'name' => 'symptoms_type',
                             'optionData' => [],

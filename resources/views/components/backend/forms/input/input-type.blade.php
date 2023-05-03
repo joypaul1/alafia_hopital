@@ -22,13 +22,13 @@ for="{{ $name }}"
 
 {{-- input start --}}
 <input
-{{-- @if(isset($type))
+@isset($type)
 type="{{ $type }}"
 @else
 type="text"
 
-@endif --}}
-type="text"
+@endisset
+{{-- type="text" --}}
 @isset($name)
 name="{{ $name }}"
 @endisset
