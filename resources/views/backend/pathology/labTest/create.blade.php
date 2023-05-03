@@ -235,19 +235,22 @@
             }
             return $('#age').val(age);
         });
+           //get date of birth form age
+
         $(document).on('input', '#age', function(e) {
-            console.log('ok', $(this).val());
-            // var today = new Date();
-            // var birthDate = new Date($(this).val());
-            // var age = today.getFullYear() - birthDate.getFullYear();
-            // var m = today.getMonth() - birthDate.getMonth();
-            // if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-            //     age--;
-            // }
-            if(isNaN(age)|| age < 0){
-                age = 0;
+            var today = new Date();
+            var birthDate = new Date();
+            birthDate.setFullYear(today.getFullYear() - $(this).val());
+            var m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                birthDate.setFullYear(birthDate.getFullYear() - 1);
             }
-            return $('#age').val(age);
+            if(isNaN(birthDate)|| birthDate < 0){
+                birthDate = 0;
+            }
+            return $('#date_of_birth').val(birthDate.toISOString().slice(0,10));
+
+
         });
         // $('.appointment_modal #appointment_add_form .modal-body .col-4 #doctor_fees')
         $(document).on('click', '#create_patient', function(e) {
