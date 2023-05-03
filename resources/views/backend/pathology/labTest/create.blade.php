@@ -236,21 +236,24 @@
             }
             return $('#age').val(age);
         });
-        //get date of birth form age
+
+        //get date of birth form today's age
         $(document).on('input', '#age', function(e) {
             var today = new Date();
-            var birthDate = new Date();
-            birthDate.setFullYear(today.getFullYear() - $(this).val());
+            var birthDate = new Date(today.getFullYear() - $(this).val(), today.getMonth(), today.getDate());
+            var age = today.getFullYear() - birthDate.getFullYear();
             var m = today.getMonth() - birthDate.getMonth();
             if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                birthDate.setFullYear(birthDate.getFullYear() - 1);
+                age--;
             }
-            if (isNaN(birthDate) || birthDate < 0) {
-                birthDate = 0;
+            if (isNaN(age) || age < 0) {
+                age = 0;
             }
             return $('#date_of_birth').val(birthDate.toISOString().slice(0, 10));
-
         });
+
+
+
 
         // $('.appointment_modal #appointment_add_form .modal-body .col-4 #doctor_fees')
         $(document).on('click', '#create_patient', function(e) {
@@ -380,9 +383,9 @@
                                 </td>
                                 <td>
                                     <select name="discount_type[]" class="form-control discount_type" onChange=>"discount_type()">
-                                        <option value="${null}">No Discount</option>
+                                        <option value="${null}" hidden><-- Discount --> </option>
                                         <option value="fixed">Fixed</option>
-                                        <option value="percentage">Percentage</option>
+                                        <option value="percentage" selected >Percentage</option>
                                     </select>
                                 </td>
                                 <td>
@@ -553,7 +556,6 @@
             if (discount_type == 'fixed') {
                 discountPrice = Number(discount)
                 discount_amount.val(discountPrice.toFixed(2));
-
             } else if (discount_type == 'percentage') {
                 discountPrice = (Number(test_price) * Number(discount)) / 100
                 discount_amount.val(discountPrice.toFixed(2));
@@ -569,9 +571,25 @@
         $(document).on('input', '.discount', function() {
             let discountPrice = 0;
             let discount_type = $(this).parent('td').prev('td').find('.discount_type').val();
+            let discount_amount = $(this).parent('td').next('td').find('.discount_amount');
+            if(Number($(this).val()||0) > 20 && discount_type == 'percentage'){
+                $(this).val(20);
+                $(this).css('border','1px solid red');
+                let $message ="Not More Than 20 % Discount! &#128528; ";
+                    let $context = 'error';
+                    let $positionClass= 'toast-top-right';
+                    toastr.remove();
+                    toastr[$context]($message, '', {
+                        positionClass: $positionClass
+                    });
+
+                $(this).after(div);
+            }
+            console.log($(this).val(), 'discount_amount',Number($(this).val()||0) > 20);
+
             let discount = $(this).val();
             let test_price = $(this).parent('td').prev('td').prev('td').find('.test_price').val();
-            let discount_amount = $(this).parent('td').next('td').find('.discount_amount');
+
             let subtotal = $(this).parent('td').next('td').next('td').find('.subtotal');
 
             if (discount_type == 'fixed') {
