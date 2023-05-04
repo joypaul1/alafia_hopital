@@ -12,4 +12,5 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin-pathology' ,'as'=>'back
     Route::get('make-test-result-show', [LabTestResultController::class, 'show'])->name('make-test-result-show');
     Route::get('print-cat-result', [LabTestResultController::class, 'printCat'])->name('printCat');
     Route::get('print-test/{labInvoice}', [LabTestResultController::class, 'printTest'])->name('printTest');
+    Route::get('print-bar-code/{labInvoice}', [LabTestResultController::class, 'printBarCode'])->name('printBarCode');
 });

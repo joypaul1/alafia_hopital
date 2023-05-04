@@ -127,7 +127,11 @@
                                             </a>
 
                                         </td>
-                                        <td></td>
+                                        <td>
+                                            <a href="{{ route('backend.pathology.printBarCode',$labInvoice) }}" target="_blank">
+                                                <button class="btn btn-warning"><i class="fa fa-print" aria-hidden="true"></i></button>
+                                            </a>
+                                        </td>
                                         <td >
                                             <div class="dropdown_hover incom_color">
                                                 <ul>
