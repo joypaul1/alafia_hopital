@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 
 class LabTestResultController extends Controller
 {
+
+
     public function create(Request $request)
     {
         $units = (object)[
@@ -325,7 +327,6 @@ class LabTestResultController extends Controller
         }
         // end urine
         // start Blood
-// dd($labTestReport);
         // dd($labTestReport->testName,$labTestReport->testName->category == 'Blood' , $labTestReport->testName->name == 'Blood CS Growth');
         if ($labTestReport->testName->category == 'Blood' && $labTestReport->testName->name == 'Blood CS Growth') {
             return view('backend.pathology.viewResult.blood.blood_cs_growth', compact('labTestReport'));
@@ -374,5 +375,12 @@ class LabTestResultController extends Controller
 
             return view('backend.pathology.viewResult.catWise.show', compact('labTestReport', 'category', 'patient', 'invoice_no', 'date', 'doctor'));
         }
+    }
+
+
+    public function printTest(LabInvoice $labInvoice)
+    {
+        $labInvoice = LabInvoice::whereId($labInvoice->id)->with('labTestDetails.testName')->first();
+        return view('backend.pathology.labTest.viewTest', compact('labInvoice'));
     }
 }

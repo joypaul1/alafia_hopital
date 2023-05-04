@@ -4,7 +4,7 @@
     <style>
         @page {
             background-color: #ffffff;
-            sheet-size: 70mm 250mm;
+            /* sheet-size: 70mm 250mm; */
             /* size: auto; */
             /* background-color: azure; */
             vertical-align: top;
@@ -21,139 +21,84 @@
             margin-footer: 0;
             /* <any of the usual CSS values for margins> */
             marks: cross;
-            /*crop | cross | none*/
 
             /*https://mpdf.github.io/css-stylesheets/supported-css.html*/
             /*https://mpdf.github.io/paging/different-page-sizes.html*/
         }
 
-        #invoice-POS {
-            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
-            padding: 0;
-            margin: 0 auto;
-            width: 79mm !important;
-            background: #fff;
+        @font-face {
+            font-family: testFont;
+            src: url(./kharon.ttf);
         }
 
         * {
             letter-spacing: 1px;
-            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 900 !important;
+            font-family: monospace !important;
             padding: 0;
             margin: 0;
         }
 
         body {
-            width: 80mm;
+            /* background: green !important; */
+
+            /* width: 80mm; */
             margin: auto
         }
 
-        #invoice-POS ::selection {
-            background: #f31544;
-            color: #fff;
+        #invoice-Body {
+            /* padding: 20.57px 95.36px 51.02px 71.56px; */
+            /* width: 288px;
+            height: 144px; */
+            background: #fff;
         }
 
-        #invoice-POS ::moz-selection {
-            background: #f31544;
-            color: #fff;
+        #bot {
+            margin: 0 auto;
+            /* width: 105.50px; */
+            /* height: 71.56px; */
+            /* border: 1px solid #494949; */
+            padding: 10px;
+            box-sizing: border-box;
+            /* background: blueviolet; */
         }
 
-        #invoice-POS h1 {
-            font-size: 1em;
-            /* color: #222; */
+        .bot-body>div {
+            margin: auto;
         }
 
-        #invoice-POS h2 {
-            font-size: 0.9em;
+        p {
+            font-size: 11px;
+            font-weight: 900;
         }
 
-        #invoice-POS h3 {
-            font-size: 0.85em;
-            margin: 2px 0;
-            text-align: center;
-        }
-
-        td {
-            padding: 3px;
-        }
-
-        #invoice-POS p {
-            font-size: 0.7em;
-            /* color: #666; */
-            line-height: 1em;
-        }
-
-        #invoice-POS #top,
-        #invoice-POS #mid,
-        #invoice-POS #bot {
-            /* Targets all id with 'col-' */
-            border-bottom: 0px solid #eee;
-        }
-
-        #invoice-POS #top {
-            min-height: 0px;
-        }
-
-        #invoice-POS #mid {
-            min-height: 0px;
-        }
-
-        #invoice-POS #bot {
-            min-height: 0px;
-        }
-
-        #invoice-POS .info {
-            display: block;
-            margin-left: 0;
-        }
-
-        #invoice-POS .title {
-            float: right;
-        }
-
-        #invoice-POS .title p {
-            text-align: right;
-        }
-
-        #invoice-POS table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        #invoice-POS .tabletitle {
-            /* font-size: 0.8em; */
-            padding: 5px;
-            background: #eee;
-        }
-
-        #invoice-POS .service {
-            border-bottom: 1px solid #eee;
-        }
-
-        #invoice-POS .item {
-            width: 2in;
-        }
-
-        #invoice-POS .itemtext {
-            font-size: 0.8em;
-        }
-
-        h3 {
-            font-size: 10px;
-        }
-
-        h2 {
-            font-size: 16px;
-        }
 
         @media print {
             .btn {
                 display: none;
             }
 
-            #invoice-POS {
-                padding: 0;
-                width: 79mm !important;
+            #invoice-Body {
+                width: 90% !important;
+                margin: auto;
+                /* height: 144px; */
                 background: #fff;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            #invoice-Body .text {
+                width: 92% !important;
+                margin-left: auto;
+            }
+
+            #bot {
+                margin: 0 auto;
+                /* width: 105.50px;
+                height: 71.56px; */
+                /* border: 1px solid #494949; */
+                /* background: blueviolet; */
             }
         }
     </style>
@@ -163,37 +108,101 @@
     <div class="btn" style="text-align: right">
         <button onclick="window.print()">Print</button>
     </div>
-    {{-- <br /> --}}
 
-    <div id="invoice-POS">
+
+    <div id="invoice-Body">
         <div id="bot">
-            <div id="table">
+            <div class="bot-body text-center" style="transform: scale(0.8); margin-top: 5px;">
+                {{-- <div style="font-size:0;position:relative;width:202px;height:30px;">
+                    <div style="background-color:black;width:4px;height:30px;position:absolute;left:0px;top:0px;">&nbsp;
+                    </div>
+                    <div style="background-color:black;width:2px;height:30px;position:absolute;left:6px;top:0px;">&nbsp;
+                    </div>
+                    <div style="background-color:black;width:6px;height:30px;position:absolute;left:12px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:2px;height:30px;position:absolute;left:22px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:4px;height:30px;position:absolute;left:30px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:6px;height:30px;position:absolute;left:36px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:2px;height:30px;position:absolute;left:44px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:6px;height:30px;position:absolute;left:48px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:4px;height:30px;position:absolute;left:56px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:2px;height:30px;position:absolute;left:66px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:2px;height:30px;position:absolute;left:70px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:4px;height:30px;position:absolute;left:80px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:6px;height:30px;position:absolute;left:88px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:2px;height:30px;position:absolute;left:100px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:4px;height:30px;position:absolute;left:104px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:6px;height:30px;position:absolute;left:110px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:2px;height:30px;position:absolute;left:122px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:4px;height:30px;position:absolute;left:126px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:4px;height:30px;position:absolute;left:132px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:4px;height:30px;position:absolute;left:138px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:4px;height:30px;position:absolute;left:146px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:2px;height:30px;position:absolute;left:154px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:4px;height:30px;position:absolute;left:162px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:2px;height:30px;position:absolute;left:170px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:4px;height:30px;position:absolute;left:176px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:6px;height:30px;position:absolute;left:186px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:2px;height:30px;position:absolute;left:194px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:4px;height:30px;position:absolute;left:198px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:0px;height:30px;position:absolute;left:202px;top:0px;">
+                        &nbsp;</div>
+                    <div style="background-color:black;width:0px;height:30px;position:absolute;left:202px;top:0px;">
+                        &nbsp;</div>
+                </div> --}}
                 @php
-                    echo DNS1D::getBarcodeHTML('444564565600', 'C128')."<br>";
-
-                @endphp
-
-                <table cellpadding="0" cellspacing="0" style="margin-top: 3px;">
-                    <tr style="text-align: center; margin-bottom:3px;">
-                        <td>
-                            <h5>Note: Vat Included With Price.</h5>
-                            <h5 style="margin-bottom:10px;">Thanks For Coming!</h5>
-                        </td>
-                    </tr>
-
-                </table>
+                echo DNS1D::getBarcodeHTML('444564565600', 'C128');
+            @endphp
+                <p style="font-size: 14px; text-align:center;font-weight:bolder; margin-top:5px;">444564565600</p>
+            </div>
+            <div class="text">
+                <p>
+                    Nabila Yeasmin <span style="margin-left: 8px;">42 Y / F</span>
+                </p>
+                <p>
+                    OPD
+                </p>
+                <p>
+                    12-02-2023 <span style="margin-left: 8px;">MRD:564687545</span>
+                </p>
+                <p>
+                    Urine
+                </p>
             </div>
             <!--End Table-->
         </div>
         <!--End InvoiceBot-->
     </div>
     <!--End Invoice-->
-    <br />
-    <hr />
-    <br />
+    <script>
+        // window.print();
+    </script>
 </body>
-<script>
-    // window.print();
-</script>
+
 
 </html>

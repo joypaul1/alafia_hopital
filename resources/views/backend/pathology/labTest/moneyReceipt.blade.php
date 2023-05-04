@@ -226,7 +226,6 @@
                             </td>
                             <td class="text-right">
                                 {{ number_format($labTest->discount_amount, 2) }}
-                                {{ $labTest->discount_type == 'percentage' ? '%' : 'TK' }}
                             </td>
                             <td class="text-right">
                                 {{ number_format($labTest->subtotal, 2) }}
@@ -522,9 +521,9 @@
 
 
 </html>
-{{-- <script>
+<script>
     $(document).ready(function() {
         window.print();
     });
 
-</script> --}}
+</script>

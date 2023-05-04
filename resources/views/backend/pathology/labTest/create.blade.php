@@ -32,7 +32,7 @@
 
     @include('backend._partials.modal_page_header', [
         'fa' => 'fa fa-plus-circle',
-        'name' => 'Production list',
+        'name' => 'LabTest Invoice list',
         'route' => route('backend.pathology.labTest.create'),
     ])
 

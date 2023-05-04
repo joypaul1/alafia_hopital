@@ -45,9 +45,6 @@ class LabTestController extends Controller
      */
     public function create()
     {
-        // return $dt =  Carbon\Carbon::create(2012, 1, 31, 0)->subYears(7)->format('Y-m-d');
-        // return  $dt->(5);
-        // return  $dt->(5);
         $doctors = Doctor::active()->get()->map(function ($query) {
             return [
                 'id' => $query->id,

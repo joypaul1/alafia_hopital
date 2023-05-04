@@ -28,7 +28,8 @@ class UpdateRequest extends FormRequest
     {
         // dd($this->item);
         return [
-            'name' => ['required','string',
+            'name' => [
+                'required', 'string',
                 Rule::unique('items')->ignore($this->item->id, 'id')
                 // ->where(function ($query)  {
                 //     return $query
@@ -90,12 +91,12 @@ class UpdateRequest extends FormRequest
                 $data['image']      = (new Image)->dirName('item/image')->file($this->image)->resizeImage(235, 235)->deleteIfExists($this->item->image)->save();
                 $data['b_image']    = (new Image)->dirName('item/b_image')->file($this->image)->resizeImage(550, 500)->deleteIfExists($this->item->b_image)->save();
             }
-            $this->item->update( $data);
+            $this->item->update($data);
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollBack();
             dd($ex->getMessage());
-            return response()->json(['status' => false, 'msg' => $ex->getLine(),$ex->getMessage() ]);
+            return response()->json(['status' => false, 'msg' => $ex->getLine(), $ex->getMessage()]);
         }
         return response()->json(['status' => true, 'msg' => 'Data Updated Successfully']);
     }
