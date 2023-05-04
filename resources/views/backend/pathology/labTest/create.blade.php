@@ -223,7 +223,6 @@
     <script>
         // date_of_birth
         $(document).on('change', '#date_of_birth', function(e) {
-            console.log('ok');
             var today = new Date();
             var birthDate = new Date($(this).val());
             var age = today.getFullYear() - birthDate.getFullYear();
