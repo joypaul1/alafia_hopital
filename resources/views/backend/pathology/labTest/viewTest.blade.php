@@ -83,9 +83,206 @@
 </head>
 
 <body>
+    <div class="prescription">
+        <img src="{{ asset('assets/moneyReceipt/hpathology.png') }}" style="width: 100%;" alt="">
+        <div style="padding: 0 0.5in;">
+            <div class="text-center mt-3 mb-4">
+                <span class="px-4 py-2" style="font-family: monospace; border: 2pt #a3a3a3 solid !important;">
+                    Test RECEIPT
+                </span>
+            </div>
+
+            <table class="table table-borderless my-2" style="font-size: 12pt;">
+                <tbody>
+                    <tr>
+                        <td style="width: 40%;">
+                            <Strong>
+                                Invoice No:
+                            </Strong>
+                            LB-{{ $labInvoice->invoice_no }}
+                        </td>
+                        <td rowspan="5">
+                            {{-- <div class="d-flex justify-content-center align-items-center">
+                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $labInvoice->invoice_number . ' PID-' . optional($labInvoice->patient)->patientId, 'QRCODE') }}"
+                                    alt="QR Code" style="width: 100px;" />
+                            </div> --}}
+                        </td>
+                        {{-- <td style="text-align: right; width: 40%;">
+                            <strong>Bill Date</strong> : {{ date('d-m-Y h:i a', strtotime($labInvoice->date)) }}
+                        </td> --}}
+                    </tr>
+                    <tr>
+                        <td>
+                            <Strong>
+                                PID
+                            </Strong>
+                            : {{ optional($labInvoice->patient)->patientId }}
+                        </td>
+                        <td style="text-align: right;">
+                            <strong>Sex </strong> :
+                            <span
+                                style="text-transform: capitalize;">{{ optional($labInvoice->patient)->gender }}</span>
+                        </td>
+                    </tr>
+                    @php
+                        $bday = new DateTime(optional($labInvoice->patient)->dob); // Your date of birth
+                        $today = new Datetime(date('m.d.y'));
+                        $diff = $today->diff($bday);
+                    @endphp
+                    <tr>
+                        <td>
+                            <Strong>
+                                Name
+                            </Strong>
+                            : {{ optional($labInvoice->patient)->name }}
+                        </td>
+                        <td style="text-align: right;">
+                            <strong>Mobile </strong> :
+                            {{ optional($labInvoice->patient)->mobile }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <Strong>
+                                Guardian Name
+                            </Strong>
+                            : {{ optional($labInvoice->patient)->guardian_name }}
+                        </td>
+                        <td style="text-align: right;">
+                            <strong>Emergency Contact </strong> :
+                            {{ optional($labInvoice->patient)->emergency_contact }}
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            <strong>Age </strong> : {{ $diff->y }} Years {{ $diff->m }} Months
+                            {{ $diff->d }}
+                            Days
+                        </td>
+
+                        <td style="text-align: right;">
+
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <Strong>
+                                Referred By
+                            </Strong>
+                            :
+                            {{ optional($labInvoice->doctor)->first_name . ' ' . optional($labInvoice->doctor)->last_name }}
+                            ({{ optional(optional($labInvoice->doctor)->designation)->name }})
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <table style="font-size: 12pt;" class="table table-bordered t">
+                <tbody>
+                    <tr>
+                        <th style="width: 5%;">
+                            Sl.
+                        </th>
+                        <th style="width: 40%;">
+                            Test Name
+                        </th>
+
+                        <th style="width: 30%">
+                            Delivery Time
+                        </th>
+
+                    </tr>
+                    @php
+                        $si = 0;
+                    @endphp
+
+                    @foreach ($labInvoice->labTestDetails as $labTest)
+                        @php
+                            $si += 1;
+                        @endphp
+                        <tr>
+                            <td>
+                                {{ $si }}
+                            </td>
+
+                            <td>
+                                {{ $labTest->testName->name }}
+                            </td>
 
 
 
+                            <td>
+                                {{ date_format(date_create($labTest->delivery_time), 'd-m-Y h:i A') }}
+                            </td>
+                        </tr>
+                    @endforeach
+                    <tr>
+                        <td colspan="3">Essential Material </td>
+
+                    </tr>
+
+                    @foreach ($labInvoice->labTestTube as $key => $labTest)
+                        @php
+                            $si += 1;
+                        @endphp
+                        <tr>
+                            <td>
+                                {{ $si }}
+                            </td>
+                            <td>
+                                Vacutainer {{ $labTest->tubeName->name }}
+                            </td>
+                            {{-- <td colspan="3" class="text-right">
+                                {{ number_format($labTest->price, 2) }}
+                            </td> --}}
+                        </tr>
+                    @endforeach
+                    @php
+                        $otherService = json_decode($labInvoice->other_service);
+                    @endphp
+
+                    @if ($otherService)
+                        @foreach ($otherService as $key => $service)
+                            @php
+                                $si += 1;
+                            @endphp
+
+                            <tr>
+                                <td>
+                                    {{ $si }}
+                                </td>
+                                <td>
+                                    {{ 'Needle' }}
+                                </td>
+
+                            </tr>
+                        @endforeach
+                    @endif
+                </tbody>
+
+            </table>
+            <footer>
+
+                <img src="{{ asset('assets/moneyReceipt/fpathology.png') }}" style="width: 100%;" alt="">
+            </footer>
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+    </div>
+
+    </div>
 </body>
 
 
