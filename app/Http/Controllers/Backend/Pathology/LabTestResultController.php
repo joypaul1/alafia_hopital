@@ -68,7 +68,7 @@ class LabTestResultController extends Controller
         }
         // end Serology
 
-        // Micro Biolo
+        // Micro Biology
         if ($labTest->category == 'Micro Biology' &&  $labTest->name == 'Blood CS Growth') {
             return view('backend.pathology.makeResult.blood.blood_cs_growth', compact('data', 'labTest'));
         }

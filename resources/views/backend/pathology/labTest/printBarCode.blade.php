@@ -47,7 +47,7 @@
             box-sizing: border-box;
         }
 
-        .bot-body >div {
+        .bot-body>div {
             margin: auto;
         }
 
@@ -88,34 +88,42 @@
         <button onclick="window.print()">Print</button>
     </div>
 
-
-    <div id="invoice-Body">
-        <div id="bot">
-            <div class="bot-body" style="transform: scale(0.8); margin-top: 5px;">
-                @php
-                    echo DNS1D::getBarcodeHTML('444564565600', 'C128');
-                @endphp
-                <p style="font-size: 14px; text-align:center;font-weight:bolder; margin-top:5px;">444564565600</p>
-                <div class="text" style=" text-align:center;">
-                    <p>
-                        {{ $labinvoice->patient->name }} <span style="margin-left: 8px;">42 Y / F</span>
+    @php
+        $bday = new DateTime(optional($labInvoice->patient)->dob); // Your date of birth
+        $today = new Datetime(date('m.d.y'));
+        $diff = $today->diff($bday);
+    @endphp
+    @foreach ($labInvoice->labTestDetails as $labTest)
+        <div id="invoice-Body">
+            <div id="bot">
+                <div class="bot-body" style="transform: scale(0.8); margin-top: 5px;">
+                    @php
+                        echo DNS1D::getBarcodeHTML( strval($labTest->id), 'C128');
+                    @endphp
+                    <p style="font-size: 14px; text-align:center;font-weight:bolder; margin-top:5px;">{{ $labTest->id }}
                     </p>
-                    <p>
-                        OPD
-                    </p>
-                    <p>
-                        12-02-2023 <span style="margin-left: 8px;">MRD:564687545</span>
-                    </p>
-                    <p>
-                        {{ $labinvoice->patient->name }}
-                    </p>
+                    <div class="text" style=" text-align:center;">
+                        <p>
+                            {{ $labInvoice->patient->name }} <span style="margin-left: 8px;">{{ $diff->y }} Y / {{ substr(optional($labInvoice->patient)->gender??'-', 0, 1) }} </span>
+                        </p>
+                        <p>
+                            {{ $labTest->testName->name }}
+                        </p>
+                        <p>
+                            12-02-2023 <span style="margin-left: 8px;">MRD:{{ $labInvoice->invoice_no }}</span>
+                        </p>
+                        <p>
+                            {{ $labInvoice->patient->name }}
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-            <!--End Table-->
+                <!--End Table-->
+            </div>
+            <!--End InvoiceBot-->
         </div>
-        <!--End InvoiceBot-->
-    </div>
+    @endforeach
+
     <!--End Invoice-->
     <script>
         // window.print();
