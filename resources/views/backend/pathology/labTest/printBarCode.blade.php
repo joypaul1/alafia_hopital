@@ -79,6 +79,11 @@
             #bot {
                 margin: 0 auto;
             }
+
+            .pagebreak {
+                clear: both;
+                page-break-after: always;
+            }
         }
     </style>
 </head>
@@ -98,19 +103,21 @@
             <div id="bot">
                 <div class="bot-body" style="transform: scale(0.8); margin-top: 5px;">
                     @php
-                        echo DNS1D::getBarcodeHTML( strval($labTest->id), 'C128');
+                        echo DNS1D::getBarcodeHTML(strval($labTest->id), 'C128');
                     @endphp
                     <p style="font-size: 14px; text-align:center;font-weight:bolder; margin-top:5px;">{{ $labTest->id }}
                     </p>
                     <div class="text" style=" text-align:center;">
                         <p>
-                            {{ $labInvoice->patient->name }} <span style="margin-left: 8px;">{{ $diff->y }} Y / {{ substr(optional($labInvoice->patient)->gender??'-', 0, 1) }} </span>
+                            {{ $labInvoice->patient->name }} <span style="margin-left: 8px;">{{ $diff->y }} Y /
+                                {{ substr(optional($labInvoice->patient)->gender ?? '-', 0, 1) }} </span>
                         </p>
                         <p>
                             {{ $labTest->testName->name }}
                         </p>
                         <p>
-                            {{ date('d-m-y h:i A') }} <span style="margin-left: 8px;">MRD:{{ $labInvoice->invoice_no }}</span>
+                            {{ date('d-m-y h:i A') }} <span
+                                style="margin-left: 8px;">MRD:{{ $labInvoice->invoice_no }}</span>
                         </p>
                         <p>
                             {{ $labInvoice->patient->name }}
@@ -122,6 +129,7 @@
             </div>
             <!--End InvoiceBot-->
         </div>
+        <div class="pagebreak"> </div>
     @endforeach
 
     <!--End Invoice-->
