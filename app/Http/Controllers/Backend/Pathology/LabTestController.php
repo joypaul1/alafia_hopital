@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Pathology\Lab\StoreRequest;
 use App\Models\Doctor\Doctor;
 use App\Models\lab\LabInvoice;
+use App\Models\lab\LabTest;
 use App\Models\lab\LabTestReport;
 use Carbon\Carbon;
 
@@ -29,18 +30,50 @@ class LabTestController extends Controller
         }
         if($request->start_date){
             $labInvoices= $labInvoices->whereDate('date', '>=', date('Y-m-d', strtotime($request->start_date)));
+        }else{
+            $labInvoices = $labInvoices->whereDate('date', '>=', date('Y-m-d'));
         }
         if($request->end_date){
             $labInvoices= $labInvoices->whereDate('date', '<=',  date('Y-m-d', strtotime($request->end_date)));
+        }else{
+            $labInvoices = $labInvoices->whereDate('date', '>=', date('Y-m-d'));
+
         }
         $labInvoices=  $labInvoices->with('labTestDetails.testName:id,name,category', 'labTestDetails.viewResult', 'patient:id,name')->latest()->get();
+        // dd($request->status);
         $status=  (object)[['name' =>'collection', 'id' =>'collection' ],['name' =>'Inactive', 'id' => 0 ]];
+        if($request->status ){
+            return view('backend.pathology.labTest.'.$request->status, compact('labInvoices','status'));
 
+        }
         return view('backend.pathology.labTest.index', compact('labInvoices','status'));
     }
+    public function getSlotNumber()
+    {
+        if (!LabInvoice::latest()->whereDate('date',date('Y-m-d'))->first()->slot_number) {
+            return 1;
+        } else {
+            return LabInvoice::latest()->first()->slot_number + 1;
+        }
+    }
 
+    public function changeStatus(Request $request)
+    {
+        $labInvoices = LabInvoice::whereIn('id', $request->ids)->get();
+        for ($i=0; $i < count($labInvoices); $i++) {
+            LabInvoice::whereId($labInvoices[$i]->id)->update(['status' => 'makeReport', 'slot_number'=> $this->getSlotNumber()]);
+        }
+        return response()->json(['status' => true, 'msg' => 'Status Changed Successfully', 'slot_number' => $this->getSlotNumber()-1]);
+
+    }
+    public function viewSlot(Request $request)
+    {
+        $labInvoices = LabInvoice::whereDate('date', date('Y-m-d'))->where('slot_number', $request->slot_number)->get();
+        return view('backend.pathology.labTest.slot', compact('labInvoices'));
+
+    }
     /**
-     * ALTER TABLE `lab_invoices` CHANGE `status` `status` VARCHAR(10) NOT NULL DEFAULT 'collection';
+     *
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -98,7 +131,7 @@ class LabTestController extends Controller
      */
     public function edit($id)
     {
-        //
+        dd($id);
     }
 
     /**

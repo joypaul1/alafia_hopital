@@ -83,17 +83,11 @@
     </style>
 @endpush
 @section('page-header')
-    <i class="fa fa-list"></i> LabTest Config
+    <i class="fa fa-list"></i> LabTest SampleCollection
 @stop
-@section('table_header')
-    @include('backend._partials.page_header', [
-        'fa' => 'fa fa-plus-circle',
-        'name' => 'LabTest Invoice list',
-        'route' => route('backend.pathology.labTest.index'),
-    ])
-@stop
-@section('content')
 
+@section('content')
+{{-- @dd(232); --}}
 
     <div class="row">
 
@@ -157,7 +151,15 @@
                 </div>
             </div>
             <div class="card border-top">
-                @yield('table_header')
+                <div class=" d-flex clearfix ">
+                    <div class="header">
+                        <span href="#" style="font-size: 18px;font-weight:700">
+                            @yield('page-header')
+                        </span>
+
+                    </div>
+                </div>
+
 
                 <div class="body">
 
@@ -165,14 +167,13 @@
                         <table class="table table-bordered " id="labTest_table">
                             <thead>
                                 <tr>
+                                    <th class="text-center">Select ID.</th>
                                     <th class="text-center">Invoice No.</th>
                                     <th class="text-center">Created Date </th>
                                     <th class="text-center">P-Name</th>
                                     <th class="text-center">View Test</th>
                                     <th class="text-center">Print Bar Code</th>
-                                    <th class="text-center">Make Result</th>
-                                    <th class="text-center">View Result </th>
-                                    <th class="text-center">Print Result </th>
+
                                 </tr>
                             </thead>
 
@@ -180,6 +181,10 @@
 
                                 @foreach ($labInvoices as $key => $labInvoice)
                                     <tr class="text-center">
+                                        <td>
+                                            <input type="checkbox" name="labInvoice_id[]" value="{{ $labInvoice->id }}"
+                                                class="labInvoice_id">
+                                        </td>
                                         <td>{{ $labInvoice['invoice_no'] }}</td>
                                         <td> {{ date('d-m-y', strtotime($labInvoice['date'])) }}</td>
                                         <td>{{ $labInvoice->patient->name }}
@@ -206,62 +211,7 @@
                                                         aria-hidden="true"></i></button>
                                             </a>
                                         </td>
-                                        <td>
-                                            <div class="dropdown_hover incom_color">
-                                                <ul>
 
-                                                    <li><a href="#" aria-haspopup="true">InComplete Test</a>
-                                                        <ul class="dropdown" aria-label="submenu">
-                                                            @foreach ($labInvoice->labTestDetails->where('status', '!=', 'completed') as $labTestDetails)
-                                                                <li><a target="_blank"
-                                                                        href="{{ route('backend.pathology.make-test-result', ['labTest_id' => $labTestDetails->lab_test_id, 'labDetails_id' => $labTestDetails->id]) }}">
-                                                                        {{ $labTestDetails->testName->name }}</a>
-                                                                </li>
-                                                            @endforeach
-
-                                                        </ul>
-                                                    </li>
-
-                                                </ul>
-                                            </div>
-                                        </td>
-
-                                        <td>
-
-                                            <div class="dropdown_hover com_color">
-                                                <ul>
-                                                    <li><a href="#" aria-haspopup="true">Complete Test</a>
-                                                        <ul class="dropdown" aria-label="submenu">
-                                                            @foreach ($labInvoice->labTestDetails->where('status', 'completed') as $labTestDetails)
-                                                                <li>
-                                                                    <a target="_blank"
-                                                                        href="{{ route('backend.pathology.make-test-result-show', ['labTest_id' => $labTestDetails->lab_test_id, 'labDetails_id' => $labTestDetails->id]) }}">
-                                                                        {{ $labTestDetails->testName->name }}</a>
-                                                                </li>
-                                                            @endforeach
-
-                                                        </ul>
-                                                    </li>
-
-                                                </ul>
-                                            </div>
-
-                                        </td>
-                                        <td>
-                                            @php
-                                                $categoryData = $labInvoice->labTestDetails
-                                                    ->pluck('testName.category')
-                                                    ->unique()
-                                                    ->all();
-                                            @endphp
-                                            @foreach ($categoryData as $cat)
-                                                <a class="btn btn-success btn-sm"
-                                                    href="{{ route('backend.pathology.printCat', ['invoice_id' => $labInvoice->id, 'category' => $cat]) }}">
-                                                    {{ $cat }} <i class="fa fa-print " aria-hidden="true"></i>
-                                            @endforeach
-
-                                            </a>
-                                        </td>
                                     </tr>
                                 @endforeach
 
@@ -269,6 +219,9 @@
 
                             </tbody>
                         </table>
+                        <div class=" d-block text-left">
+                            <button class="btn btn-info moveData" >Move To Make Report</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -289,6 +242,42 @@
             format: 'mm/dd/yyyy',
             startDate: '-5y'
 
+        });
+
+        // multiple delete
+        $(document).on('click', '.moveData', function() {
+
+            let ids = [];
+            $('.labInvoice_id').each(function() {
+                if ($(this).is(':checked')) {
+                    ids.push($(this).val());
+                }
+            });
+            console.log(ids);
+            if (ids.length <= 0) {
+                alert('Please select a row');
+            } else {
+                $.ajax({
+                    url: "{{ route('backend.pathology.labTest.changeStatus') }}",
+                    type: "GET",
+                    data: {
+                        // _token: "{{ csrf_token() }}",
+                        status: 'makeReport',
+                        ids: ids
+                    },
+                    success: function(res) {
+                        if (res.status) {
+                            var base    = '{!! route('backend.pathology.labTest.viewSlot') !!}';
+                            var url     = base+'?slot_number='+res.slot_number ;
+                            window.open(url, '_blank');
+                        }else{
+                            alert('Something went wrong');
+                        }
+
+
+                    }
+                });
+            }
         });
     </script>
 @endpush

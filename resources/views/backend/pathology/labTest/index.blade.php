@@ -113,7 +113,7 @@
                                     <div class="form-group">
                                         <label class="col-form-label" for="invoice_no">Invoice no</label>
                                         <input type="text" name="invoice_no" id="invoice_no" class="form-control"
-                                            autocomplete="off" autofocus='true'>
+                                            autocomplete="off" value="{{ request()->get('invoice_no') }}" autofocus='true'>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">

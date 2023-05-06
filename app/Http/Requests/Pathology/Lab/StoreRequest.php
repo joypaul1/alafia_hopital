@@ -77,6 +77,7 @@ class StoreRequest extends FormRequest
             $data['subtotal_amount']    = Str::replace(',', '', ($this->payable_amount));
             $data['total_amount']       = Str::replace(',', '', ($this->payable_amount));
             $data['doctor_id']          = $this->doctor_id;
+            $data['status']             = 'collection';
             $labInvoice                 = LabInvoice::create($data);
             // dd($labInvoice );
             if($this->needle_id){
