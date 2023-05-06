@@ -30,6 +30,7 @@
                 </h4>
                 <div id="filterContainer">
                     <hr>
+                    
                     <div class="row align-items-center">
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group">

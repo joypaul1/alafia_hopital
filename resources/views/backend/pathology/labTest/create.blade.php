@@ -4,32 +4,30 @@
 @section('page-header')
     <i class="fa fa-list"></i> Lab Test Create
 @stop
-@section('content')
+@push('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <style>
+        .ui-autocomplete {
+            position: absolute;
+            cursor: default;
+            z-index: 99999999999999 !important
+        }
 
-    @push('css')
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
-        <style>
-            .ui-autocomplete {
-                position: absolute;
-                cursor: default;
-                z-index: 99999999999999 !important
-            }
+        .product-grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
 
+        @media (min-width: 768px) {
             .product-grid-container {
                 display: grid;
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
             }
-
-            @media (min-width: 768px) {
-                .product-grid-container {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: 15px;
-                }
-            }
-        </style>
-    @endpush
-
+        }
+    </style>
+@endpush
+@section('content')
     @include('backend._partials.modal_page_header', [
         'fa' => 'fa fa-plus-circle',
         'name' => 'LabTest Invoice list',
@@ -571,20 +569,20 @@
             let discountPrice = 0;
             let discount_type = $(this).parent('td').prev('td').find('.discount_type').val();
             let discount_amount = $(this).parent('td').next('td').find('.discount_amount');
-            if(Number($(this).val()||0) > 20 && discount_type == 'percentage'){
+            if (Number($(this).val() || 0) > 20 && discount_type == 'percentage') {
                 $(this).val(20);
-                $(this).css('border','1px solid red');
-                let $message ="Not More Than 20 % Discount! &#128528; ";
-                    let $context = 'error';
-                    let $positionClass= 'toast-top-right';
-                    toastr.remove();
-                    toastr[$context]($message, '', {
-                        positionClass: $positionClass
-                    });
+                $(this).css('border', '1px solid red');
+                let $message = "Not More Than 20 % Discount! &#128528; ";
+                let $context = 'error';
+                let $positionClass = 'toast-top-right';
+                toastr.remove();
+                toastr[$context]($message, '', {
+                    positionClass: $positionClass
+                });
 
                 $(this).after(div);
             }
-            console.log($(this).val(), 'discount_amount',Number($(this).val()||0) > 20);
+            console.log($(this).val(), 'discount_amount', Number($(this).val() || 0) > 20);
 
             let discount = $(this).val();
             let test_price = $(this).parent('td').prev('td').prev('td').find('.test_price').val();

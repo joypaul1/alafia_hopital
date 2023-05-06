@@ -6,15 +6,18 @@
         .dropdown_hover a {
             text-decoration: none;
         }
-        .incom_color li{
-           background:  darkorange
+
+        .incom_color li {
+            background: darkorange
         }
-        .com_color li{
-           background:  #03045e
+
+        .com_color li {
+            background: #03045e
         }
+
         /* nav {
-                font-family: monospace;
-            } */
+                                    font-family: monospace;
+                                } */
 
         .dropdown_hover ul {
             /* background: darkorange; */
@@ -80,19 +83,75 @@
 @section('page-header')
     <i class="fa fa-list"></i> LabTest Config
 @stop
-
+@section('table_header')
+    @include('backend._partials.page_header', [
+        'fa' => 'fa fa-plus-circle',
+        'name' => 'LabTest Invoice list',
+        'route' => route('backend.pathology.labTest.index'),
+    ])
+@stop
 @section('content')
-    @include('backend._partials.page_header')
+    {{-- @include('backend._partials.page_header') --}}
 
     <div class="row">
 
         <div class="col-12">
+
             <div class="card">
                 <div class="body">
-                    <div class="d-flex justify-content-between aling-items-center mb-4">
-                        <h4 class="card-title mb-0">LabTest List</h4>
+                    <h4 class="pointer text-info" id="toggleFilter">
+                        <i class="fa fa-filter"></i> Filter
+                    </h4>
+                    <form action="#" method="get">
+                        @method('GET')
+                        <div id="filterContainer">
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group">
+                                        @include('components.backend.forms.input.input-type', [
+                                            'name' => 'invoice_no',
+                                            'type' => 'text',
+                                            'value' => request()->get('invoice_no')
+                                        ])
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group">
+                                        @include('components.backend.forms.input.input-type', [
+                                            'name' => 'date',
+                                            'type' => 'date',
+                                            'value' => request()->get('date') ?? date('Y-m-d'),
+                                        ])
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group">
+                                        @include('components.backend.forms.select2.option', [
+                                            'label' => 'status',
+                                            'name' => 'status',
+                                            'optionData' => $status,
+                                            'selectedKey' => request()->get('status'),
+                                        ])
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group">
+                                        @include('components.backend.forms.input.submit-button', [
+                                            'label' => 'status',
+                                            'name' => 'status',
+                                        ])
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card border-top">
+                @yield('table_header')
 
-                    </div>
+                <div class="body">
 
                     <div class="table-responsive">
                         <table class="table table-bordered " id="labTest_table">
@@ -117,29 +176,37 @@
                                         <td> {{ date('d-m-y', strtotime($labInvoice['date'])) }}</td>
                                         <td>{{ $labInvoice->patient->name }}
                                             <br>
-                                            <a target="_blank" href="{{ route('backend.patient.show',$labInvoice->patient->id) }}" target="_blank">
-                                                <button class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                            <a target="_blank"
+                                                href="{{ route('backend.patient.show', $labInvoice->patient->id) }}"
+                                                target="_blank">
+                                                <button class="btn btn-success"><i class="fa fa-eye"
+                                                        aria-hidden="true"></i></button>
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="{{ route('backend.pathology.printTest',$labInvoice) }}" target="_blank">
-                                                <button class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                            <a href="{{ route('backend.pathology.printTest', $labInvoice) }}"
+                                                target="_blank">
+                                                <button class="btn btn-info"><i class="fa fa-eye"
+                                                        aria-hidden="true"></i></button>
                                             </a>
 
                                         </td>
                                         <td>
-                                            <a href="{{ route('backend.pathology.printBarCode',$labInvoice) }}" target="_blank">
-                                                <button class="btn btn-warning"><i class="fa fa-print" aria-hidden="true"></i></button>
+                                            <a href="{{ route('backend.pathology.printBarCode', $labInvoice) }}"
+                                                target="_blank">
+                                                <button class="btn btn-warning"><i class="fa fa-print"
+                                                        aria-hidden="true"></i></button>
                                             </a>
                                         </td>
-                                        <td >
+                                        <td>
                                             <div class="dropdown_hover incom_color">
                                                 <ul>
 
                                                     <li><a href="#" aria-haspopup="true">InComplete Test</a>
                                                         <ul class="dropdown" aria-label="submenu">
                                                             @foreach ($labInvoice->labTestDetails->where('status', '!=', 'completed') as $labTestDetails)
-                                                                <li><a target="_blank" href="{{ route('backend.pathology.make-test-result', ['labTest_id' => $labTestDetails->lab_test_id,'labDetails_id' => $labTestDetails->id]) }}">
+                                                                <li><a target="_blank"
+                                                                        href="{{ route('backend.pathology.make-test-result', ['labTest_id' => $labTestDetails->lab_test_id, 'labDetails_id' => $labTestDetails->id]) }}">
                                                                         {{ $labTestDetails->testName->name }}</a>
                                                                 </li>
                                                             @endforeach
@@ -155,11 +222,12 @@
 
                                             <div class="dropdown_hover com_color">
                                                 <ul>
-                                                    <li><a href="#" aria-haspopup="true" >Complete Test</a>
+                                                    <li><a href="#" aria-haspopup="true">Complete Test</a>
                                                         <ul class="dropdown" aria-label="submenu">
                                                             @foreach ($labInvoice->labTestDetails->where('status', 'completed') as $labTestDetails)
                                                                 <li>
-                                                                    <a target="_blank" href="{{ route('backend.pathology.make-test-result-show', ['labTest_id' => $labTestDetails->lab_test_id,'labDetails_id' => $labTestDetails->id]) }}">
+                                                                    <a target="_blank"
+                                                                        href="{{ route('backend.pathology.make-test-result-show', ['labTest_id' => $labTestDetails->lab_test_id, 'labDetails_id' => $labTestDetails->id]) }}">
                                                                         {{ $labTestDetails->testName->name }}</a>
                                                                 </li>
                                                             @endforeach

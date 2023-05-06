@@ -127,13 +127,26 @@
                                 <span>Pathology Panel</span>
                             </a>
                             <ul>
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'create' ? 'active' : ' ' }}"
+                                    name="Invoice Create" link='backend.pathology.labTest.create' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'create' ? 'active' : ' ' }}"
+                                    name="Invoice List" link='backend.pathology.labTest.index' icon='#' />
+                                {{-- <x-backend.side-bar class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}"
+                                    name="Sample Collection" link='backend.pathology.labTest.index' icon='#' /> --}}
+                                    <li class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}">
+                                        <a href="{{ route('backend.pathology.labTest.index', ['status'=> 'collection'] )}}" >
+                                            {{-- @isset($icon)
+                                            <i class="{{ $icon }}"></i>
+                                            @endisset --}}
+                                        <span>{{"Sample Collection"}}</span></a>
+                                    </li>
+
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}"
-                                    name="Create" link='backend.pathology.labTest.create' icon='#' />
+                                    name="Make Report" link='backend.pathology.labTest.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}"
-                                    name="List" link='backend.pathology.labTest.index' icon='#' />
-                                {{-- <x-backend.side-bar
-                                    class="{{ request()->segment(2) == 'dialysis-appointment' ? 'active' : ' ' }}"
-                                    name="Dailyses Appoint." link='backend.dialysis-appointment.index' icon='#' /> --}}
+                                    name="Ready To Delivery" link='backend.pathology.labTest.index' icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}"
+                                    name="Delivered" link='backend.pathology.labTest.index' icon='#' />
 
                             </ul>
                         </li>

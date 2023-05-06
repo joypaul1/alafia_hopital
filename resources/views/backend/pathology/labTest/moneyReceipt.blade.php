@@ -226,6 +226,8 @@
                             </td>
                             <td class="text-right">
                                 {{ number_format($labTest->discount_amount, 2) }}
+                            </br>
+                                ({{ round($labTest->discount) }}{{ $labTest->discount_type == 'percentage' ? '%' : 'TK' }})
                             </td>
                             <td class="text-right">
                                 {{ number_format($labTest->subtotal, 2) }}
@@ -272,23 +274,23 @@
                         // dd($otherService);
                     @endphp
                     @if ($otherService)
-                    @foreach ($otherService as $key => $service)
-                    {{-- @dd($service->needle, $key) --}}
-                    @php
-                        $si += 1;
-                    @endphp
-                    <tr>
-                        <td>
-                            {{ $si }}
-                        </td>
-                        <td >
-                             {{ 'Needle' }}
-                        </td>
-                        <td colspan="3" class="text-right">
-                            {{ number_format($service->needle, 2) }}
-                        </td>
-                    </tr>
-                     @endforeach
+                        @foreach ($otherService as $key => $service)
+                            {{-- @dd($service->needle, $key) --}}
+                            @php
+                                $si += 1;
+                            @endphp
+                            <tr>
+                                <td>
+                                    {{ $si }}
+                                </td>
+                                <td>
+                                    {{ 'Needle' }}
+                                </td>
+                                <td colspan="3" class="text-right">
+                                    {{ number_format($service->needle, 2) }}
+                                </td>
+                            </tr>
+                        @endforeach
                     @endif
                 </tbody>
             </table>
@@ -525,5 +527,4 @@
     $(document).ready(function() {
         window.print();
     });
-
 </script>

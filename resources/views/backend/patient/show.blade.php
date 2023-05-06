@@ -32,8 +32,8 @@
                 <div class="body">
                     @php
                         $age = null;
-                        if (!empty($patient->dob)) {
-                            $birthdate = new DateTime($dob);
+                        if (($patient->dob)) {
+                            $birthdate = new DateTime($patient->dob);
                             $today = new DateTime('today');
                             $age = $birthdate->diff($today)->y;
                         }
@@ -52,9 +52,9 @@
                     <strong>Date oF Birth </strong> / <strong>Age </strong>
                     <p>{{ $patient->dob ?? '-' }} / {{ ($age != null)? $age:'-' }}</p>
                     <strong>Blood Group </strong>
-                    <p>{{ $patient->blood_group ?? '-' }}</p>
+                    <p>{{ $patient->blood->name ?? '-' }}</p>
                     <strong>Marital Status </strong>
-                    <p>{{ $patient->blood_group ?? '-' }}</p>
+                    <p>{{ $patient->marital_status ?? '-' }}</p>
 
                     <hr>
                     <strong>Address</strong>

@@ -18,27 +18,22 @@ class LabTestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $labInvoices = LabInvoice::with('labTestDetails.testName:id,name,category', 'labTestDetails.viewResult')->latest()->get()
-        //     ->map(function ($query) {
-        //         $data['id'] = $query->id;
-        //         $data['invoice_no'] = $query->invoice_no;
-        //         $data['patient'] = $query->patient->name;
-        //         $data['created_date'] = $query->date;
-        //         $data['total_amount'] = $query->total_amount;
-        //         $data['category'] = $query->labTestDetails->pluck('testName.category')->unique()->all();
-        //         $data['testName'] = $query->labTestDetails->pluck('testName.name');
-        //         $data['labDetails_id'] = $query->labTestDetails->pluck('id');
-        //         $data['labTest_id'] = $query->labTestDetails->pluck('testName.id');
-        //         return $data;
-        //     });
-        $labInvoices =   LabInvoice::with('labTestDetails.testName:id,name,category', 'labTestDetails.viewResult', 'patient:id,name')->latest()->get();
+        $labInvoices =   LabInvoice::when($request->date, function($query) use ($request){
+            return $query->whereDate('date', Carbon::parse($request->date)->format('Y-m-d'));
+        })
+        ->when($request->status, function($query) use ($request){
+            return $query->where('status', $request->status);
+        })
+        ->with('labTestDetails.testName:id,name,category', 'labTestDetails.viewResult', 'patient:id,name')->latest()->get();
+        $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
 
-        return view('backend.pathology.labTest.index', compact('labInvoices'));
+        return view('backend.pathology.labTest.index', compact('labInvoices','status'));
     }
 
     /**
+     * ALTER TABLE `lab_invoices` CHANGE `status` `status` VARCHAR(10) NOT NULL DEFAULT 'collection';
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
