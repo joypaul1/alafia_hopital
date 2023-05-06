@@ -169,8 +169,6 @@
                                     <th class="text-center">Created Date </th>
                                     <th class="text-center">P-Name</th>
                                     <th class="text-center">View Test</th>
-                                    <th class="text-center">Print Bar Code</th>
-                                    <th class="text-center">Make Result</th>
                                     <th class="text-center">View Result </th>
                                     <th class="text-center">Print Result </th>
                                 </tr>
@@ -199,32 +197,8 @@
                                             </a>
 
                                         </td>
-                                        <td>
-                                            <a href="{{ route('backend.pathology.printBarCode', $labInvoice) }}"
-                                                target="_blank">
-                                                <button class="btn btn-warning"><i class="fa fa-print"
-                                                        aria-hidden="true"></i></button>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <div class="dropdown_hover incom_color">
-                                                <ul>
 
-                                                    <li><a href="#" aria-haspopup="true">InComplete Test</a>
-                                                        <ul class="dropdown" aria-label="submenu">
-                                                            @foreach ($labInvoice->labTestDetails->where('status', '!=', 'completed') as $labTestDetails)
-                                                                <li><a target="_blank"
-                                                                        href="{{ route('backend.pathology.make-test-result', ['labTest_id' => $labTestDetails->lab_test_id, 'labDetails_id' => $labTestDetails->id]) }}">
-                                                                        {{ $labTestDetails->testName->name }}</a>
-                                                                </li>
-                                                            @endforeach
-
-                                                        </ul>
-                                                    </li>
-
-                                                </ul>
-                                            </div>
-                                        </td>
+                                        
 
                                         <td>
 
