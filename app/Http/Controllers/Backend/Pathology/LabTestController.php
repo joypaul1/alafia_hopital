@@ -20,14 +20,21 @@ class LabTestController extends Controller
      */
     public function index(Request $request)
     {
-        $labInvoices =   LabInvoice::when($request->date, function($query) use ($request){
-            return $query->whereDate('date', Carbon::parse($request->date)->format('Y-m-d'));
-        })
-        ->when($request->status, function($query) use ($request){
-            return $query->where('status', $request->status);
-        })
-        ->with('labTestDetails.testName:id,name,category', 'labTestDetails.viewResult', 'patient:id,name')->latest()->get();
-        $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
+        $labInvoices =   LabInvoice::query();
+        if($request->invoice_no){
+            $labInvoices= $labInvoices->where('invoice_no', $request->invoice_no);
+        }
+        if($request->status){
+            $labInvoices= $labInvoices->where('status', $request->status);
+        }
+        if($request->start_date){
+            $labInvoices= $labInvoices->whereDate('date', '>=', date('Y-m-d', strtotime($request->start_date)));
+        }
+        if($request->end_date){
+            $labInvoices= $labInvoices->whereDate('date', '<=',  date('Y-m-d', strtotime($request->end_date)));
+        }
+        $labInvoices=  $labInvoices->with('labTestDetails.testName:id,name,category', 'labTestDetails.viewResult', 'patient:id,name')->latest()->get();
+        $status=  (object)[['name' =>'collection', 'id' =>'collection' ],['name' =>'Inactive', 'id' => 0 ]];
 
         return view('backend.pathology.labTest.index', compact('labInvoices','status'));
     }

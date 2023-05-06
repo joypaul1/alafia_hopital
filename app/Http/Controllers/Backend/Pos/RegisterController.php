@@ -22,8 +22,8 @@ class RegisterController extends Controller
     {
         $data =Register::select('id','name','status', 'outlet_id')
         ->with('outlet:id,name')
-        ->when($request->country_id, function($qeury) use ($request){
-            $qeury->whereCountryId($request->country_id);
+        ->when($request->country_id, function($query) use ($request){
+            $query->whereCountryId($request->country_id);
         })
         ->latest();
 
