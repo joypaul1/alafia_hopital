@@ -18,8 +18,8 @@
         }
 
         /* nav {
-                                                    font-family: monospace;
-                                                } */
+                                                                    font-family: monospace;
+                                                                } */
 
         .dropdown_hover ul {
             /* background: darkorange; */
@@ -169,15 +169,13 @@
                                     <th class="text-center">Created Date </th>
                                     <th class="text-center">P-Name</th>
                                     <th class="text-center">View Test</th>
-                                    <th class="text-center">Print Bar Code</th>
                                     <th class="text-center">Make Result</th>
                                     <th class="text-center">View Result </th>
                                     <th class="text-center">Print Result </th>
+                                    <th class="text-center">Action </th>
                                 </tr>
                             </thead>
-
                             <tbody>
-
                                 @foreach ($labInvoices as $key => $labInvoice)
                                     <tr class="text-center">
                                         <td>{{ $labInvoice['invoice_no'] }}</td>
@@ -199,13 +197,7 @@
                                             </a>
 
                                         </td>
-                                        <td>
-                                            <a href="{{ route('backend.pathology.printBarCode', $labInvoice) }}"
-                                                target="_blank">
-                                                <button class="btn btn-warning"><i class="fa fa-print"
-                                                        aria-hidden="true"></i></button>
-                                            </a>
-                                        </td>
+
                                         <td>
                                             <div class="dropdown_hover incom_color">
                                                 <ul>
@@ -260,6 +252,13 @@
                                                     {{ $cat }} <i class="fa fa-print " aria-hidden="true"></i>
                                             @endforeach
 
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a
+                                                href="{{ route('backend.pathology.labTest.changeStatus', ['status' => 'delivered', 'id' => $labInvoice->id]) }}">
+                                                <button class="btn btn-warning"><i class="fa fa-check-circle"
+                                                        aria-hidden="true"></i> Move To Delivered</button>
                                             </a>
                                         </td>
                                     </tr>

@@ -22,35 +22,33 @@ class LabTestController extends Controller
     public function index(Request $request)
     {
         $labInvoices =   LabInvoice::query();
-        if($request->invoice_no){
-            $labInvoices= $labInvoices->where('invoice_no', $request->invoice_no);
+        if ($request->invoice_no) {
+            $labInvoices = $labInvoices->where('invoice_no', $request->invoice_no);
         }
-        if($request->status){
-            $labInvoices= $labInvoices->where('status', $request->status);
+        if ($request->status) {
+            $labInvoices = $labInvoices->where('status', $request->status);
         }
-        if($request->start_date){
-            $labInvoices= $labInvoices->whereDate('date', '>=', date('Y-m-d', strtotime($request->start_date)));
-        }else{
+        if ($request->start_date) {
+            $labInvoices = $labInvoices->whereDate('date', '>=', date('Y-m-d', strtotime($request->start_date)));
+        } else {
             $labInvoices = $labInvoices->whereDate('date', '>=', date('Y-m-d'));
         }
-        if($request->end_date){
-            $labInvoices= $labInvoices->whereDate('date', '<=',  date('Y-m-d', strtotime($request->end_date)));
-        }else{
+        if ($request->end_date) {
+            $labInvoices = $labInvoices->whereDate('date', '<=',  date('Y-m-d', strtotime($request->end_date)));
+        } else {
             $labInvoices = $labInvoices->whereDate('date', '>=', date('Y-m-d'));
-
         }
-        $labInvoices=  $labInvoices->with('labTestDetails.testName:id,name,category', 'labTestDetails.viewResult', 'patient:id,name')->latest()->get();
+        $labInvoices =  $labInvoices->with('labTestDetails.testName:id,name,category', 'labTestDetails.viewResult', 'patient:id,name')->latest()->get();
         // dd($request->status);
-        $status=  (object)[['name' =>'collection', 'id' =>'collection' ],['name' =>'Inactive', 'id' => 0 ]];
-        if($request->status ){
-            return view('backend.pathology.labTest.'.$request->status, compact('labInvoices','status'));
-
+        $status =  (object)[['name' => 'collection', 'id' => 'collection'], ['name' => 'Inactive', 'id' => 0]];
+        if ($request->status) {
+            return view('backend.pathology.labTest.' . $request->status, compact('labInvoices', 'status'));
         }
-        return view('backend.pathology.labTest.index', compact('labInvoices','status'));
+        return view('backend.pathology.labTest.index', compact('labInvoices', 'status'));
     }
     public function getSlotNumber()
     {
-        if (!LabInvoice::latest()->whereDate('date',date('Y-m-d'))->first()->slot_number) {
+        if (!LabInvoice::latest()->whereDate('date', date('Y-m-d'))->first()->slot_number) {
             return 1;
         } else {
             return LabInvoice::latest()->first()->slot_number + 1;
@@ -59,23 +57,28 @@ class LabTestController extends Controller
 
     public function changeStatus(Request $request)
     {
-        $labInvoices = LabInvoice::whereIn('id', $request->ids)->get();
-        for ($i=0; $i < count($labInvoices); $i++) {
-            LabInvoice::whereId($labInvoices[$i]->id)->update(['status' => 'makeReport', 'slot_number'=> $this->getSlotNumber()]);
+        $getSlotNumber = $this->getSlotNumber();
+        if (request()->ajax()) {
+            $labInvoices = LabInvoice::whereIn('id', $request->ids)->get();
+            for ($i = 0; $i < count($labInvoices); $i++) {
+                LabInvoice::whereId($labInvoices[$i]->id)->update(['status' => $request->status, 'slot_number' => $getSlotNumber]);
+            }
+            return response()->json(['status' => true, 'msg' => 'Status Changed Successfully', 'slot_number' => $getSlotNumber]);
+        } else {
+            $labInvoices = LabInvoice::where('id', $request->id)->first();
+            LabInvoice::whereId($request->id)->update(['status' => $request->status, 'slot_number' => $getSlotNumber]);
+            return back()->with('success', 'Status Changed Successfully');
         }
-        return response()->json(['status' => true, 'msg' => 'Status Changed Successfully', 'slot_number' => $this->getSlotNumber()-1]);
-
     }
     public function viewSlot(Request $request)
     {
         $labInvoices = LabInvoice::whereDate('date', date('Y-m-d'))->where('slot_number', $request->slot_number)->get();
         return view('backend.pathology.labTest.slot', compact('labInvoices'));
-
     }
     /**
      *
      * Show the form for creating a new resource.
-     *
+     *ALTER TABLE `lab_invoices` CHANGE `status` `status` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'collection';
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -97,7 +100,7 @@ class LabTestController extends Controller
      */
     public function store(StoreRequest $request)
     {
-         $returnData = $request->storeData();
+        $returnData = $request->storeData();
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('Pathology Lab Test Invoice Created');
             return redirect()->route('backend.pathology.labTest.show', $returnData->getData()->data);

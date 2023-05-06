@@ -133,20 +133,30 @@
                                     name="Invoice List" link='backend.pathology.labTest.index' icon='#' />
                                 {{-- <x-backend.side-bar class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}"
                                     name="Sample Collection" link='backend.pathology.labTest.index' icon='#' /> --}}
-                                    <li class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}">
-                                        <a href="{{ route('backend.pathology.labTest.index', ['status'=> 'collection'] )}}" >
-                                            {{-- @isset($icon)
-                                            <i class="{{ $icon }}"></i>
-                                            @endisset --}}
-                                        <span>{{"Sample Collection"}}</span></a>
-                                    </li>
+                                <li class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}">
+                                    <a href="{{ route('backend.pathology.labTest.index', ['status'=> 'collection'] )}}" >
 
+                                    <span><i class="#"></i>{{"Sample Collection"}}</span></a>
+                                </li>
+                                <li class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}">
+                                    <a href="{{ route('backend.pathology.labTest.index', ['status'=> 'makeReport'] )}}" >
+
+                                    <span><i class="#"></i>{{"Make Report"}}</span></a>
+                                </li>
+                                <li class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}">
+                                    <a href="{{ route('backend.pathology.labTest.index', ['status'=> 'readyToDelivery'])}}" >
+                                    <span><i class="#"></i>{{"Ready To Delivery"}}</span></a>
+                                </li>
+                                <li class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}">
+                                    <a href="{{ route('backend.pathology.labTest.index', ['status'=> 'delivered'])}}" >
+                                    <span><i class="#"></i>{{"Delivered"}}</span></a>
+                                </li>
+
+
+                                 {{-- <x-backend.side-bar class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}"
+                                   name="Ready To Delivery" link='backend.pathology.labTest.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}"
-                                    name="Make Report" link='backend.pathology.labTest.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}"
-                                    name="Ready To Delivery" link='backend.pathology.labTest.index' icon='#' />
-                                <x-backend.side-bar class="{{ request()->segment(2) == 'labTest' ? 'active' : ' ' }}"
-                                    name="Delivered" link='backend.pathology.labTest.index' icon='#' />
+                                    name="Delivered" link='backend.pathology.labTest.index' icon='#' /> --}}
 
                             </ul>
                         </li>
