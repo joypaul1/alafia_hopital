@@ -40,11 +40,11 @@ class LabTestController extends Controller
         }
         $labInvoices =  $labInvoices->with('labTestDetails.testName:id,name,category', 'labTestDetails.viewResult', 'patient:id,name')->latest()->get();
         // dd($request->status);
-        $status =  (object)[['name' => 'collection', 'id' => 'collection'], ['name' => 'Inactive', 'id' => 0]];
+        // $status =  (object)[['name' => 'collection', 'id' => 'collection'], ['name' => 'Inactive', 'id' => 0]];
         if ($request->status) {
-            return view('backend.pathology.labTest.' . $request->status, compact('labInvoices', 'status'));
+            return view('backend.pathology.labTest.' . $request->status, compact('labInvoices'));
         }
-        return view('backend.pathology.labTest.index', compact('labInvoices', 'status'));
+        return view('backend.pathology.labTest.index', compact('labInvoices'));
     }
     public function getSlotNumber()
     {

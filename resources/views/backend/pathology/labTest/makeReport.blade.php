@@ -18,8 +18,8 @@
         }
 
         /* nav {
-                                                                        font-family: monospace;
-                                                                    } */
+                                                                                font-family: monospace;
+                                                                            } */
 
         .dropdown_hover ul {
             /* background: darkorange; */
@@ -175,94 +175,106 @@
                                     <th class="text-center">Action </th>
                                 </tr>
                             </thead>
+                            @php
+                                $slotNumberWiseData = $labInvoices->groupBy('slot_number');
+
+                            @endphp
                             <tbody>
-                                @foreach ($labInvoices as $key => $labInvoice)
-                                    <tr class="text-center">
-                                        <td>{{ $labInvoice['invoice_no'] }}</td>
-                                        <td> {{ date('d-m-y', strtotime($labInvoice['date'])) }}</td>
-                                        <td>{{ $labInvoice->patient->name }}
-                                            <br>
-                                            <a target="_blank"
-                                                href="{{ route('backend.patient.show', $labInvoice->patient->id) }}"
-                                                target="_blank">
-                                                <button class="btn btn-success"><i class="fa fa-eye"
-                                                        aria-hidden="true"></i></button>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('backend.pathology.printTest', $labInvoice) }}"
-                                                target="_blank">
-                                                <button class="btn btn-info"><i class="fa fa-eye"
-                                                        aria-hidden="true"></i></button>
-                                            </a>
-
-                                        </td>
-
-                                        <td>
-                                            <div class="dropdown_hover incom_color">
-                                                <ul>
-
-                                                    <li><a href="#" aria-haspopup="true">InComplete Test</a>
-                                                        <ul class="dropdown" aria-label="submenu">
-                                                            @foreach ($labInvoice->labTestDetails->where('status', '!=', 'completed') as $labTestDetails)
-                                                                <li><a target="_blank"
-                                                                        href="{{ route('backend.pathology.make-test-result', ['labTest_id' => $labTestDetails->lab_test_id, 'labDetails_id' => $labTestDetails->id]) }}">
-                                                                        {{ $labTestDetails->testName->name }}</a>
-                                                                </li>
-                                                            @endforeach
-
-                                                        </ul>
-                                                    </li>
-
-                                                </ul>
-                                            </div>
-                                        </td>
-
-                                        <td>
-
-                                            <div class="dropdown_hover com_color">
-                                                <ul>
-                                                    <li><a href="#" aria-haspopup="true">Complete Test</a>
-                                                        <ul class="dropdown" aria-label="submenu">
-                                                            @foreach ($labInvoice->labTestDetails->where('status', 'completed') as $labTestDetails)
-                                                                <li>
-                                                                    <a target="_blank"
-                                                                        href="{{ route('backend.pathology.make-test-result-show', ['labTest_id' => $labTestDetails->lab_test_id, 'labDetails_id' => $labTestDetails->id]) }}">
-                                                                        {{ $labTestDetails->testName->name }}</a>
-                                                                </li>
-                                                            @endforeach
-
-                                                        </ul>
-                                                    </li>
-
-                                                </ul>
-                                            </div>
-
-                                        </td>
-                                        <td>
-                                            @php
-                                                $categoryData = $labInvoice->labTestDetails
-                                                    ->pluck('testName.category')
-                                                    ->unique()
-                                                    ->all();
-                                            @endphp
-                                            @foreach ($categoryData as $cat)
-                                                <a class="btn btn-success btn-sm"
-                                                    href="{{ route('backend.pathology.printCat', ['invoice_id' => $labInvoice->id, 'category' => $cat]) }}">
-                                                    {{ $cat }} <i class="fa fa-print " aria-hidden="true"></i>
-                                            @endforeach
-
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a
-                                                href="{{ route('backend.pathology.labTest.changeStatus', ['status' => 'readyToDelivery', 'id' => $labInvoice->id]) }}">
-                                                <button class="btn btn-warning"><i class="fa fa-check-circle"
-                                                        aria-hidden="true"></i> Move To Delivery</button>
-                                            </a>
+                                @foreach ($slotNumberWiseData as $slotNumber => $labInvoices)
+                                    <tr>
+                                        <td class="text-center" colspan='8'>
+                                            <strong>Slot Number : {{ $slotNumber }}</strong>
                                         </td>
                                     </tr>
+                                    @foreach ($labInvoices as $key => $labInvoice)
+                                        <tr class="text-center">
+                                            <td>{{ $labInvoice['invoice_no'] }}</td>
+                                            <td> {{ date('d-m-y', strtotime($labInvoice['date'])) }}</td>
+                                            <td>{{ $labInvoice->patient->name }}
+                                                <br>
+                                                <a target="_blank"
+                                                    href="{{ route('backend.patient.show', $labInvoice->patient->id) }}"
+                                                    target="_blank">
+                                                    <button class="btn btn-success"><i class="fa fa-eye"
+                                                            aria-hidden="true"></i></button>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('backend.pathology.printTest', $labInvoice) }}"
+                                                    target="_blank">
+                                                    <button class="btn btn-info"><i class="fa fa-eye"
+                                                            aria-hidden="true"></i></button>
+                                                </a>
+
+                                            </td>
+
+                                            <td>
+                                                <div class="dropdown_hover incom_color">
+                                                    <ul>
+
+                                                        <li><a href="#" aria-haspopup="true">InComplete Test</a>
+                                                            <ul class="dropdown" aria-label="submenu">
+                                                                @foreach ($labInvoice->labTestDetails->where('status', '!=', 'completed') as $labTestDetails)
+                                                                    <li><a target="_blank"
+                                                                            href="{{ route('backend.pathology.make-test-result', ['labTest_id' => $labTestDetails->lab_test_id, 'labDetails_id' => $labTestDetails->id]) }}">
+                                                                            {{ $labTestDetails->testName->name }}</a>
+                                                                    </li>
+                                                                @endforeach
+
+                                                            </ul>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                            </td>
+
+                                            <td>
+
+                                                <div class="dropdown_hover com_color">
+                                                    <ul>
+                                                        <li><a href="#" aria-haspopup="true">Complete Test</a>
+                                                            <ul class="dropdown" aria-label="submenu">
+                                                                @foreach ($labInvoice->labTestDetails->where('status', 'completed') as $labTestDetails)
+                                                                    <li>
+                                                                        <a target="_blank"
+                                                                            href="{{ route('backend.pathology.make-test-result-show', ['labTest_id' => $labTestDetails->lab_test_id, 'labDetails_id' => $labTestDetails->id]) }}">
+                                                                            {{ $labTestDetails->testName->name }}</a>
+                                                                    </li>
+                                                                @endforeach
+
+                                                            </ul>
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+
+                                            </td>
+                                            <td>
+                                                @php
+                                                    $categoryData = $labInvoice->labTestDetails
+                                                        ->pluck('testName.category')
+                                                        ->unique()
+                                                        ->all();
+                                                @endphp
+                                                @foreach ($categoryData as $cat)
+                                                    <a class="btn btn-success btn-sm"
+                                                        href="{{ route('backend.pathology.printCat', ['invoice_id' => $labInvoice->id, 'category' => $cat]) }}">
+                                                        {{ $cat }} <i class="fa fa-print " aria-hidden="true"></i>
+                                                @endforeach
+
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a
+                                                    href="{{ route('backend.pathology.labTest.changeStatus', ['status' => 'readyToDelivery', 'id' => $labInvoice->id]) }}">
+                                                    <button class="btn btn-warning"><i class="fa fa-check-circle"
+                                                            aria-hidden="true"></i> Move To Delivery</button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 @endforeach
+
 
 
 
