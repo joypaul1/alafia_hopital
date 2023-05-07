@@ -97,11 +97,11 @@ class LabTestController extends Controller
             ['name' => 'Stool', 'id' => 'Stool'],
             ['name' => 'Cardiology', 'id' => 'Cardiology'],
             ['name' => 'Cancer Marker', 'id' => 'Cancer Marker'],
-            ['name' => 'Durg Montoring', 'id' => 'Durg Montoring'],
+            ['name' => 'Drug Monitoring', 'id' => 'Drug Monitoring'],
             ['name' => 'Hepatitis Profile', 'id' => 'Hepatitis Profile'],
             ['name' => 'Hormone Test', 'id' => 'Hormone Test'],
-            ['name' => 'PCR LAB TEST/ MOLICULAR', 'id' => 'PCR LAB TEST/ MOLICULAR'],
-            ['name' => 'Torch  Pannel', 'id' => 'Torch  Pannel'],
+            ['name' => 'PCR LAB TEST/ MOLECULAR', 'id' => 'PCR LAB TEST/ MOLECULAR'],
+            ['name' => 'Torch  Panel', 'id' => 'Torch  Panel'],
         ];
         $specimen= (object)[
             ['name' => 'Blood', 'id' => 'Blood'],
@@ -167,11 +167,11 @@ class LabTestController extends Controller
             ['name' => 'Stool', 'id' => 'Stool'],
             ['name' => 'Cardiology', 'id' => 'Cardiology'],
             ['name' => 'Cancer Marker', 'id' => 'Cancer Marker'],
-            ['name' => 'Durg Montoring', 'id' => 'Durg Montoring'],
+            ['name' => 'Drug Monitoring', 'id' => 'Drug Monitoring'],
             ['name' => 'Hepatitis Profile', 'id' => 'Hepatitis Profile'],
             ['name' => 'Hormone Test', 'id' => 'Hormone Test'],
-            ['name' => 'PCR LAB TEST/ MOLICULAR', 'id' => 'PCR LAB TEST/ MOLICULAR'],
-            ['name' => 'Torch  Pannel', 'id' => 'Torch  Pannel'],
+            ['name' => 'PCR LAB TEST/ MOLECULAR', 'id' => 'PCR LAB TEST/ MOLECULAR'],
+            ['name' => 'Torch  Panel', 'id' => 'Torch  Panel'],
         ];
         $specimen= (object)[
             ['name' => 'Blood', 'id' => 'Blood'],
