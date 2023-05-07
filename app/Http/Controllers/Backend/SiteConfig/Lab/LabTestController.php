@@ -89,12 +89,19 @@ class LabTestController extends Controller
         $department= (object)[
             ['name' => 'Hematology', 'id' => 'Hematology'],
             ['name' => 'Biochemistry', 'id' => 'Biochemistry'],
+            ['name' => 'Micro Biology', 'id' => 'Micro Biology'],
             ['name' => 'Serology', 'id' => 'Serology'],
+            ['name' => 'Immunology', 'id' => 'Immunology'],
             ['name' => 'Urine', 'id' => 'Urine'],
             ['name' => 'Blood', 'id' => 'Blood'],
             ['name' => 'Stool', 'id' => 'Stool'],
-            ['name' => 'Immunology', 'id' => 'Immunology'],
-            ['name' => 'Micro Biology', 'id' => 'Micro Biology'],
+            ['name' => 'Cardiology', 'id' => 'Cardiology'],
+            ['name' => 'Cancer Marker', 'id' => 'Cancer Marker'],
+            ['name' => 'Durg Montoring', 'id' => 'Durg Montoring'],
+            ['name' => 'Hepatitis Profile', 'id' => 'Hepatitis Profile'],
+            ['name' => 'Hormone Test', 'id' => 'Hormone Test'],
+            ['name' => 'PCR LAB TEST/ MOLICULAR', 'id' => 'PCR LAB TEST/ MOLICULAR'],
+            ['name' => 'Torch  Pannel', 'id' => 'Torch  Pannel'],
         ];
         $specimen= (object)[
             ['name' => 'Blood', 'id' => 'Blood'],
@@ -152,12 +159,19 @@ class LabTestController extends Controller
         $department= (object)[
             ['name' => 'Hematology', 'id' => 'Hematology'],
             ['name' => 'Biochemistry', 'id' => 'Biochemistry'],
+            ['name' => 'Micro Biology', 'id' => 'Micro Biology'],
             ['name' => 'Serology', 'id' => 'Serology'],
+            ['name' => 'Immunology', 'id' => 'Immunology'],
             ['name' => 'Urine', 'id' => 'Urine'],
             ['name' => 'Blood', 'id' => 'Blood'],
             ['name' => 'Stool', 'id' => 'Stool'],
-            ['name' => 'Immunology', 'id' => 'Immunology'],
-            ['name' => 'Micro Biology', 'id' => 'Micro Biology'],
+            ['name' => 'Cardiology', 'id' => 'Cardiology'],
+            ['name' => 'Cancer Marker', 'id' => 'Cancer Marker'],
+            ['name' => 'Durg Montoring', 'id' => 'Durg Montoring'],
+            ['name' => 'Hepatitis Profile', 'id' => 'Hepatitis Profile'],
+            ['name' => 'Hormone Test', 'id' => 'Hormone Test'],
+            ['name' => 'PCR LAB TEST/ MOLICULAR', 'id' => 'PCR LAB TEST/ MOLICULAR'],
+            ['name' => 'Torch  Pannel', 'id' => 'Torch  Pannel'],
         ];
         $specimen= (object)[
             ['name' => 'Blood', 'id' => 'Blood'],
