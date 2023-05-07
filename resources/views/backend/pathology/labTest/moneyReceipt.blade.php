@@ -103,8 +103,12 @@
                         </td>
                         <td rowspan="5">
                             <div class="d-flex justify-content-center align-items-center">
-                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $labInvoice->invoice_number . ' PID-' . optional($labInvoice->patient)->patientId, 'QRCODE') }}"
-                                    alt="QR Code" style="width: 100px;" />
+                                {{-- <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $labInvoice->invoice_number . ' PID-' . optional($labInvoice->patient)->patientId, 'QRCODE') }}"
+                                    alt="QR Code" style="width: 100px;" /> --}}
+                                @php
+                                    echo DNS1D::getBarcodeHTML(strval($labInvoice->id), 'C128');
+                                @endphp
+
                             </div>
                         </td>
                         {{-- @dd($labInvoice->date); --}}

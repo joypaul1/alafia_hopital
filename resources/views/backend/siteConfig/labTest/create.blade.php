@@ -35,6 +35,17 @@
                                     'message' => $errors->first('name'),
                                 ])
                             </div>
+                            <div class="form-group">
+                                @include('components.backend.forms.input.input-type', [
+                                    'name' => 'short_name',
+                                    'type' => 'text',
+                                    'placeholder' => 'short name will be here...',
+                                    'required' => true,
+                                ])
+                                @include('components.backend.forms.input.errorMessage', [
+                                    'message' => $errors->first('short_name'),
+                                ])
+                            </div>
 
                             <div class="form-group">
                                 @include('components.backend.forms.select2.option', [
@@ -156,6 +167,11 @@
                                 <input type="checkbox" class="form-check-input" name="status" checked id="active_check">
                                 <label class="form-check-label" for="active_check">Active ?</label>
                             </div>
+
+                            {{-- <div class="form-group">
+                                    @include('components.backend.forms.input.input-type',[ 'name' => 'name', 'placeholder' => 'name will be here...', 'required'=>true ])
+                                    @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
+                                </div>   --}}
 
                         </div>
                     </div>

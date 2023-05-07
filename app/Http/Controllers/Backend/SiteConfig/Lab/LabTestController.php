@@ -148,7 +148,6 @@ class LabTestController extends Controller
      */
     public function edit(LabTest $labTest)
     {
-        // dd( $labTest);
         $labTestTube = LabTestTube::select(['id', 'name'])->get();
         $department= (object)[
             ['name' => 'Hematology', 'id' => 'Hematology'],

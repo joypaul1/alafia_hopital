@@ -36,6 +36,17 @@
                                     ])
                                 </div>
                                 <div class="form-group">
+                                    @include('components.backend.forms.input.input-type', [
+                                        'name' => 'short_name',
+                                        'value' => $labTest->short_name,
+                                        'placeholder' => 'short name will be here...',
+                                        'required' => true,
+                                    ])
+                                    @include('components.backend.forms.input.errorMessage', [
+                                        'message' => $errors->first('short_name'),
+                                    ])
+                                </div>
+                                <div class="form-group">
                                     @include('components.backend.forms.select2.option', [
                                         'label' => 'Department',
                                         'name' => 'department',

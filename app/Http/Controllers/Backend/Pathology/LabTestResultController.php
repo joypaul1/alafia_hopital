@@ -381,11 +381,14 @@ class LabTestResultController extends Controller
     public function printTest(LabInvoice $labInvoice)
     {
         $labInvoice = LabInvoice::whereId($labInvoice->id)->with('labTestDetails.testName')->first();
+
+
         return view('backend.pathology.labTest.viewTest', compact('labInvoice'));
     }
     public function printBarCode(LabInvoice $labInvoice)
     {
-        $labInvoice = LabInvoice::whereId($labInvoice->id)->with('labTestDetails.testName')->first();
-        return view('backend.pathology.labTest.printBarCode', compact('labInvoice'));
+        $labInvoice         = LabInvoice::whereId($labInvoice->id)->with('labTestDetails.testName')->first();
+        $categoryWiseData   = $labInvoice->labTestDetails->groupBy('testName.category');
+        return view('backend.pathology.labTest.printBarCode', compact('labInvoice', 'categoryWiseData'));
     }
 }

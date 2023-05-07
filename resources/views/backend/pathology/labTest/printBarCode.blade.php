@@ -98,7 +98,7 @@
         $today = new Datetime(date('m.d.y'));
         $diff = $today->diff($bday);
     @endphp
-    @foreach ($labInvoice->labTestDetails as $labTest)
+    @foreach ($categoryWiseData->labTestDetails as $labTest)
         <div id="invoice-Body">
             <div id="bot">
                 <div class="bot-body" style="transform: scale(0.8); margin-top: 5px;">

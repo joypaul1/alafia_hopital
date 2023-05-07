@@ -57,6 +57,7 @@ class LabTestController extends Controller
 
     public function changeStatus(Request $request)
     {
+        $getSlotNumber = null;
         $getSlotNumber = $this->getSlotNumber();
         if (request()->ajax()) {
             $labInvoices = LabInvoice::whereIn('id', $request->ids)->get();
