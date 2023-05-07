@@ -36,6 +36,10 @@ class StoreRequest extends FormRequest
             'unit'              => 'nullable',
             'specimen'          => 'required',
             'type'              => 'required',
+            'short_name'        => 'nullable',
+            'needle'            => 'nullable',
+            'glucose'           => 'nullable',
+            'pot'               => 'nullable',
         ];
     }
 
