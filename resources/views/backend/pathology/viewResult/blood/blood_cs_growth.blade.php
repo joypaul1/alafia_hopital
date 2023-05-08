@@ -1559,15 +1559,22 @@
                     </div>
                     <div>
                         <p class="c4"><span class="c13">Check by</span></p>
-                        <p class="c4"><span class="c13"></span></p>
+                        <p class="c4"><span class="c13">Lab In-charge</span></p>
                     </div>
                     <div>
                         <h5 style="margin-bottom: 4px; margin: 0; padding: 0; font-weight: bold;">
+                            Prof. Dr. Md. Jafarullah
+                        </h5>
+                        <p><small>MBBS, MD, (BSMMU)</small></p>
+                        <p><small>Consultant Pathology</small></p>
+                        {{-- <p><small>Bangladesh Medical College</small></p> --}}
+                        {{-- <h5 style="margin-bottom: 4px; margin: 0; padding: 0; font-weight: bold;">
                             {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
 
                         </h5>
-                        <p><small>{{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }}</small></p>
-
+                        <p><small>{{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }}</small></p> --}}
+                        {{-- <p><small>Professor of Pathology</small></p>
+                        <p><small>Bangladesh Medical College</small></p> --}}
                     </div>
                 </div>
             </div>
