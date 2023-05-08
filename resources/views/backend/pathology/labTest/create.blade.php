@@ -409,8 +409,8 @@
                 let row = `<tr>
                                 <td>
                                     <input type="hidden" class="labTest_id"  name="labTest_id[]" value="${ui.item.value_id}">
-                                    <input type="readonly" class="labTestCatName"  value="${ui.item.category}">
-                                    <input type="readonly"  value="${ui.item.tube.name}">
+                                    <input type="hidden" class="labTestCatName"  value="${ui.item.category}">
+                                    <input type="hidden"  value="${ui.item.tube.name}">
                                     ${ui.item.label}
                                 </td>
                                 <td>
@@ -447,7 +447,7 @@
                     let row = `<tr>
                                 <td>
                                     <input type="hidden" class="labTest_id"  name="labTest_id[]" value="319">
-                                    <input type="readonly" class="labTestCatName"  value="Biochemistry">
+                                    <input type="hidden" class="labTestCatName"  value="Biochemistry">
                                     CUS
                                 </td>
                                 <td>
