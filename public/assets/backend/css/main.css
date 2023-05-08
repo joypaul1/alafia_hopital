@@ -9924,3 +9924,7 @@ input[type="number"] {
     border: 1px solid #2099ac !important;
     background: #2099ac !important;
 }
+
+td {
+    vertical-align: top !important;
+}

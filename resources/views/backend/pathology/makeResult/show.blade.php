@@ -1,4 +1,3 @@
-
 <html>
 
 <head>
@@ -1171,6 +1170,11 @@
             height: 7.6pt
         }
 
+        td {
+            vertical-align: top !important;
+        }
+
+
         .c37 {
             height: 10.3pt
         }
@@ -1361,6 +1365,7 @@
             left: 0;
             opacity: 0.3;
         }
+
     </style>
 
     <style>
@@ -1380,6 +1385,7 @@
                 padding: 10pt;
             }
         }
+
     </style>
 </head>
 
@@ -1511,8 +1517,7 @@
                     </td>
                 </tr>
             </table>
-            <h2
-                style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
+            <h2 style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
                 Biochemistry Report
             </h2>
         </div>

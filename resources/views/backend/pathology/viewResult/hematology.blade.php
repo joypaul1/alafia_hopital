@@ -1170,6 +1170,10 @@
             height: 7.6pt
         }
 
+        td {
+            vertical-align: top !important;
+        }
+
         .c37 {
             height: 10.3pt
         }
@@ -1360,6 +1364,7 @@
             left: 0;
             opacity: 0.3;
         }
+
     </style>
 
     <style>
@@ -1379,6 +1384,7 @@
                 padding: 0pt;
             }
         }
+
     </style>
 </head>
 {{-- @dd($labTestReport->details); --}}
@@ -1483,16 +1489,15 @@
                         </td>
                         <td class="c57" colspan="4" rowspan="1">
                             <p class="c23 c10"><span class="c13">
-                                {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
-                                ( {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }})
+                                    {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
+                                    ( {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }})
                                 </span>
                             </p>
 
                         </td>
                     </tr>
                 </table>
-                <h2
-                    style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
+                <h2 style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
                     {{ $labTestReport->testName->category }} Report
                 </h2>
 
@@ -1510,7 +1515,7 @@
                         </td>
                     </tr>
                     @php
-                        $data = json_decode($labTestReport->result);
+                    $data = json_decode($labTestReport->result);
 
                     @endphp
 

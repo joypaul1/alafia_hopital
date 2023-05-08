@@ -1,4 +1,3 @@
-
 <html>
 
 <head>
@@ -1171,6 +1170,10 @@
             height: 7.6pt
         }
 
+        td {
+            vertical-align: top !important;
+        }
+
         .c37 {
             height: 10.3pt
         }
@@ -1361,6 +1364,7 @@
             left: 0;
             opacity: 0.3;
         }
+
     </style>
 
     <style>
@@ -1380,6 +1384,7 @@
                 padding: 0pt;
             }
         }
+
     </style>
 </head>
 
@@ -1483,16 +1488,15 @@
                         </td>
                         <td class="c57" colspan="4" rowspan="1">
                             <p class="c23 c10"><span class="c13">
-                                {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
-                                ( {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }})
+                                    {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
+                                    ( {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }})
                                 </span>
                             </p>
 
                         </td>
                     </tr>
                 </table>
-                <h2
-                    style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
+                <h2 style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
                     {{ $labTestReport->testName->category }} Report
                 </h2>
 
@@ -1513,23 +1517,23 @@
                     </tr>
 
                     @php
-                        $data = json_decode($labTestReport->result);
+                    $data = json_decode($labTestReport->result);
                     @endphp
                     @foreach ($data as $item)
-                        <tr class="c5">
-                            <td class="c14" colspan="1" rowspan="1">
-                                <p class="c1"><span class="c0">{{ $item->name }}</span></p>
-                            </td>
-                            <td class="c27" colspan="1" rowspan="1">
-                                <p class="c17 c10"><span class="c11">{{ $item->result }}</span></p>
-                            </td>
-                            <td class="c6" colspan="1" rowspan="1">
-                                <p class="c1"><span class="c0">{{ $item->unit }}</span></p>
-                            </td>
-                            <td class="c2" colspan="1" rowspan="1">
-                                <p class="c1"><span class="c0">{!! $item->reference_value !!}</span></p>
-                            </td>
-                        </tr>
+                    <tr class="c5">
+                        <td class="c14" colspan="1" rowspan="1">
+                            <p class="c1"><span class="c0">{{ $item->name }}</span></p>
+                        </td>
+                        <td class="c27" colspan="1" rowspan="1">
+                            <p class="c17 c10"><span class="c11">{{ $item->result }}</span></p>
+                        </td>
+                        <td class="c6" colspan="1" rowspan="1">
+                            <p class="c1"><span class="c0">{{ $item->unit }}</span></p>
+                        </td>
+                        <td class="c2" colspan="1" rowspan="1">
+                            <p class="c1"><span class="c0">{!! $item->reference_value !!}</span></p>
+                        </td>
+                    </tr>
                     @endforeach
 
                 </table>
@@ -1539,55 +1543,61 @@
         {{-- <div id="page-break"></div>
         <div>
             <img src="{{ asset('assets/moneyReceipt/hpathology.png') }}"style="width: 100%;" alt="header">
-            <div style="padding: 0 0.5in;">
-                <table class="c55">
-                    @foreach ($array2 as $item2)
-                        <tr class="c5">
-                            <td class="c14" colspan="1" rowspan="1">
-                                <p class="c1"><span class="c0">{{ $item2->name }}</span></p>
-                            </td>
-                            <td class="c27" colspan="1" rowspan="1">
-                                <p class="c17 c10"><span class="c11">{{ $item2->result }}</span></p>
-                            </td>
-                            <td class="c6" colspan="1" rowspan="1">
-                                <p class="c1"><span class="c0">{{ $item2->unit }}</span></p>
-                            </td>
-                            <td class="c2" colspan="1" rowspan="1">
-                                <p class="c1"><span class="c0">{!! $item2->reference_value !!}</span></p>
-                            </td>
-                        </tr>
-                    @endforeach
+        <div style="padding: 0 0.5in;">
+            <table class="c55">
+                @foreach ($array2 as $item2)
+                <tr class="c5">
+                    <td class="c14" colspan="1" rowspan="1">
+                        <p class="c1"><span class="c0">{{ $item2->name }}</span></p>
+                    </td>
+                    <td class="c27" colspan="1" rowspan="1">
+                        <p class="c17 c10"><span class="c11">{{ $item2->result }}</span></p>
+                    </td>
+                    <td class="c6" colspan="1" rowspan="1">
+                        <p class="c1"><span class="c0">{{ $item2->unit }}</span></p>
+                    </td>
+                    <td class="c2" colspan="1" rowspan="1">
+                        <p class="c1"><span class="c0">{!! $item2->reference_value !!}</span></p>
+                    </td>
+                </tr>
+                @endforeach
 
 
-                </table>
-            </div>
-        </div> --}}
+            </table>
+        </div>
+    </div> --}}
 
-        <footer>
-            <div style="padding: 0 0.5in;">
-                <div style="display: flex;justify-content: space-between; margin-top: 60pt;">
-                    <div>
-                        <p class="c4"><span class="c13">Prepared by</span></p>
-                        <p class="c4"><span class="c13">{{ auth('admin')->user()->name }}</span></p>
-                        <p class="c4 c10"><span class="c13"></span></p>
-                    </div>
-                    <div>
-                        <p class="c4"><span class="c13">Check by</span></p>
-                        <p class="c4"><span class="c13"></span></p>
-                    </div>
-                    <div>
-                        <h5 style="margin-bottom: 4px; margin: 0; padding: 0; font-weight: bold;">
-                            {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
+    <footer>
+        <div style="padding: 0 0.5in;">
+            <div style="display: flex;justify-content: space-between; margin-top: 60pt;">
+                <div>
+                    <p class="c4"><span class="c13">Prepared by</span></p>
+                    <p class="c4"><span class="c13">{{ auth('admin')->user()->name }}</span></p>
+                    <p class="c4 c10"><span class="c13"></span></p>
+                </div>
+                <div>
+                    <p class="c4"><span class="c13">Check by</span></p>
+                    <p class="c4"><span class="c13"></span></p>
+                </div>
+                <div>
+                    <h5 style="margin-bottom: 4px; margin: 0; padding: 0; font-weight: bold;">
+                        PROF.DR. MD. SAIDUR RAHMAN
+                    </h5>
+                    <p><small>MBBS, DCP (MSMMU) M ,Phil (Path)</small></p>
+                    <p><small>Professor of Pathology</small></p>
+                    <p><small>Bangladesh Medical College</small></p>
+                    {{-- <h5 style="margin-bottom: 4px; margin: 0; padding: 0; font-weight: bold;">
+                        {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
 
-                        </h5>
-                        <p><small>{{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }}</small></p>
-                        {{-- <p><small>Professor of Pathology</small></p>
+                    </h5>
+                    <p><small>{{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }}</small></p> --}}
+                    {{-- <p><small>Professor of Pathology</small></p>
                         <p><small>Bangladesh Medical College</small></p> --}}
-                    </div>
                 </div>
             </div>
-            <img src="{{ asset('assets/moneyReceipt/fpathology.png') }}" style="width: 100%;" alt="">
-        </footer>
+        </div>
+        <img src="{{ asset('assets/moneyReceipt/fpathology.png') }}" style="width: 100%;" alt="">
+    </footer>
     </div>
 </body>
 

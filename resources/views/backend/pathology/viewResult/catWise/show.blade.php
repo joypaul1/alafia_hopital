@@ -1170,6 +1170,10 @@
             height: 7.6pt
         }
 
+        td {
+            vertical-align: top !important;
+        }
+
         .c37 {
             height: 10.3pt
         }
@@ -1360,6 +1364,7 @@
             left: 0;
             opacity: 0.3;
         }
+
     </style>
 
     <style>
@@ -1379,6 +1384,7 @@
                 padding: 0pt;
             }
         }
+
     </style>
 </head>
 {{-- @dd($labTestReport->testName->category); --}}
@@ -1484,16 +1490,15 @@
                         </td>
                         <td class="c57" colspan="4" rowspan="1">
                             <p class="c23 c10"><span class="c13">
-                        {{ $doctor->first_name ?? '' }} {{ $doctor->last_name ?? '' }}
-                        ({{$doctor->designation->name ?? '' }})
+                                    {{ $doctor->first_name ?? '' }} {{ $doctor->last_name ?? '' }}
+                                    ({{$doctor->designation->name ?? '' }})
 
-                        </span></p>
+                                </span></p>
 
                         </td>
                     </tr>
                 </table>
-                <h2
-                    style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
+                <h2 style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
                     {{ $category }} Report
                 </h2>
 
@@ -1514,7 +1519,7 @@
                     </tr>
                     @php
                     // dd($labTestReport);
-                        // $data = json_decode($labTestReport->result);
+                    // $data = json_decode($labTestReport->result);
 
                     @endphp
                     <tr class="c73">
@@ -1534,25 +1539,25 @@
 
                     @foreach ($labTestReport as $report)
                     @php
-                        $result =($report->viewResult->result);
-                        $data = json_decode($result);
+                    $result =($report->viewResult->result);
+                    $data = json_decode($result);
                     @endphp
-                        @foreach ($data as $item)
-                        <tr class="c5">
-                            <td class="c14" colspan="1" rowspan="1">
-                                <p class="c1"><span class="c0">{{ $item->name }}</span></p>
-                            </td>
-                            <td class="c27" colspan="1" rowspan="1">
-                                <p class="c17 c10"><span class="c11">{{ $item->result }}</span></p>
-                            </td>
-                            <td class="c6" colspan="1" rowspan="1">
-                                <p class="c1"><span class="c0">{{ $item->unit }}</span></p>
-                            </td>
-                            <td class="c2" colspan="1" rowspan="1">
-                                <p class="c1"><span class="c0">{!! $item->reference_value !!}</span></p>
-                            </td>
-                        </tr>
-                        @endforeach
+                    @foreach ($data as $item)
+                    <tr class="c5">
+                        <td class="c14" colspan="1" rowspan="1">
+                            <p class="c1"><span class="c0">{{ $item->name }}</span></p>
+                        </td>
+                        <td class="c27" colspan="1" rowspan="1">
+                            <p class="c17 c10"><span class="c11">{{ $item->result }}</span></p>
+                        </td>
+                        <td class="c6" colspan="1" rowspan="1">
+                            <p class="c1"><span class="c0">{{ $item->unit }}</span></p>
+                        </td>
+                        <td class="c2" colspan="1" rowspan="1">
+                            <p class="c1"><span class="c0">{!! $item->reference_value !!}</span></p>
+                        </td>
+                    </tr>
+                    @endforeach
 
                     @endforeach
 
