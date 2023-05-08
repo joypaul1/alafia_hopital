@@ -6,10 +6,11 @@ use App\Traits\GlobalScope;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class LabTest extends Model
 {
-    use GlobalScope, AutoTimeStamp;
+    use GlobalScope, AutoTimeStamp, SoftDeletes;
 
     protected $guarded =['id'];
 

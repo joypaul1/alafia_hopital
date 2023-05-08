@@ -394,7 +394,7 @@ class LabTestResultController extends Controller
         foreach ($labInvoice->labTestDetails as $key => $details) {
             if($key == 0){
                 $printData[$details->testName->category] = [$details->testName->tube->name => [
-                    $details->testName->name => $details->testName->name,
+                    $details->testName->short_name => $details->testName->short_name,
                 ]];
             }else{
                 // dd($details->testName->category, $printData);
@@ -404,21 +404,21 @@ class LabTestResultController extends Controller
                     //check if tube exist
                     if(array_key_exists($details->testName->tube->name, $printData[$details->testName->category])){
                         //check if test exist
-                        if(array_key_exists($details->testName->name, $printData[$details->testName->category][$details->testName->tube->name])){
+                        if(array_key_exists($details->testName->short_name, $printData[$details->testName->category][$details->testName->tube->name])){
                             //if exist then do nothing
                         }else{
                             //if not exist then add
-                            $printData[$details->testName->category][$details->testName->tube->name][$details->testName->name] = $details->testName->name;
+                            $printData[$details->testName->category][$details->testName->tube->name][$details->testName->short_name] = $details->testName->short_name;
                         }
                     }else{
                         //if tube not exist then add
                         $printData[$details->testName->category][$details->testName->tube->name] = [
-                            $details->testName->name=> $details->testName->name,
+                            $details->testName->short_name=> $details->testName->short_name,
                         ];
                     }
                 }else{
                     $printData[$details->testName->category] = [$details->testName->tube->name => [
-                        $details->testName->name => $details->testName->name,
+                        $details->testName->short_name => $details->testName->short_name,
                     ]];
                 }
             }
