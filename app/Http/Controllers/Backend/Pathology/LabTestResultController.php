@@ -387,8 +387,19 @@ class LabTestResultController extends Controller
     }
     public function printBarCode(LabInvoice $labInvoice)
     {
+        $printData = [];
         $labInvoice         = LabInvoice::whereId($labInvoice->id)->with('labTestDetails.testName')->first();
         $categoryWiseData   = $labInvoice->labTestDetails->groupBy('testName.category');
+
+        foreach ($categoryWiseData as $key => $category) {
+            foreach ($category as $key1 => $value) {
+                if (!in_array($value->testName->category, $printData)) {
+                    $printData[$value->testName->tube->name] = $value->testName->category;
+                }
+            }
+        }
+        dd($printData);
+
         return view('backend.pathology.labTest.printBarCode', compact('labInvoice', 'categoryWiseData'));
     }
 }

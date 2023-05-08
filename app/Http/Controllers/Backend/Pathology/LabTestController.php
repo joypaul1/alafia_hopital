@@ -79,7 +79,7 @@ class LabTestController extends Controller
     /**
      *
      * Show the form for creating a new resource.
-     *ALTER TABLE `lab_invoices` CHANGE `status` `status` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'collection';
+     *
      * @return \Illuminate\Http\Response
      */
     public function create()

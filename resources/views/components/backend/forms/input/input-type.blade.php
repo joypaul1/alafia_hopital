@@ -40,7 +40,7 @@
             title="amount"
             pattern="^\d+(?:\.\d{1,2})?$"
         @endisset
-        placeholder="{{ $placeholder }}"
+        placeholder="{{$obj->placeholder }}"
         @isset($value)
             value="{{ $value }}"
         @endisset autocomplete="on"
