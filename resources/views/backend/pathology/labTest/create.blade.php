@@ -425,7 +425,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="text" name="discount[]" class="form-control discount text-right"  value="0">
+                                    <input type="text" name="discount[]" class="form-control discount text-right" >
                                 </td>
                                 <td>
                                     <input type="text" name="discount_amount[]" class="form-control discount_amount text-right" value="0" readonly>
@@ -461,7 +461,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="text" name="discount[]" class="form-control discount text-right"  value="0">
+                                    <input type="text" name="discount[]" class="form-control discount text-right" >
                                 </td>
                                 <td>
                                     <input type="text" name="discount_amount[]" class="form-control discount_amount text-right" value="0" readonly>
@@ -608,7 +608,7 @@
         $(document).on('change', '.discount_type', function() {
             let discountPrice = 0;
             let discount_type = $(this).val();
-            let discount = $(this).parent('td').next('td').find('.discount').val();
+            let discount = $(this).parent('td').next('td').find('.discount').val()||0;
             let test_price = $(this).parent('td').prev('td').find('.test_price').val();
             let discount_amount = $(this).parent('td').next('td').next('td').find('.discount_amount');
             let subtotal = $(this).parent('td').next('td').next('td').next('td').find('.subtotal');
