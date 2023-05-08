@@ -121,11 +121,9 @@
                             </p>
                             <p>
                                 {{ date('d-m-y h:i A') }} <span
-                                    style="margin-left: 8px;">MRD:{{ $labInvoice->invoice_no }}</span>
+                                    style="margin-left: 8px;">IN:{{ $labInvoice->invoice_no }}</span>
                             </p>
-                            <p>
-                                {{ $labInvoice->patient->name }}
-                            </p>
+                           
                             <p>
                                 DEP: {{ $key}}
                             </p>
