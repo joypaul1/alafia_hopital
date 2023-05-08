@@ -33,8 +33,6 @@
                 event.preventDefault();
                 $("#testItem").val(null);
 
-                //check if testTube_id & labTestCatName is already exist or not
-
                 //get all labTestCatName value by class name labTestCatName
                 let testTube_id = $('.testTube_id').map(function() {
                     return $(this).val();

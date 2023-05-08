@@ -98,38 +98,46 @@
         $today = new Datetime(date('m.d.y'));
         $diff = $today->diff($bday);
     @endphp
-    @foreach ($categoryWiseData->labTestDetails as $labTest)
-        <div id="invoice-Body">
-            <div id="bot">
-                <div class="bot-body" style="transform: scale(0.8); margin-top: 5px;">
-                    @php
-                        echo DNS1D::getBarcodeHTML(strval($labTest->id), 'C128');
-                    @endphp
-                    <p style="font-size: 14px; text-align:center;font-weight:bolder; margin-top:5px;">{{ $labTest->id }}
-                    </p>
-                    <div class="text" style=" text-align:center;">
-                        <p>
-                            {{ $labInvoice->patient->name }} <span style="margin-left: 8px;">{{ $diff->y }} Y /
-                                {{ substr(optional($labInvoice->patient)->gender ?? '-', 0, 1) }} </span>
-                        </p>
-                        <p>
-                            {{ $labTest->testName->name }}
-                        </p>
-                        <p>
-                            {{ date('d-m-y h:i A') }} <span
-                                style="margin-left: 8px;">MRD:{{ $labInvoice->invoice_no }}</span>
-                        </p>
-                        <p>
-                            {{ $labInvoice->patient->name }}
-                        </p>
-                    </div>
-                </div>
+    @foreach ($printData as $key => $details)
+        @foreach ($details as $index => $testData)
+            {{-- @dd(implode(",",$testData), $key) --}}
 
-                <!--End Table-->
+            <div id="invoice-Body">
+                <div id="bot">
+                    <div class="bot-body" style="transform: scale(0.8); margin-top: 5px;">
+                        @php
+                            echo DNS1D::getBarcodeHTML(strval($labInvoice->id), 'C128');
+                        @endphp
+                        <p style="font-size: 14px; text-align:center;font-weight:bolder; margin-top:5px;">
+                            {{ $labInvoice->patient->patientId }}
+                        </p>
+                        <div class="text" style=" text-align:center;">
+                            <p>
+                                {{ $labInvoice->patient->name }} <span style="margin-left: 8px;">{{ $diff->y }} Y /
+                                    {{ substr(optional($labInvoice->patient)->gender ?? '-', 0, 1) }} </span>
+                            </p>
+                            <p>
+                                {{ implode(",",$testData) }}
+                            </p>
+                            <p>
+                                {{ date('d-m-y h:i A') }} <span
+                                    style="margin-left: 8px;">MRD:{{ $labInvoice->invoice_no }}</span>
+                            </p>
+                            <p>
+                                {{ $labInvoice->patient->name }}
+                            </p>
+                            <p>
+                                DEP: {{ $key}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!--End Table-->
+                </div>
+                <!--End InvoiceBot-->
             </div>
-            <!--End InvoiceBot-->
-        </div>
-        <div class="pagebreak"> </div>
+            <div class="pagebreak"> </div>
+        @endforeach
     @endforeach
 
     <!--End Invoice-->

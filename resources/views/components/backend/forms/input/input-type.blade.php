@@ -13,6 +13,7 @@
             $rplc = [' ', ' ', ' '];
             $upName = ucfirst(str_replace($str, $rplc, $name));
             $obj = new stdClass();
+            $obj->type = 'text';
             $obj->name = $name;
             $obj->id = $name;
             $obj->class = 'form-control';
@@ -26,6 +27,9 @@
             if (isset($placeholder)) {
                 $obj->placeholder = $placeholder;
             }
+            if (isset($type)) {
+                $obj->type = $type;
+            }
         @endphp
         {{ $label ?? $upName }}
         @isset($required)
@@ -33,7 +37,7 @@
         @endisset
     </label>
     {{-- input --}}
-    <input type="text" name="{{ $obj->name }}" class="{{ $obj->class }}" id="{{ $obj->id }}"
+    <input type="{{$obj->type}}" name="{{ $obj->name }}" class="{{ $obj->class }}" id="{{ $obj->id }}"
         @isset($number)
             min="0"
             step="0.01"

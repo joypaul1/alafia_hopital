@@ -47,11 +47,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <input type="hidden" name="patient_id" id="patient_Id">
-                                {{-- @include('components.backend.forms.input.input-type', [
-                                    'name' => 'patient',
-                                    'placeholder' => 'Enter Name Here ... ',
-                                    'required' => true,
-                                ]) --}}
+
                                 <label class="col-form-label" for="date">
                                     Patient
                                     <span class="text-danger">* </span>
@@ -86,7 +82,7 @@
                                     'message' => $errors->first('name'),
                                 ])
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 input-group">
                                 @include('components.backend.forms.select2.option', [
                                     'name' => 'doctor_id',
                                     'label' => 'Referred By',
