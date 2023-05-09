@@ -103,33 +103,34 @@
             {{-- @dd(implode(",",$testData), $key) --}}
 
             <div id="invoice-Body">
-                <div id="bot">
-                    <div class="bot-body" style="transform: scale(0.8); margin-top: 5px;">
+                <div id="bot" style="display: flex;align-items:flex-end;">
+                    <div class="bot-body" style="transform: scale(0.8); margin-top: 5px; width:90%;">
                         @php
                             echo DNS1D::getBarcodeHTML(strval($labInvoice->id), 'C128');
                         @endphp
                         <p style="font-size: 14px; text-align:center;font-weight:bolder; margin-top:5px;">
                             {{ $labInvoice->patient->patientId }}
                         </p>
-                        <div class="text" style=" text-align:center;">
-                            <p>
-                                {{ $labInvoice->patient->name }} <span style="margin-left: 8px;">{{ $diff->y }} Y /
-                                    {{ substr(optional($labInvoice->patient)->gender ?? '-', 0, 1) }} </span>
-                            </p>
-                            <p>
-                                {{ implode(",",$testData) }}
-                            </p>
-                            <p>
-                                {{ date('d-m-y h:i A') }} <span
-                                    style="margin-left: 8px;">IN:{{ $labInvoice->invoice_no }}</span>
-                            </p>
-                           
-                            <p>
-                                DEP: {{ $key}}
-                            </p>
+                        <div >
+                            <div class="text" style=" text-align:center; ">
+                                <p>
+                                    {{ $labInvoice->patient->name }} <span style="margin-left: 8px;">{{ $diff->y }} Y /
+                                        {{ substr(optional($labInvoice->patient)->gender ?? '-', 0, 1) }} </span>
+                                </p>
+                                <p>
+                                    {{ implode(",",$testData) }}
+                                </p>
+                                <p>
+                                    {{ date('d-m-y h:i A') }} <span
+                                        style="margin-left: 8px;">IN:{{ $labInvoice->invoice_no }}</span>
+                                </p>
+
+                            </div>
                         </div>
                     </div>
-
+                    <p style="transform:rotate(270deg); width:10%; text-align:center;">
+                        {{ $key}}
+                    </p>
                     <!--End Table-->
                 </div>
                 <!--End InvoiceBot-->
@@ -140,7 +141,7 @@
 
     <!--End Invoice-->
     <script>
-        window.print();
+        // window.print();
     </script>
 </body>
 

@@ -380,6 +380,7 @@
         });
         //get date of birth form age
         $(document).on('input', '#age', function(e) {
+            console.log(age);
             var today = new Date();
             var birthDate = new Date();
             birthDate.setFullYear(today.getFullYear() - $(this).val());
