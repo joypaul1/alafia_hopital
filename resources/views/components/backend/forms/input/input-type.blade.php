@@ -13,6 +13,8 @@
             $rplc = [' ', ' ', ' '];
             $upName = ucfirst(str_replace($str, $rplc, $name));
             $obj = new stdClass();
+            $obj->value = null;
+            $obj->number = false;
             $obj->type = 'text';
             $obj->name = $name;
             $obj->id = $name;
@@ -30,6 +32,12 @@
             if (isset($type)) {
                 $obj->type = $type;
             }
+            if (isset($number)) {
+                $obj->number = $number;
+            }
+            if (isset($value)) {
+                $obj->value = $value;
+            }
         @endphp
         {{ $label ?? $upName }}
         @isset($required)
@@ -37,16 +45,17 @@
         @endisset
     </label>
     {{-- input --}}
+    {{-- @dd($obj->number); --}}
+
     <input type="{{$obj->type}}" name="{{ $obj->name }}" class="{{ $obj->class }}" id="{{ $obj->id }}"
-        @isset($number)
+        {{-- @if($obj->number)
             min="0"
             step="0.01"
             title="amount"
             pattern="^\d+(?:\.\d{1,2})?$"
-        @endisset
+        @endif --}}
         placeholder="{{$obj->placeholder }}"
-        @isset($value)
-            value="{{ $value }}"
-        @endisset autocomplete="on"
+            value="{{ $obj->value }}"
+        autocomplete="on"
         @if (isset($required)) required @endif @if (isset($readonly)) readonly @endif>
 </div>
