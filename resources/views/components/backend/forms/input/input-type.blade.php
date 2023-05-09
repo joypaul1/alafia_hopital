@@ -24,7 +24,7 @@
                 $obj->class = $obj->class . ' ' . $class;
             }
             if (isset($id)) {
-                $obj->id = $obj->id . ' ' . $id;
+                $obj->id = $id;
             }
             if (isset($placeholder)) {
                 $obj->placeholder = $placeholder;
