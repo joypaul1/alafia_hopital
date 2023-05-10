@@ -76,7 +76,7 @@
                                     'value' => date('Y-m-d'),
                                     'placeholder' => 'Enter Name Here ... ',
                                     'required' => true,
-                                    'type' => 'date',
+                                    'inType' => 'date',
                                 ])
                                 @include('components.backend.forms.input.errorMessage', [
                                     'message' => $errors->first('name'),

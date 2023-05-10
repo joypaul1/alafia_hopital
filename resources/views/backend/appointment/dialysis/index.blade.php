@@ -118,7 +118,7 @@
                                 <div class="col-4">
                                     @include('components.backend.forms.input.input-type', [
                                         'name' => 'appointment_date',
-                                        'type' => 'date',
+                                        'inType' => 'date',
                                         'value' => date('Y-m-d'),
                                         'required' => true,
                                     ])
@@ -206,7 +206,7 @@
                                     ])
                                 </div>
 
-                                <div class="col-4">
+                                {{-- <div class="col-4">
                                     @include('components.backend.forms.input.input-type', [
                                         'name' => 'paid_amount',
                                         'value' => 0.0,
@@ -218,7 +218,7 @@
                                         'readonly' => true,
                                         'value' => 5000,
                                     ])
-                                </div>
+                                </div> --}}
                             </div>
 
 
@@ -291,7 +291,7 @@
                                 <div class="col-4">
                                     @include('components.backend.forms.input.input-type', [
                                         'name' => 'dob',
-                                        'type' => 'date',
+                                        'inType' => 'date',
                                         'id' => 'date_of_birth',
                                     ])
                                 </div>

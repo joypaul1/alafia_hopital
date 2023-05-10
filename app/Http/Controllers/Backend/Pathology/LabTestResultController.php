@@ -8,6 +8,7 @@ use App\Models\lab\LabInvoice;
 use App\Models\lab\LabInvoiceTestDetails;
 use App\Models\lab\LabTest;
 use App\Models\lab\LabTestReport;
+use App\Models\SiteConfig\BloodBank;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -47,7 +48,6 @@ class LabTestResultController extends Controller
             return view('backend.pathology.makeResult.fbs', compact('data', 'labTest'));
         }
 
-
         if ($labTest->category == 'Biochemistry') {
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
         }
@@ -80,6 +80,10 @@ class LabTestResultController extends Controller
         // Hematology
         if ($labTest->category == 'Hematology' && $labTest->name == 'CBC') {
             return view('backend.pathology.makeResult.cbc', compact('data', 'labTest', 'units'));
+        }
+        if ($labTest->category == 'Hematology' && $labTest->name == 'Blood Group Rh (D) Factor') {
+            $bloodGroup =  [['id' => 'A+', 'name' => 'A+'], ['id' => 'A-', 'name' => 'A-'], ['id' => 'B+', 'name' => 'B+'], ['id' => 'B-', 'name' => 'B-'], ['id' => 'AB+', 'name' => 'AB+'], ['id' => 'AB-', 'name' => 'AB-'], ['id' => 'O+', 'name' => 'O+'], ['id' => 'O-', 'name' => 'O-']];
+            return view('backend.pathology.makeResult.rhFactor', compact('data', 'labTest', 'bloodGroup'));
         }
         if ($labTest->category == 'Hematology') {
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
@@ -267,7 +271,6 @@ class LabTestResultController extends Controller
                 ->with('labInvoiceTestDetails.labInvoice', 'patient', 'testName')->first();
         }
         // start Biochemistry
-
         if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'Fasting Blood Sugar (FBS)') {
             return view('backend.pathology.viewResult.fbs', compact('labTestReport'));
         }
@@ -277,10 +280,14 @@ class LabTestResultController extends Controller
         if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'Blood Glucose 2 Hrs. AFB') {
             return view('backend.pathology.viewResult.fbs', compact('labTestReport'));
         }
+        if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'Blood Group Rh (D) Factor') {
+            return view('backend.pathology.viewResult.rhFactor', compact('labTestReport'));
+        }
 
         if ($labTestReport->testName->category == 'Biochemistry') {
             return view('backend.pathology.viewResult.show', compact('labTestReport'));
         }
+
 
         // end Biochemistry
 

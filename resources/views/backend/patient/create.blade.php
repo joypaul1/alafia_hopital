@@ -59,7 +59,7 @@
                     <div class="col-4">
                         @include('components.backend.forms.input.input-type', [
                         'name' => 'dob',
-                        'type' => 'date',
+                        'inType' => 'date',
                         'id' => 'date_of_birth',
                         ])
                     </div>

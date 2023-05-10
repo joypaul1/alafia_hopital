@@ -94,7 +94,7 @@ class StoreRequest extends FormRequest
         try {
             DB::beginTransaction();
             if($this->hasFile('userProfileImage')){
-                $image =  (new Image)->dirName('category')->file($this->userProfileImage)
+                $image =  (new Image)->dirName('doctor')->file($this->userProfileImage)
                 ->resizeImage(250, 250)
                 ->save();
                 $docData['image'] = $image;
@@ -131,12 +131,12 @@ class StoreRequest extends FormRequest
             }
            // doctor auth login query
             $admin  =Admin::updateOrCreate([
-                'email' => $this->login_email,
-                'mobile' => $this->mobile,
+                'email'     =>  $this->login_email,
+                'mobile'    => $this->mobile,
             ],[
-                'name' => $this->first_name,
-                'password' => Hash::make($this->password),
-                'role_id' => $this->role_id,
+                'name'      => $this->first_name,
+                'password'  => Hash::make($this->password),
+                'role_id'   => $this->role_id,
             ]);
             // dd($admin);
 

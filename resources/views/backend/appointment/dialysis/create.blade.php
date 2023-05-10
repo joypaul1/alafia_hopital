@@ -30,7 +30,7 @@
                 <div class="col-3">
                     @include('components.backend.forms.input.input-type', [
                         'name' => 'Appointment Date',
-                        'type' => 'date',
+                        'inType' => 'date',
                     ])
                 </div>
                 <div class="col-3">
@@ -90,7 +90,7 @@
                     ])
                 </div>
 
-                <div class="col-4">
+                {{-- <div class="col-4">
                     @include('components.backend.forms.input.input-type', [
                         'name' => 'paid_amount',
                         'value' => 0.00,
@@ -102,7 +102,7 @@
                         'readonly' => true,
                         'value' => 0.00,
                     ])
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
