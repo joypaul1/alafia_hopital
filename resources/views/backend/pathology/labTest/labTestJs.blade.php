@@ -67,7 +67,7 @@
                     tubeAppendFlag = true;
                 }
 
-                console.log(tubeAppendFlag, labTestCatName.length);
+                // console.log(tubeAppendFlag, labTestCatName.length);
                 // labTest data append in table also added table row discount_type dropdown & discount & discount_amount with html event attribute
                 let row = `<tr>
                                 <td>
@@ -104,14 +104,46 @@
                             </tr>`;
 
                 $('#labTestAppend').last().after(row);
-                if ((ui.item.label).toString() == "Fasting Blood Sugar (FBS)" ||
-                    (ui.item.label).toString() == "Blood Glucose 2 Hrs. AFB" ||
-                    (ui.item.label).toString() == "Blood Glucose 2 Hrs. After 75gm Glucose") {
+                if ((ui.item.label).toString() == "Fasting Blood Sugar (FBS)" ) {
                     let row = `<tr>
                                 <td>
                                     <input type="hidden" class="labTest_id"  name="labTest_id[]" value="319">
                                     <input type="hidden" class="labTestCatName"  value="Biochemistry">
                                     CUS
+                                </td>
+                                <td>
+                                    <input type="text" name="test_price[]" value="${120}" class="form-control test_price text-right"readonly>
+                                </td>
+                                <td>
+                                    <select name="discount_type[]" class="form-control discount_type" onChange=>"discount_type()">
+                                        <option value="${null}" hidden><-- Discount --> </option>
+                                        <option value="fixed">Fixed</option>
+                                        <option value="percentage" selected >Percentage</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" name="discount[]" class="form-control discount text-right" >
+                                </td>
+                                <td>
+                                    <input type="text" name="discount_amount[]" class="form-control discount_amount text-right" value="0" readonly>
+                                </td>
+                                <td>
+                                    <input type="text" name="subtotal[]"
+                                    value="${120}" class="form-control subtotal text-right"readonly>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm removeLabTest"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>`;
+
+                    $('#labTestAppend').last().after(row);
+                }
+                if ((ui.item.label).toString() == "Blood Glucose 2 Hrs. AFB" ||(ui.item.label).toString() == "Blood Glucose 2 Hrs. After 75gm Glucose") {
+                    let row = `<tr>
+                                <td>
+                                    <input type="hidden" class="labTest_id"  name="labTest_id[]" value="320">
+                                    <input type="hidden" class="labTestCatName"  value="Biochemistry">
+                                    CUS (2Hours)
                                 </td>
                                 <td>
                                     <input type="text" name="test_price[]" value="${120}" class="form-control test_price text-right"readonly>

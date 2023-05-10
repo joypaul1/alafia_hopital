@@ -61,7 +61,7 @@ class LabTestResultController extends Controller
         if ($labTest->category == 'Serology' &&  $labTest->name == 'Widal Test') {
             return view('backend.pathology.makeResult.serology.widal_test', compact('data', 'labTest'));
         }
-        
+
         if ($labTest->category == 'Serology') {
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
         }
@@ -81,8 +81,8 @@ class LabTestResultController extends Controller
             return view('backend.pathology.makeResult.cbc', compact('data', 'labTest', 'units'));
         }
         if ($labTest->category == 'Hematology' && $labTest->name == 'Blood Group Rh (D) Factor') {
-            $bloodGroup =  [['id' => 'A+', 'name' => 'A+'], ['id' => 'A-', 'name' => 'A-'], ['id' => 'B+', 'name' => 'B+'], ['id' => 'B-', 'name' => 'B-'], ['id' => 'AB+', 'name' => 'AB+'], ['id' => 'AB-', 'name' => 'AB-'], ['id' => 'O+', 'name' => 'O+'], ['id' => 'O-', 'name' => 'O-']];
-            return view('backend.pathology.makeResult.rhFactor', compact('data', 'labTest', 'bloodGroup'));
+            // $bloodGroup =  [['id' => 'A+', 'name' => 'A+'], ['id' => 'A-', 'name' => 'A-'], ['id' => 'B+', 'name' => 'B+'], ['id' => 'B-', 'name' => 'B-'], ['id' => 'AB+', 'name' => 'AB+'], ['id' => 'AB-', 'name' => 'AB-'], ['id' => 'O+', 'name' => 'O+'], ['id' => 'O-', 'name' => 'O-']];
+            return view('backend.pathology.makeResult.rhFactor', compact('data', 'labTest'));
         }
         if ($labTest->category == 'Hematology') {
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));

@@ -1,6 +1,4 @@
 @extends('backend.layout.app')
-
-
 @section('page-header')
     <i class="fa fa-list"></i> Lab Test Create
 @stop
@@ -244,10 +242,7 @@
             return $('#date_of_birth').val(birthDate.toISOString().slice(0, 10));
         });
 
-
-
-
-        // $('.appointment_modal #appointment_add_form .modal-body .col-4 #doctor_fees')
+        //get patient info
         $(document).on('click', '#create_patient', function(e) {
             e.preventDefault();
             var modal = "#patient_modal";
@@ -265,6 +260,7 @@
             });
         });
 
+        //store patient info
         $(document).on('submit', '#patient_add_form', function(e) {
             e.preventDefault();
             var form = $(this);

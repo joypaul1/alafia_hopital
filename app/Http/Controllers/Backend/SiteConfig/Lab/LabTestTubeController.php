@@ -73,7 +73,6 @@ class LabTestTubeController extends Controller
      */
     public function create()
     {
-        // $type = ServiceType::select(['id', 'name'])->get();
         return view('backend.siteConfig.labTestTube.create');
     }
 

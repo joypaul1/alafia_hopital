@@ -118,18 +118,35 @@ class StoreRequest extends FormRequest
 
                 }
                 //end delivery time set
-                // dd($this->all());
-                $labInvoice->labTestDetails()->create([
-                    'status' => 'pending',
-                    'lab_test_id' => $labTest->id,
-                    'price' => $this->test_price[$key],
-                    'delivery_time' => $deliveryTime,
-                    'discount_type' =>$this->discount_type[$key],
-                    'discount' =>$this->discount[$key],
-                    'discount_amount' =>$this->discount_amount[$key],
-                    'subtotal' =>$this->subtotal[$key],
-                ]);
+
+                if($labTest->id ==319 || $labTest->id== 320){
+                    $labInvoice->labTestDetails()->create([
+                        'status' => 'pending',
+                        'lab_test_id' => $labTest->id,
+                        'price' => $this->test_price[$key],
+                        'delivery_time' => $deliveryTime,
+                        'discount_type' =>$this->discount_type[$key],
+                        'discount' =>$this->discount[$key],
+                        'discount_amount' =>$this->discount_amount[$key],
+                        'subtotal' =>$this->subtotal[$key],
+                        'show_status' => 0
+                    ]);
+                }else{
+                    $labInvoice->labTestDetails()->create([
+                        'status' => 'pending',
+                        'lab_test_id' => $labTest->id,
+                        'price' => $this->test_price[$key],
+                        'delivery_time' => $deliveryTime,
+                        'discount_type' =>$this->discount_type[$key],
+                        'discount' =>$this->discount[$key],
+                        'discount_amount' =>$this->discount_amount[$key],
+                        'subtotal' =>$this->subtotal[$key],
+                        'show_status' => 1
+
+                    ]);
+                }
             }
+
             if($this->testTube_id ){
                 // hasMany labTestTube data insert
                 foreach ($this->testTube_id as $key => $testTube) {

@@ -23,17 +23,16 @@
                             'value' => 'Blood Group',
                             'required' => true,
                             'readonly' => true,
-
                         ])
                     </div>
                     <div class="col-4">
-                        @include('components.backend.forms.select2.option', [
+                        @include('components.backend.forms.input.input-type', [
                             'label' => 'blood Group',
                             'name' => 'result[]',
-                            'optionData' => $bloodGroup,
                             'required' => true,
                         ])
                     </div>
+
                     <div class="col-4"></div>
                     <div class="col-4">
                         @include('components.backend.forms.input.input-type', [
