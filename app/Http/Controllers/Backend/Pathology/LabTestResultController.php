@@ -61,8 +61,7 @@ class LabTestResultController extends Controller
         if ($labTest->category == 'Serology' &&  $labTest->name == 'Widal Test') {
             return view('backend.pathology.makeResult.serology.widal_test', compact('data', 'labTest'));
         }
-
-
+        
         if ($labTest->category == 'Serology') {
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
         }

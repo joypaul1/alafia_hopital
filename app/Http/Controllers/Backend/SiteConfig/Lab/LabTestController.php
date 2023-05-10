@@ -27,11 +27,10 @@ class LabTestController extends Controller
             return response()->json(['data' => $data]);
         }
         if($request->labTest_id){
-            // dd($request->labTest_id);
             $data = LabTest::where('id',$request->labTest_id)->select(['id', 'name','category', 'status', 'price', 'glucose', 'pot','needle','lab_test_tube_id'])->with('tube:id,name,price')->first();
             return response()->json(['data' => $data]);
         }
-        $data = LabTest::select(['id', 'name', 'status', 'price', 'lab_test_tube_id','category', 'time', 'time_type'])->latest();
+        $data = LabTest::select(['id', 'name', 'status', 'price', 'lab_test_tube_id','category', 'time','short_name', 'time_type'])->latest();
         if ($request->status) {
             $data = $data->active();
         } elseif ($request->status == '0') {
@@ -75,7 +74,6 @@ class LabTestController extends Controller
                 ->make(true);
             // ->json();
         }
-        // $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
         return view('backend.siteConfig.labTest.index');
     }
 
@@ -130,10 +128,8 @@ class LabTestController extends Controller
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('LabTest Created');
             return redirect()->route('backend.siteConfig.labTest.index')->with('success', $returnData->getData()->msg);
-            // return response()->json(['success' => $returnData->getData()->msg, 'status' => true], 200);
         }
         return redirect()->back()->with('error', $returnData->getData()->msg);
-        // return response()->json(['error' => $returnData->getData()->msg, 'status' => false], 400);
     }
 
     /**

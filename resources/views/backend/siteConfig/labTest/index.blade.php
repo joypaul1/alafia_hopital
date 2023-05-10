@@ -11,10 +11,10 @@
     @include('backend._partials.page_header')
 
     <div class="row">
-        <div class="col-3">
+        <div class="col-2">
             @include('backend.siteConfig.labTest.sidebar')
         </div>
-        <div class="col-9">
+        <div class="col-10">
             <div class="card">
                 <div class="body">
                     <div class="d-flex justify-content-between aling-items-center mb-4">
@@ -30,12 +30,13 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">Sl.</th>
+                                    <th class="text-center">Action</th>
                                     <th class="text-center">Name</th>
+                                    <th class="text-center">BarCode Name</th>
                                     <th class="text-center">Tube </th>
                                     <th class="text-center">Department</th>
                                     <th class="text-center">Price</th>
                                     <th class="text-center">Delivery Time</th>
-                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
 
@@ -77,7 +78,7 @@
                 serverSide: true,
                 destroy: true,
                 pagingType: 'numbers',
-                pageLength: 10,
+                pageLength: 50,
                 ajax: "{{ route('backend.siteConfig.labTest.index') }}",
                 ajax: {
                     method: 'GET',
@@ -86,12 +87,24 @@
                         d.status = $('select#status').val() || true;
                     },
                 },
-                columns: [{
+                columns: [
+                {
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
-                }, {
+                },
+                {
+                data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+                {
                     data: 'name',
                     name: 'name',
+                    "className": "text-center"
+                }, {
+                    data: 'short_name',
+                    name: 'short_name',
                     "className": "text-center"
                 }, {
                     data: 'lab_test_tube_id',
@@ -112,12 +125,8 @@
                     data: 'delivery_time',
                     name: 'delivery_time',
                     className: "text-center",
-                },  {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false
-                }]
+                }
+                ]
             });
         });
 
