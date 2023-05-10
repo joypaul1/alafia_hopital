@@ -418,14 +418,14 @@
         //get date of birth form age
         $(document).on('input', '#age', function(e) {
             var today = new Date();
-            var birthDate = new Date();
-            birthDate.setFullYear(today.getFullYear() - $(this).val());
+            var birthDate = new Date(today.getFullYear() - $(this).val(), today.getMonth(), today.getDate());
+            var age = today.getFullYear() - birthDate.getFullYear();
             var m = today.getMonth() - birthDate.getMonth();
             if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                birthDate.setFullYear(birthDate.getFullYear() - 1);
+                age--;
             }
-            if (isNaN(birthDate) || birthDate < 0) {
-                birthDate = 0;
+            if (isNaN(age) || age < 0) {
+                age = 0;
             }
             return $('#date_of_birth').val(birthDate.toISOString().slice(0, 10));
 
