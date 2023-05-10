@@ -94,7 +94,10 @@
                                         ])
                                     </div>
                                     <div class="col-3">
-                                        <button class="btn btn-info" data-toggle="modal" data-target="#patient_modal">
+                                        {{-- <button class="btn btn-info" data-toggle="modal" data-target="#patient_modal">
+                                            New Patient
+                                        </button> --}}
+                                        <button class="btn btn-info" data-href="{{ route('backend.patient.create') }}" id="create_patient">
                                             New Patient
                                         </button>
                                     </div>
@@ -233,132 +236,12 @@
         </div>
     </div>
     {{-- Patient modal --}}
-    <div class="modal fade patient_modal" id="patient_modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role=" document">
-            <div class="modal-content">
-                <form class="needs-validation" id="patient_add_form" enctype="multipart/form-data">
-                    @method('POST')
-                    @csrf
-                    <div class="modal-header">
-                        <h4 class="title" id="">New Patient</h4>
-                    </div>
+        {{-- Patient modal --}}
+        <div class="modal fade patient_modal" id="patient_modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role=" document">
 
-                    <div class="modal-body">
-                        <div class="form-validation">
-                            <div class="row">
-                                <div class="col-4">
-                                    @include('components.backend.forms.input.input-type', [
-                                        'name' => 'name',
-                                        'required' => 'true',
-                                        'placeholder' => 'Enter Name',
-                                    ])
-
-                                </div>
-
-                                <div class="col-4">
-                                    @include('components.backend.forms.input.input-type', [
-                                        'name' => 'mobile',
-                                        'required' => 'true',
-                                        'number' => true,
-                                        'placeholder' => 'Enter Mobile',
-                                    ])
-                                </div>
-                                <div class="col-4">
-                                    @include('components.backend.forms.input.input-type', [
-                                        'name' => 'email',
-                                        'placeholder' => 'Enter Email',
-                                    ])
-                                </div>
-                                <div class="col-4">
-                                    @include('components.backend.forms.input.input-type', [
-                                        'name' => 'emargency_contact',
-                                        'placeholder' => 'Enter Emargency Contact',
-                                    ])
-                                </div>
-                                <div class="col-4">
-                                    @include('components.backend.forms.input.input-type', [
-                                        'name' => 'guardian_name',
-                                        'placeholder' => 'Enter Guardian Name',
-                                    ])
-                                </div>
-                                <div class="col-4">
-                                    @include('components.backend.forms.select2.option', [
-                                        'name' => 'gender',
-                                        'optionData' => $genders,
-                                    ])
-                                </div>
-
-                                <div class="col-4">
-                                    @include('components.backend.forms.input.input-type', [
-                                        'name' => 'dob',
-                                        'inType' => 'date',
-                                        'id' => 'date_of_birth',
-                                    ])
-                                </div>
-                                {{-- <div class="col-4">
-                                @include('components.backend.forms.input.input-type', [
-                                    'name' => 'Age ',
-                                    'readonly' => 'true',
-                                    'id' => 'age',
-                                ])
-                            </div>
-                            <div class="col-4">
-                                @include('components.backend.forms.select2.option', [
-                                    'name' => 'symptoms_type',
-                                    'optionData' => [],
-                                    'required' => 'true',
-                                ])
-                            </div> --}}
-                                <div class="col-4">
-                                    @include('components.backend.forms.select2.option', [
-                                        'name' => 'blood_group',
-                                        'optionData' => $blood_group,
-                                    ])
-                                </div>
-                                <div class="col-4">
-                                    @include('components.backend.forms.select2.option', [
-                                        'name' => 'marital_status',
-                                        'optionData' => $marital_status,
-                                    ])
-                                </div>
-                                <div class="col-4">
-                                    @include('components.backend.forms.input.input-type', [
-                                        'name' => 'address',
-                                        'placeholder' => 'Enter Address',
-                                    ])
-                                </div>
-                                {{-- <div class="col-4">
-                                @include('components.backend.forms.input.input-type', [
-                                    'name' => 'any_known_allergies',
-                                    'placeholder' => 'Enter Any Known Allergies'
-                                ])
-                            </div> --}}
-                                {{-- <div class="col-4">
-                                @include('components.backend.forms.input.input-type', [
-                                    'name' => 'Weight',
-                                    'placeholder' => 'Enter Weight'
-                                ])
-                            </div>
-                            <div class="col-4">
-                                @include('components.backend.forms.input.input-type', [
-                                    'name' => 'Blood Pressure',
-                                    'placeholder' => 'Ex: 120/80'
-                                ])
-                            </div> --}}
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
-                        <button type="submit" class="btn btn-primary">SAVE</button>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
-
 @endsection
 
 @push('js')
@@ -418,6 +301,23 @@
 
 
             }
+        });
+         // create_patient modal
+         $(document).on('click', '#create_patient', function(e) {
+            e.preventDefault();
+            var modal = ".patient_modal";
+            var href = $(this).data('href');
+            // AJAX request
+            $.ajax({
+                url: href,
+                type: 'GET',
+                dataType: "html",
+                success: function(response) {
+                    $(modal).modal('show');
+                    $(modal).find('.modal-dialog').html('');
+                    $(modal).find('.modal-dialog').html(response); // Add response in Modal body
+                }
+            });
         });
 
         $(document).on('change', '.appointment_modal #appointment_add_form .modal-body .col-4 #discount_type', function() {
