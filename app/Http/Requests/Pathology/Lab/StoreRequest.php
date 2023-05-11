@@ -88,6 +88,7 @@ class StoreRequest extends FormRequest
                     'qty'       => 1.00,
                     'service_price' => $this['price'][$key],
                     'subtotal'  => $this['price'][$key],
+                    'status'  => 'pending',
                 ]);
 
             }

@@ -26,7 +26,7 @@ class RadiologyServiceInvoiceController extends Controller
             $labInvoices = $labInvoices->where('invoice_no', $request->invoice_no);
         }
         if ($request->status) {
-            $labInvoices = $labInvoices->where('status', $request->status);
+            $labInvoices = $labInvoices->where('payment_status', $request->status);
         }
         if ($request->start_date) {
             $labInvoices = $labInvoices->whereDate('date', '>=', date('Y-m-d', strtotime($request->start_date)));
@@ -38,21 +38,13 @@ class RadiologyServiceInvoiceController extends Controller
         } else {
             $labInvoices = $labInvoices->whereDate('date', '>=', date('Y-m-d'));
         }
-        $labInvoices =  $labInvoices->with('labTestDetails.testName:id,name,category', 'labTestDetails.viewResult', 'patient:id,name')->latest()->get();
+        $labInvoices =  $labInvoices->with('itemDetails.serviceName:id,name','patient:id,name')->latest()->get();
         // dd($request->status);
         // $status =  (object)[['name' => 'collection', 'id' => 'collection'], ['name' => 'Inactive', 'id' => 0]];
         // if ($request->status) {
         //     return view('backend.radiology.labTest.' . $request->status, compact('labInvoices'));
         // }
         return view('backend.radiology.index', compact('labInvoices'));
-    }
-    public function getSlotNumber()
-    {
-        if (!LabInvoice::latest()->whereDate('date', date('Y-m-d'))->first()->slot_number) {
-            return 1;
-        } else {
-            return LabInvoice::latest()->first()->slot_number + 1;
-        }
     }
 
 
@@ -104,8 +96,13 @@ class RadiologyServiceInvoiceController extends Controller
      */
     public function show($id)
     {
-        $radiologyServiceInvoice= RadiologyServiceInvoice::whereId($id)->with('itemDetails.serviceName:id,name')->first();
+        $radiologyServiceInvoice= RadiologyServiceInvoice::whereId($id)->with('itemDetails.serviceName:id,name', 'patient')->first();
         return view('backend.radiology.moneyReceipt', compact('radiologyServiceInvoice'));
+    }
+
+    public function makeResult($id)
+    {
+        dd($id);
     }
 
     /**

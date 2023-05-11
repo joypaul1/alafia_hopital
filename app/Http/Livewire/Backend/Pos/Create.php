@@ -87,6 +87,7 @@ class Create extends Component
                     'qty'       => $cartItem['qty'],
                     'service_price' => $cartItem['service_price'],
                     'subtotal'  => $cartItem['subtotal'],
+                    'subtotal'  => $cartItem['subtotal'],
                 ]);
 
             }

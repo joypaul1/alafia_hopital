@@ -17,9 +17,6 @@
             background: #03045e
         }
 
-        /* nav {
-                                                    font-family: monospace;
-                                                } */
 
         .dropdown_hover ul {
             /* background: darkorange; */
@@ -168,11 +165,9 @@
                                     <th class="text-center">Invoice No.</th>
                                     <th class="text-center">Created Date </th>
                                     <th class="text-center">P-Name</th>
-                                    <th class="text-center">View Test</th>
-                                    <th class="text-center">Print Bar Code</th>
                                     <th class="text-center">Make Result</th>
                                     <th class="text-center">View Result </th>
-                                    <th class="text-center">Print Result </th>
+                                    <th class="text-center">Action </th>
                                 </tr>
                             </thead>
 
@@ -191,31 +186,18 @@
                                                         aria-hidden="true"></i></button>
                                             </a>
                                         </td>
-                                        <td>
-                                            <a href="{{ route('backend.pathology.printTest', $labInvoice) }}"
-                                                target="_blank">
-                                                <button class="btn btn-info"><i class="fa fa-eye"
-                                                        aria-hidden="true"></i></button>
-                                            </a>
 
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('backend.pathology.printBarCode', $labInvoice) }}"
-                                                target="_blank">
-                                                <button class="btn btn-warning"><i class="fa fa-print"
-                                                        aria-hidden="true"></i></button>
-                                            </a>
-                                        </td>
                                         <td>
                                             <div class="dropdown_hover incom_color">
                                                 <ul>
 
                                                     <li><a href="#" aria-haspopup="true">InComplete Test</a>
                                                         <ul class="dropdown" aria-label="submenu">
-                                                            @foreach ($labInvoice->labTestDetails->where('status', '!=', 'completed') as $labTestDetails)
-                                                                <li><a target="_blank"
-                                                                        href="{{ route('backend.pathology.make-test-result', ['labTest_id' => $labTestDetails->lab_test_id, 'labDetails_id' => $labTestDetails->id]) }}">
-                                                                        {{ $labTestDetails->testName->name }}</a>
+                                                            @foreach ($labInvoice->itemDetails->where('status', '!=', 'completed') as $labTestDetails)
+                                                                <li>
+                                                                    <a target="_blank"
+                                                                        href="{{ route('backend.radiologyServiceInvoice.make-test-result', ['id' => $labTestDetails->id]) }}">
+                                                                        {{ $labTestDetails->serviceName->name }}</a>
                                                                 </li>
                                                             @endforeach
 
@@ -232,11 +214,11 @@
                                                 <ul>
                                                     <li><a href="#" aria-haspopup="true">Complete Test</a>
                                                         <ul class="dropdown" aria-label="submenu">
-                                                            @foreach ($labInvoice->labTestDetails->where('status', 'completed') as $labTestDetails)
+                                                            @foreach ($labInvoice->itemDetails->where('status', 'completed') as $labTestDetails)
                                                                 <li>
                                                                     <a target="_blank"
-                                                                        href="{{ route('backend.pathology.make-test-result-show', ['labTest_id' => $labTestDetails->lab_test_id, 'labDetails_id' => $labTestDetails->id]) }}">
-                                                                        {{ $labTestDetails->testName->name }}</a>
+                                                                        href="{{ route('backend.radiologyServiceInvoice.make-test-result-show', ['id' => $labTestDetails->id]) }}">
+                                                                        {{ $labTestDetails->serviceName->name }}</a>
                                                                 </li>
                                                             @endforeach
 
@@ -248,6 +230,14 @@
 
                                         </td>
                                         <td>
+                                            <a target="_blank"
+                                                href="{{ route('backend.radiologyServiceInvoice.show', $labInvoice->id) }}"
+                                                target="_blank">
+                                                <button class="btn btn-success"><i class="fa fa-eye"
+                                                        aria-hidden="true"></i></button>
+                                            </a>
+                                        </td>
+                                        {{-- <td>
                                             @php
                                                 $categoryData = $labInvoice->labTestDetails
                                                     ->pluck('testName.category')
@@ -261,7 +251,7 @@
                                             @endforeach
 
                                             </a>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
 
