@@ -361,8 +361,11 @@
                                     name="Disease Symptom Config" link='backend.siteConfig.symptom.index' icon='#' />
                                 <x-backend.side-bar
                                     class="{{ request()->segment(3) == 'serviceName' ? 'active' : ' ' }}"
-                                    name="Dialysis Service Con." link='backend.siteConfig.serviceName.index'
+                                    name="Dialysis Service Config" link='backend.siteConfig.serviceName.index'
                                     icon='#' />
+                                <x-backend.side-bar class="{{ request()->segment(3) == 'labTest' ? 'active' : ' ' }}"
+                                    name="Lab Test Config" link='backend.siteConfig.labTest.index' icon='#' />
+
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'labTest' ? 'active' : ' ' }}"
                                     name="Lab Test Config" link='backend.siteConfig.labTest.index' icon='#' />
                                 <x-backend.side-bar

@@ -15,8 +15,9 @@ use App\Http\Controllers\Backend\SiteConfig\BannerController;
 use App\Http\Controllers\Backend\SiteConfig\Blood\BloodBankController;
 use App\Http\Controllers\Backend\SiteConfig\Blood\BloodBankTypeController;
 use App\Http\Controllers\Backend\SiteConfig\EmailConfigurationController;
-use App\Http\Controllers\Backend\SiteConfig\MetatagController;
+use App\Http\Controllers\Backend\SiteConfig\MetaTagController;
 use App\Http\Controllers\Backend\SiteConfig\QuickPageController;
+use App\Http\Controllers\Backend\SiteConfig\Service\RadiologyController;
 use App\Http\Controllers\Backend\SiteConfig\Service\ServiceNameController;
 use App\Http\Controllers\Backend\SiteConfig\Service\ServiceTypeController;
 use App\Http\Controllers\Backend\SiteConfig\SiteInfoController;
@@ -31,7 +32,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'admin', 'prefix' => 'admin/site-config', 'as' => 'backend.siteConfig.'], function () {
 
     // site-config
-    Route::get('/', [SiteInfoController::class, 'index'])->name('index');;
+    Route::get('/', [SiteInfoController::class, 'index'])->name('index');
+
     Route::POST('/update', [SiteInfoController::class, 'update'])->name('update');
 
     // socialMedia
@@ -48,7 +50,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin/site-config', 'as' => 
     Route::resource('email-configuration', EmailConfigurationController::class);
 
     // Meta-tag-Configuration
-    Route::resource('meta-tag', MetatagController::class);
+    Route::resource('meta-tag', MetaTagController::class);
 
     // Barcode-method
     Route::resource('barcode-method', BarcodeController::class);
@@ -64,7 +66,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin/site-config', 'as' => 
     //bedGroup
     Route::resource('bedGroup', BedGroupController::class);
 
-    //bedtype
+    //bedType
     Route::resource('bedType', BedTypeController::class);
 
     //floor
@@ -76,7 +78,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin/site-config', 'as' => 
     //bedWard
     Route::resource('bedWard', BedWardController::class);
 
-    //symptomstye
+    //symptomsType
     Route::resource('symptomType', SymptomTypeController::class);
 
     //symptoms
@@ -88,14 +90,19 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin/site-config', 'as' => 
     //service
     Route::resource('serviceName', ServiceNameController::class);
 
+    //radiology
+    Route::resource('radiology', RadiologyController::class);
+
     //labTest
     Route::resource('labTest', LabTestController::class);
+
 
     //LabTestTube
     Route::resource('labTestTube', LabTestTubeController::class);
 
     //blood
     Route::resource('bloodBank', BloodBankController::class);
+
 
     //bloodType
     Route::resource('bloodBankType', BloodBankTypeController::class);

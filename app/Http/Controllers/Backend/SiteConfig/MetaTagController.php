@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\MetaTag;
 use Illuminate\Http\Request;
 
-class MetatagController extends Controller
+class MetaTagController extends Controller
 {
     public function index() {
 
