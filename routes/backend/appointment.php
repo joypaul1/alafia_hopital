@@ -21,7 +21,7 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], f
 Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], function(){
     Route::resource('radiologyServiceInvoice', RadiologyServiceInvoiceController::class);
     Route::get('radiologyServiceInvoice/make-test-result/{id}', [RadiologyServiceInvoiceController::class, 'makeResult'])->name('radiologyServiceInvoice.make-test-result');
-    Route::post('radiologyServiceInvoice/make-test-result-store', [RadiologyServiceInvoiceController::class, 'storeResult'])->name('radiologyServiceInvoice.make-test-result-store');
+    Route::post('radiologyServiceInvoice/make-test-result-store/{id}', [RadiologyServiceInvoiceController::class, 'storeResult'])->name('radiologyServiceInvoice.make-test-result-store');
     Route::get('radiologyServiceInvoice/make-test-result-show/{id}', [RadiologyServiceInvoiceController::class, 'showResult'])->name('radiologyServiceInvoice.make-test-result-show');
 });
 

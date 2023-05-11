@@ -11,6 +11,7 @@ use App\Models\Doctor\Doctor;
 use App\Models\lab\LabInvoice;
 use App\Models\PaymentSystem;
 use App\Models\Radiology\RadiologyServiceInvoice;
+use App\Models\Radiology\RadiologyServiceInvoiceItem;
 
 class RadiologyServiceInvoiceController extends Controller
 {
@@ -102,7 +103,32 @@ class RadiologyServiceInvoiceController extends Controller
 
     public function makeResult($id)
     {
-        dd($id);
+        $radiologyServiceInvoiceItem= RadiologyServiceInvoiceItem::whereId($id)->with('serviceName','serviceInvoice')->first();
+
+        return view('backend.radiology.makeResult.create', compact('radiologyServiceInvoiceItem'));
+
+    }
+    public function storeResult(Request $request, $id)
+    {
+          $radiologyServiceInvoiceItem= RadiologyServiceInvoiceItem::whereId($id)->first();
+        try {
+            $radiologyServiceInvoiceItem->update([
+                'result' => $request->result,
+                'status' => 'completed',
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+        return redirect()->route('backend.radiologyServiceInvoice.make-test-result-show', $radiologyServiceInvoiceItem->id);
+
+    }
+    public function showResult( $id)
+    {
+        $radiologyServiceInvoiceItem= RadiologyServiceInvoiceItem::whereId($id)->with('serviceName')->first();
+
+        return view('backend.radiology.makeResult.show', compact('radiologyServiceInvoiceItem'));
+
+
     }
 
     /**
@@ -113,7 +139,7 @@ class RadiologyServiceInvoiceController extends Controller
      */
     public function edit($id)
     {
-        dd($id);
+
     }
 
     /**

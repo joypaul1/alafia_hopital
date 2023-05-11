@@ -16,4 +16,9 @@ class RadiologyServiceInvoiceItem extends Model
     {
         return $this->belongsTo(RadiologyServiceName::class, 'service_name_id', 'id');
     }
+
+    public function serviceInvoice()
+    {
+        return $this->belongsTo(RadiologyServiceInvoice::class, 'service_invoice_id', 'id');
+    }
 }
