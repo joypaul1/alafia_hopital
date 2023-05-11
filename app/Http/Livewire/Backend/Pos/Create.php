@@ -70,8 +70,8 @@ class Create extends Component
             DB::beginTransaction();
             //ServiceInvoice
             $serviceInvoice = ServiceInvoice::create([
-                'invoice_no'    => (new InvoiceNumber)->invoice_num($this->getInvoiceNumber()),
-                'patient_id'           => $this->userId,
+                'invoice_no'        => (new InvoiceNumber)->invoice_num($this->getInvoiceNumber()),
+                'patient_id'        => $this->userId,
                 'date'              => date('Y-m-d'),
                 'sub_total'         => $this->cartSubTotal,
                 'total'             => $this->cartTotal,

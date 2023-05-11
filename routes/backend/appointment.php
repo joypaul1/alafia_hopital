@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\Appointment\AppointmentController;
 use App\Http\Controllers\Backend\Appointment\DialysisAppointmentController;
+use App\Http\Controllers\Backend\Radiology\RadiologyServiceInvoiceController;
 use Illuminate\Support\Facades\Route;
 
 // Doctor appointment
@@ -14,6 +15,12 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], f
 Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], function(){
     Route::resource('dialysis-appointment', DialysisAppointmentController::class);
     Route::get('dialysis-service-invoice', [DialysisAppointmentController::class, 'serviceInvoice'])->name('dialysis.service.invoice');
+
+});
+// radiologyServiceInvoice
+Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], function(){
+    Route::resource('radiologyServiceInvoice', RadiologyServiceInvoiceController::class);
+    // Route::get('dialysis-service-invoice', [DialysisAppointmentController::class, 'serviceInvoice'])->name('dialysis.service.invoice');
 
 });
 

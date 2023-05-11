@@ -104,7 +104,7 @@
 
                         {{-- appointment Panel --}}
                         <li
-                            class="{{ strpos($strpos, 'backend.appointment') === 0 ? 'active' : ' ' }} {{ strpos($strpos, 'backend.dialysis-appointment') === 0 ? 'active' : ' ' }}">
+                            class="{{ strpos($strpos, 'backend.appointment') === 0 ? 'active' : ' ' }} ">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
                                 <span>Appointment Panel</span>
@@ -112,14 +112,55 @@
                             <ul>
                                 <x-backend.side-bar
                                     class="{{ request()->segment(2) == 'appointment' ? 'active' : ' ' }}"
-                                    name="Doctor Appoint." link='backend.appointment.index' icon='#' />
+                                    name="Appointment Create" link='backend.appointment.create' icon='#' />
                                 <x-backend.side-bar
-                                    class="{{ request()->segment(2) == 'dialysis-appointment' ? 'active' : ' ' }}"
-                                    name="Dialysis Appoint." link='backend.dialysis-appointment.index' icon='#' />
+                                    class="{{ request()->segment(2) == 'appointment' ? 'active' : ' ' }}"
+                                    name="Appointment List" link='backend.appointment.index' icon='#' />
+
+
 
                             </ul>
                         </li>
                         {{-- End appointment Panel --}}
+                        {{-- dialysis appointment Panel --}}
+                        <li
+                            class="{{ strpos($strpos, 'backend.dialysis-appointment') === 0 ? 'active' : ' ' }}">
+                            <a href="javascript:void(0)" class="has-arrow">
+                                <i class="icon-user-following"></i>
+                                <span>Dialysis Panel</span>
+                            </a>
+                            <ul>
+                                <x-backend.side-bar
+                                    class="{{ request()->segment(2) == 'dialysis-appointment.create' ? 'active' : ' ' }}"
+                                    name="Appointment Create" link='backend.dialysis-appointment.create' icon='#' />
+                                <x-backend.side-bar
+                                    class="{{ request()->segment(2) == 'dialysis-appointment.index' ? 'active' : ' ' }}"
+                                    name="Appointment List" link='backend.dialysis-appointment.index' icon='#' />
+
+
+                            </ul>
+                        </li>
+                        {{-- End dialysis appointment Panel --}}
+
+                        {{-- dialysis appointment Panel --}}
+                        <li
+                            class="{{ strpos($strpos, 'backend.radiologyServiceInvoice') === 0 ? 'active' : ' ' }}">
+                            <a href="javascript:void(0)" class="has-arrow">
+                                <i class="icon-user-following"></i>
+                                <span>Radiology Panel</span>
+                            </a>
+                            <ul>
+                                <x-backend.side-bar
+                                    class="{{ request()->segment(2) == 'radiologyServiceInvoice.create' ? 'active' : ' ' }}"
+                                    name="Invoice Create" link='backend.radiologyServiceInvoice.create' icon='#' />
+                                <x-backend.side-bar
+                                    class="{{ request()->segment(2) == 'radiologyServiceInvoice.index' ? 'active' : ' ' }}"
+                                    name="Invoice List" link='backend.radiologyServiceInvoice.index' icon='#' />
+
+
+                            </ul>
+                        </li>
+                        {{-- End dialysis appointment Panel --}}
                         {{-- Pathology Panel --}}
                         <li class="{{ strpos($strpos, 'backend.pathology') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
