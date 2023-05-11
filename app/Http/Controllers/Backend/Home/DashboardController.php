@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Appointment\Appointment;
 use App\Models\Appointment\DialysisAppointment;
+use App\Models\lab\LabTestReport;
+use App\Models\lab\LabInvoice;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -14,13 +17,30 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        $totalPatient=  Appointment::all()->groupBy('patient_id')->count();
+        $totalDialysisPatient=  DialysisAppointment::all()->groupBy('patient_id')->count();
+        $totalLabPatient=  LabInvoice::all()->groupBy('patient_id')->count();
+
         $todaysDocAppointment=  Appointment::where('date', date('Y-m-d'))->count();
         $todaysDialysisAppointment=  DialysisAppointment::where('appointment_date', date('Y-m-d'))->count();
+        $todayslabAppointment=  LabInvoice::where('date', date('Y-m-d'))->count();
+
         $todaysDocAppointmentTaka= Appointment::where('date', date('Y-m-d'))
         ->with('paymentHistories')->get();
         $todaysDocAppointmentIncome = $todaysDocAppointmentTaka->map(function ($appointment) {
             return $appointment->paymentHistories->sum('paid_amount');
             // return $payment['total_payment'];
+        });
+        $todaysDialysisDocAppointmentTaka= DialysisAppointment::where('appointment_date', date('Y-m-d'))
+        ->with('paymentHistories')->get();
+        $todaysDialysisDocAppointmentIncome = $todaysDialysisDocAppointmentTaka->map(function ($appointment) {
+            return $appointment->paymentHistories->sum('paid_amount');
+        });
+
+        $todayslabAppointmentTaka= LabInvoice::where('date', date('Y-m-d'))
+        ->with('paymentHistories')->get();
+        $todayslabAppointmentIncome = $todayslabAppointmentTaka->map(function ($appointment) {
+            return $appointment->paymentHistories->sum('paid_amount');
         });
         // dd($todaysDocAppointmentIncome);
         // ->sum('paid_amount');
@@ -89,7 +109,7 @@ class DashboardController extends Controller
         // $totalVat = round($totalVat * 15 / 100);
 
 
-        return view('backend.dashboard.index', compact('todaysDocAppointment', 'todaysDialysisAppointment', 'todaysDocAppointmentIncome'));
+        return view('backend.dashboard.index', compact('totalLabPatient','todayslabAppointment','totalDialysisPatient','totalPatient','todaysDocAppointment', 'todaysDialysisAppointment', 'todaysDocAppointmentIncome','todaysDialysisDocAppointmentIncome','todayslabAppointmentIncome'));
     }
     public function labReport()
     {

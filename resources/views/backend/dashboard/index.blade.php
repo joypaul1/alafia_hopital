@@ -64,12 +64,49 @@
         .btn-breadcrumb .btn.btn-primary:hover:not(:last-child):before {
             border-left: 10px solid #007bff;
         }
+        .btn.btn-rounded {
+    border-radius: 50px;
+}
     </style>
 @endpush
 
 
 @section('content')
 {{-- @dd($todaysDocAppointment); --}}
+<div class="row mb-4 clearfix">
+       <!-- <div class="card py-3 text-center"><strong>Quicklinks</strong> </div>-->
+        <div class="col-lg-12 col-md-6">
+            <div class="card top_counter">
+                <div class="body">
+               <a href="{{ route('backend.appointment.index') }}"> <button type="button" class="btn btn-danger btn-lg">
+        <i class="fa fa-user"></i> Doctor Appointment
+     </button></a>
+     <a href="{{ route('backend.dialysis-appointment.index') }}"> <button type="button" class="btn btn-warning btn-lg">
+        <i class="fa fa-user"></i> Dialysis Appointment
+     </button></a>
+     <a href="{{ route('backend.pathology.labTest.create') }}"> <button type="button" class="btn btn-primary btn-lg">
+        <i class="fa fa-money"></i> Pathology Invoice
+     </button></a>
+
+     <a href="{{ route('backend.pos.index')}}"> <button type="button" class="btn btn-success btn-lg">
+        <i class="fa fa-money"></i> POS
+     </button></a>
+
+     <a href="{{ route('backend.doctor.create') }}"> <button type="button" class="btn btn-dark btn-lg">
+        <i class="fa fa-user"></i> Doctor Create
+     </button></a>
+
+     <a href="{{ route('backend.patient.create') }}"> <button type="button" class="btn btn-info btn-lg">
+        <i class="fa fa-user"></i> Patient Create
+     </button></a>
+              
+                    <hr>
+                   
+                </div>
+            </div>
+        </div>
+</div>
+</div>
     <div class="row mb-4 clearfix">
         <div class="card py-3 text-center"><strong>Doctor Appointment</strong> </div>
         <div class="col-lg-4 col-md-6">
@@ -84,7 +121,7 @@
                     <div class="icon text-warning"><i class="fa fa-users"></i> </div>
                     <div class="content">
                         <div class="text">Total Patients</div>
-                        <h5 class="number">640</h5>
+                        <h5 class="number">{{ $totalPatient }}</h5>
                     </div>
                 </div>
             </div>
@@ -135,13 +172,13 @@
                     <div class="icon text-info"><i class="fa fa-user"></i> </div>
                     <div class="content">
                         <div class="text">Today's Patients</div>
-                        <h5 class="number">{{$todaysDocAppointment  }}</h5>
+                        <h5 class="number">{{$todaysDialysisAppointment  }}</h5>
                     </div>
                     <hr>
                     <div class="icon text-warning"><i class="fa fa-users"></i> </div>
                     <div class="content">
                         <div class="text">Total Patients</div>
-                        <h5 class="number">640</h5>
+                        <h5 class="number">{{ $totalDialysisPatient }}</h5>
                     </div>
                 </div>
             </div>
@@ -152,7 +189,7 @@
                     <div class="icon text-warning"><i class="fa fa-tags"></i> </div>
                     <div class="content">
                         <div class="text">Today's Income</div>
-                        <h5 class="number">৳ {{ $todaysDocAppointmentIncome }}</h5>
+                        <h5 class="number">৳ {{ $todaysDialysisDocAppointmentIncome }}</h5>
                     </div>
                     <hr>
                     <div class="icon"><i class="fa fa-university"></i> </div>
@@ -192,13 +229,13 @@
                     <div class="icon text-info"><i class="fa fa-user"></i> </div>
                     <div class="content">
                         <div class="text">Today's Patients</div>
-                        <h5 class="number">{{$todaysDocAppointment  }}</h5>
+                        <h5 class="number">{{$todayslabAppointment  }}</h5>
                     </div>
                     <hr>
                     <div class="icon text-warning"><i class="fa fa-users"></i> </div>
                     <div class="content">
                         <div class="text">Total Patients</div>
-                        <h5 class="number">640</h5>
+                        <h5 class="number">{{ $totalLabPatient }}</h5>
                     </div>
                 </div>
             </div>
@@ -209,7 +246,7 @@
                     <div class="icon text-warning"><i class="fa fa-tags"></i> </div>
                     <div class="content">
                         <div class="text">Today's Income</div>
-                        <h5 class="number">৳ {{ $todaysDocAppointmentIncome }}</h5>
+                        <h5 class="number">৳ {{ $todayslabAppointmentIncome }}</h5>
                     </div>
                     <hr>
                     <div class="icon"><i class="fa fa-university"></i> </div>
