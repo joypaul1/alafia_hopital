@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -14,7 +15,7 @@ return new class extends Migration
     public function up()
     {
 
-        // ALTER TABLE `radiology_service_invoice_payment_histories` ADD FOREIGN KEY (`service_invoice_id`) REFERENCES `radiology_service_invoices`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
         Schema::create('radiology_service_invoice_payment_histories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('service_invoice_id');
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->string('note')->nullable();
             $table->timestamps();
         });
+        DB::Statement('ALTER TABLE `radiology_service_invoice_payment_histories` ADD FOREIGN KEY (`service_invoice_id`) REFERENCES `radiology_service_invoices`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;');
     }
 
     /**
