@@ -34,8 +34,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin/site-config', 'as' => 
     Route::get('/', [SiteInfoController::class, 'index'])->name('index');;
     Route::POST('/update', [SiteInfoController::class, 'update'])->name('update');
 
-    // socialmedia
-    Route::resource('socialmedia', SocialMediaController::class);
+    // socialMedia
+    Route::resource('socialMedia', SocialMediaController::class);
 
     // slider
     Route::resource('slider', SliderController::class);

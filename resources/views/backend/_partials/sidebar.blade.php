@@ -345,9 +345,9 @@
                             </ul>
                         </li>
                         {{-- End Report Panel --}}
-
+                        {{-- @dd(strpos($strpos, 'backend.siteconfig')) --}}
                         {{-- Site Configuration --}}
-                        <li class="{{ strpos($strpos, 'backend.siteconfig') === 0 ? 'active' : ' ' }}">
+                        <li class="{{ strpos($strpos, 'backend.siteConfig') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-settings"></i>
                                 <span>Site Configuration</span>
@@ -358,10 +358,10 @@
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'bed' ? 'active' : ' ' }}"
                                     name="Bed Config" link='backend.siteConfig.bed.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'symptom' ? 'active' : ' ' }}"
-                                    name="Symptom Config" link='backend.siteConfig.symptom.index' icon='#' />
+                                    name="Disease Symptom Config" link='backend.siteConfig.symptom.index' icon='#' />
                                 <x-backend.side-bar
                                     class="{{ request()->segment(3) == 'serviceName' ? 'active' : ' ' }}"
-                                    name="Service Config" link='backend.siteConfig.serviceName.index'
+                                    name="Dialysis Service Con." link='backend.siteConfig.serviceName.index'
                                     icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'labTest' ? 'active' : ' ' }}"
                                     name="Lab Test Config" link='backend.siteConfig.labTest.index' icon='#' />
@@ -382,8 +382,8 @@
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'meta-tag' ? 'active' : ' ' }}"
                                     name="SEO Meta Config" link='backend.siteConfig.meta-tag.index' icon='#' />
                                 <x-backend.side-bar
-                                    class="{{ request()->segment(3) == 'socialmedia' ? 'active' : ' ' }}"
-                                    name="Socail Media Config" link='backend.siteConfig.socialmedia.index'
+                                    class="{{ request()->segment(3) == 'socialMedia' ? 'active' : ' ' }}"
+                                    name="Social Media Config" link='backend.siteConfig.socialMedia.index'
                                     icon='#' />
                                 <x-backend.side-bar
                                     class="{{ request()->segment(3) == 'barcode-method' ? 'active' : ' ' }}"
@@ -394,7 +394,7 @@
                                     name="Invoice Prefix Config" link='backend.siteConfig.prefix-system.index'
                                     icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'tax-rate' ? 'active' : ' ' }}"
-                                    name="Taxt Config" link='backend.siteConfig.tax-rate.index' icon='#' />
+                                    name="Txt Config" link='backend.siteConfig.tax-rate.index' icon='#' />
                             </ul>
                         </li>
                         {{-- End Site Configuration --}}
