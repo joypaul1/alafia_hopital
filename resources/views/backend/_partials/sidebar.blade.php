@@ -358,16 +358,16 @@
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'bed' ? 'active' : ' ' }}"
                                     name="Bed Config" link='backend.siteConfig.bed.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'symptom' ? 'active' : ' ' }}"
-                                    name="Disease Symptom Config" link='backend.siteConfig.symptom.index' icon='#' />
+                                    name="Disease Symptom" link='backend.siteConfig.symptom.index' icon='#' />
                                 <x-backend.side-bar
                                     class="{{ request()->segment(3) == 'serviceName' ? 'active' : ' ' }}"
-                                    name="Dialysis Service Config" link='backend.siteConfig.serviceName.index'
+                                    name="Dialysis Service" link='backend.siteConfig.serviceName.index'
                                     icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'labTest' ? 'active' : ' ' }}"
                                     name="Lab Test Config" link='backend.siteConfig.labTest.index' icon='#' />
 
                                 <x-backend.side-bar class="{{ request()->segment(3) == 'labTest' ? 'active' : ' ' }}"
-                                    name="Lab Test Config" link='backend.siteConfig.labTest.index' icon='#' />
+                                    name="Radiology Service" link='backend.siteConfig.radiology_serviceName.index' icon='#' />
                                 <x-backend.side-bar
                                     class="{{ request()->segment(3) == 'bloodBank' ? 'active' : ' ' }}"
                                     name="Blood Config" link='backend.siteConfig.bloodBank.index' icon='#' />

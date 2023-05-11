@@ -91,7 +91,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin/site-config', 'as' => 
     Route::resource('serviceName', ServiceNameController::class);
 
     //radiology
-    Route::resource('radiology', RadiologyController::class);
+    Route::resource('radiology_serviceName', RadiologyController::class);
 
     //labTest
     Route::resource('labTest', LabTestController::class);
