@@ -106,7 +106,7 @@
             </div>
         </div>
 </div>
-</div>
+
     <div class="row mb-4 clearfix">
         <div class="card py-3 text-center"><strong>Doctor Appointment</strong> </div>
         <div class="col-lg-4 col-md-6">
