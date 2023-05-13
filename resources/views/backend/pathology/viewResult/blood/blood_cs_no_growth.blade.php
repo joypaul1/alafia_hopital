@@ -1537,7 +1537,7 @@
                 <div style="display: flex;justify-content: space-between; margin-top: 60pt;">
                     <div>
                         <p class="c4"><span class="c13">Prepared by</span></p>
-                        <p class="c4"><span class="c13">{{ auth('admin')->user()->name }}</span></p>
+                        <p class="c4"><span class="c13">Medical Technologist</span></p>
                         <p class="c4 c10"><span class="c13"></span></p>
                     </div>
                     <div>
