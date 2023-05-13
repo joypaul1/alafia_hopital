@@ -80,7 +80,7 @@ class StoreRequest extends FormRequest
             $data['status']             = 'collection';
             $labInvoice                 = LabInvoice::create($data);
             // dd($labInvoice );
-            if($this->needle_id){
+            if ($this->needle_id) {
                 $multidimensionalArray = array();
                 //push needle_id array in array_name
                 foreach ($this->needle_price as $key => $needleValue) {
@@ -89,7 +89,6 @@ class StoreRequest extends FormRequest
                     );
                 }
                 $labInvoice->update(['other_service' => json_encode($multidimensionalArray)]);
-
             }
 
             // hasMany labTest data insert
@@ -99,55 +98,53 @@ class StoreRequest extends FormRequest
                 //12:00 am blood sample ar report 7:30 pm pabe( 7.30 hours pore report pabe), Except microbiology report.
                 if ($labTest->time_type == "day") {
                     //carbon add day
-                    if(date('H:i') <= "12:00" ){
+                    if (date('H:i') <= "12:00") {
                         $finalTime = (Carbon::parse($this->date . date('h:i a'))->addDays($labTest->time)->format('Y-m-d h:i a'));
-                    }else{
+                    } else {
                         $finalTime = (Carbon::parse($this->date . date('h:i a'))->addDays($labTest->time + 1)->format('Y-m-d h:i a'));
                     }
                     $deliveryTime = $finalTime;
-
                 }
                 if ($labTest->time_type == "hour") {
                     //carbon add time
-                    if(date('H:i') <= "12:00" ){
+                    if (date('H:i') <= "12:00") {
                         $finalTime = (Carbon::parse($this->date . date('h:i a'))->addHours(7)->addMinutes(30)->format('Y-m-d h:i a'));
-                    }else{
+                    } else {
                         $finalTime = (Carbon::parse($this->date . date('h:i a'))->addDays(1)->format('Y-m-d h:i a'));
                     }
                     $deliveryTime = $finalTime;
-
                 }
                 //end delivery time set
 
-                if($labTest->id ==319 || $labTest->id== 320){
+                if ($labTest->id == 319 || $labTest->id == 320) {
                     $labInvoice->labTestDetails()->create([
                         'status' => 'pending',
                         'lab_test_id' => $labTest->id,
                         'price' => $this->test_price[$key],
                         'delivery_time' => $deliveryTime,
-                        'discount_type' =>$this->discount_type[$key],
-                        'discount' =>$this->discount[$key],
-                        'discount_amount' =>$this->discount_amount[$key],
-                        'subtotal' =>$this->subtotal[$key],
+                        'discount_type' => $this->discount_type[$key],
+                        'discount' => $this->discount[$key],
+                        'discount_amount' => $this->discount_amount[$key],
+                        'subtotal' => $this->subtotal[$key],
                         'show_status' => 0
                     ]);
-                }else{
+                } else {
                     $labInvoice->labTestDetails()->create([
                         'status' => 'pending',
                         'lab_test_id' => $labTest->id,
                         'price' => $this->test_price[$key],
                         'delivery_time' => $deliveryTime,
-                        'discount_type' =>$this->discount_type[$key],
-                        'discount' =>$this->discount[$key],
-                        'discount_amount' =>$this->discount_amount[$key],
-                        'subtotal' =>$this->subtotal[$key],
+                        'discount_type' => $this->discount_type[$key],
+                        'discount' => $this->discount[$key],
+                        'discount_amount' => $this->discount_amount[$key],
+                        'subtotal' => $this->subtotal[$key],
                         'show_status' => 1
 
                     ]);
                 }
             }
 
-            if($this->testTube_id ){
+            if ($this->testTube_id) {
                 // hasMany labTestTube data insert
                 foreach ($this->testTube_id as $key => $testTube) {
                     $labInvoice->labTestTube()->create([
@@ -156,13 +153,105 @@ class StoreRequest extends FormRequest
                     ]);
                 }
             }
+            if ($labInvoice->paid_amount > 0) {
+                $labInvoice->paymentHistories()->create([
+                    'ledger_id' => AccountLedger::first()->id,
+                    'payment_method' => PaymentSystem::first()->id,
+                    'payment_system_id' => PaymentSystem::first()->name,
+                    'date' => $this->date,
+                    'note' => $this->payment_note,
+                    'paid_amount' => Str::replace(',', '',  $labInvoice->paid_amount),
+                    'payment_received_id' => auth('admin')->id(),
+                ]);
+
+                //<----start of cash flow Transition------->
+                // cashflowTransactions
+                $cashflowTransition = $labInvoice->cashflowTransactions()->create([
+                    'url'               => "Backend\Pathology\LabTestController@show,['id' =>" . $labInvoice->id . "]",
+                    'cashflow_type'     => 'labInvoice',
+                    'description'       => 'labInvoice Item',
+                    'date'              => $labInvoice->date,
+                    'ledger_id'         => AccountLedger::first()->id,
+                    'payment_method'    => PaymentSystem::first()->id,
+
+                ]);
+                // dd(  $cashflowTransition);
+
+                // cashflowHistories
+                $cashflowTransition->cashflowHistory()->create([
+                    'debit' => Str::replace(',', '',  $labInvoice->paid_amount)
+                ]);
+
+                //<----end of cash flow Transition------->
+
+                //<----start of daily book transaction------->
+                // dailyTransition
+                $dailyTransition = $labInvoice->dailyTransactions()->create([
+                    'url'               => "Backend\Pathology\LabTestController@show,['id' =>" . $labInvoice->id . "]",
+                    'description'       => 'labInvoice Item',
+                    'transaction_type'  => 'labInvoice',
+                    'date'              =>  $this->date,
+                    'reference_no'      => $labInvoice->invoice_no,
+                ]);
+
+                //labInvoice full amount
+                $dailyTransition->transactionHistories()->create([
+                    'entry_name' => 'labInvoice Item',
+                    'debit' => Str::replace(',', '',  $labInvoice->paid_amount),
+                ]);
+
+
+
+                // LedgerTransition --->increment costing
+                LedgerTransition::updateOrCreate([
+                    'ledger_id' => AccountLedger::first()->id,
+                    'date'     => FinancialYearHistory::latest()->first()->start_date
+                ], [
+                    'debit' => DB::raw('debit +' . Str::replace(',', '',  $labInvoice->paid_amount))
+                ]);
+            }
+
+            // dd($data);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            dd($e->getMessage(), $e->getLine());
+            return response()->json(['msg' => $e->getMessage(), $e->getLine(), 'status' => false], 400);
+        }
+        return response()->json(['data' => $labInvoice->id, 'status' => true], 200);
+    }
+
+
+    public function paymentStore($labInvoice, $request)
+    {
+        // dd($labInvoice->paid_amount + $this->paid_amount, $request->all());
+        if($request->paid_amount < 0){
+            return response()->json(['msg' => 'Paid amount can not be negative or 0', 'status' => false], 400);
+        }
+        try {
+            DB::beginTransaction();
+            $labInvoice->update([
+                'paid_amount' => $labInvoice->paid_amount + Str::replace(',', '',  $request->paid_amount + 0),
+            ]);
+            // dd($labInvoice, $labInvoice->paid_amount + Str::replace(',', '',  $request->paid_amount + 0),$request->paid_amount);
+
+            $labInvoice->paymentHistories()->create([
+                'ledger_id' => AccountLedger::first()->id,
+                'payment_method' => PaymentSystem::first()->id,
+                'payment_system_id' => PaymentSystem::first()->name,
+                'date' => $request->date,
+                'note' => $request->payment_note,
+                'paid_amount' => Str::replace(',', '',  $request->paid_amount),
+                'payment_received_id' => auth('admin')->id(),
+            ]);
+
             //<----start of cash flow Transition------->
             // cashflowTransactions
             $cashflowTransition = $labInvoice->cashflowTransactions()->create([
                 'url'               => "Backend\Pathology\LabTestController@show,['id' =>" . $labInvoice->id . "]",
                 'cashflow_type'     => 'labInvoice',
-                'description'       => 'labInvoice Item',
-                'date'              => $labInvoice->date,
+                'description'       => 'labInvoice Payment',
+                'date'              => $request->date,
                 'ledger_id'         => AccountLedger::first()->id,
                 'payment_method'    => PaymentSystem::first()->id,
 
@@ -171,7 +260,7 @@ class StoreRequest extends FormRequest
 
             // cashflowHistories
             $cashflowTransition->cashflowHistory()->create([
-                'debit' => Str::replace(',', '',  $labInvoice->paid_amount)
+                'debit' => Str::replace(',', '',  $request->paid_amount)
             ]);
 
             //<----end of cash flow Transition------->
@@ -182,38 +271,30 @@ class StoreRequest extends FormRequest
                 'url'               => "Backend\Pathology\LabTestController@show,['id' =>" . $labInvoice->id . "]",
                 'description'       => 'labInvoice Item',
                 'transaction_type'  => 'labInvoice',
-                'date'              =>  $this->date,
+                'date'              =>  $request->date,
                 'reference_no'      => $labInvoice->invoice_no,
             ]);
 
             //labInvoice full amount
             $dailyTransition->transactionHistories()->create([
                 'entry_name' => 'labInvoice Item',
-                'debit' => Str::replace(',', '',  $labInvoice->paid_amount),
+                'debit' => Str::replace(',', '',  $request->paid_amount),
             ]);
 
-            $labInvoice->paymentHistories()->create([
-                'ledger_id' => AccountLedger::first()->id,
-                'payment_method' => PaymentSystem::first()->id,
-                'payment_system_id' => PaymentSystem::first()->name,
-                'date' => $this->date,
-                'note' => $this->payment_note,
-                'paid_amount' => Str::replace(',', '',  $labInvoice->paid_amount),
-                'payment_received_id' => auth('admin')->id(),
-            ]);
+
 
             // LedgerTransition --->increment costing
             LedgerTransition::updateOrCreate([
                 'ledger_id' => AccountLedger::first()->id,
                 'date'     => FinancialYearHistory::latest()->first()->start_date
             ], [
-                'debit' => DB::raw('debit +' . Str::replace(',', '',  $labInvoice->paid_amount))
+                'debit' => DB::raw('debit +' . Str::replace(',', '',  $request->paid_amount))
             ]);
-            // dd($data);
             DB::commit();
-        } catch (\Exception $e) {
-            DB::rollback();
-            dd($e->getMessage(), $e->getLine());
+        }
+
+        catch (\Exception $e) {
+            DB::rollBack();
             return response()->json(['msg' => $e->getMessage(), $e->getLine(), 'status' => false], 400);
         }
         return response()->json(['data' => $labInvoice->id, 'status' => true], 200);

@@ -180,6 +180,7 @@
                             @include('components.backend.forms.input.input-type', [
                                 'name' => 'paid_amount',
                                 'value' => 0.0,
+                                'number' => true
                             ])
                         </div>
                         <div class="col-4">

@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'admin', 'prefix' =>'admin-pathology' ,'as'=>'backend.pathology.'],function(){
 
     Route::get('labTest-moveToMakeReport', [LabTestController::class, 'changeStatus'])->name('labTest.changeStatus');
+    Route::get('payment/{id}', [LabTestController::class, 'payment'])->name('payment');
+    Route::post('payment-store/{id}', [LabTestController::class, 'paymentStore'])->name('payment.store');
+    Route::get('labTest-multiInvoice/{id}', [LabTestController::class, 'multiInvoice'])->name('payment.multiInvoice');
     Route::get('labTest-viewSlot', [LabTestController::class, 'viewSlot'])->name('labTest.viewSlot');
     Route::resource('labTest', LabTestController::class);
     Route::get('make-test-result', [LabTestResultController::class, 'create'])->name('make-test-result');

@@ -169,16 +169,17 @@
                                     <th class="text-center">Created Date </th>
                                     <th class="text-center">P-Name</th>
                                     <th class="text-center">View Test</th>
-                                    <th class="text-center">Print Bar Code</th>
+                                    <th class="text-center">Payment Status</th>
+                                    {{-- <th class="text-center">Print Bar Code</th>
                                     <th class="text-center">Make Result</th>
-                                    <th class="text-center">View Result </th>
+                                    <th class="text-center">View Result </th> --}}
                                     <th class="text-center">Print Result </th>
                                     <th class="text-center">Action </th>
                                 </tr>
                             </thead>
 
+                            {{-- @dd($labInvoices) --}}
                             <tbody>
-
                                 @foreach ($labInvoices as $key => $labInvoice)
                                     <tr class="text-center">
                                         <td>{{ $labInvoice['invoice_no'] }}</td>
@@ -201,6 +202,18 @@
 
                                         </td>
                                         <td>
+                                            @if ($labInvoice->payment_status == 'due')
+                                            <a href="{{ route('backend.pathology.payment', $labInvoice) }}"target="_blank">
+                                                    <button class="btn btn-danger"> Due </button>
+                                                </a>
+                                            @else
+                                            {{ $labInvoice->payment_status }}
+                                                <button class="btn btn-success"><i class="fa fa-check" aria-hidden="true">  Paid</i></button>
+                                            @endif
+
+
+                                        </td>
+                                         {{--<td>
                                             <a href="{{ route('backend.pathology.printBarCode', $labInvoice) }}"
                                                 target="_blank">
                                                 <button class="btn btn-warning"><i class="fa fa-print"
@@ -247,7 +260,7 @@
                                                 </ul>
                                             </div>
 
-                                        </td>
+                                        </td> --}}
                                         <td>
                                             @php
                                                 $categoryData = $labInvoice->labTestDetails

@@ -125,6 +125,31 @@ class LabTestController extends Controller
         return view('backend.pathology.labTest.moneyReceipt', compact('labInvoice'));
     }
 
+    public function payment($id)
+    {
+        $labInvoice = LabInvoice::whereId($id)
+        // ->with('labTestDetails.testName:id,name,category', 'patient')
+        // ->with('labTestTube.tubeName:id,name')
+        ->first();
+        return view('backend.pathology.labTest.payment', compact('labInvoice'));
+
+    }
+    public function paymentStore(Request $request, $id)
+    {
+        $labInvoice = LabInvoice::whereId($id)->first();
+        if( $labInvoice){
+            $testObject = new StoreRequest();
+            $returnData  = $testObject->paymentStore($labInvoice, $request);
+            if ($returnData->getData()->status) {
+                (new LogActivity)::addToLog('Pathology Lab Test Payment Create');
+                return redirect()->route('backend.pathology.payment.multiInvoice', $returnData->getData()->data);
+            }
+            return back()->with('error', $returnData->getData()->msg);
+        }
+
+        return back();
+
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -134,6 +159,15 @@ class LabTestController extends Controller
     public function edit($id)
     {
         dd($id);
+    }
+    public function multiInvoice($id)
+    {
+        dd($id);
+        return $labInvoice = LabInvoice::whereId($id)
+            ->with('labTestDetails.testName:id,name,category', 'patient')
+            ->with('labTestTube.tubeName:id,name')
+            ->first();
+        return view('backend.pathology.labTest.moneyReceipt', compact('labInvoice'));
     }
 
     /**
