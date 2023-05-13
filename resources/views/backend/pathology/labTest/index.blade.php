@@ -204,10 +204,10 @@
                                         <td>
                                             @if ($labInvoice->payment_status == 'due')
                                             <a href="{{ route('backend.pathology.payment', $labInvoice) }}"target="_blank">
-                                                    <button class="btn btn-danger"> Due </button>
+                                                    <button class="btn btn-danger"><i class="fa fa-money" aria-hidden="true">  Due </button>
                                                 </a>
                                             @else
-                                            {{ $labInvoice->payment_status }}
+
                                                 <button class="btn btn-success"><i class="fa fa-check" aria-hidden="true">  Paid</i></button>
                                             @endif
 
