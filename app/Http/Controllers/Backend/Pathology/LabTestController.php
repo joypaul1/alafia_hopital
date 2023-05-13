@@ -99,7 +99,7 @@ class LabTestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $returnData = $request->storeData();
         if ($returnData->getData()->status) {
@@ -107,8 +107,6 @@ class LabTestController extends Controller
             return redirect()->route('backend.pathology.labTest.show', $returnData->getData()->data);
         }
         return back()->with('error', $returnData->getData()->msg);
-
-        // return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
 
     }
 

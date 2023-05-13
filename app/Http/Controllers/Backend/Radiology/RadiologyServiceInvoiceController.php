@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend\Radiology;
 use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Pathology\Lab\StoreRequest;
+use App\Http\Requests\Radiology\StoreRequest;
 use App\Models\Account\AccountLedger;
 use App\Models\Doctor\Doctor;
 use App\Models\lab\LabInvoice;
@@ -40,6 +40,7 @@ class RadiologyServiceInvoiceController extends Controller
             $labInvoices = $labInvoices->whereDate('date', '>=', date('Y-m-d'));
         }
         $labInvoices =  $labInvoices->with('itemDetails.serviceName:id,name','patient:id,name')->latest()->get();
+        // dd($labInvoices);
         // dd($request->status);
         // $status =  (object)[['name' => 'collection', 'id' => 'collection'], ['name' => 'Inactive', 'id' => 0]];
         // if ($request->status) {
