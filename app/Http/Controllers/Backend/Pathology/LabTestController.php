@@ -113,7 +113,7 @@ class LabTestController extends Controller
     public function viewSlot(Request $request)
     {
         $labInvoices = LabInvoice::whereDate('slot_date', $request->slot_date)->where('slot_number', $request->slot_number)
-        ->with('labTestDetails.testName:id,name,category','patient:id,name')
+        ->with('labTestDetails.testName:id,name,category','patient:id,name,patientId')
         ->get();
         return view('backend.pathology.labTest.slot', compact('labInvoices'));
     }

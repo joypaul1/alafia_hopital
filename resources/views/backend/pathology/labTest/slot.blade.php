@@ -120,7 +120,7 @@
             </table>
 
 
-            <table style="font-size: 12pt;" class="table table-bordered t">
+            <table style="font-size: 12pt;" class="table table-bordered text-center">
                 <tbody>
                     <tr>
                         <th style="width: 5%;">
@@ -149,7 +149,7 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td class="text-center">{{ $labInvoice->invoice_no }}</td>
-                            <td class="text-center">{{ $labInvoice->patient->id }}</td>
+                            <td class="text-center">{{ $labInvoice->patient->patientId }}</td>
                             <td class="text-center">{{ $labInvoice->patient->name }}</td>
                             {{-- @dd($labInvoice->labTestDetails->pluck('testName')) --}}
                             <td class="text-center">
@@ -157,6 +157,7 @@
                                     {{ $item->name }} ,
                                 @endforeach
                             </td>
+                            <td></td>
                             {{-- <td class="text-center">{{  }}</td> --}}
 
                         </tr>
