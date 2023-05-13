@@ -97,7 +97,7 @@
                     <tr>
                         <td style="width: 40%;">
                             <Strong>
-                                Slot No: {{ $labInvoices[0]->slot_number }}
+                                {{-- Slot No: {{ $labInvoices[0]->slot_number }} --}}
                             </Strong>
 
                         </td>
@@ -124,22 +124,43 @@
                 <tbody>
                     <tr>
                         <th style="width: 5%;">
-                            Sl.
+                            PI
+                        </th>
+                        <th>
+                            Invoice No.
+                        </th>
+                        <th >
+                            PId.
+                        </th>
+                        <th >
+                            Name
                         </th>
                         <th style="width: 40%;">
                             Test Name
                         </th>
 
-                        <th style="width: 30%">
-                            Delivery Time
+                        <th >
+                            Status
                         </th>
 
                     </tr>
-                    @php
-                        $si = 0;
-                    @endphp
-                    @foreach ($labInvoices as $labInvoice)
-                        @foreach ($labInvoice->labTestDetails as $labTest)
+
+                    @foreach ($labInvoices as $key => $labInvoice)
+                        <tr>
+                            <td>{{ $key + 1 }}</td>
+                            <td class="text-center">{{ $labInvoice->invoice_no }}</td>
+                            <td class="text-center">{{ $labInvoice->patient->id }}</td>
+                            <td class="text-center">{{ $labInvoice->patient->name }}</td>
+                            {{-- @dd($labInvoice->labTestDetails->pluck('testName')) --}}
+                            <td class="text-center">
+                                @foreach ($labInvoice->labTestDetails->pluck('testName') as $item)
+                                    {{ $item->name }} ,
+                                @endforeach
+                            </td>
+                            {{-- <td class="text-center">{{  }}</td> --}}
+
+                        </tr>
+                        {{-- @foreach ($labInvoice->labTestDetails as $labTest)
                             @php
                                 $si += 1;
                             @endphp
@@ -158,7 +179,7 @@
                                     {{ date_format(date_create($labTest->delivery_time), 'd-m-Y h:i A') }}
                                 </td>
                             </tr>
-                        @endforeach
+                        @endforeach --}}
                     @endforeach
 
 

@@ -47,36 +47,9 @@ class LabTestController extends Controller
         }
         return view('backend.pathology.labTest.index', compact('labInvoices'));
     }
-    public function getSlotNumber()
-    {
-        if (!LabInvoice::latest()->whereDate('date', date('Y-m-d'))->first()->slot_number) {
-            return 1;
-        } else {
-            return LabInvoice::latest()->first()->slot_number + 1;
-        }
-    }
 
-    public function changeStatus(Request $request)
-    {
-        $getSlotNumber = null;
-        $getSlotNumber = $this->getSlotNumber();
-        if (request()->ajax()) {
-            $labInvoices = LabInvoice::whereIn('id', $request->ids)->get();
-            for ($i = 0; $i < count($labInvoices); $i++) {
-                LabInvoice::whereId($labInvoices[$i]->id)->update(['status' => $request->status, 'slot_number' => $getSlotNumber]);
-            }
-            return response()->json(['status' => true, 'msg' => 'Status Changed Successfully', 'slot_number' => $getSlotNumber]);
-        } else {
-            $labInvoices = LabInvoice::where('id', $request->id)->first();
-            LabInvoice::whereId($request->id)->update(['status' => $request->status, 'slot_number' => $getSlotNumber]);
-            return back()->with('success', 'Status Changed Successfully');
-        }
-    }
-    public function viewSlot(Request $request)
-    {
-        $labInvoices = LabInvoice::whereDate('date', date('Y-m-d'))->where('slot_number', $request->slot_number)->get();
-        return view('backend.pathology.labTest.slot', compact('labInvoices'));
-    }
+
+
     /**
      *
      * Show the form for creating a new resource.
@@ -111,6 +84,40 @@ class LabTestController extends Controller
 
     }
 
+    public function getSlotNumber()
+    {
+        if (!LabInvoice::latest()->whereDate('slot_date', date('Y-m-d'))->first()) {
+            return 1;
+        } else {
+            return LabInvoice::latest()->whereDate('slot_date', date('Y-m-d'))->first()->slot_number + 1;
+        }
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $getSlotNumber = null;
+        $getSlotNumber = $this->getSlotNumber();
+        if (request()->ajax()) {
+            $labInvoices = LabInvoice::whereIn('id', $request->ids)->get();
+            for ($i = 0; $i < count($labInvoices); $i++) {
+                LabInvoice::whereId($labInvoices[$i]->id)->update(
+                    ['status' => $request->status, 'slot_number' => $getSlotNumber, 'slot_date' => date('Y-m-d')
+                ]);
+            }
+            return response()->json(['status' => true, 'msg' => 'Status Changed Successfully', 'slot_number' => $getSlotNumber, 'slot_date' => date('Y-m-d')]);
+        } else {
+            $labInvoices = LabInvoice::where('id', $request->id)->first();
+            LabInvoice::whereId($request->id)->update(['status' => $request->status, 'slot_number' => $getSlotNumber, 'slot_date' => date('Y-m-d') ]);
+            return back()->with('success', 'Status Changed Successfully');
+        }
+    }
+    public function viewSlot(Request $request)
+    {
+        $labInvoices = LabInvoice::whereDate('slot_date', $request->slot_date)->where('slot_number', $request->slot_number)
+        ->with('labTestDetails.testName:id,name,category','patient:id,name')
+        ->get();
+        return view('backend.pathology.labTest.slot', compact('labInvoices'));
+    }
     /**
      * Display the specified resource.
      *

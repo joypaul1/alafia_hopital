@@ -18,8 +18,8 @@
         }
 
         /* nav {
-                                                    font-family: monospace;
-                                                } */
+                                                        font-family: monospace;
+                                                    } */
 
         .dropdown_hover ul {
             /* background: darkorange; */
@@ -87,7 +87,7 @@
 @stop
 
 @section('content')
-{{-- @dd(232); --}}
+    {{-- @dd(232); --}}
 
     <div class="row">
 
@@ -168,7 +168,10 @@
                         <table class="table table-bordered " id="labTest_table">
                             <thead>
                                 <tr>
-                                    <th class="text-center">Select ID.</th>
+                                    <th class="text-center">
+                                        <input type="checkbox" id="checkAll"> <label for="checkAll">Select All</label>
+
+                                    </th>
                                     <th class="text-center">Invoice No.</th>
                                     <th class="text-center">Created Date </th>
                                     <th class="text-center">P-Name</th>
@@ -221,7 +224,7 @@
                             </tbody>
                         </table>
                         <div class=" d-block text-left">
-                            <button class="btn btn-info moveData" >Move To Make Report</button>
+                            <button class="btn btn-info moveData">Move To Make Report</button>
                         </div>
                     </div>
                 </div>
@@ -244,7 +247,11 @@
             startDate: '-5y'
 
         });
+        $(document).on('click', '#checkAll', function() {
+            // get labTest_table table tbody input[type="checkbox"] select all checkbox using class labInvoice_id
+            $('#labTest_table tbody input[type="checkbox"].labInvoice_id').prop('checked', this.checked);
 
+        })
         // multiple delete
         $(document).on('click', '.moveData', function() {
 
@@ -268,10 +275,10 @@
                     },
                     success: function(res) {
                         if (res.status) {
-                            var base    = '{!! route('backend.pathology.labTest.viewSlot') !!}';
-                            var url     = base+'?slot_number='+res.slot_number ;
+                            var base = '{!! route('backend.pathology.labTest.viewSlot') !!}';
+                            var url = base + '?slot_number=' + res.slot_number+'&slot_date='+res.slot_date;
                             window.open(url, '_blank');
-                        }else{
+                        } else {
                             alert('Something went wrong');
                         }
 
