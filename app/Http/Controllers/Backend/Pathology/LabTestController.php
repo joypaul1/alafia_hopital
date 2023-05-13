@@ -106,8 +106,7 @@ class LabTestController extends Controller
             }
             return response()->json(['status' => true, 'msg' => 'Status Changed Successfully', 'slot_number' => $getSlotNumber, 'slot_date' => date('Y-m-d')]);
         } else {
-            $labInvoices = LabInvoice::where('id', $request->id)->first();
-            LabInvoice::whereId($request->id)->update(['status' => $request->status, 'slot_number' => $getSlotNumber, 'slot_date' => date('Y-m-d') ]);
+            LabInvoice::whereId($request->id)->update(['status' => $request->status ]);
             return back()->with('success', 'Status Changed Successfully');
         }
     }
