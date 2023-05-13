@@ -173,6 +173,7 @@
                                     <th class="text-center">Make Result</th>
                                     <th class="text-center">View Result </th>
                                     <th class="text-center">Print Result </th>
+                                    <th class="text-center">Action </th>
                                 </tr>
                             </thead>
 
@@ -260,6 +261,13 @@
                                                     {{ $cat }} <i class="fa fa-print " aria-hidden="true"></i>
                                             @endforeach
 
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('backend.pathology.labTest.show', $labInvoice) }}"
+                                                target="_blank">
+                                                <button class="btn btn-info">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i></button>
                                             </a>
                                         </td>
                                     </tr>

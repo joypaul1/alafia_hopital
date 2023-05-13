@@ -212,7 +212,6 @@ class LabTestResultController extends Controller
                 LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
             }
 
-            // dd($testName);
             if ($testName->category == 'Urine' && $testName->name == 'Urine RE') {
                 $data['lab_test_id']                    = $request->test_id;
                 $data['lab_invoice_test_detail_id']     = $request->lab_invoice_test_detail_id;
@@ -416,7 +415,6 @@ class LabTestResultController extends Controller
                                 $printData[$details->testName->category][$details->testName->tube->name][$details->testName->short_name] = $details->testName->short_name;
                             }
                         }
-
                     }else{
                         //if tube not exist then add
                         $printData[$details->testName->category][$details->testName->tube->name] = [
