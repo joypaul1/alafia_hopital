@@ -110,9 +110,9 @@
                                 <span>Appointment Panel</span>
                             </a>
                             <ul>
-                                <x-backend.side-bar
+                                {{-- <x-backend.side-bar
                                     class="{{ request()->segment(2) == 'appointment' ? 'active' : ' ' }}"
-                                    name="Appointment Create" link='backend.appointment.create' icon='#' />
+                                    name="Appointment Create" link='backend.appointment.create' icon='#' /> --}}
                                 <x-backend.side-bar
                                     class="{{ request()->segment(2) == 'appointment' ? 'active' : ' ' }}"
                                     name="Appointment List" link='backend.appointment.index' icon='#' />
@@ -130,9 +130,9 @@
                                 <span>Dialysis Panel</span>
                             </a>
                             <ul>
-                                <x-backend.side-bar
+                                {{-- <x-backend.side-bar
                                     class="{{ request()->segment(2) == 'dialysis-appointment.create' ? 'active' : ' ' }}"
-                                    name="Appointment Create" link='backend.dialysis-appointment.create' icon='#' />
+                                    name="Appointment Create" link='backend.dialysis-appointment.create' icon='#' /> --}}
                                 <x-backend.side-bar
                                     class="{{ request()->segment(2) == 'dialysis-appointment.index' ? 'active' : ' ' }}"
                                     name="Appointment List" link='backend.dialysis-appointment.index' icon='#' />

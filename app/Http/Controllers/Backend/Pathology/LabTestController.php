@@ -99,7 +99,7 @@ class LabTestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRequest $request)
+    public function store(Request $request)
     {
         $returnData = $request->storeData();
         if ($returnData->getData()->status) {
