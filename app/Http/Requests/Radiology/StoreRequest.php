@@ -70,14 +70,13 @@ class StoreRequest extends FormRequest
             $data['date']               = date('Y-m-d', strtotime($this->date)) . ' ' . date('h:i:s');
             $data['subtotal_amount']    = Str::replace(',', '', ($this->testSubTotal));
             $data['discount_type']      = $this->discount_type;
-            $data['discount']           = Str::replace(',', '', ($this->discount));
-            $data['discount_amount']    = Str::replace(',', '', ($this->discount_amount));
+            $data['discount']           = Str::replace(',', '', ($this->discount??0));
+            $data['discount_amount']    = Str::replace(',', '', ($this->discount_amount??0));
 
             $data['paid_amount']        = Str::replace(',', '', ($this->paid_amount));
             $data['payment_status']     = Str::replace(',', '', ($this->payable_amount)) > Str::replace(',', '', ($this->paid_amount)) ? 'due' : 'paid';
             $data['total_amount']       = Str::replace(',', '', ($this->payable_amount));
             $data['doctor_id']          = $this->doctor_id;
-            // dd($data);
             $serviceInvoice             = RadiologyServiceInvoice::create($data);
 
             foreach ($this->service_id as $key => $serviceId) {
