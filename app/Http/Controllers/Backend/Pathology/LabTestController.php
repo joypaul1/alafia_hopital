@@ -162,12 +162,9 @@ class LabTestController extends Controller
     }
     public function multiInvoice($id)
     {
-        dd($id);
-        return $labInvoice = LabInvoice::whereId($id)
-            ->with('labTestDetails.testName:id,name,category', 'patient')
-            ->with('labTestTube.tubeName:id,name')
-            ->first();
-        return view('backend.pathology.labTest.moneyReceipt', compact('labInvoice'));
+
+        $labInvoice = LabInvoice::whereId($id)->with('patient', 'paymentHistories.paymentMethodName')->first();
+        return view('backend.pathology.labTest.historymoneyReceipt', compact('labInvoice'));
     }
 
     /**

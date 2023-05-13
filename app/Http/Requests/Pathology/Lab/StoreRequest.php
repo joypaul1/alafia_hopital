@@ -68,12 +68,18 @@ class StoreRequest extends FormRequest
     public function storeData()
     {
         try {
+            if(Str::replace(',', '', ($this->payable_amount+ 0)) == Str::replace(',', '', ($this->paid_amount+ 0))){
+                $payment_status = 'paid';
+            }else{
+                $payment_status = 'due';
+            }
+
             DB::beginTransaction();
             $data['invoice_no']         = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
             $data['patient_id']         = $this->patient_id;
             $data['date']               = date('Y-m-d', strtotime($this->date)) . ' ' . date('h:i:s');
             $data['paid_amount']        = Str::replace(',', '', ($this->paid_amount));
-            $data['payment_status']     = Str::replace(',', '', ($this->payable_amount)) > Str::replace(',', '', ($this->paid_amount)) ? 'due' : 'paid';
+            $data['payment_status']     = $payment_status;
             $data['subtotal_amount']    = Str::replace(',', '', ($this->payable_amount));
             $data['total_amount']       = Str::replace(',', '', ($this->payable_amount));
             $data['doctor_id']          = $this->doctor_id;
@@ -224,16 +230,20 @@ class StoreRequest extends FormRequest
 
     public function paymentStore($labInvoice, $request)
     {
-        // dd($labInvoice->paid_amount + $this->paid_amount, $request->all());
         if($request->paid_amount < 0){
             return response()->json(['msg' => 'Paid amount can not be negative or 0', 'status' => false], 400);
         }
         try {
             DB::beginTransaction();
+            if(Str::replace(',', '', ($this->payable_amount+ 0)) == Str::replace(',', '', ($this->paid_amount+ 0))){
+                $payment_status = 'paid';
+            }else{
+                $payment_status = 'due';
+            }
             $labInvoice->update([
-                'paid_amount' => $labInvoice->paid_amount + Str::replace(',', '',  $request->paid_amount + 0),
+                'paid_amount'   => $labInvoice->paid_amount + Str::replace(',', '',  $request->paid_amount + 0),
+                'payment_status'=> $payment_status
             ]);
-            // dd($labInvoice, $labInvoice->paid_amount + Str::replace(',', '',  $request->paid_amount + 0),$request->paid_amount);
 
             $labInvoice->paymentHistories()->create([
                 'ledger_id' => AccountLedger::first()->id,
