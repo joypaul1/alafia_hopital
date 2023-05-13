@@ -27,7 +27,7 @@
 
         * {
             letter-spacing: 1px;
-            /* font-weight: 900 !important; */
+            font-weight: 900 !important;
             font-family: monospace !important;
             padding: 0;
             margin: 0;
@@ -44,6 +44,7 @@
         #bot {
             margin: 0 auto;
             padding: 10px;
+            padding-top: 0;
             box-sizing: border-box;
         }
 
@@ -52,7 +53,7 @@
         }
 
         p {
-            font-size: 14px;
+            font-size: 12px;
             /* font-weight: 900; */
         }
 
@@ -103,11 +104,11 @@
 
             <div id="invoice-Body">
                 <div id="bot" style="display: flex;align-items:flex-end;">
-                    <div class="bot-body" style="transform: scale(0.8); margin-top: 5px; width:90%;">
+                    <div class="bot-body" style="transform: scale(0.8); width:100%; margin: auto;">
                         @php
                             echo DNS1D::getBarcodeHTML(strval($labInvoice->id), 'C128');
                         @endphp
-                        <p style="font-size: 14px; text-align:center;font-weight:bolder; margin-top:5px;">
+                        <p style="font-size: 16px; text-align:center;font-weight:bolder; margin-top:5px;">
                             {{ $labInvoice->patient->patientId }}
                         </p>
                         <div>
@@ -116,12 +117,13 @@
                                     {{ $labInvoice->patient->name }} <span style="margin-left: 8px;">{{ $diff->y }}
                                         Y / {{ substr(optional($labInvoice->patient)->gender ?? '-', 0, 1) }} </span>
                                 </p>
-                                <p>
-                                    {{ implode(',', $testData) }}
+                                <p style="width:80%; margin:auto;">
+                                    {{ implode(', ', $testData) }}
                                 </p>
                                 <p>
                                     {{ date('d-m-y h:i A') }}
-                                    <strong style="margin-left: 8px;">IN:{{ $labInvoice->invoice_no }}</strong>
+                                    <br>
+                                    <strong style="margin-left: 8px; font-size:16px;">IN:{{ $labInvoice->invoice_no }}</strong>
                                 </p>
                                 <p>
                                    DEP: {{ $key }}
