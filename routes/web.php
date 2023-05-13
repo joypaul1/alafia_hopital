@@ -32,6 +32,7 @@ Route::get('/reportDesign', function () {
             'pot' => '1',
         ]);
     }
+    dd('done');
     // $units = (object)[
     //     ['id' => 'mg/dl', 'name' => 'mg/dl'],
     //     ['id' => 'mmol/l', 'name' => 'mmol/l'],
