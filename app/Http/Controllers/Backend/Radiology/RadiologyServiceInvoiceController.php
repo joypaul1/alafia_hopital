@@ -123,7 +123,7 @@ class RadiologyServiceInvoiceController extends Controller
         return redirect()->route('backend.radiologyServiceInvoice.make-test-result-show', $radiologyServiceInvoiceItem->id);
 
     }
-    public function showResult( $id)
+    public function showResult($id)
     {
         $radiologyServiceInvoiceItem= RadiologyServiceInvoiceItem::whereId($id)->with('serviceName')->first();
 

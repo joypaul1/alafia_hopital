@@ -52,7 +52,7 @@
         }
 
         p {
-            font-size: 13px;
+            font-size: 16px;
             font-weight: 900;
         }
 
@@ -120,8 +120,8 @@
                                     {{ implode(',', $testData) }}
                                 </p>
                                 <p>
-                                    {{ date('d-m-y h:i A') }} <span
-                                        style="margin-left: 8px;">IN:{{ $labInvoice->invoice_no }}</span>
+                                    {{ date('d-m-y h:i A') }}
+                                    <strong style="margin-left: 8px;">IN:{{ $labInvoice->invoice_no }}</strong>
                                 </p>
                                 <p>
                                    DEP: {{ $key }}
