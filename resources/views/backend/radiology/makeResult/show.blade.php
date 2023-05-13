@@ -1387,9 +1387,7 @@
 
     </style>
 </head>
-{{-- @dd($labTestReport->testName->category); --}}
-{{-- @dd($labTestReport->test->name
-{{-- @dd($labTestReport->patient); --}}
+
 <body class="c46 doc-content">
     <div class="content">
         <div>
@@ -1406,15 +1404,7 @@
                         <td class="c43" colspan="1" rowspan="1">
                             <p class="c23 c10"><span class="c13">{{ optional($radiologyServiceInvoiceItem->serviceInvoice)->invoice_no }}</span></p>
                         </td>
-                        {{-- <td class="c25" colspan="1" rowspan="1">
-                            <p class="c50"><span class="c11">Collection Time</span></p>
-                        </td>
-                        <td class="c16" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">:</span></p>
-                        </td>
-                        <td class="c45" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">{{ date('dm-Y H:i', strtotime(optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->date)) }}</span></p>
-                        </td> --}}
+
                     </tr>
                     <tr class="c5">
                         <td class="c32" colspan="1" rowspan="1">
@@ -1481,19 +1471,15 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c57" colspan="4" rowspan="1">
-                            {{-- <p class="c23 c10"><span class="c13">
-                                    {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
-                                    ( {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }})
 
-                                </span></p> --}}
 
                         </td>
                     </tr>
                 </table>
 
-                <h2 style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
+                {{-- <h2 style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
                     {{ $radiologyServiceInvoiceItem->serviceName->name }} Report
-                </h2>
+                </h2> --}}
 
                 <table class="c68">
 
@@ -1509,35 +1495,7 @@
         </div>
 
         <footer>
-            <div style="padding: 0 0.5in;">
-                <div style="display: flex;justify-content: space-between; margin-top: 60pt;">
-                    <div>
-                        <p class="c4"><span class="c13">Prepared By</span></p>
-                        {{-- <p class="c4"><span class="c13">{{ auth('admin')->user()->name }}</span></p> --}}
-                        <p class="c4"><span class="c13">Medical Technologist</span></p>
-                        <p class="c4 c10"><span class="c13"></span></p>
-                    </div>
-                    <div>
-                        <p class="c4"><span class="c13">Check by</span></p>
-                        <p class="c4"><span class="c13">Lab In-charge</span></p>
-                    </div>
-                    <div>
-                        <h5 style="margin-bottom: 4px; margin: 0; padding: 0; font-weight: bold;">
-                            Prof. Dr. Md. Jafarullah
-                        </h5>
-                        <p><small>MBBS, MD, (BSMMU)</small></p>
-                        <p><small>Consultant Pathology</small></p>
-                        {{-- <p><small>Bangladesh Medical College</small></p> --}}
-                        {{-- <h5 style="margin-bottom: 4px; margin: 0; padding: 0; font-weight: bold;">
-                            {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
 
-                        </h5>
-                        <p><small>{{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }}</small></p> --}}
-                        {{-- <p><small>Professor of Pathology</small></p>
-                        <p><small>Bangladesh Medical College</small></p> --}}
-                    </div>
-                </div>
-            </div>
             <img src="{{ asset('assets/moneyReceipt/fpathology.png') }}" style="width: 100%;" alt="">
         </footer>
     </div>
