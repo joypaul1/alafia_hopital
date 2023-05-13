@@ -52,7 +52,7 @@
         }
 
         p {
-            font-size: 11px;
+            font-size: 13px;
             font-weight: 900;
         }
 
@@ -100,7 +100,6 @@
     @endphp
     @foreach ($printData as $key => $details)
         @foreach ($details as $index => $testData)
-            {{-- @dd(implode(",",$testData), $key) --}}
 
             <div id="invoice-Body">
                 <div id="bot" style="display: flex;align-items:flex-end;">
@@ -111,26 +110,29 @@
                         <p style="font-size: 14px; text-align:center;font-weight:bolder; margin-top:5px;">
                             {{ $labInvoice->patient->patientId }}
                         </p>
-                        <div >
+                        <div>
                             <div class="text" style=" text-align:center; ">
                                 <p>
-                                    {{ $labInvoice->patient->name }} <span style="margin-left: 8px;">{{ $diff->y }} Y /
-                                        {{ substr(optional($labInvoice->patient)->gender ?? '-', 0, 1) }} </span>
+                                    {{ $labInvoice->patient->name }} <span style="margin-left: 8px;">{{ $diff->y }}
+                                        Y / {{ substr(optional($labInvoice->patient)->gender ?? '-', 0, 1) }} </span>
                                 </p>
                                 <p>
-                                    {{ implode(",",$testData) }}
+                                    {{ implode(',', $testData) }}
                                 </p>
                                 <p>
                                     {{ date('d-m-y h:i A') }} <span
                                         style="margin-left: 8px;">IN:{{ $labInvoice->invoice_no }}</span>
                                 </p>
+                                <p>
+                                   DEP: {{ $key }}
+                                </p>
 
                             </div>
                         </div>
                     </div>
-                    <p style="transform:rotate(270deg); width:10%; text-align:center;">
-                        {{ $key}}
-                    </p>
+                    {{-- <p style=" width:10%; text-align:center;">
+                        {{ $key }}
+                    </p> --}}
                     <!--End Table-->
                 </div>
                 <!--End InvoiceBot-->

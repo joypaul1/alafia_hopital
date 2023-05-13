@@ -393,47 +393,43 @@ class LabTestResultController extends Controller
     }
     public function printBarCode(LabInvoice $labInvoice)
     {
-    //    return $labTest = LabTest::whereName('CUS')->first()->tube->name;
+    //    return $labTest = LabTest::whereName('CUS')->first();
         $printData = [];
         $labInvoice         = LabInvoice::whereId($labInvoice->id)->with('patient')->with('labTestDetails.testName')->first();
         $categoryWiseData   = $labInvoice->labTestDetails->groupBy('testName.category');
         foreach ($labInvoice->labTestDetails as $key => $details) {
             if($key == 0){
                 $printData[$details->testName->category] = [$details->testName->tube->name => [
-                    $details->testName->name => $details->testName->name,
+                    $details->testName->short_name => $details->testName->short_name,
                 ]];
             }else{
-                // dd($details->testName->category, $printData);
                 //check if category exist
                 if(array_key_exists($details->testName->category, $printData)){
-                    // dd(array_key_exists($details->testName->tube->name, $printData[$details->testName->category]));
                     //check if tube exist
                     if(array_key_exists($details->testName->tube->name, $printData[$details->testName->category])){
                         //check if test exist
                         if($details->testName->name != 'CUS'){
-                            if(array_key_exists($details->testName->name, $printData[$details->testName->category][$details->testName->tube->name])){
+                            if(array_key_exists($details->testName->short_name, $printData[$details->testName->category][$details->testName->tube->name])){
                                 //if exist then do nothing
                             }else{
                                 //if not exist then add
-                                $printData[$details->testName->category][$details->testName->tube->name][$details->testName->name] = $details->testName->name;
+                                $printData[$details->testName->category][$details->testName->tube->name][$details->testName->short_name] = $details->testName->short_name;
                             }
                         }
 
                     }else{
                         //if tube not exist then add
                         $printData[$details->testName->category][$details->testName->tube->name] = [
-                            $details->testName->name=> $details->testName->name,
+                            $details->testName->short_name=> $details->testName->short_name,
                         ];
                     }
                 }else{
                     $printData[$details->testName->category] = [$details->testName->tube->name => [
-                        $details->testName->name => $details->testName->name,
+                        $details->testName->short_name => $details->testName->short_name,
                     ]];
                 }
             }
         }
-
-        // dd($printData);
         return view('backend.pathology.labTest.printBarCode', compact('labInvoice', 'printData'));
     }
 }
