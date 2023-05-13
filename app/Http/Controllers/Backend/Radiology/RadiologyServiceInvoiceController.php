@@ -126,9 +126,7 @@ class RadiologyServiceInvoiceController extends Controller
     public function showResult($id)
     {
         $radiologyServiceInvoiceItem= RadiologyServiceInvoiceItem::whereId($id)->with('serviceName')->first();
-
         return view('backend.radiology.makeResult.show', compact('radiologyServiceInvoiceItem'));
-
 
     }
 

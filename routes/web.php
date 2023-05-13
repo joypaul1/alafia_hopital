@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\Backend\LoginController;
+use App\Models\lab\LabTest;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -19,21 +20,33 @@ Route::get('print', function () {
 });
 Route::get('/',[LoginController::class, 'showLoginForm'])->name('home');
 Route::get('/reportDesign', function () {
-    $units = (object)[
-        ['id' => 'mg/dl', 'name' => 'mg/dl'],
-        ['id' => 'mmol/l', 'name' => 'mmol/l'],
-        ['id' => 'Nil', 'name' => 'Nil'],
-        ['id' => 'µg/dl' , 'name' => 'µg/dl' ],
-        ['id' => 'U/L' , 'name' => 'U/L' ],
-        ['id' => 'g/dl' , 'name' => 'g/dl' ],
-        ['id' => 'mmol/l' , 'name' => 'mmol/l' ],
-        ['id' => '%' , 'name' => '%' ],
-        ['id' => 'N/A' , 'name' => 'N/A' ],
-        ['id' => 'IU/mL' , 'name' => 'IU/mL' ],
-        ['id' => 'mg/L' , 'name' => 'mg/L' ],
-    ];
+    $labTest =LabTest::where([['category', '!=', 'Urine'], ['category', '!=', 'Stool']])->get();
+    foreach ($labTest as $key => $value) {
+        $value->update([
+            'needle' => '1',
+        ]);
+    }
+    $labTest =LabTest::where([['category', 'Urine'], ['category', '!=', 'Stool']])->get();
+    foreach ($labTest as $key => $value) {
+        $value->update([
+            'pot' => '1',
+        ]);
+    }
+    // $units = (object)[
+    //     ['id' => 'mg/dl', 'name' => 'mg/dl'],
+    //     ['id' => 'mmol/l', 'name' => 'mmol/l'],
+    //     ['id' => 'Nil', 'name' => 'Nil'],
+    //     ['id' => 'µg/dl' , 'name' => 'µg/dl' ],
+    //     ['id' => 'U/L' , 'name' => 'U/L' ],
+    //     ['id' => 'g/dl' , 'name' => 'g/dl' ],
+    //     ['id' => 'mmol/l' , 'name' => 'mmol/l' ],
+    //     ['id' => '%' , 'name' => '%' ],
+    //     ['id' => 'N/A' , 'name' => 'N/A' ],
+    //     ['id' => 'IU/mL' , 'name' => 'IU/mL' ],
+    //     ['id' => 'mg/L' , 'name' => 'mg/L' ],
+    // ];
     // return view('backend.dashboard.lab-report', compact('units'));
     // return view('backend.dashboard.lab-report(CultureofBlood)', compact('units'));
     // return view('backend.dashboard.lab-report(Serology)', compact('units'));
-    return view('backend.dashboard.lab-report(CultureofBlood)', compact('units'));
+    // return view('backend.dashboard.lab-report(CultureofBlood)', compact('units'));
 });
