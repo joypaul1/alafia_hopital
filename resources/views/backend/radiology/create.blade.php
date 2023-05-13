@@ -411,9 +411,21 @@
             let discount_type = $("#discount_type").val();
             let paid_amount = $('#paid_amount').val() || 0;
             let discount = $('#discount').val() || 0;
+            if (Number(discount || 0) > 25 && discount_type == 'percentage') {
+                $('#discount').val(25);
+                $(this).css('border', '1px solid red');
+                let $message = "Not More Than 25% Discount! &#128528; ";
+                let $context = 'error';
+                let $positionClass = 'toast-top-right';
+                toastr.remove();
+                toastr[$context]($message, '', {
+                    positionClass: $positionClass
+                });
+               return false;
+            }
             let subtotal = $('#testSubTotal').val();
             let discount_amount = $('#discount_amount');
-            console.log(discount_type);
+
             if (discount_type == 'flat') {
                 discountPrice = Number(discount)
                 discount_amount.val(discountPrice.toFixed(2));
@@ -426,7 +438,7 @@
             }
             console.log(discountPrice, subtotal, discount, discount_type);
             $('#payable_amount').val((Number(subtotal) - Number(discountPrice)).toFixed(2));
-            $('#due_amount').val(Number(subtotal) - Number(discountPrice) - Number(paid_amount)).toFixed(2);
+            $('#due_amount').val(Number(subtotal) - Number(discountPrice) - Number(paid_amount));
         }
 
         // create a function to remove a row
