@@ -21,6 +21,7 @@ class LabTestController extends Controller
      */
     public function index(Request $request)
     {
+        // dd(312312);
         $labInvoices =   LabInvoice::query();
         if ($request->invoice_no) {
             $labInvoices = $labInvoices->where('invoice_no', $request->invoice_no);

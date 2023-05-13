@@ -18,8 +18,8 @@
         }
 
         /* nav {
-                                                                    font-family: monospace;
-                                                                } */
+                                                                        font-family: monospace;
+                                                                    } */
 
         .dropdown_hover ul {
             /* background: darkorange; */
@@ -104,8 +104,10 @@
                     <h4 class="pointer text-info" id="toggleFilter">
                         <i class="fa fa-filter"></i> Filter
                     </h4>
-                    <form action="{{ route('backend.pathology.labTest.index') }}" method="get">
+                    <form action="{{ route('backend.pathology.labTest.index', ['status'=> 'readyToDelivery']) }}" method="get">
                         @method('GET')
+                        <input type="hidden" name="status" value="readyToDelivery">
+
                         <div id="filterContainer">
                             <hr>
                             <div class="row align-items-center">

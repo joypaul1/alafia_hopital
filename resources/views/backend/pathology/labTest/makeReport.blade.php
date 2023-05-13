@@ -18,8 +18,8 @@
         }
 
         /* nav {
-                                                                                font-family: monospace;
-                                                                            } */
+                                                                                    font-family: monospace;
+                                                                                } */
 
         .dropdown_hover ul {
             /* background: darkorange; */
@@ -106,6 +106,8 @@
                     </h4>
                     <form action="{{ route('backend.pathology.labTest.index') }}" method="get">
                         @method('GET')
+                        <input type="hidden" name="status" value="makeReport">
+
                         <div id="filterContainer">
                             <hr>
                             <div class="row align-items-center">

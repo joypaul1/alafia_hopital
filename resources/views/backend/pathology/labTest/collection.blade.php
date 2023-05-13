@@ -100,6 +100,7 @@
                     </h4>
                     <form action="{{ route('backend.pathology.labTest.index') }}" method="get">
                         @method('GET')
+                        <input type="hidden" name="status" value="collection">
                         <div id="filterContainer">
                             <hr>
                             <div class="row align-items-center">
