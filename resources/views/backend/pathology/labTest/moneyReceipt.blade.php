@@ -230,7 +230,7 @@
                             </td>
                             <td class="text-right">
                                 {{ number_format($labTest->discount_amount, 2) }}
-                            </br>
+                            <!-- </br> -->
                                 ({{ round($labTest->discount) }}{{ $labTest->discount_type == 'percentage' ? '%' : 'TK' }})
                             </td>
                             <td class="text-right">
@@ -444,7 +444,7 @@
                     </small>
                 </i>
             </p>
-            <p class="mt-5 pt-4">
+            <p class="pt-4">
                 যে সকল রুমে যাবেন:
             </p>
             <table style="font-size: 12pt;" class="table table-bordered mt-0 t">

@@ -27,7 +27,7 @@
 
         * {
             letter-spacing: 1px;
-            font-weight: 900 !important;
+            /* font-weight: 900 !important; */
             font-family: monospace !important;
             padding: 0;
             margin: 0;
@@ -52,8 +52,8 @@
         }
 
         p {
-            font-size: 16px;
-            font-weight: 900;
+            font-size: 14px;
+            /* font-weight: 900; */
         }
 
 
