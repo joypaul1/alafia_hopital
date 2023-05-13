@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Radiology\StoreRequest;
 use App\Models\Account\AccountLedger;
 use App\Models\Doctor\Doctor;
-use App\Models\lab\LabInvoice;
 use App\Models\PaymentSystem;
 use App\Models\Radiology\RadiologyServiceInvoice;
 use App\Models\Radiology\RadiologyServiceInvoiceItem;
@@ -39,7 +38,7 @@ class RadiologyServiceInvoiceController extends Controller
         } else {
             $labInvoices = $labInvoices->whereDate('date', '>=', date('Y-m-d'));
         }
-        $labInvoices =  $labInvoices->with('itemDetails.serviceName:id,name','patient:id,name')->latest()->get();
+        $labInvoices =  $labInvoices->with('itemDetails.serviceName:id,name', 'patient:id,name')->latest()->get();
         // dd($labInvoices);
         // dd($request->status);
         // $status =  (object)[['name' => 'collection', 'id' => 'collection'], ['name' => 'Inactive', 'id' => 0]];
@@ -65,7 +64,7 @@ class RadiologyServiceInvoiceController extends Controller
                 'name' => $query->first_name . $query->last_name,
             ];
         });
-        $dis_status =  (object)[['name' =>'Percentage', 'id' =>'percentage' ],['name' =>'Flat', 'id' => 'flat' ]];
+        $dis_status =  (object)[['name' => 'Percentage', 'id' => 'percentage'], ['name' => 'Flat', 'id' => 'flat']];
         $payment_methods = PaymentSystem::get(['id', 'name']);
         $payment_accounts = AccountLedger::where('rec_pay', true)->get(['id', 'name']);
         return view('backend.radiology.create', compact('doctors', 'payment_methods', 'payment_accounts', 'dis_status'));
@@ -79,13 +78,12 @@ class RadiologyServiceInvoiceController extends Controller
      */
     public function store(StoreRequest $request)
     {
-         $returnData = $request->storeData();
+        $returnData = $request->storeData();
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('Pathology Lab Test Invoice Created');
             return redirect()->route('backend.radiologyServiceInvoice.show', $returnData->getData()->data);
         }
         return back()->with('error', $returnData->getData()->msg);
-
     }
 
     /**
@@ -96,20 +94,19 @@ class RadiologyServiceInvoiceController extends Controller
      */
     public function show($id)
     {
-        $radiologyServiceInvoice= RadiologyServiceInvoice::whereId($id)->with('itemDetails.serviceName:id,name', 'patient')->first();
+        $radiologyServiceInvoice = RadiologyServiceInvoice::whereId($id)->with('itemDetails.serviceName:id,name', 'patient')->first();
         return view('backend.radiology.moneyReceipt', compact('radiologyServiceInvoice'));
     }
 
     public function makeResult($id)
     {
-        $radiologyServiceInvoiceItem= RadiologyServiceInvoiceItem::whereId($id)->with('serviceName','serviceInvoice')->first();
+        $radiologyServiceInvoiceItem = RadiologyServiceInvoiceItem::whereId($id)->with('serviceName', 'serviceInvoice')->first();
 
         return view('backend.radiology.makeResult.create', compact('radiologyServiceInvoiceItem'));
-
     }
     public function storeResult(Request $request, $id)
     {
-          $radiologyServiceInvoiceItem= RadiologyServiceInvoiceItem::whereId($id)->first();
+        $radiologyServiceInvoiceItem = RadiologyServiceInvoiceItem::whereId($id)->first();
         try {
             $radiologyServiceInvoiceItem->update([
                 'result' => $request->result,
@@ -119,15 +116,34 @@ class RadiologyServiceInvoiceController extends Controller
             throw $th;
         }
         return redirect()->route('backend.radiologyServiceInvoice.make-test-result-show', $radiologyServiceInvoiceItem->id);
-
     }
     public function showResult($id)
     {
-        $radiologyServiceInvoiceItem= RadiologyServiceInvoiceItem::whereId($id)->with('serviceName')->first();
+        $radiologyServiceInvoiceItem = RadiologyServiceInvoiceItem::whereId($id)->with('serviceName')->first();
         return view('backend.radiology.makeResult.show', compact('radiologyServiceInvoiceItem'));
-
     }
 
+
+    public function payment($id)
+    {
+         $labInvoice = RadiologyServiceInvoice::whereId($id)->first();
+        return view('backend.radiology.payment', compact('labInvoice'));
+    }
+    public function paymentStore(Request $request, $id)
+    {
+        $labInvoice = RadiologyServiceInvoice::whereId($id)->first();
+        if ($labInvoice) {
+            $testObject = new StoreRequest();
+            $returnData  = $testObject->paymentStore($labInvoice, $request);
+            if ($returnData->getData()->status) {
+                (new LogActivity)::addToLog('Pathology Lab Test Payment Create');
+                return redirect()->route('backend.radiology.payment.multiInvoice', $returnData->getData()->data);
+            }
+            return back()->with('error', $returnData->getData()->msg);
+        }
+
+        return back();
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -136,7 +152,12 @@ class RadiologyServiceInvoiceController extends Controller
      */
     public function edit($id)
     {
-
+        dd($id);
+    }
+    public function multiInvoice($id)
+    {
+         $labInvoice = RadiologyServiceInvoice::whereId($id)->with('patient', 'paymentHistories.paymentMethodName')->first();
+        return view('backend.radiology.historymoneyReceipt', compact('labInvoice'));
     }
 
     /**

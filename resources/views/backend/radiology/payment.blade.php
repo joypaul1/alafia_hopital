@@ -4,13 +4,13 @@
     <link rel="stylesheet" href="{{ asset('assets/backend/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}">
 @endpush
 @section('page-header')
-    <i class="fa fa-list"></i> LabTest Payment
+    <i class="fa fa-list"></i> Radiology Payment
 @stop
 @section('table_header')
     @include('backend._partials.page_header', [
         'fa' => 'fa fa-plus-circle',
-        'name' => 'LabTest Invoice list',
-        'route' => route('backend.pathology.labTest.index'),
+        'name' => 'Radiology Invoice list',
+        'route' => route('backend.radiologyServiceInvoice.index'),
     ])
 @stop
 @section('content')
@@ -29,7 +29,7 @@
                             <span class="badge badge-info">Patient Name: {{ $labInvoice->patient->name }}</span>
 
                         </h3>
-                        <form action="{{ route('backend.pathology.payment.store', $labInvoice) }}" method="post">
+                        <form action="{{ route('backend.radiology.payment.store',$labInvoice) }}" method="post">
                             @csrf
                             @method('POST')
                             <div class="body row">
@@ -49,8 +49,7 @@
                                         </label>
 
                                         <input type="text" name="payable_amount" class="form-control" id="payable_amount"
-                                            placeholder="payable_amount"
-                                            value="{{ number_format($labInvoice->due_amount, 2, '.', '') }}"
+                                            placeholder="payable_amount" value="{{ number_format($labInvoice->due_amount, 2, '.', '') }}"
                                             autocomplete="off" readonly="">
                                     </div>
                                 </div>
@@ -78,8 +77,7 @@
                                         </label>
 
                                         <input type="text" name="due_amount" class="form-control" id="due_amount"
-                                            placeholder="due_amount"
-                                            value="{{ number_format($labInvoice->due_amount, 2, '.', '') }}"
+                                            placeholder="due_amount" value="{{ number_format($labInvoice->due_amount,2, '.', '') }}"
                                             autocomplete="off" readonly="">
                                     </div>
                                 </div>

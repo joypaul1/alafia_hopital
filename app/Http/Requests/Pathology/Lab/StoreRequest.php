@@ -235,13 +235,13 @@ class StoreRequest extends FormRequest
         }
         try {
             DB::beginTransaction();
-            if(Str::replace(',', '', ($this->payable_amount+ 0)) == Str::replace(',', '', ($this->paid_amount??0+ 0))){
+            if(Str::replace(',', '', ($request->payable_amount+ 0)) == Str::replace(',', '', ($request->paid_amount??0+ 0))){
                 $payment_status = 'paid';
             }else{
                 $payment_status = 'due';
             }
             $labInvoice->update([
-                'paid_amount'   => $labInvoice->paid_amount + Str::replace(',', '',  $request->paid_amount + 0),
+                'paid_amount'   => $labInvoice->paid_amount + Str::replace(',', '',  $request->paid_amount??+ 0),
                 'payment_status'=> $payment_status
             ]);
 

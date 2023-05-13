@@ -165,6 +165,7 @@
                                     <th class="text-center">Invoice No.</th>
                                     <th class="text-center">Created Date </th>
                                     <th class="text-center">P-Name</th>
+                                    <th class="text-center">Payment Status</th>
                                     <th class="text-center">Make Result</th>
                                     <th class="text-center">View Result </th>
                                     <th class="text-center">Action </th>
@@ -186,7 +187,20 @@
                                                         aria-hidden="true"></i></button>
                                             </a>
                                         </td>
+                                        <td>
+                                            @if ($labInvoice->payment_status == 'due')
+                                                <a
+                                                    href="{{ route('backend.radiology.payment', $labInvoice) }}"target="_blank">
+                                                    <button class="btn btn-danger">
+                                                        <i class="fa fa-money" aria-hidden="true"> Due</i>
+                                                    </button>
+                                                </a>
+                                            @else
+                                                <button class="btn btn-success"><i class="fa fa-check" aria-hidden="true">
+                                                        Paid</i></button>
+                                            @endif
 
+                                        </td>
                                         <td>
                                             <div class="dropdown_hover incom_color">
                                                 <ul>
