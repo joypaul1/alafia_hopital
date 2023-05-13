@@ -196,8 +196,10 @@
                                                     </button>
                                                 </a>
                                             @else
-                                                <button class="btn btn-success"><i class="fa fa-check" aria-hidden="true">
-                                                        Paid</i></button>
+                                                <a href="{{ route('backend.radiology.payment.multiInvoice', $labInvoice) }}"target="_blank">
+                                                    <button class="btn btn-success"><i class="fa fa-check" aria-hidden="true"> Paid</i>
+                                                    </button>
+                                                </a>
                                             @endif
 
                                         </td>

@@ -18,8 +18,8 @@
         }
 
         /* nav {
-                                                    font-family: monospace;
-                                                } */
+                                                        font-family: monospace;
+                                                    } */
 
         .dropdown_hover ul {
             /* background: darkorange; */
@@ -203,16 +203,21 @@
                                         </td>
                                         <td>
                                             @if ($labInvoice->payment_status == 'due')
-                                            <a href="{{ route('backend.pathology.payment', $labInvoice) }}"target="_blank">
-                                                    <button class="btn btn-danger"><i class="fa fa-money" aria-hidden="true">  Due </i> </button>
+                                                <a
+                                                    href="{{ route('backend.pathology.payment', $labInvoice) }}"target="_blank">
+                                                    <button class="btn btn-danger"><i class="fa fa-money"
+                                                            aria-hidden="true"> Due </i> </button>
                                                 </a>
                                             @else
-
-                                                <button class="btn btn-success"><i class="fa fa-check" aria-hidden="true">  Paid</i></button>
+                                                <a href="{{ route('backend.pathology.payment.multiInvoice', $labInvoice->id) }}"
+                                                    target="_blank">
+                                                    <button class="btn btn-success"><i class="fa fa-check"
+                                                            aria-hidden="true"> Paid</i></button>
+                                                </a>
                                             @endif
 
                                         </td>
-                                         {{--<td>
+                                        {{-- <td>
                                             <a href="{{ route('backend.pathology.printBarCode', $labInvoice) }}"
                                                 target="_blank">
                                                 <button class="btn btn-warning"><i class="fa fa-print"
