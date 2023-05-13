@@ -26,7 +26,7 @@ Route::get('/reportDesign', function () {
             'needle' => '1',
         ]);
     }
-    $labTest =LabTest::where([['category', 'Urine'], ['category', '!=', 'Stool']])->get();
+    $labTest =LabTest::where([['category', 'Urine'], ['category', 'Stool']])->get();
     foreach ($labTest as $key => $value) {
         $value->update([
             'pot' => '1',
