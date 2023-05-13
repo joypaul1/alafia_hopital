@@ -68,7 +68,7 @@ class StoreRequest extends FormRequest
     public function storeData()
     {
         try {
-            if(Str::replace(',', '', ($this->payable_amount+ 0)) == Str::replace(',', '', ($this->paid_amount+ 0))){
+            if(Str::replace(',', '', ($this->payable_amount+ 0)) == Str::replace(',', '', ($this->paid_amount??0+ 0))){
                 $payment_status = 'paid';
             }else{
                 $payment_status = 'due';
@@ -235,7 +235,7 @@ class StoreRequest extends FormRequest
         }
         try {
             DB::beginTransaction();
-            if(Str::replace(',', '', ($this->payable_amount+ 0)) == Str::replace(',', '', ($this->paid_amount+ 0))){
+            if(Str::replace(',', '', ($this->payable_amount+ 0)) == Str::replace(',', '', ($this->paid_amount??0+ 0))){
                 $payment_status = 'paid';
             }else{
                 $payment_status = 'due';

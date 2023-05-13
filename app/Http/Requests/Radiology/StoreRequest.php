@@ -64,89 +64,92 @@ class StoreRequest extends FormRequest
     public function storeData()
     {
         try {
+            if (Str::replace(',', '', ($this->payable_amount + 0)) == Str::replace(',', '', ($this->paid_amount ?? 0 + 0))) {
+                $payment_status = 'paid';
+            } else {
+                $payment_status = 'due';
+            }
+
             DB::beginTransaction();
             $data['invoice_no']         = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
             $data['patient_id']         = $this->patient_id;
             $data['date']               = date('Y-m-d', strtotime($this->date)) . ' ' . date('h:i:s');
             $data['subtotal_amount']    = Str::replace(',', '', ($this->testSubTotal));
             $data['discount_type']      = $this->discount_type;
-            $data['discount']           = Str::replace(',', '', ($this->discount??0));
-            $data['discount_amount']    = Str::replace(',', '', ($this->discount_amount??0));
-
-            $data['paid_amount']        = Str::replace(',', '', ($this->paid_amount));
-            $data['payment_status']     = Str::replace(',', '', ($this->payable_amount)) > Str::replace(',', '', ($this->paid_amount)) ? 'due' : 'paid';
+            $data['discount']           = Str::replace(',', '', ($this->discount ?? 0));
+            $data['discount_amount']    = Str::replace(',', '', ($this->discount_amount ?? 0));
+            $data['paid_amount']        = Str::replace(',', '', ($this->paid_amount ?? 0));
+            $data['payment_status']     = $payment_status;
             $data['total_amount']       = Str::replace(',', '', ($this->payable_amount));
             $data['doctor_id']          = $this->doctor_id;
             $serviceInvoice             = RadiologyServiceInvoice::create($data);
 
             foreach ($this->service_id as $key => $serviceId) {
                 // dd($key,$serviceId);
-                $v=$serviceInvoice->itemDetails()->create([
+                $v = $serviceInvoice->itemDetails()->create([
                     'service_name_id'   => $serviceId,
                     'qty'       => 1.00,
                     'service_price' => $this['price'][$key],
                     'subtotal'  => $this['price'][$key],
                     'status'  => 'pending',
                 ]);
-
             }
-            // dd($this->all());
-            $paymentHistories= $serviceInvoice->paymentHistories()->create([
-                'ledger_id'             => $this->payment_account,
-                'payment_method'        => PaymentSystem::whereId($this->payment_method)->first()->name,
-                'payment_system_id'     => $this->payment_method,
-                'date'                  => date('Y-m-d'),
-                'note'                  => $this->payment_note,
-                'paid_amount'           => Str::replace(',', '', $this->paid_amount),
-                'payment_received_id'   => auth('admin')->id(),
-            ]);
+            if ($this->paid_amount > 0) {
+                $paymentHistories = $serviceInvoice->paymentHistories()->create([
+                    'ledger_id'             => $this->payment_account,
+                    'payment_method'        => PaymentSystem::whereId($this->payment_method)->first()->name,
+                    'payment_system_id'     => $this->payment_method,
+                    'date'                  => date('Y-m-d'),
+                    'note'                  => $this->payment_note,
+                    'paid_amount'           => Str::replace(',', '', $this->paid_amount),
+                    'payment_received_id'   => auth('admin')->id(),
+                ]);
+                //<----start of cash flow Transition------->
+                // cashflowTransactions
+                $cashflowTransition = $serviceInvoice->cashflowTransactions()->create([
+                    'url'               => "Backend\Radiology\RadiologyServiceInvoiceController@show,['id' =>" . $serviceInvoice->id . "]",
+                    'cashflow_type'     => 'serviceInvoice',
+                    'description'       => 'serviceInvoice Item',
+                    'date'              => $serviceInvoice->date,
+                    'ledger_id'         => $this->payment_account,
+                    'payment_method'    => $this->payment_method,
+
+                ]);
+                // dd(  $cashflowTransition);
+
+                // cashflowHistories
+                $cashflowTransition->cashflowHistory()->create([
+                    'debit' => Str::replace(',', '',  $serviceInvoice->paid_amount)
+                ]);
+
+                //<----end of cash flow Transition------->
+
+                //<----start of daily book transaction------->
+                // dailyTransition
+                $dailyTransition = $serviceInvoice->dailyTransactions()->create([
+                    'url'               => "Backend\Radiology\RadiologyServiceInvoiceController@show,['id' =>" . $serviceInvoice->id . "]",
+                    'description'       => 'serviceInvoice Item',
+                    'transaction_type'  => 'serviceInvoice',
+                    'date'              =>  $this->date,
+                    'reference_no'      => $serviceInvoice->invoice_no,
+                ]);
+
+                //serviceInvoice full amount
+                $dailyTransition->transactionHistories()->create([
+                    'entry_name' => 'serviceInvoice Item',
+                    'debit' => Str::replace(',', '',  $serviceInvoice->paid_amount),
+                ]);
 
 
-            // dd($paymentHistories);
-            //<----start of cash flow Transition------->
-            // cashflowTransactions
-            $cashflowTransition = $serviceInvoice->cashflowTransactions()->create([
-                'url'               => "Backend\Radiology\RadiologyServiceInvoiceController@show,['id' =>" . $serviceInvoice->id . "]",
-                'cashflow_type'     => 'serviceInvoice',
-                'description'       => 'serviceInvoice Item',
-                'date'              => $serviceInvoice->date,
-                'ledger_id'         => $this->payment_account,
-                'payment_method'    =>$this->payment_method,
+                // LedgerTransition --->increment costing
+                $leg = LedgerTransition::updateOrCreate([
+                    'ledger_id' => $this->payment_account,
+                    'date'     => FinancialYearHistory::latest()->first()->start_date
+                ], [
+                    'debit' => DB::raw('debit +' . Str::replace(',', '',  $serviceInvoice->paid_amount))
+                ]);
+            }
 
-            ]);
-            // dd(  $cashflowTransition);
-
-            // cashflowHistories
-            $cashflowTransition->cashflowHistory()->create([
-                'debit' => Str::replace(',', '',  $serviceInvoice->paid_amount)
-            ]);
-
-            //<----end of cash flow Transition------->
-
-            //<----start of daily book transaction------->
-            // dailyTransition
-            $dailyTransition = $serviceInvoice->dailyTransactions()->create([
-                'url'               => "Backend\Radiology\RadiologyServiceInvoiceController@show,['id' =>" . $serviceInvoice->id . "]",
-                'description'       => 'serviceInvoice Item',
-                'transaction_type'  => 'serviceInvoice',
-                'date'              =>  $this->date,
-                'reference_no'      => $serviceInvoice->invoice_no,
-            ]);
-
-            //serviceInvoice full amount
-            $dailyTransition->transactionHistories()->create([
-                'entry_name' => 'serviceInvoice Item',
-                'debit' => Str::replace(',', '',  $serviceInvoice->paid_amount),
-            ]);
-
-
-            // LedgerTransition --->increment costing
-            $leg=LedgerTransition::updateOrCreate([
-                'ledger_id' => $this->payment_account,
-                'date'     => FinancialYearHistory::latest()->first()->start_date
-            ], [
-                'debit' => DB::raw('debit +' . Str::replace(',', '',  $serviceInvoice->paid_amount))
-            ]);
 
             DB::commit();
         } catch (\Exception $e) {

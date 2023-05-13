@@ -86,8 +86,6 @@ class RadiologyServiceInvoiceController extends Controller
         }
         return back()->with('error', $returnData->getData()->msg);
 
-        // return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
-
     }
 
     /**
