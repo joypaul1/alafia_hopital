@@ -23,10 +23,7 @@ class RadiologyServiceInvoiceController extends Controller
     public function index(Request $request)
     {
 
-        if ($request->optionData) {
-            $data = RadiologyServiceName::whereLike($request->optionData)->select(['id', 'name'])->take(15)->get();
-            return response()->json(['data' => $data]);
-        }
+        
         $labInvoices =   RadiologyServiceInvoice::query();
         if ($request->patient_id) {
             $labInvoices = $labInvoices->whereHas('patient', function($query) use($request){

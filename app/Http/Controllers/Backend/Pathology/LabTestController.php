@@ -27,18 +27,18 @@ class LabTestController extends Controller
             $labInvoices = $labInvoices->where('invoice_no', $request->invoice_no);
         }
         if ($request->patient_id) {
-            $labInvoices = $labInvoices->whereHas('patient', function($query) use($request){
-                return $query->Where('patientId','like', "%{$request->patient_id}%");
+            $labInvoices = $labInvoices->whereHas('patient', function ($query) use ($request) {
+                return $query->Where('patientId', 'like', "%{$request->patient_id}%");
             });
         }
         if ($request->patient_name) {
-            $labInvoices = $labInvoices->whereHas('patient', function($query) use($request){
-                return $query->Where('name','like', "%{$request->patient_name}%");
+            $labInvoices = $labInvoices->whereHas('patient', function ($query) use ($request) {
+                return $query->Where('name', 'like', "%{$request->patient_name}%");
             });
         }
         if ($request->mobile_number) {
-            $labInvoices = $labInvoices->whereHas('patient', function($query) use($request){
-                return $query->Where('mobile','like', "%{$request->mobile_number}%");
+            $labInvoices = $labInvoices->whereHas('patient', function ($query) use ($request) {
+                return $query->Where('mobile', 'like', "%{$request->mobile_number}%");
             });
         }
         if ($request->payment_status) {
@@ -57,7 +57,7 @@ class LabTestController extends Controller
 
         $labInvoices =  $labInvoices->with('labTestDetails.testName:id,name,category', 'labTestDetails.viewResult', 'patient:id,name')->latest()->get();
 
-        $payment_status=(object)[['name'=>'Paid', 'id'=> 'paid'],['name'=>'Due', 'id' => 'due']];
+        $payment_status = (object)[['name' => 'Paid', 'id' => 'paid'], ['name' => 'Due', 'id' => 'due']];
 
         if ($request->status) {
             return view('backend.pathology.labTest.' . $request->status, compact('labInvoices', 'payment_status'));
@@ -98,7 +98,6 @@ class LabTestController extends Controller
             return redirect()->route('backend.pathology.labTest.show', $returnData->getData()->data);
         }
         return back()->with('error', $returnData->getData()->msg);
-
     }
 
     public function getSlotNumber()
@@ -118,20 +117,22 @@ class LabTestController extends Controller
             $labInvoices = LabInvoice::whereIn('id', $request->ids)->get();
             for ($i = 0; $i < count($labInvoices); $i++) {
                 LabInvoice::whereId($labInvoices[$i]->id)->update(
-                    ['status' => $request->status, 'slot_number' => $getSlotNumber, 'slot_date' => date('Y-m-d')
-                ]);
+                    [
+                        'status' => $request->status, 'slot_number' => $getSlotNumber, 'slot_date' => date('Y-m-d')
+                    ]
+                );
             }
             return response()->json(['status' => true, 'msg' => 'Status Changed Successfully', 'slot_number' => $getSlotNumber, 'slot_date' => date('Y-m-d')]);
         } else {
-            LabInvoice::whereId($request->id)->update(['status' => $request->status ]);
+            LabInvoice::whereId($request->id)->update(['status' => $request->status]);
             return back()->with('success', 'Status Changed Successfully');
         }
     }
     public function viewSlot(Request $request)
     {
         $labInvoices = LabInvoice::whereDate('slot_date', $request->slot_date)->where('slot_number', $request->slot_number)
-        ->with('labTestDetails.testName:id,name,category','patient:id,name,patientId')
-        ->get();
+            ->with('labTestDetails.testName:id,name,category', 'patient:id,name,patientId')
+            ->get();
         return view('backend.pathology.labTest.slot', compact('labInvoices'));
     }
     /**
@@ -152,14 +153,13 @@ class LabTestController extends Controller
     public function payment($id)
     {
         $labInvoice = LabInvoice::whereId($id)
-        ->first();
+            ->first();
         return view('backend.pathology.labTest.payment', compact('labInvoice'));
-
     }
     public function paymentStore(Request $request, $id)
     {
         $labInvoice = LabInvoice::whereId($id)->first();
-        if( $labInvoice){
+        if ($labInvoice) {
             $testObject = new StoreRequest();
             $returnData  = $testObject->paymentStore($labInvoice, $request);
             if ($returnData->getData()->status) {
@@ -170,7 +170,6 @@ class LabTestController extends Controller
         }
 
         return back();
-
     }
     /**
      * Show the form for editing the specified resource.
@@ -184,7 +183,6 @@ class LabTestController extends Controller
     }
     public function multiInvoice($id)
     {
-
         $labInvoice = LabInvoice::whereId($id)->with('patient', 'paymentHistories.paymentMethodName')->first();
         return view('backend.pathology.labTest.historymoneyReceipt', compact('labInvoice'));
     }

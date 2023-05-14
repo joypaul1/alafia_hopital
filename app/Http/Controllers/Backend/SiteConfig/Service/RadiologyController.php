@@ -30,10 +30,12 @@ class RadiologyController extends Controller
             $data = $data->inactive();
         }
 
-         $data = $data->get();
+
         if ($request->optionData) {
-            return response()->json(['data' => $data]);
+            $data= $data->whereLike($request->optionData);
+            return response()->json(['data' => $data->get()]);
         }
+        $data = $data->get();
         if (request()->ajax()) {
             return DataTables::of($data)
                 ->addIndexColumn()
