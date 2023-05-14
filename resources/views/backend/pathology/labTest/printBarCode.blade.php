@@ -123,7 +123,9 @@
                                     {{ implode(', ', $testData) }}
                                 </p>
                                 <p>
-                                    {{ date('d-m-y h:i A') }}
+                                    <span style="font-size: 8px;">
+                                        {{ date('d-m-y h:i A') }}
+                                    </span>
                                     <br>
                                     <strong style="margin-left: 8px; font-size:13px;">IN:{{ $labInvoice->invoice_no }}</strong>
                                 </p>
