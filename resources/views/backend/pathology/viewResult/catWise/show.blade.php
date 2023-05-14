@@ -1569,13 +1569,13 @@
             <div style="padding: 0 0.5in;">
                 <div style="display: flex;justify-content: space-between; margin-top: 60pt;">
                     <div>
-                        <p class="c4"><span class="c13">Prepared by</span></p>
+                        <p class="c4"><span class="c13">Prepared By</span></p>
                         <p class="c4"><span class="c13">Medical Technologist</span></p>
                         <p class="c4 c10"><span class="c13"></span></p>
                     </div>
                     <div>
-                        <p class="c4"><span class="c13">Check by</span></p>
-                        <p class="c4"><span class="c13"></span></p>
+                        <p class="c4"><span class="c13">Check By</span></p>
+                        <p class="c4"><span class="c13">Lab In-charge</span></p>
                     </div>
                     <div>
                         <h5 style="margin-bottom: 4px; margin: 0; padding: 0; font-weight: bold;">

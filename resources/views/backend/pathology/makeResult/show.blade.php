@@ -1573,7 +1573,7 @@
                     <p class="c4 c10"><span class="c13"></span></p>
                 </div>
                 <div>
-                    <p class="c4"><span class="c13">Check by</span></p>
+                    <p class="c4"><span class="c13">Check By</span></p>
                     <p class="c4"><span class="c13">Lab In-charge</span></p>
                 </div>
                 <div>
