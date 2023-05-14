@@ -26,10 +26,17 @@ class LabTestController extends Controller
             $labInvoices = $labInvoices->where('invoice_no', $request->invoice_no);
         }
         if ($request->patient_id) {
-            $labInvoices = $labInvoices->where('patient_id', $request->patient_id);
+            $labInvoices = $labInvoices->whereHas('patient', function($query) use($request){
+                return $query->Where('patientId','like', "%{$request->patient_id}%");
+            });
         }
-        if ($request->status) {
-            $labInvoices = $labInvoices->where('status', $request->status);
+        if ($request->mobile_number) {
+            $labInvoices = $labInvoices->whereHas('patient', function($query) use($request){
+                return $query->Where('mobile','like', "%{$request->mobile_number}%");
+            });
+        }
+        if ($request->payment_status) {
+            $labInvoices = $labInvoices->where('payment_status', $request->payment_status);
         }
         if ($request->start_date) {
             $labInvoices = $labInvoices->whereDate('date', '>=', date('Y-m-d', strtotime($request->start_date)));
@@ -41,12 +48,15 @@ class LabTestController extends Controller
         } else {
             $labInvoices = $labInvoices->whereDate('date', '>=', date('Y-m-d'));
         }
+
         $labInvoices =  $labInvoices->with('labTestDetails.testName:id,name,category', 'labTestDetails.viewResult', 'patient:id,name')->latest()->get();
+
+        $payment_status=(object)[['name'=>'Paid', 'id'=> 'paid'],['name'=>'Due', 'id' => 'due']];
 
         if ($request->status) {
             return view('backend.pathology.labTest.' . $request->status, compact('labInvoices'));
         }
-        return view('backend.pathology.labTest.index', compact('labInvoices'));
+        return view('backend.pathology.labTest.index', compact('labInvoices', 'payment_status'));
     }
 
 

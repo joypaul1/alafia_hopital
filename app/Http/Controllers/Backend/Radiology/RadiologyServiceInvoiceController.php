@@ -22,11 +22,21 @@ class RadiologyServiceInvoiceController extends Controller
     public function index(Request $request)
     {
         $labInvoices =   RadiologyServiceInvoice::query();
+        if ($request->patient_id) {
+            $labInvoices = $labInvoices->whereHas('patient', function($query) use($request){
+                return $query->Where('patientId','like', "%{$request->patient_id}%");
+            });
+        }
+        if ($request->mobile_number) {
+            $labInvoices = $labInvoices->whereHas('patient', function($query) use($request){
+                return $query->Where('mobile','like', "%{$request->mobile_number}%");
+            });
+        }
         if ($request->invoice_no) {
             $labInvoices = $labInvoices->where('invoice_no', $request->invoice_no);
         }
-        if ($request->status) {
-            $labInvoices = $labInvoices->where('payment_status', $request->status);
+        if ($request->payment_status) {
+            $labInvoices = $labInvoices->where('payment_status', $request->payment_status);
         }
         if ($request->start_date) {
             $labInvoices = $labInvoices->whereDate('date', '>=', date('Y-m-d', strtotime($request->start_date)));
@@ -38,9 +48,11 @@ class RadiologyServiceInvoiceController extends Controller
         } else {
             $labInvoices = $labInvoices->whereDate('date', '>=', date('Y-m-d'));
         }
-        $labInvoices =  $labInvoices->with('itemDetails.serviceName:id,name', 'patient:id,name')->latest()->get();
+        $payment_status=(object)[['name'=>'Paid', 'id'=> 'paid'],['name'=>'Due', 'id' => 'due']];
 
-        return view('backend.radiology.index', compact('labInvoices'));
+        $labInvoices =  $labInvoices->with('itemDetails.serviceName:id,name', 'patient:id,name,patientId')->latest()->get();
+
+        return view('backend.radiology.index', compact('labInvoices', 'payment_status'));
     }
 
 

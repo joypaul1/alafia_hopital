@@ -39,6 +39,8 @@
                         }
                     @endphp
                     <hr>
+                    <strong>Patient ID</strong>
+                    <p>{{ $patient->patientId ?? '' }}</p>
                     <strong>Gender</strong>
                     <p>{{ $patient->guardian_name ?? '' }}</p>
                     <strong>Email ID</strong>
