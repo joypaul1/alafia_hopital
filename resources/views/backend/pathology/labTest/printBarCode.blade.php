@@ -53,8 +53,10 @@
         }
 
         p {
-            font-size: 11px;
+            font-size: 10px;
             /* font-weight: 900; */
+            width: max-content !important; 
+            margin: auto;
         }
 
 
@@ -104,11 +106,11 @@
 
             <div id="invoice-Body">
                 <div id="bot" style="display: flex;align-items:flex-end;">
-                    <div class="bot-body" style="transform: scale(1); width:100%; margin: auto;margin-top:10px;">
+                    <div class="bot-body" style="transform: scale(1); width:100%; margin: auto;margin-top:8px;">
                         @php
                             echo DNS1D::getBarcodeHTML(strval($labInvoice->id), 'C128');
                         @endphp
-                        <p style="font-size: 16px; text-align:center;font-weight:bolder;">
+                        <p style="font-size: 13px; text-align:center;font-weight:bolder;">
                             {{ $labInvoice->patient->patientId }}
                         </p>
                         <div>
@@ -117,13 +119,13 @@
                                     {{ $labInvoice->patient->name }} <span style="margin-left: 8px;">{{ $diff->y }}
                                         Y / {{ substr(optional($labInvoice->patient)->gender ?? '-', 0, 1) }} </span>
                                 </p>
-                                <p style="width:80%; margin:auto;">
+                                <p style="width:100%; margin:auto; font-size:8px !important;">
                                     {{ implode(', ', $testData) }}
                                 </p>
                                 <p>
                                     {{ date('d-m-y h:i A') }}
                                     <br>
-                                    <strong style="margin-left: 8px; font-size:14px;">IN:{{ $labInvoice->invoice_no }}</strong>
+                                    <strong style="margin-left: 8px; font-size:13px;">IN:{{ $labInvoice->invoice_no }}</strong>
                                 </p>
                                 <p>
                                    DEP: {{ $key }}
