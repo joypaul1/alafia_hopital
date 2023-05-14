@@ -55,7 +55,7 @@
         p {
             font-size: 10px;
             /* font-weight: 900; */
-            width: max-content !important; 
+            width: max-content; 
             margin: auto;
         }
 
