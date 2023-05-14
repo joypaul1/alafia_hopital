@@ -21,10 +21,12 @@ class LabTestController extends Controller
      */
     public function index(Request $request)
     {
-        // dd(312312);
         $labInvoices =   LabInvoice::query();
         if ($request->invoice_no) {
             $labInvoices = $labInvoices->where('invoice_no', $request->invoice_no);
+        }
+        if ($request->patient_id) {
+            $labInvoices = $labInvoices->where('patient_id', $request->patient_id);
         }
         if ($request->status) {
             $labInvoices = $labInvoices->where('status', $request->status);
@@ -40,8 +42,7 @@ class LabTestController extends Controller
             $labInvoices = $labInvoices->whereDate('date', '>=', date('Y-m-d'));
         }
         $labInvoices =  $labInvoices->with('labTestDetails.testName:id,name,category', 'labTestDetails.viewResult', 'patient:id,name')->latest()->get();
-        // dd($request->status);
-        // $status =  (object)[['name' => 'collection', 'id' => 'collection'], ['name' => 'Inactive', 'id' => 0]];
+
         if ($request->status) {
             return view('backend.pathology.labTest.' . $request->status, compact('labInvoices'));
         }

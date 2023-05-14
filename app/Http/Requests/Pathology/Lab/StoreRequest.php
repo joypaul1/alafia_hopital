@@ -163,11 +163,11 @@ class StoreRequest extends FormRequest
                 $labInvoice->paymentHistories()->create([
                     'ledger_id' => AccountLedger::first()->id,
                     'payment_method' => PaymentSystem::first()->id,
-                    'payment_system_id' => PaymentSystem::first()->name,
+                    // 'payment_system_id' => PaymentSystem::first()->name,
                     'date' => $this->date,
                     'note' => $this->payment_note,
                     'paid_amount' => Str::replace(',', '',  $labInvoice->paid_amount),
-                    'payment_received_id' => auth('admin')->id(),
+                    // 'payment_received_id' => auth('admin')->id(),
                 ]);
 
                 //<----start of cash flow Transition------->

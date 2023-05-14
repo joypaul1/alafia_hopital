@@ -85,20 +85,19 @@ class StoreRequest extends FormRequest
             $serviceInvoice             = RadiologyServiceInvoice::create($data);
 
             foreach ($this->service_id as $key => $serviceId) {
-                // dd($key,$serviceId);
                 $v = $serviceInvoice->itemDetails()->create([
                     'service_name_id'   => $serviceId,
-                    'qty'       => 1.00,
-                    'service_price' => $this['price'][$key],
-                    'subtotal'  => $this['price'][$key],
-                    'status'  => 'pending',
+                    'qty'               => 1.00,
+                    'service_price'     => $this['price'][$key],
+                    'subtotal'          => $this['price'][$key],
+                    'status'            => 'pending',
                 ]);
             }
             if ($this->paid_amount > 0) {
                 $paymentHistories = $serviceInvoice->paymentHistories()->create([
                     'ledger_id'             => $this->payment_account,
-                    'payment_method'        => PaymentSystem::whereId($this->payment_method)->first()->name,
-                    'payment_system_id'     => $this->payment_method,
+                    'payment_method'        => $this->payment_method,
+                    // 'payment_system_id'     => $this->payment_method,
                     'date'                  => date('Y-m-d'),
                     'note'                  => $this->payment_note,
                     'paid_amount'           => Str::replace(',', '', $this->paid_amount),

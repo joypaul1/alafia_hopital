@@ -39,12 +39,7 @@ class RadiologyServiceInvoiceController extends Controller
             $labInvoices = $labInvoices->whereDate('date', '>=', date('Y-m-d'));
         }
         $labInvoices =  $labInvoices->with('itemDetails.serviceName:id,name', 'patient:id,name')->latest()->get();
-        // dd($labInvoices);
-        // dd($request->status);
-        // $status =  (object)[['name' => 'collection', 'id' => 'collection'], ['name' => 'Inactive', 'id' => 0]];
-        // if ($request->status) {
-        //     return view('backend.radiology.labTest.' . $request->status, compact('labInvoices'));
-        // }
+
         return view('backend.radiology.index', compact('labInvoices'));
     }
 
@@ -103,7 +98,7 @@ class RadiologyServiceInvoiceController extends Controller
         $radiologyServiceInvoiceItem = RadiologyServiceInvoiceItem::whereId($id)->with('serviceName', 'serviceInvoice')->first();
         return view('backend.radiology.makeResult.create', compact('radiologyServiceInvoiceItem'));
     }
-    
+
     public function storeResult(Request $request, $id)
     {
         $radiologyServiceInvoiceItem = RadiologyServiceInvoiceItem::whereId($id)->first();
