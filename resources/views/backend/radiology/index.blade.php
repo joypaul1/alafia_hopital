@@ -218,8 +218,10 @@
                                                     </button>
                                                 </a>
                                             @else
-                                                <a href="{{ route('backend.radiology.payment.multiInvoice', $labInvoice) }}"target="_blank">
-                                                    <button class="btn btn-success"><i class="fa fa-check" aria-hidden="true"> Paid</i>
+                                                <a
+                                                    href="{{ route('backend.radiology.payment.multiInvoice', $labInvoice) }}"target="_blank">
+                                                    <button class="btn btn-success"><i class="fa fa-check"
+                                                            aria-hidden="true"> Paid</i>
                                                     </button>
                                                 </a>
                                             @endif

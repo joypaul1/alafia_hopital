@@ -20,20 +20,20 @@ Route::get('print', function () {
 });
 Route::get('/',[LoginController::class, 'showLoginForm'])->name('home');
 Route::get('/reportDesign', function () {
-    $labTest =LabTest::where([['category', '!=', 'Urine'], ['category', '!=', 'Stool']])->get();
-    foreach ($labTest as $key => $value) {
-        $value->update([
-            'needle' => '1',
-        ]);
-    }
-    $labTest =LabTest::where([['category', 'Urine'], ['category', '
+   return  $labTest =LabTest::whereNull('short_name')->get();
+    // foreach ($labTest as $key => $value) {
+    //     $value->update([
+    //         'needle' => '1',
+    //     ]);
+    // }
+    // $labTest =LabTest::where([['category', 'Urine'], ['category', '
 
-           ']])->get();
-    foreach ($labTest as $key => $value) {
-        $value->update([
-            'pot' => '1',
-        ]);
-    }
+    //        ']])->get();
+    // foreach ($labTest as $key => $value) {
+    //     $value->update([
+    //         'pot' => '1',
+    //     ]);
+    // }
     dd('done');
     // $units = (object)[
     //     ['id' => 'mg/dl', 'name' => 'mg/dl'],
