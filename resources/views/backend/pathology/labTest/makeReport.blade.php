@@ -115,7 +115,29 @@
                                     <div class="form-group">
                                         <label class="col-form-label" for="invoice_no">Invoice no</label>
                                         <input type="text" name="invoice_no" id="invoice_no" class="form-control"
-                                            autocomplete="off" autofocus='true'>
+                                            autocomplete="off" placeholder="invoice number"
+                                            value="{{ request()->get('invoice_no') }}" autofocus='true'>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="patient_id">Patient Id </label>
+                                        <input type="text" name="patient_id" id="patient_id" class="form-control"
+                                            autocomplete="off" value="{{ request()->get('patient_id') }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="patient_name">Patient Name </label>
+                                        <input type="text" name="patient_name" id="patient_name" class="form-control"
+                                            autocomplete="off" value="{{ request()->get('patient_name') }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="mobile_number">Patient Mobile No. </label>
+                                        <input type="text" name="mobile_number" id="mobile_number" class="form-control"
+                                            autocomplete="off" value="{{ request()->get('mobile_number') }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -135,16 +157,16 @@
                                             name="end_date" class="form-control">
                                     </div>
                                 </div>
-                                {{-- <div class="col-lg-3 col-md-6">
+                                <div class="col-lg-3 col-md-6">
                                     <div class="form-group">
                                         @include('components.backend.forms.select2.option', [
-                                            'label' => 'status',
-                                            'name' => 'status',
-                                            'optionData' => $status,
-                                            'selectedKey' => request()->get('status'),
+                                            'label' => 'Payment Status',
+                                            'name' => 'payment_status',
+                                            'optionData' => $payment_status,
+                                            'selectedKey' => request()->get('payment_status'),
                                         ])
                                     </div>
-                                </div> --}}
+                                </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         @include('components.backend.forms.input.submit-button', [
