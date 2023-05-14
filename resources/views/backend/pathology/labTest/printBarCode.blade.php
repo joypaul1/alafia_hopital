@@ -53,7 +53,7 @@
         }
 
         p {
-            font-size: 12px;
+            font-size: 11px;
             /* font-weight: 900; */
         }
 
@@ -104,11 +104,11 @@
 
             <div id="invoice-Body">
                 <div id="bot" style="display: flex;align-items:flex-end;">
-                    <div class="bot-body" style="transform: scale(0.8); width:100%; margin: auto;">
+                    <div class="bot-body" style="transform: scale(1); width:100%; margin: auto;margin-top:10px;">
                         @php
                             echo DNS1D::getBarcodeHTML(strval($labInvoice->id), 'C128');
                         @endphp
-                        <p style="font-size: 16px; text-align:center;font-weight:bolder; margin-top:5px;">
+                        <p style="font-size: 16px; text-align:center;font-weight:bolder;">
                             {{ $labInvoice->patient->patientId }}
                         </p>
                         <div>
@@ -123,7 +123,7 @@
                                 <p>
                                     {{ date('d-m-y h:i A') }}
                                     <br>
-                                    <strong style="margin-left: 8px; font-size:16px;">IN:{{ $labInvoice->invoice_no }}</strong>
+                                    <strong style="margin-left: 8px; font-size:14px;">IN:{{ $labInvoice->invoice_no }}</strong>
                                 </p>
                                 <p>
                                    DEP: {{ $key }}
