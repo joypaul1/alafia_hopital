@@ -144,9 +144,22 @@ class LabTestController extends Controller
     public function show($id)
     {
         $labInvoice = LabInvoice::whereId($id)
-            ->with('labTestDetails.testName:id,name,category', 'patient')
-            ->with('labTestTube.tubeName:id,name')
-            ->first();
+                    ->with('labTestDetails.testName:id,name,category', 'patient')
+                    ->with('labTestTube.tubeName:id,name')
+                    ->first();
+        $mapData = $labInvoice->labTestDetails->map(function ($query){
+                return [
+                        'name' =>$query->testName->name,
+                        'price' =>$query->price,
+                        'discount_amount' =>$query->discount_amount,
+                        'discount' =>$query->discount,
+                        'discount_type' =>$query->discount_type,
+                        'subtotal' =>$query->subtotal,
+                        'delivery_time' =>$query->delivery_time,
+                    ];
+
+        });
+
         return view('backend.pathology.labTest.moneyReceipt', compact('labInvoice'));
     }
 

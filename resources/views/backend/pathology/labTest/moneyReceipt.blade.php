@@ -210,6 +210,7 @@
                     </tr>
                     @php
                         $si = 0;
+                        // dd($labInvoice->labTestDetails->count()/16)
                     @endphp
 
                     @foreach ($labInvoice->labTestDetails as $labTest)
@@ -230,7 +231,7 @@
                             </td>
                             <td class="text-right">
                                 {{ number_format($labTest->discount_amount, 2) }}
-                            <!-- </br> -->
+                                <!-- </br> -->
                                 ({{ round($labTest->discount) }}{{ $labTest->discount_type == 'percentage' ? '%' : 'TK' }})
                             </td>
                             <td class="text-right">
@@ -261,25 +262,13 @@
                                 {{ number_format($labTest->price, 2) }}
                             </td>
                         </tr>
-                        {{-- <tr>
-                        <td>
-                            {{ $si }}
-                        </td>
-                        <td >
-                            Vacutainer {{ $labTest->tubeName->name }}
-                        </td>
-                        <td colspan="3" class="text-right">
-                            {{ number_format($labTest->price, 2) }}
-                        </td>
-                    </tr> --}}
                     @endforeach
                     @php
                         $otherService = json_decode($labInvoice->other_service);
-                        // dd($otherService);
+
                     @endphp
                     @if ($otherService)
                         @foreach ($otherService as $key => $service)
-                            {{-- @dd($service->needle, $key) --}}
                             @php
                                 $si += 1;
                             @endphp
@@ -376,66 +365,7 @@
                 </tbody>
             </table>
 
-            {{-- <div class="row">
-                <div class="col-6">
-                    <div class="d-flex justify-content-center align-items-center h-100">
-                        <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;" class="h2 px-4 py-2">
-                            PAID
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <table class="table table-bordered t" style="font-size: 12pt;">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    Bill Amount
-                                </td>
-                                <td class="text-right" style="width: 120px;">
-                                    {{ number_format($labInvoice->total_amount, 2) }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Discount Amount
-                                </td>
-                                <td class="text-right">
-                                    0.00
-                                </td>
-                            </tr>
 
-                            <tr>
-                                <td>
-                                    Payable Amount
-                                </td>
-                                <td class="text-right">
-                                    {{ number_format($labInvoice->total_amount, 2) }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Cash Paid
-                                </td>
-                                <td class="text-right">
-                                    {{ number_format($labInvoice->total_amount, 2) }}
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td>
-                                    <strong>
-                                        Due Amount
-                                    </strong>
-                                </td>
-                                <td class="text-right ">
-                                    <strong> 0.00 </strong>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div> --}}
 
             <p class="text-center">
                 <i style="color: #000;">
