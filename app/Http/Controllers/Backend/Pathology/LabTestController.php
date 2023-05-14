@@ -30,6 +30,11 @@ class LabTestController extends Controller
                 return $query->Where('patientId','like', "%{$request->patient_id}%");
             });
         }
+        if ($request->patient_name) {
+            $labInvoices = $labInvoices->whereHas('patient', function($query) use($request){
+                return $query->Where('name','like', "%{$request->patient_name}%");
+            });
+        }
         if ($request->mobile_number) {
             $labInvoices = $labInvoices->whereHas('patient', function($query) use($request){
                 return $query->Where('mobile','like', "%{$request->mobile_number}%");

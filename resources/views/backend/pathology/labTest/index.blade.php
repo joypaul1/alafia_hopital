@@ -126,6 +126,13 @@
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-group">
+                                        <label class="col-form-label" for="patient_name">Patient Name </label>
+                                        <input type="text" name="patient_name" id="patient_name" class="form-control"
+                                            autocomplete="off" value="{{ request()->get('patient_name') }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group">
                                         <label class="col-form-label" for="mobile_number">Patient Mobile No. </label>
                                         <input type="text" name="mobile_number" id="mobile_number" class="form-control"
                                             autocomplete="off" value="{{ request()->get('mobile_number') }}">

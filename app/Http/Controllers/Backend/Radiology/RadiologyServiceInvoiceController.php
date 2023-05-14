@@ -32,6 +32,11 @@ class RadiologyServiceInvoiceController extends Controller
                 return $query->Where('mobile','like', "%{$request->mobile_number}%");
             });
         }
+        if ($request->patient_name) {
+            $labInvoices = $labInvoices->whereHas('patient', function($query) use($request){
+                return $query->Where('name','like', "%{$request->patient_name}%");
+            });
+        }
         if ($request->invoice_no) {
             $labInvoices = $labInvoices->where('invoice_no', $request->invoice_no);
         }
