@@ -1481,16 +1481,9 @@
                     {{ $radiologyServiceInvoiceItem->serviceName->name }} Report
                 </h2> --}}
 
-                <table class="c68">
-
-
-                    <tr class="c5">
+                <div >
                         {!! $radiologyServiceInvoiceItem->result !!}
-
-                    </tr>
-
-
-                </table>
+                </div>
             </div>
         </div>
 

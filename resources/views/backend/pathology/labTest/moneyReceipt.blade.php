@@ -265,7 +265,7 @@
                     @endforeach
                     @php
                         $otherService = json_decode($labInvoice->other_service);
-
+                        // dd($otherService);
                     @endphp
                     @if ($otherService)
                         @foreach ($otherService as $key => $service)

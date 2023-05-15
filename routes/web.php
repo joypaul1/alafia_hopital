@@ -20,21 +20,21 @@ Route::get('print', function () {
 });
 Route::get('/',[LoginController::class, 'showLoginForm'])->name('home');
 Route::get('/reportDesign', function () {
-   return  $labTest =LabTest::whereNull('short_name')->get();
+//    return  $labTest =LabTest::whereNull('short_name')->get();
     // foreach ($labTest as $key => $value) {
     //     $value->update([
     //         'needle' => '1',
     //     ]);
     // }
-    // $labTest =LabTest::where([['category', 'Urine'], ['category', '
-
-    //        ']])->get();
+    // $labTest =LabTest::where('category', 'Urine')->with('tube')->get();
     // foreach ($labTest as $key => $value) {
     //     $value->update([
+    //         'needle' => '0',
     //         'pot' => '1',
+    //         'lab_test_tube_id' => '6',
     //     ]);
     // }
-    dd('done');
+    // dd('done',$labTest);
     // $units = (object)[
     //     ['id' => 'mg/dl', 'name' => 'mg/dl'],
     //     ['id' => 'mmol/l', 'name' => 'mmol/l'],

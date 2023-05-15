@@ -104,6 +104,7 @@
                             </tr>`;
 
                 $('#labTestAppend').last().after(row);
+                //cus added
                 if ((ui.item.label).toString() == "Fasting Blood Sugar (FBS)" ) {
                     let row = `<tr>
                                 <td>
@@ -138,6 +139,7 @@
 
                     $('#labTestAppend').last().after(row);
                 }
+                //cus added
                 if ((ui.item.label).toString() == "Blood Glucose 2 Hrs. AFB" ||(ui.item.label).toString() == "Blood Glucose 2 Hrs. After 75gm Glucose") {
                     let row = `<tr>
                                 <td>

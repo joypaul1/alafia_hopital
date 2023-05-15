@@ -27,8 +27,9 @@ class StoreRequest extends FormRequest
     {
         return [
             'name'              => 'required|string|unique:radiology_service_names,name',
-            'note'       => 'nullable|string',
+            'note'              => 'nullable|string',
             'price'             => 'required',
+            'department'        => 'required',
         ];
     }
 

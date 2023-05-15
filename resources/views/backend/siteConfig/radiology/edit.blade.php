@@ -11,7 +11,10 @@
                     @include('components.backend.forms.input.input-type',[ 'name' => 'name', 'value' => $radiologyServiceName->name, 'placeholder' => 'name will be here...', 'required'=>true ])
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
                 </div>
-
+                <div class="form-group">
+                    @include('components.backend.forms.select2.option',[ 'name' => 'department', 'selectedKey' =>$radiologyServiceName->department, 'optionData'=>$departments,'placeholder' => 'department will be here...', 'required'=>true ])
+                    @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('department')])
+                </div>
                 <div class="form-group">
                     @include('components.backend.forms.input.input-type',[ 'name' => 'price', 'placeholder' => 'price will be here...', 'value' => number_format($radiologyServiceName->price ,2), 'required'=>true ])
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('price')])

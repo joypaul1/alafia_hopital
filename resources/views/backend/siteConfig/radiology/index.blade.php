@@ -28,6 +28,7 @@
                                 <tr>
                                     <th class="text-center">Sl.</th>
                                     <th class="text-center">Name</th>
+                                    <th class="text-center">Department</th>
                                     <th class="text-center">Price</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
@@ -87,6 +88,10 @@
                 }, {
                     data: 'name',
                     name: 'name',
+                    "className": "text-center"
+                }, {
+                    data: 'department',
+                    name: 'department',
                     "className": "text-center"
 
                 }, {

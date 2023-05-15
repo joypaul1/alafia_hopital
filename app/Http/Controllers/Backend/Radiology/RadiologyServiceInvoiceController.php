@@ -23,7 +23,7 @@ class RadiologyServiceInvoiceController extends Controller
     public function index(Request $request)
     {
 
-        
+
         $labInvoices =   RadiologyServiceInvoice::query();
         if ($request->patient_id) {
             $labInvoices = $labInvoices->whereHas('patient', function($query) use($request){

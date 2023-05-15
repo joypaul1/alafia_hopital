@@ -4,14 +4,12 @@ namespace App\Http\Controllers\Backend\SiteConfig\Service;
 
 use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
-use App\Models\Service\ServiceName;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\RadiologyServiceName\StoreRequest;
 use App\Http\Requests\RadiologyServiceName\UpdateRequest;
-use App\Models\Item\Unit;
 use App\Models\Radiology\RadiologyServiceName;
-use App\Models\Service\ServiceType;
+
 
 class RadiologyController extends Controller
 {
@@ -22,7 +20,7 @@ class RadiologyController extends Controller
      */
     public function index(Request $request)
     {
-        $data = RadiologyServiceName::select(['id', 'name', 'status', 'price'])
+        $data = RadiologyServiceName::select(['id', 'name', 'status', 'price', 'department'])
         ->latest();
         if ($request->status) {
             $data = $data->active();
@@ -61,6 +59,9 @@ class RadiologyController extends Controller
                 ->editColumn('price', function ($row) {
                     return number_format($row->price, 2) . ' TK';
                 })
+                ->editColumn('department', function ($row) {
+                    return ucwords($row->department);
+                })
                 ->removeColumn(['id'])
                 ->rawColumns(['action'])
                 ->make(true);
@@ -77,7 +78,8 @@ class RadiologyController extends Controller
      */
     public function create()
     {
-        return view('backend.siteConfig.radiology.create');
+        $departments= (object)[['name' =>'x-ray', 'id' =>'x-ray' ], ['name'=> 'ultrasound' , 'id' => 'ultrasound']];
+        return view('backend.siteConfig.radiology.create', compact('departments'));
     }
 
     /**
@@ -115,8 +117,10 @@ class RadiologyController extends Controller
      */
     public function edit($id)
     {
+        $departments= (object)[['name' =>'x-ray', 'id' =>'x-ray' ], ['name'=> 'ultrasound' , 'id' => 'ultrasound']];
+
         $radiologyServiceName =RadiologyServiceName::findOrFail($id);
-        return view('backend.siteConfig.radiology.edit', compact('radiologyServiceName'));
+        return view('backend.siteConfig.radiology.edit', compact('radiologyServiceName', 'departments'));
     }
 
     /**
@@ -146,10 +150,10 @@ class RadiologyController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy(ServiceName $service)
+    public function destroy(RadiologyServiceName $radiologyServiceName)
     {
         try {
-            $service->delete();
+            $radiologyServiceName->delete();
         } catch (\Exception $ex) {
             return response()->json(['status' => false, 'mes' => $ex->getMessage()]);
         }

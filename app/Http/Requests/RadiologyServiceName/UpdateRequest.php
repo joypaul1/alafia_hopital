@@ -31,6 +31,8 @@ class UpdateRequest extends FormRequest
             'name'          => ['required', 'string', Rule::unique('radiology_service_names')->ignore(Route::current()->parameters()['radiology_serviceName'])],
             'note'          => 'nullable|string',
             'price'         => 'required',
+            'department'             => 'required',
+
         ];
     }
 

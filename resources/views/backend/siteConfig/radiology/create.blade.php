@@ -13,6 +13,10 @@
                 </div>
 
                 <div class="form-group">
+                    @include('components.backend.forms.select2.option',[ 'name' => 'department', 'optionData'=>$departments,'placeholder' => 'department will be here...', 'required'=>true ])
+                    @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('department')])
+                </div>
+                <div class="form-group">
                     @include('components.backend.forms.input.input-type',[ 'name' => 'price', 'placeholder' => 'price will be here...', 'required'=>true ])
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('price')])
                 </div>
