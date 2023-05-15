@@ -22,22 +22,20 @@ class RadiologyServiceInvoiceController extends Controller
      */
     public function index(Request $request)
     {
-
-
         $labInvoices =   RadiologyServiceInvoice::query();
         if ($request->patient_id) {
-            $labInvoices = $labInvoices->whereHas('patient', function($query) use($request){
-                return $query->Where('patientId','like', "%{$request->patient_id}%");
+            $labInvoices = $labInvoices->whereHas('patient', function ($query) use ($request) {
+                return $query->Where('patientId', 'like', "%{$request->patient_id}%");
             });
         }
         if ($request->mobile_number) {
-            $labInvoices = $labInvoices->whereHas('patient', function($query) use($request){
-                return $query->Where('mobile','like', "%{$request->mobile_number}%");
+            $labInvoices = $labInvoices->whereHas('patient', function ($query) use ($request) {
+                return $query->Where('mobile', 'like', "%{$request->mobile_number}%");
             });
         }
         if ($request->patient_name) {
-            $labInvoices = $labInvoices->whereHas('patient', function($query) use($request){
-                return $query->Where('name','like', "%{$request->patient_name}%");
+            $labInvoices = $labInvoices->whereHas('patient', function ($query) use ($request) {
+                return $query->Where('name', 'like', "%{$request->patient_name}%");
             });
         }
         if ($request->invoice_no) {
@@ -56,7 +54,7 @@ class RadiologyServiceInvoiceController extends Controller
         } else {
             $labInvoices = $labInvoices->whereDate('date', '>=', date('Y-m-d'));
         }
-        $payment_status=(object)[['name'=>'Paid', 'id'=> 'paid'],['name'=>'Due', 'id' => 'due']];
+        $payment_status = (object)[['name' => 'Paid', 'id' => 'paid'], ['name' => 'Due', 'id' => 'due']];
 
         $labInvoices =  $labInvoices->with('itemDetails.serviceName:id,name', 'patient:id,name,patientId')->latest()->get();
 
@@ -141,7 +139,7 @@ class RadiologyServiceInvoiceController extends Controller
 
     public function payment($id)
     {
-         $labInvoice = RadiologyServiceInvoice::whereId($id)->first();
+        $labInvoice = RadiologyServiceInvoice::whereId($id)->first();
         return view('backend.radiology.payment', compact('labInvoice'));
     }
     public function paymentStore(Request $request, $id)
@@ -171,7 +169,7 @@ class RadiologyServiceInvoiceController extends Controller
     }
     public function multiInvoice($id)
     {
-         $labInvoice = RadiologyServiceInvoice::whereId($id)->with('patient', 'paymentHistories.paymentMethodName')->first();
+        $labInvoice = RadiologyServiceInvoice::whereId($id)->with('patient', 'paymentHistories.paymentMethodName')->first();
         return view('backend.radiology.historymoneyReceipt', compact('labInvoice'));
     }
 

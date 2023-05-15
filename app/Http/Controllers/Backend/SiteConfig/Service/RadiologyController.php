@@ -78,7 +78,7 @@ class RadiologyController extends Controller
      */
     public function create()
     {
-        $departments= (object)[['name' =>'x-ray', 'id' =>'x-ray' ], ['name'=> 'ultrasound' , 'id' => 'ultrasound']];
+        $departments= (object)[['name' =>'X-Ray', 'id' =>'X-ray' ], ['name'=> 'Ultrasonography' , 'id' => 'Ultrasonography'], ['name'=> 'ECG', 'id'=> 'ECG']];
         return view('backend.siteConfig.radiology.create', compact('departments'));
     }
 
@@ -117,8 +117,8 @@ class RadiologyController extends Controller
      */
     public function edit($id)
     {
-        $departments= (object)[['name' =>'x-ray', 'id' =>'x-ray' ], ['name'=> 'ultrasound' , 'id' => 'ultrasound']];
 
+        $departments= (object)[['name' =>'X-Ray', 'id' =>'X-ray' ], ['name'=> 'Ultrasonography' , 'id' => 'Ultrasonography'], ['name'=> 'ECG', 'id'=> 'ECG']];
         $radiologyServiceName =RadiologyServiceName::findOrFail($id);
         return view('backend.siteConfig.radiology.edit', compact('radiologyServiceName', 'departments'));
     }

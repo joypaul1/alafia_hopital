@@ -119,10 +119,10 @@
                                         <tr>
                                             <th> Test Name </th>
                                             <th> Price </th>
-                                            {{-- <th> Discount Type </th>
+                                            <th> Discount Type </th>
                                             <th> Discount </th>
-                                            <th> Discount Amount </th> --}}
-                                            {{-- <th> SubTotal </th> --}}
+                                            <th> Discount Amount </th>
+                                            <th> SubTotal </th>
                                             <th> Action </th>
                                         </tr>
                                     </thead>
@@ -177,80 +177,108 @@
                         <h5>
                             Add Payment
                         </h5>
-                        <div class="row align-items-center">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    @include('components.backend.forms.select2.option',[ 'name' => 'discount_type', 'optionData'=> $dis_status ])
-                                    @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('discount_type')])
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    @include('components.backend.forms.input.input-type',[ 'name' => 'discount','number' => true, 'placeholder' => 'Enter Discount Amount'])
-                                    @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('discount')])
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    @include('components.backend.forms.input.input-type',[ 'name' => 'discount_amount','number' => true, 'readonly' => true, 'placeholder' => 'Discount Amount'])
-                                    @include('components.backend.forms.input.errorMessage', ['message' =>$errors->first('discount_amount')])
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    @include('components.backend.forms.input.input-type',['label'=> 'Payable Amount' ,'name' => 'payable_amount','placeholder' => 'Payable amount here...','readonly'=> true  ])
-                                    @include('components.backend.forms.input.errorMessage', ['message'=>$errors->first('payment_amount')])
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    @include('components.backend.forms.input.input-type',['label'=> 'Paid Amount' ,'name' => 'paid_amount','placeholder' => 'Enter amount here...', ])
-                                    @include('components.backend.forms.input.errorMessage', ['message'=>$errors->first('paid_amount')])
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <label class="col-form-label">
-                                    Payment Method:
-                                </label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fa fa-money" aria-hidden="true"></i>
-                                        </span>
+                        <div class="d-flex col-12 justify-content-center text-center">
+                            @include('components.backend.forms.input.input-type', [
+                                'label' => 'Payable Amount',
+                                'name' => 'payable_amount',
+                                'placeholder' => 'Payable amount here...',
+                                'readonly' => true,
+                                'class' => 'text-center',
+                            ])
+                            @include('components.backend.forms.input.errorMessage', [
+                                'message' => $errors->first('payable_amount'),
+                            ])
+                        </div>
+                        <section id="multiple_payment_row">
+                            <div class="row align-items-center multiple_payment_row_card">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @include('components.backend.forms.input.input-type', [
+                                            'label' => 'Paid Amount',
+                                            'name' => 'paid_amount',
+                                            'placeholder' => 'Enter amount here...',
+                                        ])
+                                        @include('components.backend.forms.input.errorMessage', [
+                                            'message' => $errors->first('paid_amount'),
+                                        ])
                                     </div>
-                                    @include('components.backend.forms.select2.option2',['label'=> 'Payment Method','name' =>'payment_method','optionData' => $payment_methods])
-                                    @include('components.backend.forms.input.errorMessage', ['message'=>$errors->first('payment_method')])
                                 </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="col-form-label">
-                                    Payment Account:
-                                </label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fa fa-money" aria-hidden="true"></i>
-                                        </span>
+
+                                <div class="col-md-3">
+                                    <label class="col-form-label">
+                                        Payment Method:
+                                    </label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-money" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        @include('components.backend.forms.select2.option2', [
+                                            'label' => 'Payment Method',
+                                            'name' => 'payment_method',
+                                            'optionData' => $payment_methods,
+                                        ])
+                                        @include('components.backend.forms.input.errorMessage', [
+                                            'message' => $errors->first('payment_method'),
+                                        ])
                                     </div>
-                                    @include('components.backend.forms.select2.option2',['label' =>'Payment Account' ,'name' =>'payment_account','optionData' => $payment_accounts])
-                                    @include('components.backend.forms.input.errorMessage', ['message'=>$errors->first('payment_account')])
                                 </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    @include('components.backend.forms.input.input-type',['label'=> 'Due Amount', 'value'=>0, 'name' => 'due_amount','value'=>0 ,'readonly'=>true ,'placeholder' => 'due amount here...', ])
-                                    @include('components.backend.forms.input.errorMessage', ['message'=>$errors->first('due_amount')])
+                                <div class="col-md-3">
+                                    <label class="col-form-label">
+                                        Payment Account:
+                                    </label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-money" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        @include('components.backend.forms.select2.option2', [
+                                            'label' => 'Payment Account',
+                                            'name' => 'payment_account',
+                                            'optionData' => $payment_accounts,
+                                        ])
+                                        @include('components.backend.forms.input.errorMessage', [
+                                            'message' => $errors->first('payment_account'),
+                                        ])
+                                    </div>
                                 </div>
+                                <div class="col-md-2">
+                                    <label class="col-form-label">
+                                        Payment note:
+                                    </label>
+                                    <textarea name="payment_note" class="form-control" cols="10" rows="2"></textarea>
+                                </div>
+                                <div class="col-1">
+                                    <div>
+                                        <button disabled type="button" id="add_payment_row" class="btn btn-info w-full">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                        <button disabled type="button" id="delete_payment_row" class="btn btn-danger w-full">
+                                            <i class="fa fa-trash"></i>
+
+                                        </button>
+                                    </div>
+                                </div>
+
+
                             </div>
-                            <div class="col-md-12">
-                                <label class="col-form-label">
-                                    Payment note:
-                                </label>
-                                <textarea name="payment_note" class="form-control" cols="30" rows="5"></textarea>
-                            </div>
+                        </section>
+                        <div class="d-flex col-12 justify-content-center text-center">
+
+                            @include('components.backend.forms.input.input-type', [
+                                'label' => 'Due Amount',
+                                'value' => 0,
+                                'name' => 'due_amount',
+                                'value' => 0,
+                                'readonly' => true,
+                                'class' => 'text-center',
+                                'placeholder' => 'due amount here...',
+                            ])
+                            @include('components.backend.forms.input.errorMessage', [
+                                'message' => $errors->first('due_amount'),
+                            ])
                         </div>
 
                         {{-- <hr>
@@ -395,15 +423,66 @@
             }
         });
 
+
+
         //discount_type change event
-        $(document).on('change', '#discount_type', function() {
-            discountCalculation();
+        $(document).on('change', '.discount_type', function() {
+            let discountPrice = 0;
+            let discount_type = $(this).val();
+            let discount = $(this).parent('td').next('td').find('.discount').val() || 0;
+            let test_price = $(this).parent('td').prev('td').find('.test_price').val();
+            let discount_amount = $(this).parent('td').next('td').next('td').find('.discount_amount');
+            let subtotal = $(this).parent('td').next('td').next('td').next('td').find('.subtotal');
+            if (discount_type == 'fixed') {
+                discountPrice = Number(discount)
+                discount_amount.val(discountPrice.toFixed(2));
+            } else if (discount_type == 'percentage') {
+                discountPrice = (Number(test_price) * Number(discount)) / 100
+                discount_amount.val(discountPrice.toFixed(2));
+            } else {
+                discount_amount.val(0);
+            }
+            subtotal.val((Number(test_price) - Number(discountPrice)).toFixed(2));
+
+            approximatePrice();
         });
 
         //discount change event
-        $(document).on('input', '#discount', function() {
-            discountCalculation();
+        $(document).on('input', '.discount', function() {
+            let discountPrice = 0;
+            let discount_type = $(this).parent('td').prev('td').find('.discount_type').val();
+            let discount_amount = $(this).parent('td').next('td').find('.discount_amount');
+            if (Number($(this).val() || 0) > 25 && discount_type == 'percentage') {
+                $(this).val(25);
+                $(this).css('border', '1px solid red');
+                let $message = "Not More Than 25% Discount! &#128528; ";
+                let $context = 'error';
+                let $positionClass = 'toast-top-right';
+                toastr.remove();
+                toastr[$context]($message, '', {
+                    positionClass: $positionClass
+                });
+                $(this).after(div);
+            }
+
+            let discount = $(this).val();
+            let test_price = $(this).parent('td').prev('td').prev('td').find('.test_price').val();
+
+            let subtotal = $(this).parent('td').next('td').next('td').find('.subtotal');
+
+            if (discount_type == 'fixed') {
+                discountPrice = Number(discount)
+                discount_amount.val(discountPrice.toFixed(2));
+            } else if (discount_type == 'percentage') {
+                discountPrice = (Number(test_price) * Number(discount)) / 100
+                discount_amount.val(discountPrice.toFixed(2));
+            } else {
+                discount_amount.val(0);
+            }
+            subtotal.val((Number(test_price) - Number(discountPrice)).toFixed(2));
+            approximatePrice();
         });
+
 
         // discountCalculation
         discountCalculation = function() {
@@ -421,7 +500,7 @@
                 toastr[$context]($message, '', {
                     positionClass: $positionClass
                 });
-               return false;
+                return false;
             }
             let subtotal = $('#testSubTotal').val();
             let discount_amount = $('#discount_amount');
@@ -453,7 +532,7 @@
                 subtotal += Number($(this).val().replace(/[^0-9\.]+/g, ""));
             });
             $('#subTotal').val(subtotal.toFixed(2));
-            var total = subtotal ;
+            var total = subtotal;
             $('#testSubTotal').val(total.toFixed(2));
             $('#payable_amount').val(total.toFixed(2));
             $('#due_amount').val(total.toFixed(2));
@@ -467,10 +546,60 @@
             let due_amount = $('#due_amount');
             if (Number(paid_amount) > Number(payable_amount)) {
                 $(this).val(0);
-              alert('Paid amount can not be greater than payable amount');
+                alert('Paid amount can not be greater than payable amount');
             } else {
                 due_amount.val((Number(payable_amount) - Number(paid_amount)).toFixed(2));
             }
+        });
+
+
+        function selectRefresh($class) {
+            console.log($class, 'selectRefresh');
+            $class.select2({
+                placeholder: "Select an Option",
+                allowClear: true,
+                width: '100%'
+            });
+        }
+        $payment_row = $('#multiple_payment_row');
+
+        $payment_row_add_btn = $('#add_payment_row');
+        $payment_row_delete_btn = $('#delete_payment_row');
+
+        $payment_row_add_btn.on('click', function() {
+            // console.log($payment_row.find('.multiple_payment_row_card').length );
+            $multiple_payment_row_card = $payment_row.find('.multiple_payment_row_card').last();
+            $multiple_payment_row_card_clone = $multiple_payment_row_card.clone();
+            $multiple_payment_row_card_clone.addClass('mt-2');
+            $payment_row.append($multiple_payment_row_card_clone);
+
+            if ($payment_row.find('.multiple_payment_row_card').length > 1) {
+                $payment_row_delete_btn.removeClass('disabled');
+                $payment_row_delete_btn.css('cursor', 'pointer');
+            }
+            selectRefresh($('.payment_method'));
+        });
+
+        if ($payment_row.find('.multiple_payment_row_card').length == 1) {
+            $payment_row_delete_btn.addClass('disabled ');
+            // update cursor style
+            $payment_row_delete_btn.css('cursor', 'not-allowed');
+        }
+
+        $payment_row_delete_btn.on('click', function() {
+            // if there is only one payment row then return
+            if ($payment_row.find('.multiple_payment_row_card').length == 2) {
+                $multiple_payment_row_card = $payment_row.find('.multiple_payment_row_card').last();
+                $multiple_payment_row_card.remove();
+                $payment_row_delete_btn.css('cursor', 'not-allowed');
+                $payment_row_delete_btn.addClass('disabled ');
+                // update cursor style
+            } else if ($payment_row.find('.multiple_payment_row_card').length > 1) {
+                $multiple_payment_row_card = $payment_row.find('.multiple_payment_row_card').last();
+                $multiple_payment_row_card.remove();
+                return;
+            }
+
         });
     </script>
 @endpush

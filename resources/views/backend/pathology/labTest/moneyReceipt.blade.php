@@ -370,7 +370,7 @@
             <p class="text-center">
                 <i style="color: #000;">
                     <small style="text-transform:capitalize;">
-                        Received with thanks : {!! Helper::wordConvertor(round($labInvoice->total_amount)) !!} Taka Only
+                        Received with thanks : {!! Helper::wordConvertor(round($labInvoice->paid_amount)) !!} Taka Only
                     </small>
                 </i>
             </p>

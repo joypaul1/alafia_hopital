@@ -54,11 +54,16 @@ required
             //         dropdownParent: $('.patient_modal')
             //     });
             // });
-            $("#{{ $name }}").select2();
+            $("#{{ $name }}").each(function() {
+                $(this).select2();
+            });
+            // $("#{{ $name }}").select2();
         </script>
     @else
         <script>
-            $(".select2").select2();
+            $(".select2").each(function() {
+                $(this).select2();
+            });;
         </script>
     @endif
 

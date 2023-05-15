@@ -41,8 +41,8 @@ class StoreRequest extends FormRequest
             'service_id' => 'required|array',
             'service_id.*' => 'required|exists:lab_tests,id',
             'doctor_id' => 'nullable|exists:doctors,id',
-            'price' => 'required|array',
-            'price.*' => 'required|numeric',
+            'test_price' => 'required|array',
+            'test_price.*' => 'required|numeric',
             'testSubTotal' => 'required',
 
         ];
@@ -63,6 +63,7 @@ class StoreRequest extends FormRequest
      */
     public function storeData()
     {
+        // dd($this->all());
         try {
             if (Str::replace(',', '', ($this->payable_amount + 0)) == Str::replace(',', '', ($this->paid_amount ?? 0 + 0))) {
                 $payment_status = 'paid';
@@ -75,26 +76,30 @@ class StoreRequest extends FormRequest
             $data['patient_id']         = $this->patient_id;
             $data['date']               = date('Y-m-d', strtotime($this->date)) . ' ' . date('h:i:s');
             $data['subtotal_amount']    = Str::replace(',', '', ($this->testSubTotal));
-            $data['discount_type']      = $this->discount_type;
-            $data['discount']           = Str::replace(',', '', ($this->discount ?? 0));
-            $data['discount_amount']    = Str::replace(',', '', ($this->discount_amount ?? 0));
+            // $data['discount_type']      = $this->discount_type;
+            // $data['discount']           = Str::replace(',', '', ($this->discount ?? 0));
+            // $data['discount_amount']    = Str::replace(',', '', ($this->discount_amount ?? 0));
             $data['paid_amount']        = Str::replace(',', '', ($this->paid_amount ?? 0));
             $data['payment_status']     = $payment_status;
             $data['total_amount']       = Str::replace(',', '', ($this->payable_amount));
             $data['doctor_id']          = $this->doctor_id;
             $serviceInvoice             = RadiologyServiceInvoice::create($data);
-
+            // dd($this->discount);
             foreach ($this->service_id as $key => $serviceId) {
                 $v = $serviceInvoice->itemDetails()->create([
                     'service_name_id'   => $serviceId,
                     'qty'               => 1.00,
-                    'service_price'     => $this['price'][$key],
-                    'subtotal'          => $this['price'][$key],
+                    'discount_type'     => $this['discount_type'][$key],
+                    'discount'          =>  Str::replace(',', '', ($this['discount'][$key]?? 0)),
+                    'discount_amount'   =>  Str::replace(',', '', ($this['discount_amount'][$key]?? 0)),
+                    'price'             =>  Str::replace(',', '', ($this['test_price'][$key]?? 0)),
+                    'subtotal'          =>  Str::replace(',', '', ($this['subtotal'][$key]?? 0)),
                     'status'            => 'pending',
                 ]);
+
             }
             if ($this->paid_amount > 0) {
-                $paymentHistories = $serviceInvoice->paymentHistories()->create([
+                $serviceInvoice->paymentHistories()->create([
                     'ledger_id'             => $this->payment_account,
                     'payment_method'        => $this->payment_method,
                     // 'payment_system_id'     => $this->payment_method,
@@ -162,20 +167,20 @@ class StoreRequest extends FormRequest
     public function paymentStore($labInvoice, $request)
     {
         // dd($labInvoice);
-        if($request->paid_amount < 0){
+        if ($request->paid_amount < 0) {
             return response()->json(['msg' => 'Paid amount can not be negative or 0', 'status' => false], 400);
         }
         try {
             DB::beginTransaction();
-            if(Str::replace(',', '', ($request->payable_amount+ 0)) == Str::replace(',', '', ($request->paid_amount??0+ 0))){
+            if (Str::replace(',', '', ($request->payable_amount + 0)) == Str::replace(',', '', ($request->paid_amount ?? 0 + 0))) {
                 $payment_status = 'paid';
-            }else{
+            } else {
                 $payment_status = 'due';
             }
             // dd($payment_status, $request->payable_amount,$request->paid_amount);
             $labInvoice->update([
                 'paid_amount'   => $labInvoice->paid_amount + Str::replace(',', '',  $request->paid_amount + 0),
-                'payment_status'=> $payment_status
+                'payment_status' => $payment_status
             ]);
 
             $labInvoice->paymentHistories()->create([
@@ -234,9 +239,7 @@ class StoreRequest extends FormRequest
                 'debit' => DB::raw('debit +' . Str::replace(',', '',  $request->paid_amount))
             ]);
             DB::commit();
-        }
-
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['msg' => $e->getMessage(), $e->getLine(), 'status' => false], 400);
         }

@@ -185,8 +185,8 @@
             </table>
 
 
-            <table style="font-size: 12pt;" class="table table-bordered t">
-                <tbody>
+            <table style="font-size: 12pt;" class="table table-bordered text-center">
+                <thead>
                     <tr>
                         <th style="width: 5%;">
                             Sl.
@@ -195,11 +195,17 @@
                             Test Name
                         </th>
                         <th class="text-right" style="width: 15%;">
-                            Amount
+                            Price
                         </th>
-
-
+                        <th style="width: 10%;" class="text-right">
+                            Discount
+                        </th>
+                        <th style="width: 10%;" class="text-right">
+                            SubTotal
+                        </th>
                     </tr>
+                </thead>
+                <tbody>
                     @php
                         $si = 0;
                     @endphp
@@ -216,10 +222,18 @@
                             <td>
                                 {{ $labTest->serviceName->name }}
                             </td>
-
+                            <td class="text-right">
+                                {{ number_format($labTest->price, 2) }}
+                            </td>
+                            <td class="text-right">
+                                {{ number_format($labTest->discount_amount, 2) }}
+                                <!-- </br> -->
+                                ({{ round($labTest->discount) }}{{ $labTest->discount_type == 'percentage' ? '%' : 'TK' }})
+                            </td>
                             <td class="text-right">
                                 {{ number_format($labTest->subtotal, 2) }}
                             </td>
+
 
 
                         </tr>
@@ -311,7 +325,7 @@
             <p class="text-center">
                 <i style="color: #000;">
                     <small style="text-transform:capitalize;">
-                        Received with thanks : {!! Helper::wordConvertor(round($radiologyServiceInvoice->total_amount)) !!} Taka Only
+                        Received with thanks : {!! Helper::wordConvertor(round($radiologyServiceInvoice->paid_amount)) !!} Taka Only
                     </small>
                 </i>
             </p>

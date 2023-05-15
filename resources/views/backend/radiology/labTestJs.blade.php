@@ -29,9 +29,6 @@
             select: function(event, ui) {
                 event.preventDefault();
                 $("#testItem").val(null);
-
-
-
                 let row = `<tr>
                                 <td>
                                     <input type="hidden"   name="service_id[]" value="${ui.item.value_id}">
@@ -39,7 +36,24 @@
                                 </td>
 
                                 <td>
-                                    <input type="text" name="price[]"
+                                    <input type="text" name="test_price[]"
+                                    value="${ui.item.price}" class="form-control test_price text-right"readonly>
+                                </td>
+                                <td>
+                                    <select name="discount_type[]" class="form-control discount_type" onChange=>"discount_type()">
+                                        <option value="${null}" hidden><-- Discount --> </option>
+                                        <option value="fixed">Fixed</option>
+                                        <option value="percentage" selected >Percentage</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" name="discount[]" class="form-control discount text-right" >
+                                </td>
+                                <td>
+                                    <input type="text" name="discount_amount[]" class="form-control discount_amount text-right" value="0" readonly>
+                                </td>
+                                <td>
+                                    <input type="text" name="subtotal[]"
                                     value="${ui.item.price}" class="form-control subtotal text-right"readonly>
                                 </td>
                                 <td>
