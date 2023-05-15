@@ -27,8 +27,20 @@
                             'message' => $errors->first('result'),
                         ])
                     </div>
+                    <div class="col-12 mt-3">
+                        @include('components.backend.forms.select2.option', [
+                            'optionData' => $doctors,
+                            'name' => 'approved_by',
+                            'placeholder' => 'approved by ...',
+                            'required' => true
+                        ])
+                        @include('components.backend.forms.input.errorMessage', [
+                            'message' => $errors->first('result'),
+                        ])
+                    </div>
 
                 </div>
+
                 <div class="row text-right">
                     <div class="col-12">
                         <button class="btn btn-primary btn-md" type="submit">Save</button>

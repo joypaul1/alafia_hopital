@@ -113,8 +113,14 @@ class RadiologyServiceInvoiceController extends Controller
 
     public function makeResult($id)
     {
+        $doctors = Doctor::active()->get()->map(function ($query) {
+            return [
+                'id' => $query->id,
+                'name' => $query->first_name . $query->last_name,
+            ];
+        });
         $radiologyServiceInvoiceItem = RadiologyServiceInvoiceItem::whereId($id)->with('serviceName', 'serviceInvoice')->first();
-        return view('backend.radiology.makeResult.create', compact('radiologyServiceInvoiceItem'));
+        return view('backend.radiology.makeResult.create', compact('radiologyServiceInvoiceItem', 'doctors'));
     }
 
     public function storeResult(Request $request, $id)
@@ -124,6 +130,7 @@ class RadiologyServiceInvoiceController extends Controller
             $radiologyServiceInvoiceItem->update([
                 'result' => $request->result,
                 'status' => 'completed',
+                'approved_by' => $request->approved_by,
             ]);
         } catch (\Throwable $th) {
             throw $th;

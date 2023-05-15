@@ -1476,10 +1476,13 @@
                         </td>
                     </tr>
                 </table>
+                <h2 style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
+                    {{ optional($radiologyServiceInvoiceItem->serviceName)->category??'Radiology' }} Report
+                </h2>
+                <p style="overflow: hidden; display: block;margin-bottom:2%">
+                    Investigation Name : <span style="font-size: 12pt; font-family: 'Times New Roman', serif; color: #000000; background-color: transparent; font-weight: 700; font-style: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">{{ optional($radiologyServiceInvoiceItem->serviceName)->name??'' }}</span>
+                </p>
 
-                {{-- <h2 style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
-                    {{ $radiologyServiceInvoiceItem->serviceName->name }} Report
-                </h2> --}}
 
                 <div >
                         {!! $radiologyServiceInvoiceItem->result !!}
@@ -1488,7 +1491,17 @@
         </div>
 
         <footer>
+            <div style="padding: 0 0.5in;">
+                <div style="display: flex;justify-content: flex-end; margin-top: 60pt;">
+                    <div>
+                        <h5 style="margin-bottom: 4px; margin: 0; padding: 0; font-weight: bold;">
+                            {{ optional($radiologyServiceInvoiceItem->approvedBy)->first_name?? '' }} {{ optional($radiologyServiceInvoiceItem->approvedBy)->last_name?? '' }}
+                        </h5>
+                        <p><small>{{ optional(optional($radiologyServiceInvoiceItem->approvedBy)->designation)->name ?? '' }}</small></p>
 
+                    </div>
+                </div>
+            </div>
             <img src="{{ asset('assets/moneyReceipt/fpathology.png') }}" style="width: 100%;" alt="">
         </footer>
     </div>

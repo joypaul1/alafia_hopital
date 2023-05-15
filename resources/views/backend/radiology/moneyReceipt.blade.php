@@ -255,10 +255,10 @@
                             </div>
                         </td>
                         <td style="width:25%;">
-                            Bill Amount
+                           Total Bill
                         </td>
                         <td class="text-right" style="width: 35%;">
-                            {{ number_format($radiologyServiceInvoice->subtotal_amount, 2) }}
+                            {{ number_format($radiologyServiceInvoice->itemDetails->sum('price'), 2) }}
                         </td>
                         <td style="width: 45%;vertical-align: middle;" rowspan="6">
                             <div class="d-flex justify-content-center align-items-center h-100">
@@ -275,7 +275,7 @@
                             Discount Amount
                         </td>
                         <td class="text-right">
-                            {{ number_format($radiologyServiceInvoice->discount_amount, 2) }}
+                            {{ number_format($radiologyServiceInvoice->itemDetails->sum('discount_amount'), 2) }}
                         </td>
                     </tr>
 
