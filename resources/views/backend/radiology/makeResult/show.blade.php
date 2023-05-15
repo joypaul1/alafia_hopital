@@ -1477,7 +1477,7 @@
                     </tr>
                 </table>
                 <h2 style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
-                    {{ optional($radiologyServiceInvoiceItem->serviceName)->category??'Radiology' }} Report
+                    {{ optional($radiologyServiceInvoiceItem->serviceName)->department??'Radiology' }} Report
                 </h2>
                 <p style="overflow: hidden; display: block;margin-bottom:2%">
                     Investigation Name : <span style="font-size: 12pt; font-family: 'Times New Roman', serif; color: #000000; background-color: transparent; font-weight: 700; font-style: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;">{{ optional($radiologyServiceInvoiceItem->serviceName)->name??'' }}</span>
