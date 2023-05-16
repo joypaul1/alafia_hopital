@@ -48,9 +48,9 @@
                                 <td>
                                     <input type="hidden" class="labTest_id"  name="labTest_id[]" value="${ui.item.value_id}">
                                     <br>
-                                    <input type="text" class="labTestCatName"  value="${ui.item.category}">
+                                    <input type="hidden" class="labTestCatName"  value="${ui.item.category}">
                                     <br>
-                                    <input type="text"  value="${ui.item.tube.name}">
+                                    <input type="hidden"  value="${ui.item.tube.name}">
                                     ${ui.item.label}
                                 </td>
                                 <td>
