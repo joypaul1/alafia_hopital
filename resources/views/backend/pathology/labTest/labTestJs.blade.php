@@ -41,7 +41,7 @@
             let labTestCatName = $('.labTestCatName').map(function() {
                 return $(this).val();
             }).get();
-            // console.log(testTube_id, labTestCatName, 'labTestCatName');
+            console.log(testTube_id, labTestCatName, 'labTestCatName');
             let tubeAppendFlag = false;
             // labTest data append in table also added table row discount_type dropdown & discount & discount_amount with html event attribute
             let labTestRow = `<tr>
@@ -202,6 +202,7 @@
             //end testTubeAppend
             if ((ui.item.label).toString() == "Fasting Blood Sugar (FBS)") {
                 let urinePotCount = countElement('Urine', labTestCatName);
+
                 if (urinePotCount == 0) {
                     let row = `<tr>
                         <td>
@@ -217,8 +218,8 @@
                 }
 
             }
-            if ((ui.item.label).toString() == "Blood Glucose 2 Hrs. AFB" || (ui.item.label)
-                .toString() == "Blood Glucose 2 Hrs. After 75gm Glucose") {
+            if ((ui.item.label).toString() == "Blood Glucose 2 Hrs. AFB" || (ui.item.label).toString() == "Blood Glucose 2 Hrs. After 75gm Glucose") {
+
                 let urinePotCount = countElement('Urine', labTestCatName);
                 // console.log(urinePotCount);
                 if (urinePotCount == 0 ) {
@@ -247,6 +248,16 @@
                     $('#testTubeAppend').last().after(row);
                 }
 
+                let extraTube=`<tr>
+                        <td>
+                            <input type="hidden" name="testTube_id[]" class="testTube_id" value="4">
+                            Gray
+                        </td>
+                        <td>
+                            <input type="text" name="testTube_price[]" value="15.00" class="form-control testTube_price text-right" readonly="">
+                        </td>
+                    </tr>`
+                $('#testTubeAppend').last().after(extraTube);
             }
             // console.log(ui.item.pot);
 
