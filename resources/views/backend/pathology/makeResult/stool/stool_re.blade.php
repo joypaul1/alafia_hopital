@@ -16,9 +16,6 @@
                 <h5 class="mb-3">
                     <i class="fa fa-flask"></i> Urine Routine Test
                 </h5>
-                <h6 class="mt-4 mb-3">
-                    PHYSICAL EXAMINATION
-                </h6>
                 <div class="row mb-2 align-items-center">
                     <div class="col-6">
                         @include('components.backend.forms.input.input-type2', [
@@ -90,7 +87,7 @@
                     </div>
                 </div>
                 <h6 class="mt-4 mb-3">
-                    CHEMICAL EXAMINATION
+                    CHMICAL EXAMINTION
                 </h6>
                 <div class="row mb-2 align-items-center">
                     <div class="col-6">
@@ -205,13 +202,13 @@
                     </div>
                 </div>
                 <h6 class="mt-4 mb-3">
-                    MICROSCOPIC EXAMINATION
+                    MICROSCOPIC EXAMINTION
                 </h6>
                 <div class="row mb-2 align-items-center">
                     <div class="col-6">
                         @include('components.backend.forms.input.input-type2', [
                         'name' => 'name[]',
-                        'value' => 'Epithelial Cells',
+                        'value' => 'Vegetable cells',
                         ])
                     </div>
                     <div class="col-6">
@@ -225,7 +222,7 @@
                     <div class="col-6">
                         @include('components.backend.forms.input.input-type2', [
                         'name' => 'name[]',
-                        'value' => 'RBC',
+                        'value' => 'Epithelial cells',
                         ])
                     </div>
                     <div class="col-6">
@@ -253,7 +250,7 @@
                     <div class="col-6">
                         @include('components.backend.forms.input.input-type2', [
                         'name' => 'name[]',
-                        'value' => 'Cellular casts',
+                        'value' => 'Giardia lamdlia',
                         ])
                     </div>
                     <div class="col-6">
@@ -267,7 +264,7 @@
                     <div class="col-6">
                         @include('components.backend.forms.input.input-type2', [
                         'name' => 'name[]',
-                        'value' => 'Granular cast',
+                        'value' => 'Cysts of',
                         ])
                     </div>
                     <div class="col-6">
@@ -281,7 +278,7 @@
                     <div class="col-6">
                         @include('components.backend.forms.input.input-type2', [
                         'name' => 'name[]',
-                        'value' => 'Hyaline cast',
+                        'value' => 'E. histolytica',
                         ])
                     </div>
                     <div class="col-6">
@@ -295,7 +292,7 @@
                     <div class="col-6">
                         @include('components.backend.forms.input.input-type2', [
                         'name' => 'name[]',
-                        'value' => 'Calcium oxalate',
+                        'value' => 'E. coli',
                         ])
                     </div>
                     <div class="col-6">
@@ -309,7 +306,7 @@
                     <div class="col-6">
                         @include('components.backend.forms.input.input-type2', [
                         'name' => 'name[]',
-                        'value' => 'Triple phosphare',
+                        'value' => 'Giardia lamdlia',
                         ])
                     </div>
                     <div class="col-6">
@@ -323,7 +320,7 @@
                     <div class="col-6">
                         @include('components.backend.forms.input.input-type2', [
                         'name' => 'name[]',
-                        'value' => 'Uric Acid',
+                        'value' => 'Ova of',
                         ])
                     </div>
                     <div class="col-6">
@@ -337,7 +334,7 @@
                     <div class="col-6">
                         @include('components.backend.forms.input.input-type2', [
                         'name' => 'name[]',
-                        'value' => 'Urates',
+                        'value' => 'AscarisLumbricoides',
                         ])
                     </div>
                     <div class="col-6">
@@ -351,7 +348,7 @@
                     <div class="col-6">
                         @include('components.backend.forms.input.input-type2', [
                         'name' => 'name[]',
-                        'value' => 'Amorphous phosphate',
+                        'value' => 'Ankytostimaduodenale',
                         ])
                     </div>
                     <div class="col-6">
@@ -365,7 +362,133 @@
                     <div class="col-6">
                         @include('components.backend.forms.input.input-type2', [
                         'name' => 'name[]',
-                        'value' => 'Trichomonasvaginalis',
+                        'value' => 'Enteroviusvemicularis',
+                        ])
+                    </div>
+                    <div class="col-6">
+                        @include('components.backend.forms.input.input-type2', [
+                        'name' => 'result[]',
+                        'placeholder' => 'Enter result here...',
+                        ])
+                    </div>
+                </div>
+                <div class="row mb-2 align-items-center">
+                    <div class="col-6">
+                        @include('components.backend.forms.input.input-type2', [
+                        'name' => 'name[]',
+                        'value' => 'TrichuristrichiruaHymenolepis nana',
+                        ])
+                    </div>
+                    <div class="col-6">
+                        @include('components.backend.forms.input.input-type2', [
+                        'name' => 'result[]',
+                        'placeholder' => 'Enter result here...',
+                        ])
+                    </div>
+                </div>
+                <div class="row mb-2 align-items-center">
+                    <div class="col-6">
+                        @include('components.backend.forms.input.input-type2', [
+                        'name' => 'name[]',
+                        'value' => 'RBC',
+                        ])
+                    </div>
+                    <div class="col-6">
+                        @include('components.backend.forms.input.input-type2', [
+                        'name' => 'result[]',
+                        'placeholder' => 'Enter result here...',
+                        ])
+                    </div>
+                </div>
+                <div class="row mb-2 align-items-center">
+                    <div class="col-6">
+                        @include('components.backend.forms.input.input-type2', [
+                        'name' => 'name[]',
+                        'value' => 'Macrophages',
+                        ])
+                    </div>
+                    <div class="col-6">
+                        @include('components.backend.forms.input.input-type2', [
+                        'name' => 'result[]',
+                        'placeholder' => 'Enter result here...',
+                        ])
+                    </div>
+                </div>
+                <div class="row mb-2 align-items-center">
+                    <div class="col-6">
+                        @include('components.backend.forms.input.input-type2', [
+                        'name' => 'name[]',
+                        'value' => 'Fat Globules',
+                        ])
+                    </div>
+                    <div class="col-6">
+                        @include('components.backend.forms.input.input-type2', [
+                        'name' => 'result[]',
+                        'placeholder' => 'Enter result here...',
+                        ])
+                    </div>
+                </div>
+                <div class="row mb-2 align-items-center">
+                    <div class="col-6">
+                        @include('components.backend.forms.input.input-type2', [
+                        'name' => 'name[]',
+                        'value' => 'Muscle Fibers',
+                        ])
+                    </div>
+                    <div class="col-6">
+                        @include('components.backend.forms.input.input-type2', [
+                        'name' => 'result[]',
+                        'placeholder' => 'Enter result here...',
+                        ])
+                    </div>
+                </div>
+                <div class="row mb-2 align-items-center">
+                    <div class="col-6">
+                        @include('components.backend.forms.input.input-type2', [
+                        'name' => 'name[]',
+                        'value' => 'Starch Granular',
+                        ])
+                    </div>
+                    <div class="col-6">
+                        @include('components.backend.forms.input.input-type2', [
+                        'name' => 'result[]',
+                        'placeholder' => 'Enter result here...',
+                        ])
+                    </div>
+                </div>
+                <div class="row mb-2 align-items-center">
+                    <div class="col-6">
+                        @include('components.backend.forms.input.input-type2', [
+                        'name' => 'name[]',
+                        'value' => 'Charcot Leyden crystals',
+                        ])
+                    </div>
+                    <div class="col-6">
+                        @include('components.backend.forms.input.input-type2', [
+                        'name' => 'result[]',
+                        'placeholder' => 'Enter result here...',
+                        ])
+                    </div>
+                </div>
+                <div class="row mb-2 align-items-center">
+                    <div class="col-6">
+                        @include('components.backend.forms.input.input-type2', [
+                        'name' => 'name[]',
+                        'value' => 'Mucus',
+                        ])
+                    </div>
+                    <div class="col-6">
+                        @include('components.backend.forms.input.input-type2', [
+                        'name' => 'result[]',
+                        'placeholder' => 'Enter result here...',
+                        ])
+                    </div>
+                </div>
+                <div class="row mb-2 align-items-center">
+                    <div class="col-6">
+                        @include('components.backend.forms.input.input-type2', [
+                        'name' => 'name[]',
+                        'value' => 'Yeast Cells',
                         ])
                     </div>
                     <div class="col-6">

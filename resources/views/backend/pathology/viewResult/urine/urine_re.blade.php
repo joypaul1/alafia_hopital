@@ -1498,7 +1498,8 @@
                 // dd($data);
                 $array1 = array_slice($data, 0, 4);
                 $array2 = array_slice($data, 5, 8);
-                // dd($array1, $array2);
+                $array3 = array_slice($data, 13, 20);
+                // dd($data, $array1, $array2,$array3);
                 @endphp
 
                 <table class="c68">
@@ -1532,7 +1533,7 @@
 
                                 <strong>
                                     <u>
-                                        CHMICAL EXAMINTION
+                                        CHEMICAL EXAMINATION
                                     </u>
                                 </strong>
                             </p>
@@ -1552,6 +1553,37 @@
                         <td>
                             <p>
                                 {!! $item2->result !!}
+
+                            </p>
+                        </td>
+                    </tr>
+                    @endforeach
+                    <tr>
+                        <td>
+                            <p style="margin-bottom: 0; padding-top: 6px !important;">
+
+                                <strong>
+                                    <u>
+                                        MICROSCOPIC EXAMINATION
+                                    </u>
+                                </strong>
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                            </p>
+                        </td>
+                    </tr>
+                    @foreach ($array3 as $item3)
+                    <tr>
+                        <td>
+                            <p>
+                                {{ $item3->name }}
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                {!! $item3->result !!}
 
                             </p>
                         </td>
