@@ -1470,9 +1470,10 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c15" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">Blood </span></p>
+                            <p class="c23"><span class="c0">{{ optional($labTestReport->testName)->specimen }} </span></p>
                         </td>
                     </tr>
+                    {{-- @dd($labTestReport) --}}
                     <tr class="c5">
                         <td class="c72" colspan="1" rowspan="1">
                             <p class="c23"><span class="c11">Referred by</span></p>

@@ -1478,7 +1478,8 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c15" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">Urine </span></p>
+                            <p class="c23"><span class="c0">{{ optional($labTestReport->testName)->specimen }} </span></p>
+
                         </td>
                     </tr>
                     <tr class="c5">
