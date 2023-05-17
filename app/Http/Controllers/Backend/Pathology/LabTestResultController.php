@@ -78,17 +78,21 @@ class LabTestResultController extends Controller
         // Micro Biolo
         // Hematology
         if ($labTest->category == 'Hematology' && $labTest->name == 'CBC') {
-            return view('backend.pathology.makeResult.cbc', compact('data', 'labTest', 'units'));
+            return view('backend.pathology.makeResult.hematology.cbc', compact('data', 'labTest', 'units'));
         }
         if ($labTest->category == 'Hematology' && $labTest->name == 'Blood Group Rh (D) Factor') {
-            // $bloodGroup =  [['id' => 'A+', 'name' => 'A+'], ['id' => 'A-', 'name' => 'A-'], ['id' => 'B+', 'name' => 'B+'], ['id' => 'B-', 'name' => 'B-'], ['id' => 'AB+', 'name' => 'AB+'], ['id' => 'AB-', 'name' => 'AB-'], ['id' => 'O+', 'name' => 'O+'], ['id' => 'O-', 'name' => 'O-']];
-            return view('backend.pathology.makeResult.rhFactor', compact('data', 'labTest'));
+            return view('backend.pathology.makeResult.hematology.rhFactor', compact('data', 'labTest'));
         }
+        if ($labTest->category == 'Hematology' && $labTest->name == 'Prothrombin Time (PT)') {
+            return view('backend.pathology.makeResult.hematology.prothrombin', compact('data', 'labTest'));
+        }
+
         if ($labTest->category == 'Hematology') {
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
         }
         // end Hematology
-        // Immunology
+
+        // Start Immunology
         if ($labTest->category == 'Immunology') {
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));
         }
