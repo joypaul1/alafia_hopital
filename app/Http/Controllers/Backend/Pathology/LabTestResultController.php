@@ -125,6 +125,12 @@ class LabTestResultController extends Controller
             return view('backend.pathology.makeResult.blood.blood_cs_no_growth', compact('data', 'labTest'));
         }
         //End Urine
+        // dd($labTest);
+        // start stool
+        if ($labTest->category == 'Stool' && $labTest->name == 'Stool-RE') {
+            return view('backend.pathology.makeResult.stool.stool_re', compact('data','labTest'));
+        }
+        // end urine
 
     }
 
@@ -234,6 +240,25 @@ class LabTestResultController extends Controller
                 }
                 $data['result']                         = json_encode($multidimensionalArray);
                 $labTestReport                          = LabTestReport::create($data);
+                LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
+            }
+            if ($testName->category == 'Stool' && $testName->name == 'Stool-RE') {
+                $data['lab_test_id']                    = $request->test_id;
+                $data['lab_invoice_test_detail_id']     = $request->lab_invoice_test_detail_id;
+                $data['created_by']                     = auth('admin')->user()->id;
+                $data['created_date']                   = date('Y-m-d h:i:s');
+                $data['patient_id']                     = LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->with('labInvoice.patient')->first()->labInvoice->patient->id;
+                $multidimensionalArray = array();
+                for ($i = 0; $i < count($request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['name']); $i++) {
+                    $multidimensionalArray[$i] = array(
+                        'name' => $request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['name'][$i] ?? '',
+                        'result' => $request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['result'][$i] ?? '',
+                    );
+                }
+                $data['result']                         = json_encode($multidimensionalArray);
+                // dd($data);
+                $labTestReport                          = LabTestReport::create($data);
+                // dd( $labTestReport  );
                 LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
             }
             if ($testName->category == 'Urine' && $testName->name == "Pregnancy Test (PT)") {
@@ -348,7 +373,12 @@ class LabTestResultController extends Controller
             return view('backend.pathology.viewResult.blood.blood_cs_no_growth', compact('labTestReport'));
         }
         // end urine
-
+        // dd($labTestReport);
+        // start stool
+        if ($labTestReport->testName->category == 'Stool' && $labTestReport->testName->name == 'Stool-RE') {
+            return view('backend.pathology.viewResult.stool.stool_re', compact('labTestReport'));
+        }
+        // end urine
 
     }
 
