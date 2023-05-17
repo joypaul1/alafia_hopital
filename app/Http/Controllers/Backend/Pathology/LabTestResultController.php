@@ -86,6 +86,9 @@ class LabTestResultController extends Controller
         if ($labTest->category == 'Hematology' && $labTest->name == 'Prothrombin Time (PT)') {
             return view('backend.pathology.makeResult.hematology.prothrombin', compact('data', 'labTest'));
         }
+        if ($labTest->category == 'Hematology' && $labTest->name == 'BT,CT') {
+            return view('backend.pathology.makeResult.hematology.BT_CT', compact('data', 'labTest'));
+        }
 
         if ($labTest->category == 'Hematology') {
             return view('backend.pathology.makeResult.create', compact('data', 'labTest'));

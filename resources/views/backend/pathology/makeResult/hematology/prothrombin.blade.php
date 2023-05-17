@@ -144,6 +144,8 @@
                         @include('components.backend.forms.texteditor.editor', [
                             'name' => 'reference_value[]',
                             'placeholder' => 'reference  here ...',
+                            'value' => '%',
+
                         ])
                         @include('components.backend.forms.input.errorMessage', [
                             'message' => $errors->first('reference_value'),
