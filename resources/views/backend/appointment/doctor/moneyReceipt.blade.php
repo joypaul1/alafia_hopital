@@ -156,8 +156,8 @@
                             <Strong>
                                 Depertment
                             </Strong>
-                            {{-- : {{ optional($appointment->department)->name}} --}}
-                            :
+                            : {{ optional(optional($appointment->doctor)->department)->name}}
+
                         </td>
                         <td style="text-align: right;">
                             <strong>Emergency Contact </strong> :

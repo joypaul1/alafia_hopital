@@ -91,7 +91,6 @@
                     MONEY RECEIPT
                 </span>
             </div>
-
             <table class="table table-borderless my-2" style="font-size: 12pt;">
                 <tbody>
                     <tr>
@@ -103,30 +102,15 @@
                         </td>
                         <td rowspan="5">
                             <div class="d-flex justify-content-center align-items-center">
-                                {{-- <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $radiologyServiceInvoice->invoice_number . ' PID-' . optional($radiologyServiceInvoice->patient)->patientId, 'QRCODE') }}"
-                                    alt="QR Code" style="width: 100px;" /> --}}
+
                                 @php
                                     echo DNS1D::getBarcodeHTML(strval($radiologyServiceInvoice->id), 'C128');
                                 @endphp
 
                             </div>
                         </td>
-                        {{-- @dd($radiologyServiceInvoice->date); --}}
                         <td style="text-align: right; width: 40%;">
                             <strong>Bill Date</strong> : {{ date('d-m-Y h:i a', strtotime($radiologyServiceInvoice->date)) }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <Strong>
-                                PID
-                            </Strong>
-                            : {{ optional($radiologyServiceInvoice->patient)->patientId }}
-                        </td>
-                        <td style="text-align: right;">
-                            <strong>Sex </strong> :
-                            <span
-                                style="text-transform: capitalize;">{{ optional($radiologyServiceInvoice->patient)->gender }}</span>
                         </td>
                     </tr>
                     @php
@@ -134,6 +118,31 @@
                         $today = new Datetime(date('m.d.y'));
                         $diff = $today->diff($bday);
                     @endphp
+                    <tr>
+                        <td>
+                            <Strong>
+                                PID
+                            </Strong>
+                            : {{ optional($radiologyServiceInvoice->patient)->patientId }}
+                        </td>
+                        <td style="display: flex;text-align: right; justify-content:flex-end;gap:4px;">
+                            <p>
+                                <strong>Age </strong> :
+                                {{-- {{ dd($diff) }} --}}
+                                {{ $diff->y }} Years {{ $diff->m }} Months
+                                {{ $diff->d }}
+                                Days
+                            </p>
+                            <p style="display: flex">
+                                <Strong>
+                                    Sex
+                                </Strong>
+                                : <span
+                                    style="text-transform: capitalize;">{{ optional($radiologyServiceInvoice->patient)->gender ? optional($radiologyServiceInvoice->patient)->gender[0] : '' }}</span>
+                            </p>
+                        </td>
+                    </tr>
+
                     <tr>
                         <td>
                             <Strong>
@@ -148,28 +157,15 @@
                     </tr>
                     <tr>
                         <td>
-                            <Strong>
+                            {{-- <Strong>
                                 Guardian Name
                             </Strong>
-                            : {{ optional($radiologyServiceInvoice->patient)->guardian_name }}
+                            : {{ optional($radiologyServiceInvoice->patient)->guardian_name }} --}}
                         </td>
                         <td style="text-align: right;">
                             <strong>Emergency Contact </strong> :
                             {{ optional($radiologyServiceInvoice->patient)->emergency_contact }}
                         </td>
-                    </tr>
-                    <tr>
-
-                        <td>
-                            <strong>Age </strong> : {{ $diff->y }} Years {{ $diff->m }} Months
-                            {{ $diff->d }}
-                            Days
-                        </td>
-
-                        <td style="text-align: right;">
-
-                        </td>
-
                     </tr>
                     <tr>
                         <td colspan="3">
@@ -183,6 +179,7 @@
                     </tr>
                 </tbody>
             </table>
+
 
 
             <table style="font-size: 12pt;" class="table table-bordered text-center">
