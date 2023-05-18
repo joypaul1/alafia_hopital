@@ -185,14 +185,9 @@ class LabTestController extends Controller
         }
         if(count($labTestDetails) > 20){
               $labTestDetails = $labTestDetails->chunk(25);
-            //   dd($labTestDetails );
             return view('backend.pathology.labTest.multiReceipt', compact('labInvoice', 'labTestDetails'));
 
         }
-        // dd(($labTestDetails),  $otherService,$value);
-
-        // dd(count($labTestDetails),  $otherService);
-        // return view('backend.pathology.labTest.multiReceipt', compact('labInvoice', 'labTestDetails'));
         return view('backend.pathology.labTest.moneyReceipt', compact('labInvoice', 'labTestDetails'));
     }
 
