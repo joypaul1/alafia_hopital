@@ -136,7 +136,7 @@
                                 <Strong>
                                 Sex
                             </Strong>
-                            : <span style="text-transform: capitalize;">{{ (optional($appointment->patient)->gender)[0] }}</span>
+                            : <span style="text-transform: capitalize;">{{ (optional($appointment->patient)->gender)}}</span>
                             </p>
                         </td>
                     </tr>
