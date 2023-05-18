@@ -32,7 +32,7 @@
                             'optionData' => $doctors,
                             'name' => 'approved_by',
                             'placeholder' => 'approved by ...',
-                            'required' => true
+                            // 'required' => true
                         ])
                         @include('components.backend.forms.input.errorMessage', [
                             'message' => $errors->first('result'),
