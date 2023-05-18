@@ -205,7 +205,6 @@
                     </tr>
                     @php
                         $si = 0;
-                        // dd($labInvoice->labTestDetails->count()/16)
                     @endphp
 
                     @foreach ($labInvoice->labTestDetails as $labTest)
@@ -241,7 +240,7 @@
                         <td colspan="3"></td>
 
                     </tr>
-                    @foreach ($labInvoice->labTestTube as $key => $labTest)
+                    {{-- @foreach ($labInvoice->labTestTube as $key => $labTest)
                         @php
                             $si += 1;
                         @endphp
@@ -280,7 +279,7 @@
                                 </td>
                             </tr>
                         @endforeach
-                    @endif
+                    @endif --}}
                 </tbody>
             </table>
 
@@ -394,8 +393,6 @@
                 </div>
             </div>
             <img src="{{ asset('assets/moneyReceipt/roomF.png') }}" style="width: 100%;" alt="">
-
-            {{-- <img src="{{ asset('assets/moneyReceipt/fpathology.png') }}" style="width: 100%;" alt=""> --}}
         </footer>
 
     </div>

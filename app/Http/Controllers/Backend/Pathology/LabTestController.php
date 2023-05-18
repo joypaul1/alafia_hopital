@@ -157,11 +157,10 @@ class LabTestController extends Controller
                         'subtotal' =>$query->subtotal,
                         'delivery_time' =>$query->delivery_time,
                     ];
-
         });
         $labTestTube = $labInvoice->labTestTube->map(function ($query){
                 return [
-                        'name' =>$query->tubeName->name,
+                        'name' =>'Vacutainer '.$query->tubeName->name,
                         'price' =>$query->price,
                         'discount_amount' =>0,
                         'discount' =>0,
@@ -173,8 +172,28 @@ class LabTestController extends Controller
         });
         $labTestDetails = $mapData->merge($labTestTube);
         $otherService   = json_decode($labInvoice->other_service);
+        foreach ($otherService as $key => $value) {
+            $labTestDetails->push([
+                'name' =>'Needle',
+                'price' =>$value->needle,
+                'discount_amount' =>0,
+                'discount' =>0,
+                'discount_type' =>0,
+                'subtotal' =>0,
+                'delivery_time' =>0,
+            ]);
+        }
+        if(count($labTestDetails) > 20){
+              $labTestDetails = $labTestDetails->chunk(25);
+            //   dd($labTestDetails );
+            return view('backend.pathology.labTest.multiReceipt', compact('labInvoice', 'labTestDetails'));
 
-        return view('backend.pathology.labTest.moneyReceipt', compact('labInvoice'));
+        }
+        // dd(($labTestDetails),  $otherService,$value);
+
+        // dd(count($labTestDetails),  $otherService);
+        // return view('backend.pathology.labTest.multiReceipt', compact('labInvoice', 'labTestDetails'));
+        return view('backend.pathology.labTest.moneyReceipt', compact('labInvoice', 'labTestDetails'));
     }
 
     public function payment($id)
