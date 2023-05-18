@@ -21,7 +21,7 @@ class RadiologyController extends Controller
     public function index(Request $request)
     {
         $data = RadiologyServiceName::select(['id', 'name', 'status', 'price', 'department'])
-        ->latest();
+            ->latest();
         if ($request->status) {
             $data = $data->active();
         } elseif ($request->status == '0') {
@@ -30,7 +30,7 @@ class RadiologyController extends Controller
 
 
         if ($request->optionData) {
-            $data= $data->whereLike($request->optionData);
+            $data = $data->whereLike($request->optionData);
             return response()->json(['data' => $data->get()]);
         }
         $data = $data->get();
@@ -78,7 +78,27 @@ class RadiologyController extends Controller
      */
     public function create()
     {
-        $departments= (object)[['name' =>'X-Ray', 'id' =>'X-ray' ], ['name'=> 'Ultrasonography' , 'id' => 'Ultrasonography'], ['name'=> 'ECG', 'id'=> 'ECG']];
+        $departments = (object)[
+            ['name' => 'X-Ray', 'id' => 'X-ray'],
+            ['name' => 'Ultrasonography', 'id' => 'Ultrasonography'],
+            ['name' => 'ECG', 'id' => 'ECG'],
+            ['name' => 'Hematology', 'id' => 'Hematology'],
+            ['name' => 'Biochemistry', 'id' => 'Biochemistry'],
+            ['name' => 'Micro Biology', 'id' => 'Micro Biology'],
+            ['name' => 'Serology', 'id' => 'Serology'],
+            ['name' => 'Immunology', 'id' => 'Immunology'],
+            ['name' => 'Urine', 'id' => 'Urine'],
+            ['name' => 'Blood', 'id' => 'Blood'],
+            ['name' => 'Stool', 'id' => 'Stool'],
+            ['name' => 'Cardiology', 'id' => 'Cardiology'],
+            ['name' => 'Cancer Marker', 'id' => 'Cancer Marker'],
+            ['name' => 'Drug Monitoring', 'id' => 'Drug Monitoring'],
+            ['name' => 'Hepatitis Profile', 'id' => 'Hepatitis Profile'],
+            ['name' => 'Hormone Test', 'id' => 'Hormone Test'],
+            ['name' => 'PCR LAB TEST/ MOLECULAR', 'id' => 'PCR LAB TEST/ MOLECULAR'],
+            ['name' => 'Torch  Panel', 'id' => 'Torch  Panel'],
+        ];
+        // $departments= (object)[['name' =>'X-Ray', 'id' =>'X-ray' ], ['name'=> 'Ultrasonography' , 'id' => 'Ultrasonography'], ['name'=> 'ECG', 'id'=> 'ECG']];
         return view('backend.siteConfig.radiology.create', compact('departments'));
     }
 
@@ -118,8 +138,27 @@ class RadiologyController extends Controller
     public function edit($id)
     {
 
-        $departments= (object)[['name' =>'X-Ray', 'id' =>'X-ray' ], ['name'=> 'Ultrasonography' , 'id' => 'Ultrasonography'], ['name'=> 'ECG', 'id'=> 'ECG']];
-        $radiologyServiceName =RadiologyServiceName::findOrFail($id);
+        $departments = (object)[
+            ['name' => 'X-Ray', 'id' => 'X-ray'],
+            ['name' => 'Ultrasonography', 'id' => 'Ultrasonography'],
+            ['name' => 'ECG', 'id' => 'ECG'],
+            ['name' => 'Hematology', 'id' => 'Hematology'],
+            ['name' => 'Biochemistry', 'id' => 'Biochemistry'],
+            ['name' => 'Micro Biology', 'id' => 'Micro Biology'],
+            ['name' => 'Serology', 'id' => 'Serology'],
+            ['name' => 'Immunology', 'id' => 'Immunology'],
+            ['name' => 'Urine', 'id' => 'Urine'],
+            ['name' => 'Blood', 'id' => 'Blood'],
+            ['name' => 'Stool', 'id' => 'Stool'],
+            ['name' => 'Cardiology', 'id' => 'Cardiology'],
+            ['name' => 'Cancer Marker', 'id' => 'Cancer Marker'],
+            ['name' => 'Drug Monitoring', 'id' => 'Drug Monitoring'],
+            ['name' => 'Hepatitis Profile', 'id' => 'Hepatitis Profile'],
+            ['name' => 'Hormone Test', 'id' => 'Hormone Test'],
+            ['name' => 'PCR LAB TEST/ MOLECULAR', 'id' => 'PCR LAB TEST/ MOLECULAR'],
+            ['name' => 'Torch  Panel', 'id' => 'Torch  Panel'],
+        ];
+        $radiologyServiceName = RadiologyServiceName::findOrFail($id);
         return view('backend.siteConfig.radiology.edit', compact('radiologyServiceName', 'departments'));
     }
 
@@ -130,7 +169,7 @@ class RadiologyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request,$id)
+    public function update(UpdateRequest $request, $id)
     {
 
         $radiologyServiceName = RadiologyServiceName::findOrFail($id);
