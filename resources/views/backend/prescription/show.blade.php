@@ -151,7 +151,6 @@
                     <p style="text-decoration: underline;">
                         <strong>O/E</strong></p>
                     <div class="px-2">
-                        <p>BP</p>
                     </div>
                 </div>
                 <div style="height: 320px">
