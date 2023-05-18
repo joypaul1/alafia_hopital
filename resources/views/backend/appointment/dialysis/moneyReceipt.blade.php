@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receipt</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <style>
         p {
             margin: 0;
@@ -76,13 +77,12 @@
                 margin: 0 auto;
             }
         }
-
     </style>
 </head>
 
 <body>
     <div class="prescription">
-        <img src="{{ asset("assets/moneyReceipt/hdilysis.png") }}" style="width: 100%;" alt="">
+        <img src="{{ asset('assets/moneyReceipt/hdilysis.png') }}" style="width: 100%;" alt="">
         <div style="padding: 0 0.5in;">
             <div class="text-center mt-3 mb-4">
                 <span class="px-4 py-2" style="font-family: monospace; border: 2pt #a3a3a3 solid !important;">
@@ -100,7 +100,8 @@
                         </td>
                         <td rowspan="5">
                             <div class="d-flex justify-content-center align-items-center">
-                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-'.$appointment->invoice_number.' PID-'.optional($appointment->patient)->patientId , 'QRCODE')}}" alt="barcode" style="width: 100px;" />
+                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $appointment->invoice_number . ' PID-' . optional($appointment->patient)->patientId, 'QRCODE') }}"
+                                    alt="barcode" style="width: 100px;" />
                             </div>
                         </td>
                         <td style="text-align: right; width: 40%">
@@ -113,10 +114,10 @@
                             <Strong>
                                 PID
                             </Strong>
-                            : {{ optional($appointment->patient)->patientId  }}
+                            : {{ optional($appointment->patient)->patientId }}
                         </td>
                         <td style="text-align: right; width: 40%">
-                            <strong>Mobile</strong> : {{ optional($appointment->patient)->mobile}}
+                            <strong>Mobile</strong> : {{ optional($appointment->patient)->mobile }}
                         </td>
                     </tr>
                     <tr>
@@ -124,46 +125,44 @@
                             <Strong>
                                 Name
                             </Strong>
-                            : {{ optional($appointment->patient)->name}}
+                            : {{ optional($appointment->patient)->name }}
                         </td>
                         @php
-                        $bday = new DateTime( optional($appointment->patient)->dob); // Your date of birth
-                        $today = new Datetime(date('m.d.y'));
-                        $diff = $today->diff($bday);
+                            $bday = new DateTime(optional($appointment->patient)->dob); // Your date of birth
+                            $today = new Datetime(date('m.d.y'));
+                            $diff = $today->diff($bday);
                         @endphp
-                        {{-- <td style="text-align: right;">
-                            <strong>Age </strong> : {{ $diff->y }} Years {{ $diff->m }} Months {{ $diff->d }} Days
-                        </td> --}}
+
                         <td style="display: flex;text-align: right; justify-content:flex-end;gap:4px;">
-                            <p><strong>Age </strong> : {{ $diff->y }} Years {{ $diff->m }} Months {{ $diff->d }} Days</p>
+                            <p><strong>Age </strong> : {{ $diff->y }} Years {{ $diff->m }} Months
+                                {{ $diff->d }} Days</p>
                             <p style="display: flex">
                                 <Strong>
                                     Sex
                                 </Strong>
-                                : <span style="text-transform: capitalize;">{{ (optional($appointment->patient)->gender)[0] }}</span>
+                                : <span
+                                    style="text-transform: capitalize;">{{ optional($appointment->patient)->gender }}</span>
                             </p>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <Strong>Schedule Time</Strong>
-                            : <span style="text-transform: capitalize;">{{ ($appointment->schedule)}}</span>
-                            {{-- <Strong>
-                                Guardian Name
-                            </Strong>
-                            : {{ optional($appointment->patient)->guardian_name }} --}}
+                            : <span style="text-transform: capitalize;">{{ $appointment->schedule }}</span>
                         </td>
                         <td style="text-align: right;">
                             <strong>Emergency Contact </strong> :
-                            {{ optional($appointment->patient)->emergency_contact}}
+                            {{ optional($appointment->patient)->emergency_contact }}
                         </td>
                     </tr>
                     <tr>
                         <td>
-
+                            <strong>Appt. Time </strong> :
+                            {{ date('d-m-Y h.i A', strtotime($appointment->appointment_date)) }}
                         </td>
                         <td style="text-align: right;">
-                            <strong>Appt. Time </strong> : {{ date('d-m-Y h.i A', strtotime($appointment->appointment_date))  }}
+                            {{-- <strong>Appt. Time </strong> :
+                            {{ date('d-m-Y h.i A', strtotime($appointment->appointment_date)) }} --}}
                         </td>
                     </tr>
 
@@ -172,7 +171,9 @@
                             <Strong>
                                 Referred By
                             </Strong>
-                            : {{ optional($appointment->doctor)->first_name.' '. optional($appointment->doctor)->last_name}} ({{ optional(optional($appointment->doctor)->designation)->name??' '}})
+                            :
+                            {{ optional($appointment->doctor)->first_name . ' ' . optional($appointment->doctor)->last_name }}
+                            ({{ optional(optional($appointment->doctor)->designation)->name ?? ' ' }})
                             {{-- : {{ optional($appointment->asignEmp)->name}} {{ optional(optional($appointment->asignEmp)->designation)->name??' '}} --}}
                         </td>
                     </tr>
@@ -210,7 +211,8 @@
             <div class="row">
                 <div class="col-6">
                     <div class="d-flex justify-content-center align-items-center h-100">
-                        <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;" class="h2 px-4 py-2">
+                        <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;"
+                            class="h2 px-4 py-2">
                             {{ ucwords($appointment->payment_status) }}
                         </div>
                     </div>
@@ -228,7 +230,8 @@
                             </tr>
                             <tr>
                                 <td>
-                                    Discount {{ number_format($appointment->discount, 2)   }} {{ ($appointment->discount_type == 'fixed')?"Tk": '%' }}
+                                    Discount {{ number_format($appointment->discount, 2) }}
+                                    {{ $appointment->discount_type == 'fixed' ? 'Tk' : '%' }}
                                 </td>
                                 <td class="text-right">
                                     {{ number_format($appointment->discount_amount, 2) }}
@@ -274,7 +277,7 @@
             <p class="text-center">
                 <i style="color: #000;">
                     <small style="text-transform:capitalize;">
-                        Received with thanks : {!! Helper::wordConvertor(round($appointment->paid_amount),)!!} Taka Only
+                        Received with thanks : {!! Helper::wordConvertor(round($appointment->paid_amount)) !!} Taka Only
                     </small>
                 </i>
             </p>
@@ -298,7 +301,8 @@
                     </div>
                 </div>
             </div>
-            <img src="{{ asset("assets/moneyReceipt/fdilysis.png") }}" style="width: 100%;" alt="">
+            <img src="{{ asset('assets/moneyReceipt/roomF.png') }}" style="width: 100%;" alt="">
+            {{-- <img src="{{ asset('assets/moneyReceipt/fdilysis.png') }}" style="width: 100%;" alt=""> --}}
         </footer>
 
     </div>
@@ -309,14 +313,12 @@
 </html>
 <script>
     window.print();
-
 </script>
 
 @push('js')
-<script>
-    $(document).ready(function() {
-        window.print();
-    });
-
-</script>
+    <script>
+        $(document).ready(function() {
+            window.print();
+        });
+    </script>
 @endpush

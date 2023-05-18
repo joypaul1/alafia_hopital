@@ -136,7 +136,7 @@
                                 <Strong>
                                 Sex
                             </Strong>
-                            : <span style="text-transform: capitalize;">{{ (optional($appointment->patient)->gender)[0] }}</span>
+                            : <span style="text-transform: capitalize;">{{ (optional($appointment->patient)->gender)}}</span>
                             </p>
                         </td>
                     </tr>
@@ -156,8 +156,8 @@
                             <Strong>
                                 Depertment
                             </Strong>
-                            {{-- : {{ optional($appointment->department)->name}} --}}
-                            :
+                            : {{ optional(optional($appointment->doctor)->department)->name}}
+
                         </td>
                         <td style="text-align: right;">
                             <strong>Emergency Contact </strong> :
@@ -293,12 +293,15 @@
                     </div>
                 </div>
             </div>
-            <img src="{{ asset("assets/moneyReceipt/fdoctor.png") }}" style="width: 100%;" alt="">
+            <img src="{{ asset("assets/moneyReceipt/roomF.png") }}" style="width: 100%;" alt="">
         </footer>
 
     </div>
 
     </div>
 </body>
+<script>
+    window.print();
 
+</script>
 </html>

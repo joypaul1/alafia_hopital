@@ -86,7 +86,8 @@
                                 return {
                                     value: obj.name, //Fillable in input field
                                     value_id: obj.id, //Fillable in input field
-                                    label: 'Name:' + obj.name +' mobile:' + obj.mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                                    label: 'Name:' + obj.name + ' mobile:' + obj
+                                        .mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
                                 }
                             })
                             response(resArray);
@@ -191,7 +192,7 @@
                         var newOption = new Option(val.name, val.id, false, false);
                         $('#doctorID').append(newOption);
                         getDocFee();
-                          slot();
+                        slot();
 
                     });
                 },
@@ -234,36 +235,36 @@
             });
         });
 
-        $(document).on('change', '.appointment_modal #appointment_add_form .modal-body .col-4 #discount_type', function(){
+        $(document).on('change', '.appointment_modal #appointment_add_form .modal-body .col-4 #discount_type', function() {
             discountCal();
             paid_amount();
         });
 
         //discount calculation depend on discount type
-        $(document).on('input', '.appointment_modal #appointment_add_form .modal-body .col-4 #discount', function(){
+        $(document).on('input', '.appointment_modal #appointment_add_form .modal-body .col-4 #discount', function() {
             discountCal();
             paid_amount();
         });
 
 
-        $(document).on('input', '.appointment_modal #appointment_add_form .modal-body .col-4 #paid_amount', function(){
+        $(document).on('input', '.appointment_modal #appointment_add_form .modal-body .col-4 #paid_amount', function() {
             paid_amount();
             // discountCal();
         })
 
         //discount calculation depend on discount type
-        function  discountCal(){
+        function discountCal() {
             var discount_type = $('#discount_type').val();
             var discount = $('#discount').val();
-            var doctor_fee = $('#doctor_fees').val()||0;
+            var doctor_fee = $('#doctor_fees').val() || 0;
             var payable_amount = $('#payable_amount').val();
-            if(discount_type == 'percentage'){
+            if (discount_type == 'percentage') {
                 var discount_amount = (Number(doctor_fee) * Number(discount)) / 100;
                 var payable_amount = Number(doctor_fee) - Number(discount_amount);
 
                 $('#discount_amount').val((discount_amount).toFixed(2));
                 $('#payable_amount').val((payable_amount).toFixed(2));
-            }else{
+            } else {
                 $('#discount_amount').val(Number(discount).toFixed(2));
                 var payable_amount = Number(doctor_fee) - Number(discount);
                 // console.log(payable_amount);
@@ -272,7 +273,7 @@
         }
 
         //paid amount calculation
-        function paid_amount(){
+        function paid_amount() {
             var paid_amount = $('#paid_amount').val();
             var payable_amount = $('#payable_amount').val();
             var due_amount = Number(payable_amount) - Number(paid_amount);
@@ -304,7 +305,7 @@
             slot();
         });
 
-        function getDocFee(){
+        function getDocFee() {
             var doctor_id = $('#doctorID').val();
             var url = "{{ route('backend.doctor.show', ':id') }}";
             url = url.replace(':id', doctor_id);
@@ -313,9 +314,12 @@
                 type: 'GET',
                 dataType: "json",
                 success: function(response) {
-                    $('.appointment_modal #appointment_add_form .modal-body .col-4 #doctor_fees').val(Number(response).toFixed(2));
-                    $('.appointment_modal #appointment_add_form .modal-body .col-4 #subtotal').val(Number(response).toFixed(2));
-                    $('.appointment_modal #appointment_add_form .modal-body .col-4 #payable_amount').val(Number(response).toFixed(2));
+                    $('.appointment_modal #appointment_add_form .modal-body .col-4 #doctor_fees').val(Number(
+                        response).toFixed(2));
+                    $('.appointment_modal #appointment_add_form .modal-body .col-4 #subtotal').val(Number(
+                        response).toFixed(2));
+                    $('.appointment_modal #appointment_add_form .modal-body .col-4 #payable_amount').val(Number(
+                        response).toFixed(2));
                     discountCal();
                     paid_amount();
                 }
@@ -363,8 +367,8 @@
         }
 
 
-         // date_of_birth
-         $(document).on('change', '#date_of_birth', function(e) {
+        // date_of_birth
+        $(document).on('change', '#date_of_birth', function(e) {
             console.log('ok');
             var today = new Date();
             var birthDate = new Date($(this).val());

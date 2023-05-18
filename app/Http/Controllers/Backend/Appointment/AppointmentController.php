@@ -22,47 +22,52 @@ class AppointmentController extends Controller
     public function index()
     {
 
-        $appointmentData = Appointment::
-        select('id', 'invoice_number', 'appointment_date', 'patient_id', 'doctor_id', 'doctor_fee','appointment_status' )
-        ->with('patient:id,name,patientId', 'doctor:id,first_name,last_name')->latest()->get();
+        $appointmentData = Appointment::select('id', 'invoice_number', 'appointment_date', 'patient_id', 'doctor_id', 'doctor_fee', 'appointment_status')
+            ->with('patient:id,name,patientId', 'doctor:id,first_name,last_name')->latest()->get();
 
         if (request()->ajax()) {
             return DataTables::of($appointmentData)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $action ='<div class="dropdown">
+                    $action = '<div class="dropdown">
                     <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
-                        <div class="dropdown-menu" >
-                        <a href="'.route('backend.appointment.show', $row).'" class="dropdown-item edit_check"
+
+                    <div class="dropdown-menu" >
+                        <a href="' . route('backend.appointment.prescription', $row) . '"class="dropdown-item"  target="_blank" data-toggle="tooltip"
+                            data-original-title="prescription Pad" aria-describedby="tooltip64483"><i class="fa fa-hospital-o mr-2" aria-hidden="true"></i> Pad
+                        </a>
+                        <div class="dropdown-divider"></div>
+
+                        <a href="' . route('backend.appointment.show', $row) . '" class="dropdown-item edit_check"
                             data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye mr-2" aria-hidden="true"></i> Show
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a data-href="'.route('backend.appointment.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
+
+                        <a data-href="' . route('backend.appointment.destroy', $row) . '"class="dropdown-item delete_check"  data-toggle="tooltip"
                             data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash mr-2" aria-hidden="true"></i> Delete
                         </a>
-                    </div></div>';
+                    </div>';
                     return $action;
                 })
 
-                ->editColumn('appointment_date', function($row) {
+                ->editColumn('appointment_date', function ($row) {
                     return date('d-m-Y', strtotime($row->appointment_date));
                 })
-                ->editColumn('patient_id', function($row) {
-                    return optional($row->patient)->name ;
+                ->editColumn('patient_id', function ($row) {
+                    return optional($row->patient)->name;
                 })
-                ->editColumn('doctor_id', function($row) {
+                ->editColumn('doctor_id', function ($row) {
                     return optional($row->doctor)->first_name;
                 })
-                ->editColumn('doctor_fee', function($row) {
+                ->editColumn('doctor_fee', function ($row) {
                     return  number_format($row->doctor_fee, 2);
                 })
-                ->addColumn('paymentHistories', function($row) {
+                ->addColumn('paymentHistories', function ($row) {
                     return implode(' ,', $row->paymentHistories()->pluck('payment_method')->toArray());
                 })
                 ->removeColumn(['id'])
                 ->rawColumns(['action', 'paymentHistories'])
                 ->make(true);
-
         }
         return view('backend.appointment.doctor.index');
     }
@@ -123,7 +128,7 @@ class AppointmentController extends Controller
      */
     public function store(StoreRequest $request)
     {
-          $returnData = $request->storeData();
+        $returnData = $request->storeData();
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('Appointment Created');
             return redirect()->route('backend.appointment.show', $returnData->getData()->data);
@@ -142,6 +147,11 @@ class AppointmentController extends Controller
     {
         $appointment = Appointment::whereId($id)->with('doctor', 'patient', 'paymentHistories')->first();
         return view('backend.appointment.doctor.moneyReceipt', compact('appointment'));
+    }
+    public function prescriptionPad($id)
+    {
+        $appointment = Appointment::whereId($id)->with('doctor', 'patient')->first();
+        return view('backend.appointment.doctor.prescriptionPad', compact('appointment'));
     }
 
     /**
@@ -177,9 +187,8 @@ class AppointmentController extends Controller
     {
         try {
             $appointment->delete();
-
         } catch (\Exception $ex) {
-            return response()->json(['status' => false, 'mes' =>$ex->getMessage()]);
+            return response()->json(['status' => false, 'mes' => $ex->getMessage()]);
         }
         (new LogActivity)::addToLog('Category Deleted');
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
@@ -188,12 +197,10 @@ class AppointmentController extends Controller
     public function getSerialNumber($request)
     {
         $lastSerialNumber = Appointment::where('doctor_id', $request->doctorID)
-        ->where('appointment_date', $request->appointment_date)
-        ->where('doctor_appointment_schedule_id', $request->appointment_schedule)
-        ->max('serial_number');
+            ->where('appointment_date', $request->appointment_date)
+            ->where('doctor_appointment_schedule_id', $request->appointment_schedule)
+            ->max('serial_number');
         // ->count();
         return $lastSerialNumber ? $lastSerialNumber + 1 : 1;
-
     }
-
 }

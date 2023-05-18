@@ -91,7 +91,6 @@
                     MONEY RECEIPT
                 </span>
             </div>
-
             <table class="table table-borderless my-2" style="font-size: 12pt;">
                 <tbody>
                     <tr>
@@ -103,30 +102,15 @@
                         </td>
                         <td rowspan="5">
                             <div class="d-flex justify-content-center align-items-center">
-                                {{-- <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $radiologyServiceInvoice->invoice_number . ' PID-' . optional($radiologyServiceInvoice->patient)->patientId, 'QRCODE') }}"
-                                    alt="QR Code" style="width: 100px;" /> --}}
+
                                 @php
                                     echo DNS1D::getBarcodeHTML(strval($radiologyServiceInvoice->id), 'C128');
                                 @endphp
 
                             </div>
                         </td>
-                        {{-- @dd($radiologyServiceInvoice->date); --}}
                         <td style="text-align: right; width: 40%;">
                             <strong>Bill Date</strong> : {{ date('d-m-Y h:i a', strtotime($radiologyServiceInvoice->date)) }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <Strong>
-                                PID
-                            </Strong>
-                            : {{ optional($radiologyServiceInvoice->patient)->patientId }}
-                        </td>
-                        <td style="text-align: right;">
-                            <strong>Sex </strong> :
-                            <span
-                                style="text-transform: capitalize;">{{ optional($radiologyServiceInvoice->patient)->gender }}</span>
                         </td>
                     </tr>
                     @php
@@ -134,6 +118,30 @@
                         $today = new Datetime(date('m.d.y'));
                         $diff = $today->diff($bday);
                     @endphp
+                    <tr>
+                        <td>
+                            <Strong>
+                                PID
+                            </Strong>
+                            : {{ optional($radiologyServiceInvoice->patient)->patientId }}
+                        </td>
+                        <td style="display: flex;text-align: right; justify-content:flex-end;gap:4px;">
+                            <p>
+                                <strong>Age </strong> :
+                                {{ $diff->y }} Years {{ $diff->m }} Months
+                                {{ $diff->d }}
+                                Days
+                            </p>
+                            <p style="display: flex">
+                                <Strong>
+                                    Sex
+                                </Strong>
+                                : <span
+                                    style="text-transform: capitalize;">{{ optional($radiologyServiceInvoice->patient)->gender ? optional($radiologyServiceInvoice->patient)->gender[0] : '' }}</span>
+                            </p>
+                        </td>
+                    </tr>
+
                     <tr>
                         <td>
                             <Strong>
@@ -148,28 +156,13 @@
                     </tr>
                     <tr>
                         <td>
-                            <Strong>
-                                Guardian Name
-                            </Strong>
-                            : {{ optional($radiologyServiceInvoice->patient)->guardian_name }}
-                        </td>
-                        <td style="text-align: right;">
                             <strong>Emergency Contact </strong> :
                             {{ optional($radiologyServiceInvoice->patient)->emergency_contact }}
                         </td>
-                    </tr>
-                    <tr>
-
-                        <td>
-                            <strong>Age </strong> : {{ $diff->y }} Years {{ $diff->m }} Months
-                            {{ $diff->d }}
-                            Days
-                        </td>
-
                         <td style="text-align: right;">
-
+                            {{-- <strong>Emergency Contact </strong> :
+                            {{ optional($radiologyServiceInvoice->patient)->emergency_contact }} --}}
                         </td>
-
                     </tr>
                     <tr>
                         <td colspan="3">
@@ -183,6 +176,7 @@
                     </tr>
                 </tbody>
             </table>
+
 
 
             <table style="font-size: 12pt;" class="table table-bordered text-center">
@@ -226,9 +220,9 @@
                                 {{ number_format($labTest->price, 2) }}
                             </td>
                             <td class="text-right">
-                                {{ number_format($labTest->discount_amount, 2) }}
+                                {{-- {{ number_format($labTest->discount_amount, 2) }} --}}
                                 <!-- </br> -->
-                                ({{ round($labTest->discount) }}{{ $labTest->discount_type == 'percentage' ? '%' : 'TK' }})
+                                {{ round($labTest->discount) }}{{ $labTest->discount_type == 'percentage' ? '%' : 'TK' }}
                             </td>
                             <td class="text-right">
                                 {{ number_format($labTest->subtotal, 2) }}
@@ -329,60 +323,8 @@
                     </small>
                 </i>
             </p>
-            <p class="mt-5 pt-4">
-                যে সকল রুমে যাবেন:
-            </p>
-            <table style="font-size: 12pt;" class="table table-bordered mt-0 t">
 
-                <tbody>
-                    <tr>
-                        <th style="text-align: center">
-                            5th Floor
-                        </th>
-                        <th style="text-align: center">
-                            8th Floor
-                        </th>
-                        <th style="text-align: center">
-                            9th Floor
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">501</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">502</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">503</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">504</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">505</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">506</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">507</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">508</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">509</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">510</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">511</span>
-                            <span style="padding: 4px 8px;">512</span>
-                        </td>
-                        <td>
-                            Dialysis Unit
-                        </td>
-                        <td>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">901</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">902</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">903</span>
-                            <span style="padding: 4px 8px;">904</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
 
-            <p class="text-center">
-                <small>
-                    <i>
-                        <strong>
-                            ডেলিভারী তারিখ হতে ৩০ দিনের মধ্যে রিপোর্ট সংগ্রহ করতে হবে।
-                        </strong>
-                    </i>
-                </small>
-            </p>
         </div>
 
         <footer>
@@ -402,7 +344,9 @@
                     </div>
                 </div>
             </div>
-            <img src="{{ asset('assets/moneyReceipt/fpathology.png') }}" style="width: 100%;" alt="">
+            <img src="{{ asset('assets/moneyReceipt/roomF.png') }}" style="width: 100%;" alt="">
+
+            {{-- <img src="{{ asset('assets/moneyReceipt/fpathology.png') }}" style="width: 100%;" alt=""> --}}
         </footer>
 
     </div>
