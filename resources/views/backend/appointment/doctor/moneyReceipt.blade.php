@@ -100,7 +100,7 @@
                         </td>
                         <td rowspan="5">
                             <div class="d-flex justify-content-center align-items-center">
-                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center#'.$appointment->invoice_number, 'QRCODE')}}" alt="barcode"style="width: 100px;" />
+                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center#'.$appointment->invoice_number, 'QRCODE')}}" alt="barcode" style="width: 100px;" />
                             </div>
                         </td>
                         <td style="text-align: right; width: 40%;">
@@ -123,15 +123,21 @@
                             <Strong>
                                 Name
                             </Strong>
-                            : {{  optional($appointment->patient)->name}}
+                            : {{ optional($appointment->patient)->name}}
                         </td>
                         @php
-                            $bday = new DateTime( optional($appointment->patient)->dob); // Your date of birth
-                            $today = new Datetime(date('m.d.y'));
-                            $diff = $today->diff($bday);
+                        $bday = new DateTime( optional($appointment->patient)->dob); // Your date of birth
+                        $today = new Datetime(date('m.d.y'));
+                        $diff = $today->diff($bday);
                         @endphp
-                        <td style="text-align: right;">
-                            <strong>Age </strong> : {{ $diff->y }} Years    {{ $diff->m }} Months   {{ $diff->d }} Days
+                        <td style="display: flex;text-align: right; justify-content:flex-end;gap:4px;">
+                            <p><strong>Age </strong> : {{ $diff->y }} Years {{ $diff->m }} Months {{ $diff->d }} Days</p>
+                            <p style="display: flex">
+                                <Strong>
+                                Sex
+                            </Strong>
+                            : <span style="text-transform: capitalize;">{{ (optional($appointment->patient)->gender)[0] }}</span>
+                            </p>
                         </td>
                     </tr>
                     <tr>
@@ -139,18 +145,19 @@
                             <Strong>
                                 Mobile
                             </Strong>
-                            : <span style="text-transform: capitalize;">{{  optional($appointment->patient)->mobile}}</span>
+                            : <span style="text-transform: capitalize;">{{ optional($appointment->patient)->mobile}}</span>
                         </td>
                         <td style="text-align: right;">
-                            <strong>Appt. Time </strong> : {{  date('d-m-Y', strtotime($appointment->appointment_date))  }}
+                            <strong>Appt. Time </strong> : {{ date('d-m-Y', strtotime($appointment->appointment_date))  }}
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <Strong>
-                                Guardian Name
+                                Depertment
                             </Strong>
-                            : {{ optional($appointment->patient)->guardian_name }}
+                            {{-- : {{ optional($appointment->department)->name}} --}}
+                            :
                         </td>
                         <td style="text-align: right;">
                             <strong>Emergency Contact </strong> :
@@ -158,20 +165,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <Strong>
-                                Sex
-                            </Strong>
-                            : <span style="text-transform: capitalize;">{{  optional($appointment->patient)->gender}}</span>
-                        </td>
-
-                    </tr>
-                    <tr>
                         <td colspan="3">
                             <Strong>
                                 Doctor Name
                             </Strong>
-                            :  {{  optional($appointment->doctor)->first_name.' '. optional($appointment->doctor)->last_name}} ({{  optional(optional($appointment->doctor)->designation)->name}})
+                            : {{ optional($appointment->doctor)->first_name.' '. optional($appointment->doctor)->last_name}} ({{ optional(optional($appointment->doctor)->designation)->name}})
                         </td>
                     </tr>
                 </tbody>
@@ -227,7 +225,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    Discount  {{ number_format($appointment->discount, 2)   }} {{ ($appointment->discount_type == 'fixed')?"Tk": '%' }}
+                                    Discount {{ number_format($appointment->discount, 2)   }} {{ ($appointment->discount_type == 'fixed')?"Tk": '%' }}
                                 </td>
                                 <td class="text-right">
                                     {{ number_format($appointment->discount_amount, 2) }}
@@ -260,7 +258,7 @@
                                 </td>
                                 <td class="text-right">
                                     <strong>
-                                       {{ number_format($appointment->due_amount, 2) }}
+                                        {{ number_format($appointment->due_amount, 2) }}
                                     </strong>
                                 </td>
                             </tr>
@@ -276,61 +274,6 @@
                     </small>
                 </i>
             </p>
-            <p class="pt-4">
-                যে সকল রুমে যাবেন:
-            </p>
-            <table style="font-size: 12pt;" class="table table-bordered mt-0 t">
-
-                <tbody>
-                    <tr>
-                        <th style="text-align: center">
-                            5th Floor
-                        </th>
-                        <th style="text-align: center">
-                            8th Floor
-                        </th>
-                        <th style="text-align: center">
-                            9th Floor
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">501</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">502</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">503</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">504</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">505</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">506</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">507</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">508</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">509</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">510</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">511</span>
-                            <span style="padding: 4px 8px;">512</span>
-                        </td>
-                        <td>
-                            Dialysis Unit
-                        </td>
-                        <td>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">901</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">902</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">903</span>
-                            <span style="padding: 4px 8px;">904</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <p class="text-center">
-                <small>
-                    <i>
-                        <strong>
-                            ডেলিভারী তারিখ হতে ৩০ দিনের মধ্যে রিপোর্ট সংগ্রহ করতে হবে।
-                        </strong>
-                    </i>
-                </small>
-            </p>
-
         </div>
 
         <footer>

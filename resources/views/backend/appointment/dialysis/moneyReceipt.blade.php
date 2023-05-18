@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -117,7 +116,7 @@
                             : {{ optional($appointment->patient)->patientId  }}
                         </td>
                         <td style="text-align: right; width: 40%">
-                            <strong>Mobile</strong> : {{  optional($appointment->patient)->mobile}}
+                            <strong>Mobile</strong> : {{ optional($appointment->patient)->mobile}}
                         </td>
                     </tr>
                     <tr>
@@ -132,16 +131,27 @@
                         $today = new Datetime(date('m.d.y'));
                         $diff = $today->diff($bday);
                         @endphp
-                        <td style="text-align: right;">
+                        {{-- <td style="text-align: right;">
                             <strong>Age </strong> : {{ $diff->y }} Years {{ $diff->m }} Months {{ $diff->d }} Days
+                        </td> --}}
+                        <td style="display: flex;text-align: right; justify-content:flex-end;gap:4px;">
+                            <p><strong>Age </strong> : {{ $diff->y }} Years {{ $diff->m }} Months {{ $diff->d }} Days</p>
+                            <p style="display: flex">
+                                <Strong>
+                                    Sex
+                                </Strong>
+                                : <span style="text-transform: capitalize;">{{ (optional($appointment->patient)->gender)[0] }}</span>
+                            </p>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <Strong>
+                            <Strong>Schedule Time</Strong>
+                            : <span style="text-transform: capitalize;">{{ ($appointment->schedule)}}</span>
+                            {{-- <Strong>
                                 Guardian Name
                             </Strong>
-                            : {{ optional($appointment->patient)->guardian_name }}
+                            : {{ optional($appointment->patient)->guardian_name }} --}}
                         </td>
                         <td style="text-align: right;">
                             <strong>Emergency Contact </strong> :
@@ -150,22 +160,11 @@
                     </tr>
                     <tr>
                         <td>
-                            <Strong>
-                                Sex
-                            </Strong>
-                            : <span style="text-transform: capitalize;">{{  optional($appointment->patient)->gender}}</span>
+
                         </td>
                         <td style="text-align: right;">
                             <strong>Appt. Time </strong> : {{ date('d-m-Y h.i A', strtotime($appointment->appointment_date))  }}
                         </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <Strong>Schedule Time</Strong>
-                            : <span style="text-transform: capitalize;">{{  ($appointment->schedule)}}</span>
-                        </td>
-
                     </tr>
 
                     <tr>
@@ -229,7 +228,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    Discount  {{ number_format($appointment->discount, 2)   }} {{ ($appointment->discount_type == 'fixed')?"Tk": '%' }}
+                                    Discount {{ number_format($appointment->discount, 2)   }} {{ ($appointment->discount_type == 'fixed')?"Tk": '%' }}
                                 </td>
                                 <td class="text-right">
                                     {{ number_format($appointment->discount_amount, 2) }}
@@ -263,7 +262,7 @@
                                 </td>
                                 <td class="text-right">
                                     <strong>
-                                       {{ number_format($appointment->due_amount, 2) }}
+                                        {{ number_format($appointment->due_amount, 2) }}
                                     </strong>
                                 </td>
                             </tr>
@@ -278,60 +277,6 @@
                         Received with thanks : {!! Helper::wordConvertor(round($appointment->paid_amount),)!!} Taka Only
                     </small>
                 </i>
-            </p>
-            <p class="pt-4">
-                যে সকল রুমে যাবেন:
-            </p>
-            <table style="font-size: 12pt;" class="table table-bordered mt-0 t">
-
-                <tbody>
-                    <tr>
-                        <th style="text-align: center">
-                            5th Floor
-                        </th>
-                        <th style="text-align: center">
-                            8th Floor
-                        </th>
-                        <th style="text-align: center">
-                            9th Floor
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">501</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">502</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">503</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">504</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">505</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">506</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">507</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">508</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">509</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">510</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">511</span>
-                            <span style="padding: 4px 8px;">512</span>
-                        </td>
-                        <td>
-                            Dialysis Unit
-                        </td>
-                        <td>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">901</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">902</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">903</span>
-                            <span style="padding: 4px 8px;">904</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <p class="text-center">
-                <small>
-                    <i>
-                        <strong>
-                            ডেলিভারী তারিখ হতে ৩০ দিনের মধ্যে রিপোর্ট সংগ্রহ করতে হবে।
-                        </strong>
-                    </i>
-                </small>
             </p>
 
         </div>
@@ -364,13 +309,14 @@
 </html>
 <script>
     window.print();
+
 </script>
 
 @push('js')
 <script>
-
-    $(document).ready(function () {
+    $(document).ready(function() {
         window.print();
     });
+
 </script>
 @endpush

@@ -136,23 +136,28 @@
 
     </div>
     <div style="padding: 0 0.25in; margin-bottom:0.2in;">
-        <div style="border: 2px dashed #ccc;">
+        <div style="border: 1px dashed #ccc;">
         </div>
     </div>
     <div style="padding: 0 0.5in; font-size: 12pt;">
         <div class="row" style="">
             <div class="col-4" style="border-right: 2px solid #333;">
                 <div style="height: 320px">
-                    <p style="text-decoration: underline;">C/C</p>
+                    <p style="text-decoration: underline;">
+                        <strong>C/C</strong>
+                    </p>
                 </div>
                 <div style="height: 320px">
-                    <p style="text-decoration: underline;">O/E</p>
+                    <p style="text-decoration: underline;">
+                        <strong>O/E</strong></p>
                     <div class="px-2">
                         <p>BP</p>
                     </div>
                 </div>
                 <div style="height: 320px">
-                    <p style="text-decoration: underline;">Inv</p>
+                    <p style="text-decoration: underline;">
+                        <strong>Inv</strong>
+                    </p>
                 </div>
             </div>
             <div class="col-8">
