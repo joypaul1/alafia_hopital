@@ -373,50 +373,7 @@
                     </small>
                 </i>
             </p>
-            <p class="pt-4">
-                যে সকল রুমে যাবেন:
-            </p>
-            <table style="font-size: 12pt;" class="table table-bordered mt-0 t">
-
-                <tbody>
-                    <tr>
-                        <th style="text-align: center">
-                            5th Floor
-                        </th>
-                        <th style="text-align: center">
-                            8th Floor
-                        </th>
-                        <th style="text-align: center">
-                            9th Floor
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">501</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">502</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">503</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">504</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">505</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">506</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">507</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">508</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">509</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">510</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">511</span>
-                            <span style="padding: 4px 8px;">512</span>
-                        </td>
-                        <td>
-                            Dialysis Unit
-                        </td>
-                        <td>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">901</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">902</span>
-                            <span style="border-right: 1px solid #333; padding: 4px 8px;">903</span>
-                            <span style="padding: 4px 8px;">904</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+           
 
             <p class="text-center">
                 <small>

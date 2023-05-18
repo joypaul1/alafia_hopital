@@ -179,8 +179,7 @@ class LabTestController extends Controller
 
     public function payment($id)
     {
-        $labInvoice = LabInvoice::whereId($id)
-            ->first();
+        $labInvoice = LabInvoice::whereId($id)->first();
         return view('backend.pathology.labTest.payment', compact('labInvoice'));
     }
     public function paymentStore(Request $request, $id)
