@@ -30,7 +30,7 @@ class LabTestResultController extends Controller
         ];
         $data = $request->all();
         $labTest = LabTest::whereId($request->labTest_id)->first();
-        // dd($labTest );
+
         // start Biochemistry
         if ($labTest->category == 'Biochemistry' && $labTest->name == 'Electrolytes') {
             return view('backend.pathology.makeResult.electrolytes', compact('data', 'labTest'));
@@ -304,6 +304,9 @@ class LabTestResultController extends Controller
                 ->with('labInvoiceTestDetails.labInvoice', 'patient', 'testName')->first();
         }
         // start Biochemistry
+        if ($labTestReport->testName->category  == 'Biochemistry' && $labTestReport->testName->name == 'Fasting Lipid Profile' || $labTestReport->testName->name == 'Random Lipid Profile') {
+            return view('backend.pathology.viewResult.lipid_profile', compact('labTestReport'));
+        }
         if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'Fasting Blood Sugar (FBS)') {
             return view('backend.pathology.viewResult.fbs', compact('labTestReport'));
         }
@@ -316,7 +319,7 @@ class LabTestResultController extends Controller
         if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'Blood Group Rh (D) Factor') {
             return view('backend.pathology.viewResult.rhFactor', compact('labTestReport'));
         }
-
+        // dd($labTestReport->testName->category );
         if ($labTestReport->testName->category == 'Biochemistry') {
             return view('backend.pathology.viewResult.show', compact('labTestReport'));
         }
