@@ -190,6 +190,7 @@ class LabTestController extends Controller
         }
         return view('backend.pathology.labTest.moneyReceipt', compact('labInvoice', 'labTestDetails'));
     }
+    
 
     public function payment($id)
     {
