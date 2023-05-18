@@ -222,7 +222,7 @@
                             <td class="text-right">
                                 {{-- {{ number_format($labTest->discount_amount, 2) }} --}}
                                 <!-- </br> -->
-                                ({{ round($labTest->discount) }}{{ $labTest->discount_type == 'percentage' ? '%' : 'TK' }})
+                                {{ round($labTest->discount) }}{{ $labTest->discount_type == 'percentage' ? '%' : 'TK' }}
                             </td>
                             <td class="text-right">
                                 {{ number_format($labTest->subtotal, 2) }}
