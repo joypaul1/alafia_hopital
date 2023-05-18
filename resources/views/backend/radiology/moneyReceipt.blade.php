@@ -128,7 +128,6 @@
                         <td style="display: flex;text-align: right; justify-content:flex-end;gap:4px;">
                             <p>
                                 <strong>Age </strong> :
-                                {{-- {{ dd($diff) }} --}}
                                 {{ $diff->y }} Years {{ $diff->m }} Months
                                 {{ $diff->d }}
                                 Days
@@ -157,14 +156,12 @@
                     </tr>
                     <tr>
                         <td>
-                            {{-- <Strong>
-                                Guardian Name
-                            </Strong>
-                            : {{ optional($radiologyServiceInvoice->patient)->guardian_name }} --}}
-                        </td>
-                        <td style="text-align: right;">
                             <strong>Emergency Contact </strong> :
                             {{ optional($radiologyServiceInvoice->patient)->emergency_contact }}
+                        </td>
+                        <td style="text-align: right;">
+                            {{-- <strong>Emergency Contact </strong> :
+                            {{ optional($radiologyServiceInvoice->patient)->emergency_contact }} --}}
                         </td>
                     </tr>
                     <tr>

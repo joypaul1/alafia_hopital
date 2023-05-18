@@ -158,14 +158,12 @@
                     </tr>
                     <tr>
                         <td>
-                            {{-- <Strong>
-                                Guardian Name
-                            </Strong>
-                            : {{ optional($labInvoice->patient)->guardian_name }} --}}
-                        </td>
-                        <td style="text-align: right;">
                             <strong>Emergency Contact </strong> :
                             {{ optional($labInvoice->patient)->emergency_contact }}
+                        </td>
+                        <td style="text-align: right;">
+                            {{-- <strong>Emergency Contact </strong> :
+                            {{ optional($labInvoice->patient)->emergency_contact }} --}}
                         </td>
                     </tr>
                     <tr>
