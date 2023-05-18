@@ -229,6 +229,7 @@
                             {{ $labTest->testName->name }}
                         </td>
 
+
                         <td class="text-right">
                             {{ number_format($labTest->price, 2) }}
                         </td>
@@ -238,6 +239,17 @@
                         <td class="text-right">
                             {{ number_format($labTest->subtotal, 2) }}
                         </td>
+
+                            <td class="text-right">
+                                {{ number_format($labTest->price, 2) }}
+                            </td>
+                            <td class="text-right">
+                                {{ round($labTest->discount) }}
+                                {{ $labTest->discount_type == 'percentage' ? '%' : 'TK' }}
+                            </td>
+                            <td class="text-right">
+                                {{ number_format($labTest->subtotal, 2) }}
+                            </td>
 
                         <td>
                             {{ date_format(date_create($labTest->delivery_time), 'd-m-Y h:i A') }}
@@ -265,8 +277,9 @@
                     </tr>
                     @endforeach
                     @php
+
                     $otherService = json_decode($labInvoice->other_service);
-                    // dd($otherService);
+
                     @endphp
                     @if ($otherService)
                     @foreach ($otherService as $key => $service)
@@ -285,6 +298,30 @@
                         </td>
                     </tr>
                     @endforeach
+
+                        $otherService = json_decode($labInvoice->other_service);
+                        $needlePrice = 0;
+                    @endphp
+                    @if ($otherService)
+                        @foreach ($otherService as $key => $service)
+                            @php
+                                $si += 1;
+                                $needlePrice += $service->needle;
+
+                            @endphp
+                            <tr>
+                                <td>
+                                    {{ $si }}
+                                </td>
+                                <td>
+                                    {{ 'Needle' }}
+                                </td>
+                                <td colspan="3" class="text-right">
+                                    {{ number_format($service->needle, 2) }}
+                                </td>
+                            </tr>
+                        @endforeach
+
                     @endif
                 </tbody>
             </table>
@@ -300,10 +337,11 @@
                             </div>
                         </td>
                         <td style="width:25%;">
-                            Bill Amount
+                            Total Bill
                         </td>
                         <td class="text-right" style="width: 35%;">
-                            {{ number_format($labInvoice->total_amount, 2) }}
+                            {{ number_format($labInvoice->labTestDetails->sum('price') + $labInvoice->labTestTube->sum('price') + $needlePrice, 2) }}
+
                         </td>
                         <td style="width: 45%;vertical-align: middle;" rowspan="6">
                             <div class="d-flex justify-content-center align-items-center h-100">
@@ -319,7 +357,9 @@
                             Discount Amount
                         </td>
                         <td class="text-right">
-                            0.00
+
+                            {{ number_format($labInvoice->labTestDetails->sum('discount_amount'), 2) }}
+
                         </td>
                     </tr>
 
