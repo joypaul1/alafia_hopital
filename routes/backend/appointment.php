@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Route;
 
 // Doctor appointment
 Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], function(){
+    Route::get('appointment-prescription/{id}', [AppointmentController::class, 'prescriptionPad'])->name('appointment.prescription');
     Route::resource('appointment', AppointmentController::class);
-    // Route::get('appointment/money-receipt/{$id}', [AppointmentController::class, 'moneyReceipt'])->name('appointment.moneyReceipt');
 });
 
 // dailyses appointment
