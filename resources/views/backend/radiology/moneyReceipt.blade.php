@@ -323,16 +323,8 @@
                     </small>
                 </i>
             </p>
-            
-            <p class="text-center">
-                <small>
-                    <i>
-                        <strong>
-                            ডেলিভারী তারিখ হতে ৩০ দিনের মধ্যে রিপোর্ট সংগ্রহ করতে হবে।
-                        </strong>
-                    </i>
-                </small>
-            </p>
+
+
         </div>
 
         <footer>
