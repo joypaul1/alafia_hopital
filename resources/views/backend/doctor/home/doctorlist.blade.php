@@ -5,47 +5,45 @@
     <i class="fa fa-list"></i>Doctor List
 @stop
 @push('css')
-{{-- <link rel="stylesheet" href="https://preview.colorlib.com/theme/bb/bootstrap-buttons-18/css/ionicons.min.css"> --}}
-{{-- <link rel="stylesheet" href="https://preview.colorlib.com/theme/bb/bootstrap-buttons-18/css/style.css"> --}}
 @endpush
 @section('content')
 
-@include('backend._partials.page_header', [
-    'fa' => 'fa fa-plus-circle',
-    'name' => 'Create Doctor',
-    'route' => route('backend.doctor.create')
- ])
+    @include('backend._partials.page_header', [
+        'fa' => 'fa fa-plus-circle',
+        'name' => 'Create Doctor',
+        'route' => route('backend.doctor.create'),
+    ])
 
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="body">
-                <div class="table-responsive">
-                    <table class="table table-bordered text-center dataTable" id="appointment_table">
-                        <thead>
-                            <tr>
-                                <th class="text-center">Sl.</th>
-                                <th class="text-center">Doctor Name</th>
-                                <th class="text-center">Email</th>
-                                <th class="text-center">Mobile</th>
-                                <th class="text-center">Emergency Number</th>
-                                
-                                <th class="text-center">Action</th>
-                            </tr>
-                        </thead>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center dataTable" id="appointment_table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Sl.</th>
+                                    <th class="text-center">Doctor Name</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Mobile</th>
+                                    <th class="text-center">Emergency Number</th>
 
-                        <tbody>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
 
 
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
 
@@ -98,8 +96,8 @@
                         data: 'Emergency',
                         name: 'emergency_number'
                     },
-                   
-                    
+
+
 
                     // {
                     //     data: 'appointment_status',
@@ -127,6 +125,4 @@
 
         });
     </script>
-
-
 @endpush
