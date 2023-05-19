@@ -41,7 +41,7 @@
             let labTestCatName = $('.labTestCatName').map(function() {
                 return $(this).val();
             }).get();
-            console.log(testTube_id, labTestCatName, 'labTestCatName');
+            // console.log((ui.item.category).toString().trim(), labTestCatName, 'labTestCatName');
             let tubeAppendFlag = false;
             // labTest data append in table also added table row discount_type dropdown & discount & discount_amount with html event attribute
             let labTestRow = `<tr>
@@ -155,35 +155,54 @@
                 $('#labTestAppend').last().after(row);
             }
             //end labTestAppend
-            console.log(labTestCatName);
+            console.log(labTestCatName, $.inArray((ui.item.category).toString().trim(), labTestCatName) != -
+                1);
             // tubeAppend start here (all tube + urine pot + stool pot)
             if (labTestCatName.length > 0) {
                 //check if category is already exist or not in table row by labTestCatName class name
-                labTestCatName.forEach(catName => {
-                    if ((catName) == (ui.item.category).toString()) {
-                        tubeAppendFlag = false;
-                        //check if testTube_id is already exist or not in table row by testTube_id class name
-                        if (testTube_id.length > 0) {
-                            testTube_id.forEach(testTube => {
-                                if ((testTube) == (ui.item.tube.id).toString()) {
-                                    tubeAppendFlag = false;
-                                } else {
-                                    tubeAppendFlag = true;
-                                }
-                            });
+                // labTestCatName.forEach(catName => {
+                //     if ((catName) == (ui.item.category).toString().trim()) {
+                //         tubeAppendFlag = false;
+                //         //check if testTube_id is already exist or not in table row by testTube_id class name
+                //         if (testTube_id.length > 0) {
+                //             testTube_id.forEach(testTube => {
+                //                 if ((testTube) == (ui.item.tube.id).toString()) {
+                //                     tubeAppendFlag = false;
+                //                 } else {
+                //                     tubeAppendFlag = true;
+                //                 }
+                //             });
+                //         } else {
+                //             tubeAppendFlag = true;
+                //         }
+                //     }
+                // });
+
+
+            // category is  exist or not in table row
+            if ($.inArray((ui.item.category).toString().trim(), labTestCatName) != -1) {
+                    tubeAppendFlag = false;
+                    if (testTube_id.length > 0) {
+                        if ((ui.item.tube.id).toString().trim(),testTube_id != -1 && $.inArray((ui.item.category).toString().trim(), labTestCatName) != -1) {
+                            tubeAppendFlag = false;
                         } else {
                             tubeAppendFlag = true;
                         }
                     } else {
                         tubeAppendFlag = true;
                     }
-                });
-
+                }else if($.inArray((ui.item.category).toString().trim(), labTestCatName) == -1 && $.inArray((ui.item.category).toString().trim(), labTestCatName) != -1){
+                    tubeAppendFlag = true;
+                }else{
+                    tubeAppendFlag = true;
+                }
 
             } else if (labTestCatName.length == 0) {
                 tubeAppendFlag = true;
             }
 
+
+            console.log(tubeAppendFlag);
             if (tubeAppendFlag == true) {
                 let tube = `<tr>
                         <td>
@@ -218,11 +237,12 @@
                 }
 
             }
-            if ((ui.item.label).toString() == "Blood Glucose 2 Hrs. AFB" || (ui.item.label).toString() == "Blood Glucose 2 Hrs. After 75gm Glucose") {
+            if ((ui.item.label).toString() == "Blood Glucose 2 Hrs. AFB" || (ui.item.label).toString() ==
+                "Blood Glucose 2 Hrs. After 75gm Glucose") {
 
                 let urinePotCount = countElement('Urine', labTestCatName);
                 // console.log(urinePotCount);
-                if (urinePotCount == 0 ) {
+                if (urinePotCount == 0) {
                     let row = `<tr>
                         <td>
                             <input type="hidden" name="testTube_id[]" class="testTube_id" value="6">
@@ -248,7 +268,7 @@
                     $('#testTubeAppend').last().after(row);
                 }
 
-                let extraTube=`<tr>
+                let extraTube = `<tr>
                         <td>
                             <input type="hidden" name="testTube_id[]" class="testTube_id" value="4">
                             Gray
@@ -275,7 +295,8 @@
                     if (classLength == 0) {
                         needleRow(ui.item.label);
                     }
-                } else if ((ui.item.label).toString() == "Blood Glucose 2 Hrs. AFB" || (ui.item.label).toString() == "Blood Glucose 2 Hrs. After 75gm Glucose") {
+                } else if ((ui.item.label).toString() == "Blood Glucose 2 Hrs. AFB" || (ui.item.label)
+                    .toString() == "Blood Glucose 2 Hrs. After 75gm Glucose") {
                     let classLength = $('.needle_id').length;
                     if (classLength == 1 || classLength == 0) {
                         needleRow(ui.item.label);
