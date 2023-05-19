@@ -183,6 +183,7 @@ class LabTestController extends Controller
                 'delivery_time' =>0,
             ]);
         }
+
         if(count($labTestDetails) > 20){
               $labTestDetails = $labTestDetails->chunk(25);
             return view('backend.pathology.labTest.multiReceipt', compact('labInvoice', 'labTestDetails'));
@@ -190,7 +191,7 @@ class LabTestController extends Controller
         }
         return view('backend.pathology.labTest.moneyReceipt', compact('labInvoice', 'labTestDetails'));
     }
-    
+
 
     public function payment($id)
     {

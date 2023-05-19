@@ -213,11 +213,15 @@
                         </tr>
                         @php
                             $si = 0;
+                            $totalBill = 0;
+                            $totalDiscount = 0;
                         @endphp
 
                         @foreach ($labTestDetail as $testDetail)
                             @php
                                 $si += 1;
+                                $totalDiscount += $testDetail['discount_amount'];
+                                $totalBill += $testDetail['subtotal'];
                             @endphp
                             <tr>
                                 <td>
@@ -246,138 +250,11 @@
                             </tr>
                         @endforeach
 
-                        {{-- @foreach ($labInvoice->labTestTube as $key => $labTest)
-                        @php
-                            $si += 1;
-                        @endphp
-                        <tr>
-                            <td>
-                                {{ $si }}
-                            </td>
-                            <td>
-                                Vacutainer {{ $testDetail->tubeName->name }}
-                            </td>
-                            <td colspan="3" class="text-right">
-                                {{ number_format($testDetail->price, 2) }}
-                            </td>
-                        </tr>
-                    @endforeach
-                    @php
-                        $otherService = json_decode($labInvoice->other_service);
-                        $needlePrice = 0;
-                    @endphp
-                    @if ($otherService)
-                        @foreach ($otherService as $key => $service)
-                            @php
-                                $si += 1;
-                                $needlePrice += $service->needle;
 
-                            @endphp
-                            <tr>
-                                <td>
-                                    {{ $si }}
-                                </td>
-                                <td>
-                                    {{ 'Needle' }}
-                                </td>
-                                <td colspan="3" class="text-right">
-                                    {{ number_format($service->needle, 2) }}
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif --}}
-                    </tbody>
-                </table>
-
-                {{-- <table class="table table-bordered t">
-                    <tbody>
-                        <tr>
-                            <td rowspan="6" style="vertical-align: middle; width:20%;">
-                                <div class="d-flex justify-content-center align-items-center">
-                                    <div style="border: 2px solid #333; font-weight: bold; outline: 1px solid #333; outline-offset: 2px;"
-                                        class="h2 px-4 py-2">
-                                        {{ ucwords($labInvoice->payment_status) }}
-                                    </div>
-                                </div>
-                            </td>
-                            <td style="width:25%;">
-                                Total Bill
-                            </td>
-                            <td class="text-right" style="width: 35%;">
-                                {{ number_format($labInvoice->labTestDetails->sum('price') + $labInvoice->labTestTube->sum('price') + $needlePrice, 2) }}
-
-                            </td>
-                            <td style="width: 45%;vertical-align: middle;" rowspan="6">
-                                <div class="d-flex justify-content-center align-items-center h-100">
-                                    <div class="text-center">
-                                        <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center# AP-' . $labInvoice->invoice_number . ' PID-' . optional($labInvoice->patient)->patientId, 'QRCODE') }}"
-                                            alt="QR Code" style="width: 100px;" />
-                                        <p>Online Test Report</p>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Discount Amount
-                            </td>
-                            <td class="text-right">
-
-                                {{ number_format($labInvoice->labTestDetails->sum('discount_amount'), 2) }}
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                Payable Amount
-                            </td>
-                            <td class="text-right">
-                                {{ number_format($labInvoice->total_amount, 2) }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Cash Paid
-                            </td>
-                            <td class="text-right">
-                                {{ number_format($labInvoice->paid_amount, 2) }}
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <strong>
-                                    Due Amount
-                                </strong>
-                            </td>
-                            <td class="text-right ">
-                                <strong>
-                                    {{ number_format($labInvoice->due_amount, 2) }}
-                                </strong>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                Payment Type
-                            </td>
-                            <td class="text-right">
-                                Cash
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
 
 
-
-                <p class="text-center">
-                    <i style="color: #000;">
-                        <small style="text-transform:capitalize;">
-                            Received with thanks : {!! Helper::wordConvertor(round($labInvoice->paid_amount)) !!} Taka Only
-                        </small>
-                    </i>
-                </p> --}}
 
             </div>
             @if($key != count($labTestDetails) - 1)
@@ -401,7 +278,7 @@
                     </td>
 
                     <td class="text-right" style="width: 35%;">
-                        {{ number_format($labInvoice->labTestDetails->sum('price') + $labInvoice->labTestTube->sum('price'), 2) }}
+                        {{ number_format($totalBill, 2) }}
 
                     </td>
                     <td style="width: 45%;vertical-align: middle;" rowspan="6">
@@ -420,7 +297,7 @@
                     </td>
                     <td class="text-right">
 
-                        {{ number_format($labInvoice->labTestDetails->sum('discount_amount'), 2) }}
+                        {{ number_format($totalDiscount, 2) }}
 
                     </td>
                 </tr>
