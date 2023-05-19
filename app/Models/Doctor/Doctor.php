@@ -14,24 +14,24 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Doctor extends Model
 {
-   use AuthScopes,AutoTimeStamp,GlobalScope,SoftDeletes;
-   protected $guarded =['id'];
+    use AuthScopes, AutoTimeStamp, GlobalScope, SoftDeletes;
+    protected $guarded = ['id'];
 
-   /**
-    * Get all of the comments for the Doctor
-    *
-    * @return \Illuminate\Database\Eloquent\Relations\HasMany
-    */
+    /**
+     * Get all of the comments for the Doctor
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function doctorAppointmentSchedules(): HasMany
     {
         return $this->hasMany(DoctorAppointmentSchedule::class, 'doctor_id', 'id');
     }
 
-   /**
-    * Get all of the consultations for the Doctor
-    *
-    * @return \Illuminate\Database\Eloquent\Relations\HasMany
-    */
+    /**
+     * Get all of the consultations for the Doctor
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function consultations(): HasMany
     {
         return $this->hasMany(DoctorConsultation::class, 'doctor_id', 'id');
@@ -57,5 +57,4 @@ class Doctor extends Model
     {
         return $this->belongsTo(Designation::class, 'designation_id', 'id');
     }
-
 }

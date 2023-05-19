@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('radio_logy_service_names');
+        Schema::dropIfExists('radiology_service_names');
     }
 };

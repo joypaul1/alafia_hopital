@@ -6,6 +6,7 @@ use App\Helpers\InvoiceNumber;
 use App\Models\Account\AccountLedger;
 use App\Models\Appointment\Appointment;
 use App\Models\Appointment\DialysisAppointment;
+use App\Models\Doctor\DoctorLedger;
 use App\Models\FinancialYearHistory;
 use App\Models\LedgerTransition;
 use App\Models\PaymentSystem;
@@ -76,7 +77,7 @@ class StoreRequest extends FormRequest
             $data['total_amount'] = Str::replace(',', '', $this->payable_amount);
             $data['due_amount'] =  Str::replace(',', '', 0.00);
             $appointment = DialysisAppointment::create($data);
-            // dd($appointment);
+
             // appointment paymentHistories
             $appointment->paymentHistories()->create([
                 'ledger_id' => AccountLedger::first()->id,
@@ -129,6 +130,14 @@ class StoreRequest extends FormRequest
             LedgerTransition::updateOrCreate([
                 'ledger_id' => AccountLedger::first()->id,
                 'date'     => FinancialYearHistory::latest()->first()->start_date
+            ], [
+                'debit' => DB::raw('debit+' . Str::replace(',', '', $this->payable_amount))
+            ]);
+
+            // LedgerTransition --->increment payment
+            // DoctorLedger --> increment
+            DoctorLedger::updateOrCreate([
+                'doctor_id' =>  $this->doctor_id,
             ], [
                 'debit' => DB::raw('debit+' . Str::replace(',', '', $this->payable_amount))
             ]);

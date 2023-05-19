@@ -16,7 +16,7 @@ return new class extends Migration
     {
 
 
-        Schema::create('radiology_service_invoice_payment_histories', function (Blueprint $table) {
+        // Schema::create('radiology_service_invoice_payment_histories', function (Blueprint $table) {
             // $table->id();
             // $table->unsignedBigInteger('service_invoice_id');
             // $table->unsignedBigInteger('ledger_id');
@@ -25,7 +25,7 @@ return new class extends Migration
             // $table->date('date');
             // $table->string('note')->nullable();
             // $table->timestamps();
-        });
+        // });
         // DB::Statement('ALTER TABLE `radiology_service_invoice_payment_histories` ADD FOREIGN KEY (`service_invoice_id`) REFERENCES `radiology_service_invoices`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;');
     }
 
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('radio_logy_service_invoic_payment_histories');
+        Schema::dropIfExists('radio_logy_service_invoice_payment_histories');
     }
 };
