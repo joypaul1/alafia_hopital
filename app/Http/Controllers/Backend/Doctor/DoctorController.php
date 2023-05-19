@@ -183,7 +183,17 @@ class DoctorController extends Controller
      */
     public function edit($id)
     {
-        //
+       
+        $doctor       = Doctor::whereId($id)->first();
+        $status         =  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
+        $departments    = Department::select('id', 'name')->get();
+        $designations   = Designation::select('id', 'name')->get();
+        $roles          = Role::select('id', 'name')->get();
+        $shifts         = Shift::select('id', 'name')->get();
+        $admin         = Admin::where('mobile',$doctor->mobile)->first();
+
+        return view('backend.doctor.home.edit', compact('admin','doctor', 'status',
+         'departments', 'designations', 'roles', 'shifts'));
     }
 
     /**
@@ -193,9 +203,15 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(UpdateRequest $request, $id)
+    {       
+              
+        $returnData = $request->updateData($request, $id);
+        if($returnData->getData()->status){
+		    (new LogActivity)::addToLog('Doctor Updated');
+            return back()->with(['success' => $returnData->getData()->msg  ]);
+        }
+        return back()->with(['error' =>$returnData->getData()->msg ]);
     }
 
     /**
@@ -208,4 +224,59 @@ class DoctorController extends Controller
     {
         //
     }
+
+    public function doctorList()
+    {
+        $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
+
+        $appointmentData = Doctor::
+        select('*')
+       ->latest()->get();
+        if (request()->ajax()) {
+            return DataTables::of($appointmentData)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $action ='
+                    <a href="'.route('backend.doctor.edit',$row->id).'" 
+                            data-toggle="tooltip" data-original-title="Edit"><button class="btn  btn-warning"><i class="fa fa-pencil mr-2" aria-hidden="true"></i></button>
+                        </a>
+                        
+                    ';
+                    // $action ='<div class="dropdown">
+                    // <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
+                    //     <div class="dropdown-menu" >
+                    //     <a href="'.route('backend.appointment.show', $row).'" class="dropdown-item edit_check"
+                    //         data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye mr-2" aria-hidden="true"></i> Show
+                    //     </a>
+                    //     <div class="dropdown-divider"></div>
+                    //     <a data-href="'.route('backend.appointment.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
+                    //         data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash mr-2" aria-hidden="true"></i> Delete
+                    //     </a>
+                    // </div></div>';
+                    return $action;
+                })
+                // ->editColumn('image', function($row){
+                //     return  asset($row->image);
+                // })
+                // ->editColumn('status', function($row){
+                //     return view('components.backend.forms.input.input-switch', ['status' => $row->status ]);
+
+                // })
+                ->addColumn('Doctor', function($row) {
+                    return $row->first_name." ".$row->last_name ;
+                })
+                ->addColumn('Emergency', function($row) {
+                    return $row->emergency_number;
+                })
+               
+               
+                ->removeColumn(['id'])
+                ->rawColumns(['action'])
+                ->make(true);
+
+        }
+        return view('backend.doctor.home.doctorlist', compact( 'status'));
+        
+    }
 }
+

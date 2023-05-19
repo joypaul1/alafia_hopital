@@ -240,6 +240,8 @@
 
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'doctor' ? 'active' : ' ' }}"
                                     name="Appointment" link='backend.doctor.index' icon='#' />
+                                    <x-backend.side-bar class="{{ request()->segment(2) == 'doctor' ? 'active' : ' ' }}"
+                                    name="List" link='backend.doctorlist' icon='#' />
 
                             </ul>
                         </li>
