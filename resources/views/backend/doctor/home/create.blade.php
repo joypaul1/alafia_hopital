@@ -125,7 +125,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" class="form-control" name="license_number"placeholder="License number">
+                                    <input type="text" class="form-control" name="license_number"placeholder="License number">
                                 </div>
                                 <div class="form-group">
                                     <input type="number" class="form-control" name="nid_number" placeholder="NID number">
@@ -139,7 +139,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input type="date" class="form-control" name="joining_date" required>
+                                    <input type="date" class="form-control" name="joining_date"placeholder= "joining date" required>
                                 </div>
                             </div>
                         </div>
@@ -166,7 +166,7 @@
                             </div>
                         </div>
 
-                        <h6>Parmanent Address</h6>
+                        <h6>Permanent Address</h6>
                         <div class="row clearfix">
 
                             <div class="col-lg-12 col-md-12">
@@ -188,9 +188,9 @@
                             </div>
                         </div>
 
-                        <div class="col-12 text-center">
+                        {{-- <div class="col-12 text-center">
                             <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -205,15 +205,15 @@
 
                                         <div class="form-group">
                                             <input type="email" name="login_email" autocomplete="off" class="form-control"
-                                                placeholder="alizee.info@yourdomain.com" placeholder="Email">
+                                                placeholder="alizee.info@yourdomain.com" placeholder="Email" required>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" name="password" autocomplete="off" class="form-control"
-                                                placeholder="New Password">
+                                                placeholder="New Password" required>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" autocomplete="off" name="confirm_password" class="form-control"
-                                                placeholder="Confirm New Password">
+                                                placeholder="Confirm New Password" required>
                                         </div>
                                     </div>
 
@@ -221,7 +221,7 @@
                                     <div class="col-lg-12 col-md-12">
                                         <h6>Define User Role</h6>
                                         <div class="form-group">
-                                            <select class="form-control show-tick" name="role_id">
+                                            <select class="form-control show-tick" name="role_id" required>
                                                 <option value="{{ null }}" hidden>-- Please select --</option>
                                                 @foreach ($roles as $role)
                                                     <option value="{{ $role->id }}">{{ $role->name }}</option>
@@ -230,9 +230,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 text-center">
+                                {{-- <div class="col-12 text-center">
                                     <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -249,7 +249,7 @@
                                             <div class="col-5 p-0">
                                                 <div class="form-group mb-0">
                                                     <input type="text" class="form-control" name="consultation_name[]"
-                                                        readonly value="1st">
+                                                        readonly value="1st" required>
                                                 </div>
                                             </div>
                                             <div class="col-1 p-0 text-center">
@@ -314,7 +314,7 @@
                                             <div class="col-5 p-0">
                                                 <div class="form-group mb-0">
                                                     <select class="form-control" name="commission_type">
-                                                        <option value="parcent">Parcent</option>
+                                                        <option value="percent">Percent</option>
                                                         <option value="fixed">Fixed</option>
                                                     </select>
                                                 </div>
@@ -324,16 +324,16 @@
                                             </div>
                                             <div class="col-6 p-0">
                                                 <div class="form-group mb-0">
-                                                    <input type="text" class="form-control" name="commission_amount"
+                                                    <input type="number" class="form-control" name="commission_amount"
                                                         placeholder="Amount">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 text-center">
+                                {{-- <div class="col-12 text-center">
                                     <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -385,7 +385,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12">
+                    {{-- <div class="col-12">
                         <div class="card">
                             <div class="body">
                                 <h6>Petaint Visit Schedule</h6>
@@ -429,7 +429,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
