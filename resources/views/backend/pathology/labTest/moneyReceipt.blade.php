@@ -209,7 +209,7 @@
                         $totalDiscount = 0;
                     @endphp
 
-                    @foreach ($labInvoice->labTestDetails as $labTest)
+                    @foreach ($labTestDetails as $labTest)
                         @php
                             $si += 1;
                             $totalDiscount += $labTest['discount_amount'];
