@@ -35,7 +35,7 @@
     @include('backend._partials.page_header', [
         'fa' => 'fa fa-list',
         'name' => 'Doctor List',
-        'route' => route('backend.doctor.index'),
+        'route' => route('backend.doctorlist'),
     ])
 
 <form action="{{ route('backend.doctor.update', $doctor) }}" method="post" enctype="multipart/form-data">
@@ -204,7 +204,7 @@
                                         <h6>Login Account Data</h6>
 
                                         <div class="form-group">
-                                            <input type="email" name="login_email" autocomplete="off" class="form-control" {{ $admin->email }}
+                                            <input type="email" name="login_email" autocomplete="off" class="form-control" 
                                                 placeholder="alizee.info@yourdomain.com" placeholder="Email">
                                         </div>
                                         <div class="form-group">

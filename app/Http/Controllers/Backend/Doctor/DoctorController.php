@@ -11,6 +11,8 @@ use App\Models\Employee\Shift;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests\Doctor\StoreRequest;
+use App\Http\Requests\Doctor\UpdateRequest;
+
 use App\Models\Appointment\Appointment;
 use App\Models\Doctor\DoctorAppointmentSchedule;
 use Yajra\DataTables\Facades\DataTables;
@@ -190,9 +192,9 @@ class DoctorController extends Controller
         $designations   = Designation::select('id', 'name')->get();
         $roles          = Role::select('id', 'name')->get();
         $shifts         = Shift::select('id', 'name')->get();
-        $admin         = Admin::where('mobile',$doctor->mobile)->first();
+        //$admin         = Admin::where('mobile',$doctor->mobile)->first();
 
-        return view('backend.doctor.home.edit', compact('admin','doctor', 'status',
+        return view('backend.doctor.home.edit', compact('doctor', 'status',
          'departments', 'designations', 'roles', 'shifts'));
     }
 

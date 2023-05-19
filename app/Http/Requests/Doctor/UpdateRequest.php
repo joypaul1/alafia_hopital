@@ -31,6 +31,7 @@ class UpdateRequest extends FormRequest
             'first_name' => 'nullable|string' ,
             'last_name' => 'nullable|string' ,
             'email' => 'nullable| ' ,
+             'gender' => 'nullable| ' ,
             'mobile' => 'nullable|string' ,
             'emergency_number' => 'nullable|numeric' ,
             'department_id' => 'nullable|exists:departments,id' ,
