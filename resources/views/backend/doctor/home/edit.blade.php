@@ -105,7 +105,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="number" class="form-control" name="emergency_mobile" value="{{ $doctor->emergency_mobile }}"
+                                    <input type="number" class="form-control" name="emergency_number" value="{{ $doctor->emergency_number }}"
                                         placeholder="Emergency Mobile Number">
                                 </div>
                                 <div class="form-group">
