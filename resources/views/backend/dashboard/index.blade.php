@@ -99,9 +99,9 @@
      <a href="{{ route('backend.patient.create') }}"> <button type="button" class="btn btn-info btn-lg">
         <i class="fa fa-user"></i> Patient Create
      </button></a>
-              
+
                     <hr>
-                   
+
                 </div>
             </div>
         </div>
@@ -114,7 +114,7 @@
                 <div class="body">
                     <div class="icon text-info"><i class="fa fa-user"></i> </div>
                     <div class="content">
-                        <div class="text">Today's Patients</div>
+                        <div class="text">Today's Appointment</div>
                         <h5 class="number">{{$todaysDocAppointment  }}</h5>
                     </div>
                     <hr>
@@ -132,7 +132,7 @@
                     <div class="icon text-warning"><i class="fa fa-tags"></i> </div>
                     <div class="content">
                         <div class="text">Today's Income</div>
-                        <h5 class="number">৳ {{ $todaysDocAppointmentIncome }}</h5>
+                        <h5 class="number">৳ {{ number_format($todaysDocAppointmentIncome, 2) }}</h5>
                     </div>
                     <hr>
                     <div class="icon"><i class="fa fa-university"></i> </div>
@@ -171,7 +171,7 @@
                 <div class="body">
                     <div class="icon text-info"><i class="fa fa-user"></i> </div>
                     <div class="content">
-                        <div class="text">Today's Patients</div>
+                        <div class="text">Today's Appointment</div>
                         <h5 class="number">{{$todaysDialysisAppointment  }}</h5>
                     </div>
                     <hr>
@@ -189,7 +189,7 @@
                     <div class="icon text-warning"><i class="fa fa-tags"></i> </div>
                     <div class="content">
                         <div class="text">Today's Income</div>
-                        <h5 class="number">৳ {{ $todaysDialysisDocAppointmentIncome }}</h5>
+                        <h5 class="number">৳ {{ number_format($todaysDialysisDocAppointmentIncome, 2) }}</h5>
                     </div>
                     <hr>
                     <div class="icon"><i class="fa fa-university"></i> </div>
@@ -228,8 +228,8 @@
                 <div class="body">
                     <div class="icon text-info"><i class="fa fa-user"></i> </div>
                     <div class="content">
-                        <div class="text">Today's Patients</div>
-                        <h5 class="number">{{$todayslabAppointment  }}</h5>
+                        <div class="text">Today's Appointment</div>
+                        <h5 class="number">{{ ($todaysLabAppointment)  }}</h5>
                     </div>
                     <hr>
                     <div class="icon text-warning"><i class="fa fa-users"></i> </div>
@@ -246,7 +246,7 @@
                     <div class="icon text-warning"><i class="fa fa-tags"></i> </div>
                     <div class="content">
                         <div class="text">Today's Income</div>
-                        <h5 class="number">৳ {{ $todayslabAppointmentIncome }}</h5>
+                        <h5 class="number">৳ {{ number_format($todaysLabAppointmentIncome, 2) }}</h5>
                     </div>
                     <hr>
                     <div class="icon"><i class="fa fa-university"></i> </div>

@@ -21,27 +21,25 @@ class DashboardController extends Controller
         $totalDialysisPatient=  DialysisAppointment::all()->groupBy('patient_id')->count();
         $totalLabPatient=  LabInvoice::all()->groupBy('patient_id')->count();
 
-        $todaysDocAppointment=  Appointment::where('date', date('Y-m-d'))->count();
-        $todaysDialysisAppointment=  DialysisAppointment::where('appointment_date', date('Y-m-d'))->count();
-        $todayslabAppointment=  LabInvoice::where('date', date('Y-m-d'))->count();
+        $todaysDocAppointment=  Appointment::whereDate('appointment_date', date('Y-m-d'))->count();
+        $todaysDialysisAppointment=  DialysisAppointment::whereDate('appointment_date', date('Y-m-d'))->count();
+        $todaysLabAppointment=  LabInvoice::whereDate('date', date('Y-m-d'))->count();
 
-        $todaysDocAppointmentTaka= Appointment::where('date', date('Y-m-d'))
-        ->with('paymentHistories')->get();
-        $todaysDocAppointmentIncome = $todaysDocAppointmentTaka->map(function ($appointment) {
-            return $appointment->paymentHistories->sum('paid_amount');
-            // return $payment['total_payment'];
-        });
-        $todaysDialysisDocAppointmentTaka= DialysisAppointment::where('appointment_date', date('Y-m-d'))
-        ->with('paymentHistories')->get();
-        $todaysDialysisDocAppointmentIncome = $todaysDialysisDocAppointmentTaka->map(function ($appointment) {
-            return $appointment->paymentHistories->sum('paid_amount');
-        });
+        $todaysDocAppointmentIncome= Appointment::whereDate('appointment_date', date('Y-m-d'))->get()->sum('paid_amount');
+        // $todaysDocAppointmentIncome = $todaysDocAppointmentTaka->map(function ($appointment) {
+        //     return $appointment->paymentHistories->sum('paid_amount');
 
-        $todayslabAppointmentTaka= LabInvoice::where('date', date('Y-m-d'))
-        ->with('paymentHistories')->get();
-        $todayslabAppointmentIncome = $todayslabAppointmentTaka->map(function ($appointment) {
-            return $appointment->paymentHistories->sum('paid_amount');
-        });
+        // });
+        $todaysDialysisDocAppointmentIncome= DialysisAppointment::where('appointment_date', date('Y-m-d'))
+        ->with('paymentHistories')->get()->sum('paid_amount');
+        // $todaysDialysisDocAppointmentIncome = $todaysDialysisDocAppointmentTaka->map(function ($appointment) {
+        //     return $appointment->paymentHistories->sum('paid_amount');
+        // });
+
+     $todaysLabAppointmentIncome= LabInvoice::whereDate('date', date('Y-m-d'))->get()->sum('paid_amount');
+        // $todayslabAppointmentIncome = $todayslabAppointmentTaka->map(function ($appointment) {
+        //     return $appointment->paymentHistories->sum('paid_amount');
+        // });
         // dd($todaysDocAppointmentIncome);
         // ->sum('paid_amount');
         // $weaklyData['days'] = [];
@@ -109,7 +107,7 @@ class DashboardController extends Controller
         // $totalVat = round($totalVat * 15 / 100);
 
 
-        return view('backend.dashboard.index', compact('totalLabPatient','todayslabAppointment','totalDialysisPatient','totalPatient','todaysDocAppointment', 'todaysDialysisAppointment', 'todaysDocAppointmentIncome','todaysDialysisDocAppointmentIncome','todayslabAppointmentIncome'));
+        return view('backend.dashboard.index', compact('totalLabPatient','todaysLabAppointment','totalDialysisPatient','totalPatient','todaysDocAppointment', 'todaysDialysisAppointment', 'todaysDocAppointmentIncome','todaysDialysisDocAppointmentIncome','todaysLabAppointmentIncome'));
     }
     public function labReport()
     {
