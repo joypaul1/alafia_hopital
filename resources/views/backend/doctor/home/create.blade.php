@@ -76,7 +76,7 @@
                                 <div class="form-group">
                                     <div>
                                         <label class="fancy-radio">
-                                            <input name="gender" value="male" type="radio" checked="" required>
+                                            <input name="gender" value="male" type="radio" checked="">
                                             <span><i></i>Male</span>
                                         </label>
                                         <label class="fancy-radio">
@@ -93,7 +93,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="icon-calendar"></i></span>
                                         </div>
-                                        <input type="date" name="dob" required data-provide="datepicker"
+                                        <input type="date" name="dob" data-provide="datepicker"
                                             data-date-autoclose="true" class="form-control" placeholder="Birthdate">
                                     </div>
                                 </div>
@@ -131,7 +131,7 @@
                                     <input type="number" class="form-control" name="nid_number" placeholder="NID number">
                                 </div>
                                 <div class="form-group">
-                                    <select class="form-control" name="marital_status" required>
+                                    <select class="form-control" name="marital_status" >
                                         <option value="single">Single</option>
                                         <option value="married">Married</option>
                                         <option value="divorced">Divorced</option>
@@ -139,7 +139,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input type="date" class="form-control" name="joining_date"placeholder= "joining date" required>
+                                    <input type="date" class="form-control" name="joining_date"placeholder= "joining date" >
                                 </div>
                             </div>
                         </div>
@@ -346,7 +346,7 @@
                                     <div class="col-lg-4 col-md-12">
                                         <div class="form-group">
                                             <label>Day</label>
-                                            <select name="appointment_days[]" id=""  class="form-control">
+                                            <select name="appointment_days[]" id=""  class="form-control" required>
                                                 @foreach (['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as $day)
                                                     <option value="{{ $day }}">{{ $day }}</option>
                                                 @endforeach
@@ -359,13 +359,13 @@
                                     <div class="col-lg-4   col-md-12">
                                         <div class="form-group">
                                             <label for="start_time">Start Time</label>
-                                            <input type="time" id="start_time" name="appointment_day_start_time[]" class="form-control">
+                                            <input type="time" id="start_time" required name="appointment_day_start_time[]" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-4  col-md-12">
                                         <div class="form-group">
                                             <label for="end_time">End Time</label>
-                                            <input type="time" id="end_time" name="appointment_day_end_time[]" class="form-control">
+                                            <input type="time" id="end_time" required name="appointment_day_end_time[]" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
@@ -393,7 +393,7 @@
                                     <div class="col-lg-4  col-md-12">
                                         <div class="form-group">
                                             <label>Day</label>
-                                            <select name="visit_schedule_days[]" id="" class="form-control">
+                                            <select name="visit_schedule_days[]" id="" class="form-control" required>
                                             @foreach (['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as $day)
                                                 <option value="{{ $day }}">{{ $day }}</option>
                                             @endforeach
@@ -404,13 +404,13 @@
                                     <div class="col-lg-4  col-md-12">
                                         <div class="form-group">
                                             <label for="start_time">Start Time</label>
-                                            <input type="time" id="start_time" name="visit_schedule_day_start_time[]" class="form-control">
+                                            <input type="time" id="start_time"  name="visit_schedule_day_start_time[]" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-lg-4  col-md-12">
                                         <div class="form-group">
                                             <label for="end_time">End Time</label>
-                                            <input type="time" id="end_time" name="visit_schedule_day_end_time[]" class="form-control">
+                                            <input type="time" id="end_time"  name="visit_schedule_day_end_time[]" class="form-control">
                                         </div>
                                     </div>
                                 </div>
