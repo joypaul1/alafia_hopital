@@ -121,14 +121,14 @@ class StoreRequest extends FormRequest
             }
 
             // doctor visiting schedule with start time and end time query
-            foreach ($this->visit_schedule_days as $index => $value) {
+          /*  foreach ($this->visit_schedule_days as $index => $value) {
                 $visitingSchedules=$doctor->doctorVisitingSchedules()->create([
                     'day'           => $this->visit_schedule_days[$index]??null,
                     'start_time'    => $this->visit_schedule_day_start_time[$index]??null,
                     'end_time'      => $this->visit_schedule_day_end_time[$index]??null,
                 ]);
 
-            }
+            }*/
            // doctor auth login query
             $admin  =Admin::updateOrCreate([
                 'email'     =>  $this->login_email,
