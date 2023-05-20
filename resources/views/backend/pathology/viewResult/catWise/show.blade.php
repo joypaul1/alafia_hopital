@@ -1387,9 +1387,7 @@
 
     </style>
 </head>
-{{-- @dd($labTestReport->testName->category); --}}
-{{-- @dd($labTestReport->test->name
-{{-- @dd($labTestReport->patient); --}}
+
 <body class="c46 doc-content">
     <div class="content">
         <div>
@@ -1477,10 +1475,10 @@
                         <td class="c38" colspan="1" rowspan="1">
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
-                        <td class="c15" colspan="1" rowspan="1">
+                        {{-- <td class="c15" colspan="1" rowspan="1">
                             <p class="c23"><span class="c0">{{ optional($labTestReport->testName)->specimen }} </span></p>
 
-                        </td>
+                        </td> --}}
                     </tr>
                     <tr class="c5">
                         <td class="c72" colspan="1" rowspan="1">
