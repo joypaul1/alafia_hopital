@@ -131,7 +131,7 @@ class LabTestResultController extends Controller
         // dd($labTest);
         // start stool
         if ($labTest->category == 'Stool' && $labTest->name == 'Stool-RE') {
-            return view('backend.pathology.makeResult.stool.stool_re', compact('data','labTest'));
+            return view('backend.pathology.makeResult.stool.stool_re', compact('data', 'labTest'));
         }
         // end urine
 
@@ -391,8 +391,7 @@ class LabTestResultController extends Controller
 
     public function printCat(Request $request)
     {
-        // category, invoice_id
-        // dd(LabInvoice::whereId($request->invoice_id)->first());
+
         if ($request->category == 'Biochemistry' || $request->category == 'Serology' || $request->category == 'Hematology' || $request->category == 'Immunology') {
             $labInvoice = LabInvoice::whereId($request->invoice_id)
                 ->with('patient', 'doctor')
@@ -435,36 +434,36 @@ class LabTestResultController extends Controller
     }
     public function printBarCode(LabInvoice $labInvoice)
     {
-    //    return $labTest = LabTest::whereName('CUS')->first();
+        //    return $labTest = LabTest::whereName('CUS')->first();
         $printData = [];
         $labInvoice         = LabInvoice::whereId($labInvoice->id)->with('patient')->with('labTestDetails.testName')->first();
         $categoryWiseData   = $labInvoice->labTestDetails->groupBy('testName.category');
         foreach ($labInvoice->labTestDetails as $key => $details) {
-            if($key == 0){
+            if ($key == 0) {
                 $printData[$details->testName->category] = [$details->testName->tube->name => [
                     $details->testName->short_name => $details->testName->short_name,
                 ]];
-            }else{
+            } else {
                 //check if category exist
-                if(array_key_exists($details->testName->category, $printData)){
+                if (array_key_exists($details->testName->category, $printData)) {
                     //check if tube exist
-                    if(array_key_exists($details->testName->tube->name, $printData[$details->testName->category])){
+                    if (array_key_exists($details->testName->tube->name, $printData[$details->testName->category])) {
                         //check if test exist
-                        if($details->testName->name != 'CUS'){
-                            if(array_key_exists($details->testName->short_name, $printData[$details->testName->category][$details->testName->tube->name])){
+                        if ($details->testName->name != 'CUS') {
+                            if (array_key_exists($details->testName->short_name, $printData[$details->testName->category][$details->testName->tube->name])) {
                                 //if exist then do nothing
-                            }else{
+                            } else {
                                 //if not exist then add
                                 $printData[$details->testName->category][$details->testName->tube->name][$details->testName->short_name] = $details->testName->short_name;
                             }
                         }
-                    }else{
+                    } else {
                         //if tube not exist then add
                         $printData[$details->testName->category][$details->testName->tube->name] = [
-                            $details->testName->short_name=> $details->testName->short_name,
+                            $details->testName->short_name => $details->testName->short_name,
                         ];
                     }
-                }else{
+                } else {
                     $printData[$details->testName->category] = [$details->testName->tube->name => [
                         $details->testName->short_name => $details->testName->short_name,
                     ]];

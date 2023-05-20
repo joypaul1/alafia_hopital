@@ -119,7 +119,7 @@ class StoreRequest extends FormRequest
                     'payment_method'    => $this->payment_method,
 
                 ]);
-                // dd(  $cashflowTransition);
+
 
                 // cashflowHistories
                 $cashflowTransition->cashflowHistory()->create([
