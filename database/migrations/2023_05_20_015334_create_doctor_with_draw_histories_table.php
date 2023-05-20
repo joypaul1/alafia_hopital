@@ -29,7 +29,7 @@ return new class extends Migration
             $table->unsignedBigInteger('ledger_id');
             $table->foreign('ledger_id')->references('id')->on('account_ledgers');
             $table->unsignedBigInteger('payment_method_id');
-            $table->foreign('payment_method_id')->references('id')->on('payment_methods');
+            $table->foreign('payment_method_id')->references('id')->on('payment_systems');
             $table->timestamps();
         });
     }

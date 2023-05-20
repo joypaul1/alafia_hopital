@@ -26,37 +26,36 @@ class DoctorController extends Controller
      */
     public function index(Request $request)
     {
-        $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
+        $status =  (object)[['name' => 'Active', 'id' => 1], ['name' => 'Inactive', 'id' => 0]];
 
-        if($request->optionData) {
+        if ($request->optionData) {
             $data = Doctor::latest()->get();
-            return response()->json(['data' =>$data]);
+            return response()->json(['data' => $data]);
         }
-        if($request->designation_id) {
+        if ($request->designation_id) {
             $data = Doctor::active()->where('designation_id', $request->designation_id)->select('id', 'first_name', 'last_name')->get()->map(function ($doctor) {
                 $data['id'] = $doctor->id;
                 $data['name'] = $doctor->first_name . ' ' . $doctor->last_name;
                 return $data;
             });;
-            return response()->json(['data' =>$data]);
+            return response()->json(['data' => $data]);
         }
-        if($request->department_id) {
+        if ($request->department_id) {
             $data = Doctor::active()->where('department_id', $request->department_id)->select('id', 'first_name', 'last_name')->get()->map(function ($doctor) {
                 $data['id'] = $doctor->id;
                 $data['name'] = $doctor->first_name . ' ' . $doctor->last_name;
                 return $data;
             });;
-            return response()->json(['data' =>$data]);
+            return response()->json(['data' => $data]);
         }
-        $appointmentData = Appointment::
-        select('id', 'invoice_number', 'appointment_date', 'patient_id', 'doctor_id', 'doctor_fee','appointment_status' )
-        ->with('patient:id,name,patientId', 'doctor:id,first_name,last_name')->latest()->get();
+        $appointmentData = Appointment::select('id', 'invoice_number', 'appointment_date', 'patient_id', 'doctor_id', 'doctor_fee', 'appointment_status')
+            ->with('patient:id,name,patientId', 'doctor:id,first_name,last_name')->latest()->get();
 
         if (request()->ajax()) {
             return DataTables::of($appointmentData)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $action ='<a href="'.route('backend.prescription.create', ['prescription' => $row]).'"  ><button class="btn btn-sm btn-info">Prescription</button> </a>';
+                    $action = '<a href="' . route('backend.prescription.create', ['prescription' => $row]) . '"  ><button class="btn btn-sm btn-info">Prescription</button> </a>';
                     // $action ='<div class="dropdown">
                     // <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                     //     <div class="dropdown-menu" >
@@ -77,33 +76,32 @@ class DoctorController extends Controller
                 //     return view('components.backend.forms.input.input-switch', ['status' => $row->status ]);
 
                 // })
-                ->editColumn('appointment_date', function($row) {
+                ->editColumn('appointment_date', function ($row) {
                     return date('d-m-Y', strtotime($row->appointment_date));
                 })
-                ->addColumn('mobile', function($row) {
-                    return optional($row->patient)->mobile ;
+                ->addColumn('mobile', function ($row) {
+                    return optional($row->patient)->mobile;
                 })
-                ->addColumn('p_id', function($row) {
-                    return optional($row->patient)->patientId ;
+                ->addColumn('p_id', function ($row) {
+                    return optional($row->patient)->patientId;
                 })
-                ->editColumn('patient_id', function($row) {
-                    return optional($row->patient)->name ;
+                ->editColumn('patient_id', function ($row) {
+                    return optional($row->patient)->name;
                 })
-                ->editColumn('doctor_id', function($row) {
+                ->editColumn('doctor_id', function ($row) {
                     return optional($row->doctor)->first_name;
                 })
-                ->editColumn('doctor_fee', function($row) {
+                ->editColumn('doctor_fee', function ($row) {
                     return  number_format($row->doctor_fee, 2);
                 })
-                ->addColumn('paymentHistories', function($row) {
+                ->addColumn('paymentHistories', function ($row) {
                     return implode(' ,', $row->paymentHistories()->pluck('payment_method')->toArray());
                 })
                 ->removeColumn(['id'])
                 ->rawColumns(['action', 'paymentHistories'])
                 ->make(true);
-
         }
-        return view('backend.doctor.home.index', compact( 'status'));
+        return view('backend.doctor.home.index', compact('status'));
     }
 
     /**
@@ -114,13 +112,19 @@ class DoctorController extends Controller
     public function create()
     {
         $doctors        = Doctor::select('id', 'first_name')->get();
-        $status         =  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
+        $status         =  (object)[['name' => 'Active', 'id' => 1], ['name' => 'Inactive', 'id' => 0]];
         $departments    = Department::select('id', 'name')->get();
         $designations   = Designation::select('id', 'name')->get();
         $roles          = Role::select('id', 'name')->get();
         $shifts         = Shift::select('id', 'name')->get();
-        return view('backend.doctor.home.create', compact('doctors', 'status',
-         'departments', 'designations', 'roles', 'shifts'));
+        return view('backend.doctor.home.create', compact(
+            'doctors',
+            'status',
+            'departments',
+            'designations',
+            'roles',
+            'shifts'
+        ));
     }
 
     /**
@@ -133,12 +137,11 @@ class DoctorController extends Controller
     {
         // dd($request->storeRequest());
         $returnData = $request->storeData($request);
-        if($returnData->getData()->status){
+        if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('Doctor Created');
-            return back()->with('success' , $returnData->getData()->msg) ;
+            return back()->with('success', $returnData->getData()->msg);
         }
-        return back()->with('error' , $returnData->getData()->msg) ;
-
+        return back()->with('error', $returnData->getData()->msg);
     }
 
     /**
@@ -152,29 +155,26 @@ class DoctorController extends Controller
         if (request()->slot) {
             $timeSlot = [];
             $data = Doctor::whereId($id)->select('id')
-            ->with('doctorAppointmentSchedules')
-            ->first();
+                ->with('doctorAppointmentSchedules')
+                ->first();
             //php date wise day show
             $day = date('l', strtotime(request()->date));
-            $timeSlot = $data->doctorAppointmentSchedules()->where('day', $day)->get()->map(function($query){
+            $timeSlot = $data->doctorAppointmentSchedules()->where('day', $day)->get()->map(function ($query) {
                 return [
                     'start_time' => date("h.i A", strtotime($query->start_time)),
                     'end_time' => date("h.i A", strtotime($query->end_time)),
                     'id'    => $query->id,
                 ];
             });
-            return response()->json(['data'=> $timeSlot]);
-
+            return response()->json(['data' => $timeSlot]);
         }
         // get ajax request for single data show
         if (request()->ajax()) {
             $data = Doctor::whereId($id)->select('id')->with('consultations:id,doctor_id,consultation_day,consultation_fee')
-            ->first();
-            $consultation_fee= $data->consultations->first()->consultation_fee ;
+                ->first();
+            $consultation_fee = $data->consultations->first()->consultation_fee;
             return response()->json($consultation_fee);
         }
-
-
     }
 
     /**
@@ -185,17 +185,23 @@ class DoctorController extends Controller
      */
     public function edit($id)
     {
-       
+
         $doctor       = Doctor::whereId($id)->first();
-        $status         =  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
+        $status         =  (object)[['name' => 'Active', 'id' => 1], ['name' => 'Inactive', 'id' => 0]];
         $departments    = Department::select('id', 'name')->get();
         $designations   = Designation::select('id', 'name')->get();
         $roles          = Role::select('id', 'name')->get();
         $shifts         = Shift::select('id', 'name')->get();
         //$admin         = Admin::where('mobile',$doctor->mobile)->first();
 
-        return view('backend.doctor.home.edit', compact('doctor', 'status',
-         'departments', 'designations', 'roles', 'shifts'));
+        return view('backend.doctor.home.edit', compact(
+            'doctor',
+            'status',
+            'departments',
+            'designations',
+            'roles',
+            'shifts'
+        ));
     }
 
     /**
@@ -206,14 +212,14 @@ class DoctorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateRequest $request, $id)
-    {       
-              
+    {
+
         $returnData = $request->updateData($request, $id);
-        if($returnData->getData()->status){
-		    (new LogActivity)::addToLog('Doctor Updated');
-            return back()->with(['success' => $returnData->getData()->msg  ]);
+        if ($returnData->getData()->status) {
+            (new LogActivity)::addToLog('Doctor Updated');
+            return back()->with(['success' => $returnData->getData()->msg]);
         }
-        return back()->with(['error' =>$returnData->getData()->msg ]);
+        return back()->with(['error' => $returnData->getData()->msg]);
     }
 
     /**
@@ -229,20 +235,19 @@ class DoctorController extends Controller
 
     public function doctorList()
     {
-        $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
+        $status =  (object)[['name' => 'Active', 'id' => 1], ['name' => 'Inactive', 'id' => 0]];
 
-        $appointmentData = Doctor::
-        select('*')
-       ->latest()->get();
+        $appointmentData = Doctor::select('*')
+            ->latest()->get();
         if (request()->ajax()) {
             return DataTables::of($appointmentData)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $action ='
-                    <a href="'.route('backend.doctor.edit',$row->id).'" 
+                    $action = '
+                    <a href="' . route('backend.doctor.edit', $row->id) . '"
                             data-toggle="tooltip" data-original-title="Edit"><button class="btn  btn-warning"><i class="fa fa-pencil mr-2" aria-hidden="true"></i></button>
                         </a>
-                        
+
                     ';
                     // $action ='<div class="dropdown">
                     // <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
@@ -264,21 +269,18 @@ class DoctorController extends Controller
                 //     return view('components.backend.forms.input.input-switch', ['status' => $row->status ]);
 
                 // })
-                ->addColumn('Doctor', function($row) {
-                    return $row->first_name." ".$row->last_name ;
+                ->addColumn('Doctor', function ($row) {
+                    return $row->first_name . " " . $row->last_name;
                 })
-                ->addColumn('Emergency', function($row) {
+                ->addColumn('Emergency', function ($row) {
                     return $row->emergency_number;
                 })
-               
-               
+
+
                 ->removeColumn(['id'])
                 ->rawColumns(['action'])
                 ->make(true);
-
         }
-        return view('backend.doctor.home.doctorlist', compact( 'status'));
-        
+        return view('backend.doctor.home.doctorlist', compact('status'));
     }
 }
-

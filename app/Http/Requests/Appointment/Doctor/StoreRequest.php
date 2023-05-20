@@ -5,6 +5,7 @@ namespace App\Http\Requests\Appointment\Doctor;
 use App\Helpers\InvoiceNumber;
 use App\Models\Account\AccountLedger;
 use App\Models\Appointment\Appointment;
+use App\Models\Doctor\DoctorLedger;
 use App\Models\FinancialYearHistory;
 use App\Models\LedgerTransition;
 use App\Models\PaymentSystem;
@@ -74,7 +75,7 @@ class StoreRequest extends FormRequest
             $data['payment_mode']           = PaymentSystem::find($this->payment_method)->name; //payment method name
             $data['appointment_status']     = $this->status;
             $data['payment_status']         = 'paid';
-            $data['date']                   = now();
+            $data['date']                   =  now();
             $data['serial_number']          = $this->serial_number();
             $data['discount_type']          = $this->discount_type;
             $data['discount']               =  Str::replace(',', '', $this->discount);
@@ -82,7 +83,7 @@ class StoreRequest extends FormRequest
             $data['subtotal_amount']        = Str::replace(',', '', $this->subtotal);
             $data['total_amount']           = Str::replace(',', '', $this->subtotal);
             $data['due_amount']             =  0.00;
-            // dd($data);
+
             $appointment = Appointment::create($data);
             // dd($appointment);
             // appointment paymentHistories
@@ -137,6 +138,13 @@ class StoreRequest extends FormRequest
             LedgerTransition::updateOrCreate([
                 'ledger_id' => AccountLedger::first()->id,
                 'date'     => FinancialYearHistory::latest()->first()->start_date
+            ], [
+                'debit' => DB::raw('debit+' . Str::replace(',', '', $this->payable_amount))
+            ]);
+            //<----end of dailyTransition book transaction------->
+            // DoctorLedger --> increment
+            DoctorLedger::updateOrCreate([
+                'doctor_id' =>  $this->doctorID,
             ], [
                 'debit' => DB::raw('debit+' . Str::replace(',', '', $this->payable_amount))
             ]);

@@ -2,6 +2,7 @@
 
 namespace App\Models\Doctor;
 
+use App\Models\Appointment\Appointment;
 use App\Models\Employee\Department;
 use App\Models\Employee\Designation;
 use App\Traits\AuthScopes;
@@ -56,5 +57,20 @@ class Doctor extends Model
     public function designation()
     {
         return $this->belongsTo(Designation::class, 'designation_id', 'id');
+    }
+
+    public function ledger()
+    {
+        return $this->hasOne(DoctorLedger::class, 'doctor_id', 'id');
+    }
+
+    public function appointment()
+    {
+        return $this->hasMany(Appointment::class, 'doctor_id', 'id');
+    }
+
+    public function withdraw()
+    {
+        return $this->hasMany(DoctorWithDrawHistory::class, 'doctor_id', 'id');
     }
 }

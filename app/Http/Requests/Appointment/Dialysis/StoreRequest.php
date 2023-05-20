@@ -135,12 +135,7 @@ class StoreRequest extends FormRequest
             ]);
 
             // LedgerTransition --->increment payment
-            // DoctorLedger --> increment
-            DoctorLedger::updateOrCreate([
-                'doctor_id' =>  $this->doctor_id,
-            ], [
-                'debit' => DB::raw('debit+' . Str::replace(',', '', $this->payable_amount))
-            ]);
+            
 
             DB::commit();
         } catch (\Exception $ex) {

@@ -361,6 +361,25 @@
                             </ul>
                         </li>
                         {{-- End Admin Panel --}}
+
+                        {{-- Account Panel --}}
+                        <li class="{{ strpos($strpos, 'backend.payment') === 0 ? 'active' : ' ' }}">
+                            <a href="javascript:void(0)" class="has-arrow">
+                                <i class="icon-user-following"></i>
+                                <span>Payment Panel</span>
+                            </a>
+                            <ul>
+                                <x-backend.side-bar
+                                    class="{{ request()->segment(2) == 'doctor-payment' ? 'active' : ' ' }}"
+                                    name="Doctor Payment" link='backend.paymentdoctor.index' icon='#' />
+                                {{-- <x-backend.side-bar
+                                    class="{{ request()->segment(2) == 'accountledger' ? 'active' : ' ' }}"
+                                    name="Account Ledger" link='backend.account.accountledger.index'
+                                    icon='#' /> --}}
+                                {{-- <x-backend.side-bar class="{{ request()->segment(2) == 'transaction' ? 'active' : ' ' }}" name="Transaction" link='backend.account.transaction.index' icon='#' /> --}}
+                            </ul>
+                        </li>
+                        {{-- End Admin Panel --}}
                         {{-- Report Panel --}}
                         <li class="{{ strpos($strpos, 'backend.report') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
