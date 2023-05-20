@@ -73,12 +73,7 @@
                             <div></div>
                             <h5>Doctor Income Ledger</h5>
 
-                            <a href="{{ route('backend.paymentdoctor.show', request()->get('doctor_id')) }}"
-                                target="_blank">
-                                <button class="btn btn-warning">
-                                    <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i> Doctor Ledger
-                                    History</button>
-                            </a>
+
 
                         </div>
                     @endif

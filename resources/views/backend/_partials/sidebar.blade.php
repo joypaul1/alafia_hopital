@@ -387,6 +387,9 @@
                                 <span>Report Panel</span>
                             </a>
                             <ul>
+                                <x-backend.side-bar
+                                class="{{ request()->segment(2) == 'doctor-wise-patient-visit' ? 'active' : ' ' }}"
+                                name="Patient Visit" link='backend.report.doctorWisePatientVisit' icon='#' />
                                 {{-- <x-backend.side-bar class="{{ request()->segment(2) == 'supplier-ledger' ? 'active' : ' ' }}" name="Supplier ledger" link='backend.report.supplierledgerReport' icon='#' /> --}}
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'day-book' ? 'active' : ' ' }}"
                                     name="Day book" link='backend.report.dayBook' icon='#' />
@@ -404,6 +407,7 @@
                                 <x-backend.side-bar
                                     class="{{ request()->segment(2) == 'profit-report' ? 'active' : ' ' }}"
                                     name="Profit Report" link='backend.report.profitReport' icon='#' />
+
                             </ul>
                         </li>
                         {{-- End Report Panel --}}

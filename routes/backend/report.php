@@ -7,7 +7,7 @@ use App\Http\Controllers\Backend\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.report.'], function(){
+Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'backend.report.'], function () {
 
     Route::get('supplier-ledger', [SupplierController::class, 'ledgerReport'])->name('supplierledgerReport');
     Route::get('day-book', [ReportController::class, 'dayBook'])->name('dayBook');
@@ -18,5 +18,5 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.repor
     Route::get('income-report', [ReportController::class, 'incomeReport'])->name('incomeReport');
     Route::get('expense-report', [ReportController::class, 'expenseReport'])->name('expenseReport');
     Route::get('profit-report', [ReportController::class, 'profitReport'])->name('profitReport');
-
+    Route::get('doctor-wise-patient-visit', [ReportController::class, 'patientVisit'])->name('doctorWisePatientVisit');
 });
