@@ -40,6 +40,7 @@
                                             'name' => 'department_id',
                                             'optionData' => $department,
                                             'selectedKey' => request()->get('department_id'),
+                                            // 'required' => true
                                         ])
                                     </div>
                                 </div>
@@ -50,23 +51,25 @@
                                             'name' => 'doctor_id',
                                             'optionData' => $doctor,
                                             'selectedKey' => request()->get('doctor_id'),
+                                            'required' => true
+
                                         ])
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
-                                    <label>Start Date</label>
+                                    <label>Start Date <span class="text-danger">*</span></label>
                                     <div class="input-group mb-3">
                                         <input value="{{ date('y-m-d') }}" autocomplete="off" data-provide="datepicker"
                                             data-date-autoclose="true" id="start_date" name="start_date"
-                                            class="form-control">
+                                            class="form-control" required>
 
                                     </div>
                                 </div>
 
                                 <div class="col-lg-3 col-sm-6">
-                                    <label>End Date</label>
+                                    <label>End Date <span class="text-danger">*</span></label>
                                     <div class="input-group mb-3">
-                                        <input value="{{ date('y-m-d') }}" autocomplete="off" data-provide="datepicker"
+                                        <input value="{{ date('y-m-d') }}" autocomplete="off" data-provide="datepicker" required
                                             data-date-autoclose="true" id="end_date" name="end_date" class="form-control">
 
                                     </div>
@@ -89,7 +92,7 @@
                     <div class="icon"><i class="fa fa-wheelchair"></i> </div>
                     <div class="content">
                         <div class="text">First Time Visit</div>
-                        <h5 class="number">528</h5>
+                        <h5 class="number">{{ $firstVisit }}</h5>
                     </div>
                 </div>
             </div>
@@ -98,7 +101,16 @@
                     <div class="icon"><i class="fa fa-wheelchair"></i> </div>
                     <div class="content">
                         <div class="text">2nd Time Visit</div>
-                        <h5 class="number">528</h5>
+                        <h5 class="number">{{ $secondVisit }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card top_counter col-3">
+                <div class="body">
+                    <div class="icon"> <i class="fa fa-user-md" aria-hidden="true"></i> </div>
+                    <div class="content">
+                        <div class="text">Total Appointment</div>
+                        <h5 class="number">{{ count($history) }}</h5>
                     </div>
                 </div>
             </div>

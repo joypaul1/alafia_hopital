@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Report;
 
 use App\Http\Controllers\Controller;
 use App\Models\Account\AccountHead;
+use App\Models\Appointment\Appointment;
 use App\Models\DailyAccountTransaction;
 use App\Models\Doctor\Doctor;
 use App\Models\Employee\Department;
@@ -216,7 +217,10 @@ class ReportController extends Controller
     public function patientVisit(Request $request)
     {
 
+        // dd($request->all());
         $history = [];
+        $firstVisit = 0;
+        $secondVisit = 0;
         $doctor = Doctor::get()->map(function ($doctor) {
             $data['id'] = $doctor->id;
             $data['name'] = $doctor->first_name . ' ' . $doctor->last_name;
@@ -224,15 +228,27 @@ class ReportController extends Controller
             return $data;
         });
         if ($request->doctor_id) {
-            return  $history = Doctor::whereId($request->doctor_id)->with('appointment')->first();
+            $startDate = date('Y-m-d', strtotime($request->start_date));
+            $endDate = date('Y-m-d', strtotime($request->end_date));
+            $history = Appointment::where('doctor_id', $request->doctor_id)->select('id', 'doctor_id', 'patient_id', 'appointment_date')
+                ->whereBetween('appointment_date', [$startDate, $endDate])
+                ->with('patient:id,name')->get();
+
+            $patientVisit= $history->groupBy('patient_id');
+            foreach ($patientVisit as $key => $value) {
+                if (count($value) == 1) {
+                    $firstVisit++;
+                } else {
+                    $secondVisit++;
+                }
+            }
         }
-        // dd( $history);
         $department = Department::get()->map(function ($doctor) {
             $data['id'] = $doctor->id;
             $data['name'] = $doctor->name;
             return $data;
         });
 
-        return view('backend.report.patientVisit', compact('doctor', 'department', 'history',));
+        return view('backend.report.patientVisit', compact('doctor', 'department', 'history','firstVisit','secondVisit'));
     }
 }
