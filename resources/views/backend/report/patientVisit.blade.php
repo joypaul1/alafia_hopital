@@ -123,6 +123,34 @@
                         </div>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-header text-center" ><h5>Patient Visiting List </h5></div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-center dataTable" id="appointment_table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">SI.</th>
+                                        <th class="text-center">PID</th>
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Visit Type</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($history as $key=> $data)
+                                        <tr>
+                                            <td>{{ $key+1 }}</td>
+                                            <td>{{ $data->patient->patientId }}</td>
+                                            <td>{{ $data->patient->name }}</td>
+                                            <td>{{ 'Regular Visit' }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

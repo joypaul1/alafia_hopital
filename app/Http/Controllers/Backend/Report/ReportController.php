@@ -216,8 +216,6 @@ class ReportController extends Controller
 
     public function patientVisit(Request $request)
     {
-
-        // dd($request->all());
         $history = [];
         $firstVisit = 0;
         $secondVisit = 0;
@@ -230,11 +228,11 @@ class ReportController extends Controller
         if ($request->doctor_id) {
             $startDate = date('Y-m-d', strtotime($request->start_date));
             $endDate = date('Y-m-d', strtotime($request->end_date));
-            $history = Appointment::where('doctor_id', $request->doctor_id)->select('id', 'doctor_id', 'patient_id', 'appointment_date')
+             $history = Appointment::where('doctor_id', $request->doctor_id)
+                ->select('id', 'doctor_id', 'patient_id', 'appointment_date', 'paid_amount')
                 ->whereBetween('appointment_date', [$startDate, $endDate])
-                ->with('patient:id,name')->get();
-
-            $patientVisit= $history->groupBy('patient_id');
+                ->with('patient:id,name,patientId')->get();
+            $patientVisit = $history->groupBy('patient_id');
             foreach ($patientVisit as $key => $value) {
                 if (count($value) == 1) {
                     $firstVisit++;
@@ -249,6 +247,6 @@ class ReportController extends Controller
             return $data;
         });
 
-        return view('backend.report.patientVisit', compact('doctor', 'department', 'history','firstVisit','secondVisit'));
+        return view('backend.report.patientVisit', compact('doctor', 'department', 'history', 'firstVisit', 'secondVisit'));
     }
 }

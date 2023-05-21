@@ -120,7 +120,7 @@
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Doctor Fee</th>
                                 <th class="text-center">Payment Method</th>
-                                <th class="text-center">Actiion</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
 
