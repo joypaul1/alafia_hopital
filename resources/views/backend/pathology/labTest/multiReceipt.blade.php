@@ -221,7 +221,7 @@
                             @php
                                 $si += 1;
                                 $totalDiscount += $testDetail['discount_amount'];
-                                $totalBill += $testDetail['subtotal'];
+                                $totalBill += $testDetail['price'];
                             @endphp
                             <tr>
                                 <td>

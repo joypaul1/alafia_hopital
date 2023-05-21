@@ -213,7 +213,7 @@
                         @php
                             $si += 1;
                             $totalDiscount += $labTest['discount_amount'];
-                            $totalBill += $labTest['subtotal'];
+                            $totalBill += $labTest['price'];
                         @endphp
                         <tr>
                             <td>

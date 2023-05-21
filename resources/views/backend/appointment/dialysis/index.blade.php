@@ -42,19 +42,18 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($appointmentDatas as $key => $appointmentData)
+                                @foreach ($appointmentData as $key => $appData)
                                     <tr class="text-center">
                                         <td>{{ $key + 1 }}</td>
-                                        <td>{{ $appointmentData->invoice_number }}</td>
-                                        <td>{{ date('d-m-Y', strtotime($appointmentData->appointment_date)) }}</td>
-                                        <td>{{ optional($appointmentData->patient)->name }}</td>
-                                        <td>{{ optional($appointmentData->doctor)->first_name }}</td>
-                                        <td>{{ $appointmentData->appointment_status }}</td>
-                                        <td>{{ number_format($appointmentData->fee, 2) }}</td>
-                                        <td>{{ $appointmentData->paymentHistories()->pluck('payment_method') }}</td>
+                                        <td>{{ $appData->invoice_number }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($appData->appointment_date)) }}</td>
+                                        <td>{{ optional($appData->patient)->name }}</td>
+                                        <td>{{ optional($appData->doctor)->first_name }}</td>
+                                        <td>{{ $appData->appointment_status }}</td>
+                                        <td>{{ number_format($appData->fee, 2) }}</td>
+                                        <td>{{ $appData->paymentHistories()->pluck('payment_method') }}</td>
                                         <td>
-                                            <a
-                                                href="{{ route('backend.dialysis-appointment.show', $appointmentData->id) }}">
+                                            <a href="{{ route('backend.dialysis-appointment.show', $appData->id) }}">
                                                 <button class="btn btn-md btn-info">View</button>
                                             </a>
                                         </td>
@@ -97,7 +96,8 @@
                                         {{-- <button class="btn btn-info" data-toggle="modal" data-target="#patient_modal">
                                             New Patient
                                         </button> --}}
-                                        <button class="btn btn-info" data-href="{{ route('backend.patient.create') }}" id="create_patient">
+                                        <button class="btn btn-info" data-href="{{ route('backend.patient.create') }}"
+                                            id="create_patient">
                                             New Patient
                                         </button>
                                     </div>
@@ -236,12 +236,12 @@
         </div>
     </div>
     {{-- Patient modal --}}
-        {{-- Patient modal --}}
-        <div class="modal fade patient_modal" id="patient_modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg" role=" document">
+    {{-- Patient modal --}}
+    <div class="modal fade patient_modal" id="patient_modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role=" document">
 
-            </div>
         </div>
+    </div>
 @endsection
 
 @push('js')
@@ -254,7 +254,7 @@
             $(modal).modal('show');
 
         });
-
+        
         // onchange doctorID  get value and set in input field by ajax request
         $(document).on('change', '#doctorID', function() {
             var doctor_id = $(this).val();
@@ -287,7 +287,7 @@
                                 value: obj.name, //Fillable in input field
                                 value_id: obj.id, //Fillable in input field
                                 label: 'Name:' + obj.name + ' mobile:' + obj
-                                .mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                                    .mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
                             }
                         })
                         response(resArray);
@@ -302,8 +302,8 @@
 
             }
         });
-         // create_patient modal
-         $(document).on('click', '#create_patient', function(e) {
+        // create_patient modal
+        $(document).on('click', '#create_patient', function(e) {
             e.preventDefault();
             var modal = ".patient_modal";
             var href = $(this).data('href');

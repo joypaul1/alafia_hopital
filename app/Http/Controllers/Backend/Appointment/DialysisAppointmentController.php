@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Backend\Appointment;
+
 use App\Helpers\LogActivity;
 use App\Helpers\NumbertoWordsConvertor;
 use App\Models\Appointment\Appointment;
@@ -25,7 +26,7 @@ class DialysisAppointmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request  $request)
     {
         // return NumtoWordCon::convertor(1232);
         $status =  (object)[['name' => 'Active', 'id' => 1], ['name' => 'Inactive', 'id' => 0]];
@@ -52,9 +53,9 @@ class DialysisAppointmentController extends Controller
         ];
 
         $employees = Employee::select('id', 'name')->get();
-        $doctors = Doctor::select('id', 'first_name', 'last_name')->get()->map(function($query){
+        $doctors = Doctor::select('id', 'first_name', 'last_name')->get()->map(function ($query) {
             $data['id'] = $query->id;
-            $data['name'] = $query->first_name.' '.$query->last_name;
+            $data['name'] = $query->first_name . ' ' . $query->last_name;
             return $data;
         });
 
@@ -74,13 +75,44 @@ class DialysisAppointmentController extends Controller
             ['name' => 'Fixed', 'id' => 'fixed'],
             ['name' => 'Percentage', 'id' => 'percentage'],
         ];
-        $appointmentDatas = DialysisAppointment::with('patient', 'doctor')->latest()->get();
-        return view('backend.appointment.dialysis.index',compact(
+        $appointmentData = DialysisAppointment::query();
+
+        if ($request->patient_id) {
+            $appointmentData = $appointmentData->whereHas('patient', function ($query) use ($request) {
+                return $query->Where('patientId', 'like', "%{$request->patient_id}%");
+            });
+        }
+        if ($request->mobile_number) {
+            $appointmentData = $appointmentData->whereHas('patient', function ($query) use ($request) {
+                return $query->Where('mobile', 'like', "%{$request->mobile_number}%");
+            });
+        }
+        if ($request->patient_name) {
+            $appointmentData = $appointmentData->whereHas('patient', function ($query) use ($request) {
+                return $query->Where('name', 'like', "%{$request->patient_name}%");
+            });
+        }
+        if ($request->invoice_no) {
+            $appointmentData = $appointmentData->where('invoice_number', $request->invoice_no);
+        }
+        if ($request->start_date) {
+            $appointmentData = $appointmentData->whereDate('date', '>=', date('Y-m-d', strtotime($request->start_date)));
+        } else {
+            $appointmentData = $appointmentData->whereDate('date', '>=', date('Y-m-d'));
+        }
+        if ($request->end_date) {
+            $appointmentData = $appointmentData->whereDate('date', '<=',  date('Y-m-d', strtotime($request->end_date)));
+        } else {
+            $appointmentData = $appointmentData->whereDate('date', '>=', date('Y-m-d'));
+        }
+        $appointmentData=$appointmentData->with('patient', 'doctor')->get();
+        return view('backend.appointment.dialysis.index',
+            compact(
                 'blood_group',
                 'genders',
                 'marital_status',
                 'appointment_status',
-                'appointmentDatas',
+                'appointmentData',
                 'appointment_priority',
                 'employees',
                 'paymentSystems',
@@ -94,7 +126,7 @@ class DialysisAppointmentController extends Controller
 
     public function serviceInvoice(Request $request)
     {
-        $serviceInvoice = ServiceInvoice::whereId($request->id)->with('itemDetails.serviceName','patient', 'paymentHistories')->first();
+        $serviceInvoice = ServiceInvoice::whereId($request->id)->with('itemDetails.serviceName', 'patient', 'paymentHistories')->first();
         return view('backend.appointment.dialysis.service-invoice', compact('serviceInvoice'));
     }
 
@@ -126,7 +158,6 @@ class DialysisAppointmentController extends Controller
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('Appointment Created');
             return redirect()->route('backend.dialysis-appointment.show', $returnData->getData()->data);
-
         }
         return back()->with('error', $returnData->getData()->msg);
     }
