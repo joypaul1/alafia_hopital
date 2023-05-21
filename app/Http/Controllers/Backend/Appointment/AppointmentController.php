@@ -19,11 +19,42 @@ class AppointmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
-        $appointmentData = Appointment::select('id', 'invoice_number', 'appointment_date', 'patient_id', 'doctor_id', 'doctor_fee', 'appointment_status')
-            ->with('patient:id,name,patientId', 'doctor:id,first_name,last_name')->latest()->get();
+        $appointmentData = Appointment::query();
+        if ($request->patient_id) {
+            $appointmentData = $appointmentData->whereHas('patient', function ($query) use ($request) {
+                return $query->Where('patientId', 'like', "%{$request->patient_id}%");
+            });
+        }
+        if ($request->mobile_number) {
+            $appointmentData = $appointmentData->whereHas('patient', function ($query) use ($request) {
+                return $query->Where('mobile', 'like', "%{$request->mobile_number}%");
+            });
+        }
+        if ($request->patient_name) {
+            $appointmentData = $appointmentData->whereHas('patient', function ($query) use ($request) {
+                return $query->Where('name', 'like', "%{$request->patient_name}%");
+            });
+        }
+        if ($request->invoice_no) {
+            $appointmentData = $appointmentData->where('invoice_number', $request->invoice_no);
+        }
+        if ($request->start_date) {
+            $appointmentData = $appointmentData->whereDate('date', '>=', date('Y-m-d', strtotime($request->start_date)));
+        } else {
+            $appointmentData = $appointmentData->whereDate('date', '>=', date('Y-m-d'));
+        }
+        if ($request->end_date) {
+            $appointmentData = $appointmentData->whereDate('date', '<=',  date('Y-m-d', strtotime($request->end_date)));
+        } else {
+            $appointmentData = $appointmentData->whereDate('date', '>=', date('Y-m-d'));
+        }
+        $appointmentData= $appointmentData->select('id', 'invoice_number', 'appointment_date', 'patient_id', 'doctor_id', 'doctor_fee', 'appointment_status')
+            ->with('patient:id,name,patientId', 'doctor:id,first_name,last_name')
+
+            ->latest()->get();
 
         if (request()->ajax()) {
             return DataTables::of($appointmentData)

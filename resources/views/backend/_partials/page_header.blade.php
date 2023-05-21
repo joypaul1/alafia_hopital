@@ -1,6 +1,6 @@
 
 
-<div class="card d-flex clearfix mt-4">
+<div class="card d-flex clearfix">
     <div class="header">
         <span href="#" style="font-size: 18px;font-weight:700">
             @yield('page-header')

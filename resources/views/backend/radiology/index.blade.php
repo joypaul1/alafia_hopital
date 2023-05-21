@@ -88,7 +88,7 @@
         'name' => 'LabTest Invoice list',
         'route' => route('backend.pathology.labTest.index'),
     ])
-@stop
+@endsection
 @section('content')
 
 
@@ -175,11 +175,9 @@
                     </form>
                 </div>
             </div>
-            <div class="card border-top">
+            <div class="card ">
                 @yield('table_header')
-
                 <div class="body">
-
                     <div class="table-responsive">
                         <table class="table table-bordered " id="labTest_table">
                             <thead>
@@ -277,21 +275,7 @@
                                                         aria-hidden="true"></i></button>
                                             </a>
                                         </td>
-                                        {{-- <td>
-                                            @php
-                                                $categoryData = $labInvoice->labTestDetails
-                                                    ->pluck('testName.category')
-                                                    ->unique()
-                                                    ->all();
-                                            @endphp
-                                            @foreach ($categoryData as $cat)
-                                                <a class="btn btn-success btn-sm"
-                                                    href="{{ route('backend.pathology.printCat', ['invoice_id' => $labInvoice->id, 'category' => $cat]) }}">
-                                                    {{ $cat }} <i class="fa fa-print " aria-hidden="true"></i>
-                                            @endforeach
 
-                                            </a>
-                                        </td> --}}
                                     </tr>
                                 @endforeach
 
@@ -311,12 +295,12 @@
     <script src="{{ asset('assets/backend/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script>
         $('#start_date').datepicker({
-            format: 'mm/dd/yyyy',
+            format: 'mm-dd-yyyy',
             startDate: '-5y'
 
         });
         $('#end_date').datepicker({
-            format: 'mm/dd/yyyy',
+            format: 'mm-dd-yyyy',
             startDate: '-5y'
 
         });
