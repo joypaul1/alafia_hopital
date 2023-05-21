@@ -31,7 +31,7 @@
                 <h4 class="pointer text-info" id="toggleFilter">
                     <i class="fa fa-filter"></i> Filter
                 </h4>
-                <form action="{{ route('backend.radiologyServiceInvoice.index') }}" method="get">
+                <form action="{{ route('backend.appointment.index') }}" method="get">
                     @method('GET')
                     <div id="filterContainer">
                         <hr>

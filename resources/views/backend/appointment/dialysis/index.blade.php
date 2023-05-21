@@ -13,17 +13,97 @@
     <i class="fa fa-list"></i>Dialysis Appointment List
 @stop
 @section('content')
-
+@section('table_header')
     @include('backend._partials.modal_page_header', [
         'fa' => 'fa fa-plus-circle',
         'name' => 'Create Appointment',
         'modelName' => 'create_data',
         'route' => route('backend.dialysis-appointment.create'),
     ])
-
+@endsection
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
+                <div class="body">
+                    <h4 class="pointer text-info" id="toggleFilter">
+                        <i class="fa fa-filter"></i> Filter
+                    </h4>
+                    <form action="{{ route('backend.dialysis-appointment.index') }}" method="get">
+                        @method('GET')
+                        <div id="filterContainer">
+                            <hr>
+                            <div class="row align-items-center">
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="invoice_no">Invoice no</label>
+                                        <input type="text" name="invoice_no" id="invoice_no" class="form-control"
+                                            autocomplete="off" placeholder="invoice number"
+                                            value="{{ request()->get('invoice_no') }}" autofocus='true'>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="patient_id">Patient Id </label>
+                                        <input type="text" name="patient_id" id="patient_id" class="form-control"
+                                            autocomplete="off" value="{{ request()->get('patient_id') }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="patient_name">Patient Name </label>
+                                        <input type="text" name="patient_name" id="patient_name" class="form-control"
+                                            autocomplete="off" value="{{ request()->get('patient_name') }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="mobile_number">Patient Mobile No. </label>
+                                        <input type="text" name="mobile_number" id="mobile_number" class="form-control"
+                                            autocomplete="off" value="{{ request()->get('mobile_number') }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <label>Start Date</label>
+                                    <div class="input-group mb-3">
+                                        <input value="{{ request()->get('start_date') ?? date('y-m-d') }}"
+                                            autocomplete="off" data-provide="datepicker" data-date-autoclose="true"
+                                            id="start_date" name="start_date" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-6">
+                                    <label>End Date</label>
+                                    <div class="input-group mb-3">
+                                        <input value="{{ request()->get('end_date') ?? date('y-m-d') }}" autocomplete="off"
+                                            data-provide="datepicker" data-date-autoclose="true" id="end_date"
+                                            name="end_date" class="form-control">
+                                    </div>
+                                </div>
+                                {{-- <div class="col-lg-3 col-md-6">
+                                        <div class="form-group">
+                                            @include('components.backend.forms.select2.option', [
+                                                'label' => 'Payment Status',
+                                                'name' => 'payment_status',
+                                                'optionData' => $payment_status,
+                                                'selectedKey' => request()->get('payment_status'),
+                                            ])
+                                        </div>
+                                    </div> --}}
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        @include('components.backend.forms.input.submit-button', [
+                                            // 'label' => 'status',
+                                            'name' => 'submit',
+                                        ])
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                @yield('table_header')
                 <div class="body">
                     <div class="table-responsive">
                         <table class="table table-bordered">
@@ -51,7 +131,7 @@
                                         <td>{{ optional($appData->doctor)->first_name }}</td>
                                         <td>{{ $appData->appointment_status }}</td>
                                         <td>{{ number_format($appData->fee, 2) }}</td>
-                                        <td>{{ $appData->paymentHistories()->pluck('payment_method') }}</td>
+                                        <td>{{ implode(' ',$appData->paymentHistories()->pluck('payment_method')->toArray()) }}</td>
                                         <td>
                                             <a href="{{ route('backend.dialysis-appointment.show', $appData->id) }}">
                                                 <button class="btn btn-md btn-info">View</button>
@@ -74,7 +154,8 @@
         <div class="modal-dialog modal-lg" role=" document">
             <div class="modal-content">
                 <form class="needs-validation" id="appointment_add_form"
-                    action="{{ route('backend.dialysis-appointment.store') }}" method="Post" enctype="multipart/form-data">
+                    action="{{ route('backend.dialysis-appointment.store') }}" method="Post"
+                    enctype="multipart/form-data">
                     @method('POST')
                     @csrf
                     <div class="modal-header">
@@ -254,7 +335,7 @@
             $(modal).modal('show');
 
         });
-        
+
         // onchange doctorID  get value and set in input field by ajax request
         $(document).on('change', '#doctorID', function() {
             var doctor_id = $(this).val();
