@@ -9,6 +9,8 @@ use App\Models\Employee\Department;
 use App\Models\Employee\Designation;
 use App\Models\Employee\Shift;
 use App\Models\Role;
+use App\Models\Admin;
+
 use Illuminate\Http\Request;
 use App\Http\Requests\Doctor\StoreRequest;
 use App\Http\Requests\Doctor\UpdateRequest;
@@ -192,9 +194,10 @@ class DoctorController extends Controller
         $designations   = Designation::select('id', 'name')->get();
         $roles          = Role::select('id', 'name')->get();
         $shifts         = Shift::select('id', 'name')->get();
-        //$admin         = Admin::where('mobile',$doctor->mobile)->first();
+        $admin         = Admin::where('mobile',$doctor->mobile)->first();
 
         return view('backend.doctor.home.edit', compact(
+            'admin',
             'doctor',
             'status',
             'departments',
@@ -245,7 +248,7 @@ class DoctorController extends Controller
                 ->addColumn('action', function ($row) {
                     $action = '
                     <a href="' . route('backend.doctor.edit', $row->id) . '"
-                            data-toggle="tooltip" data-original-title="Edit"><button class="btn  btn-warning"><i class="fa fa-pencil mr-2" aria-hidden="true"></i></button>
+                            data-toggle="tooltip" data-original-title="Edit" class="btn  btn-warning"><i class="fa fa-pencil mr-2" aria-hidden="true"></i>
                         </a>
 
                     ';

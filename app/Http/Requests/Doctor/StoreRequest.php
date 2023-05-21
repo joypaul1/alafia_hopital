@@ -90,6 +90,8 @@ class StoreRequest extends FormRequest
         $docData['permanent_address_state'] = $this->permanent_address_state;
         $docData['commission_type'] = $this->commission_type;
         $docData['commission_amount'] = $this->commission_amount;
+        $docData['consultation_duration'] = $this->consultation_duration;
+
 
         try {
             DB::beginTransaction();

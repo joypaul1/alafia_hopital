@@ -4,6 +4,8 @@ namespace App\Http\Requests\Doctor;
 use App\Helpers\Image;
 use App\Models\Admin;
 use App\Models\Doctor\Doctor;
+use App\Models\Doctor\DoctorConsultation;
+
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -37,7 +39,7 @@ class UpdateRequest extends FormRequest
             'department_id' => 'nullable|exists:departments,id' ,
             'designation_id' => 'nullable|exists:designations,id' ,
             'license_number' => 'nullable|string' ,
-            'nid_number' => 'nullable|string' ,
+            'nid_number' => 'nullable' ,
             'marital_status' => 'nullable|string' ,
             'joining_date' => 'nullable|string' ,
             'present_address_1' => 'nullable|string' ,
@@ -81,48 +83,88 @@ class UpdateRequest extends FormRequest
             }
             $doc->update($data);
 
-         /*
+         
             //consultation_name and consultation_fee added query
-            foreach ($request->consultation_name as $key => $value) {
-                $consultations=$doc->consultations()->update([
-                    'consultation_day' => $request->consultation_name[$key],
-                    'consultation_fee' => $request->consultation_fee[$key],
-                ]);
-            }
+            if($request->consultation_name[1] || $request->consultation_fee[1])
+            {
+                $consultation= DoctorConsultation::where('doctor_id',$doc->id)->latest('id')->first();
 
+                $consultation->consultation_fee = $request->consultation_fee[1]; 
+
+                $consultation->consultation_day = $request->consultation_name[1];
+                $consultation->save();
+            }
+            elseif($request->consultation_fee[0])
+            {
+                $consultation= DoctorConsultation::where('doctor_id',$doc->id)->where('consultation_day','1st')->first();
+
+                    $consultation->consultation_fee = $request->consultation_fee[0]; 
+                    $consultation->save();                  
+
+            }
+            elseif($request->consultation_fee[1])
+            {
+                $consultation= DoctorConsultation::where('doctor_id',$doc->id)->where('consultation_day',$request->consultation_name[1])->first();
+
+                    $consultation->consultation_fee = $request->consultation_fee[1]; 
+                    $consultation->save();
+
+
+            }
+            elseif($request->consultation_name[1])
+            {
+                $consultation= DoctorConsultation::where('doctor_id',$doc->id)->where('consultation_fee',$request->consultation_fee[1])->first();
+
+                    $consultation->consultation_day = $request->consultation_name[1];
+                    $consultation->save();
+
+
+            }
+            else{
+                
+            }
+            if($request->consultation_fee[0])
+            {
+                $consultation= DoctorConsultation::where('doctor_id',$doc->id)->where('consultation_day','1st')->first();
+
+                    $consultation->consultation_fee = $request->consultation_fee[0]; 
+                    $consultation->save();                  
+
+            }
+           
             // doctor appointment schedule with start time and end time query
+            if($request->appointment_days){
+                $doc->doctorAppointmentSchedules()->delete();
             foreach ($request->appointment_days as $index => $value) {
-                $schedules=$doc->doctorAppointmentSchedules()->update([
+                $schedules=$doc->doctorAppointmentSchedules()->create([
                     'day'           => $request->appointment_days[$index]??null,
                     'start_time'    => $request->appointment_day_start_time[$index]??null,
                     'end_time'      => $request->appointment_day_end_time[$index]??null,
                 ]);
 
             }
+        }
 
             // doctor visiting schedule with start time and end time query
-            foreach ($request->visit_schedule_days as $index => $value) {
+         /*   foreach ($request->visit_schedule_days as $index => $value) {
                 $visitingSchedules=$doc->doctorVisitingSchedules()->update([
                     'day'           => $request->visit_schedule_days[$index]??null,
                     'start_time'    => $request->visit_schedule_day_start_time[$index]??null,
                     'end_time'      => $request->visit_schedule_day_end_time[$index]??null,
                 ]);
 
-            }
+            }*/
            // doctor auth login query
-            $admin  =Admin::updateOrCreate([
-                'email'     =>  $request->login_email,
-                'mobile'    => $request->mobile,
-            ],[
-                'name'      => $request->first_name,
-                'password'  => Hash::make($request->password),
-                'role_id'   => $request->role_id,
-            ]);
+           $admin= Admin::where('mobile',$doc->mobile)->first();
+            $admin->email     =  $request->login_email;                
+            $admin->password  = Hash::make($request->password);
+            $admin->role_id   = $request->role_id;
+            $admin->save();
             // dd($admin);
 
-            DB::commit(); */
+            DB::commit(); 
         } catch (\Exception $ex) {
-           // DB::rollBack();
+            DB::rollBack();
             return response()->json(['status' => false, 'msg' =>$ex->getMessage()]);
         }
         return response()->json(['status' => true, 'msg' => 'Data Updated Successfully']);

@@ -125,7 +125,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" class="form-control" name="license_number" value="{{ $doctor->license_number }}" placeholder="License number">
+                                    <input type="text" class="form-control" name="license_number" value="{{ $doctor->license_number }}" placeholder="License number">
                                 </div>
                                 <div class="form-group">
                                     <input type="number" class="form-control" name="nid_number" value="{{ $doctor->nid }}" placeholder="NID number">
@@ -188,9 +188,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-primary">Save</button>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -205,7 +203,7 @@
 
                                         <div class="form-group">
                                             <input type="email" name="login_email" autocomplete="off" class="form-control" 
-                                                placeholder="alizee.info@yourdomain.com" placeholder="Email">
+                                               value="{{ $admin->email }}" placeholder="alizee.info@yourdomain.com" placeholder="Email">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" name="password" autocomplete="off" class="form-control"
@@ -224,15 +222,13 @@
                                             <select class="form-control show-tick" name="role_id">
                                                 <option value="{{ null }}" hidden>-- Please select --</option>
                                                 @foreach ($roles as $role)
-                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                    <option value="{{ $role->id }}" @if($role->id == $admin->role_id) selected @endif>{{ $role->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 text-center">
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
+                               
                             </div>
                         </div>
                     </div>
@@ -245,10 +241,11 @@
                                 <div class="row clearfix">
                                     <div class="col-lg-12 col-md-12">
                                         <h6>Consultation Fee</h6>
+
                                         <div class="d-flex align-items-center mb-3">
                                             <div class="col-5 p-0">
                                                 <div class="form-group mb-0">
-                                                    <input type="text" class="form-control" name="consultation_name[]" value="{{ $doctor->consultation_name }}"
+                                                    <input type="text" class="form-control" name="consultation_name[]" 
                                                         readonly value="1st">
                                                 </div>
                                             </div>
@@ -258,7 +255,7 @@
                                             <div class="col-6 p-0">
                                                 <div class="form-group mb-0">
                                                     @include('components.backend.forms.input.input-type2',[ 'name' => 'consultation_fee[]', 'number' =>true,
-                                                    'value'=>$doctor->consultation_fee,'placeholder' => 'consultation fee' ])
+                                                    'value'=>$doctor->consultations[0]->consultation_fee,'placeholder' => 'consultation fee' ])
                                                 </div>
                                             </div>
                                         </div>
@@ -267,7 +264,7 @@
                                             <div class="col-5 p-0">
                                                 <div class="form-group mb-0">
                                                     <input type="text" class="form-control" name="consultation_name[]"
-                                                        placeholder="Next Visit Day" value="{{ $doctor->consultation_name }}">
+                                                        placeholder="Next Visit Day" value="{{ $doctor->consultations[1]->consultation_day }}">
                                                 </div>
                                             </div>
                                             <div class="col-1 p-0 text-center">
@@ -276,11 +273,11 @@
                                             <div class="col-6 p-0">
                                                 <div class="form-group mb-0">
                                                     @include('components.backend.forms.input.input-type2',[ 'name' => 'consultation_fee[]', 'number' =>true,
-                                                    'value'=>old('consultation_fee'),'placeholder' => 'consultation fee' ])
+                                                    'value'=>$doctor->consultations[1]->consultation_fee,'placeholder' => 'consultation fee' ])
                                                 </div>
                                             </div>
 
-                                        </div>
+                                        </div> 
                                         <div class="mt-2 mb-3">
                                             <small>
                                                 Select fee for next visit under certain days. For example, if you want to charge
@@ -331,9 +328,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 text-center">
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
+                               
                             </div>
                         </div>
                     </div>
@@ -342,13 +337,14 @@
                         <div class="card">
                             <div class="body">
                                 <h6>Appointment Schedule</h6>
+                                @foreach($doctor->doctorAppointmentSchedules as $appointments)
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12">
                                         <div class="form-group">
                                             <label>Day</label>
                                             <select name="appointment_days[]" id=""  class="form-control">
                                                 @foreach (['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as $day)
-                                                    <option value="{{ $day }}">{{ $day }}</option>
+                                                    <option value="{{ $day }}" @if($appointments->day == $day) selected @endif>{{ $day }}</option>
                                                 @endforeach
 
                                             </select>
@@ -359,16 +355,17 @@
                                     <div class="col-lg-4   col-md-12">
                                         <div class="form-group">
                                             <label for="start_time">Start Time</label>
-                                            <input type="time" id="start_time" name="appointment_day_start_time[]" class="form-control">
+                                            <input type="time" id="start_time" name="appointment_day_start_time[]" class="form-control" value="{{ $appointments->start_time }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-4  col-md-12">
                                         <div class="form-group">
                                             <label for="end_time">End Time</label>
-                                            <input type="time" id="end_time" name="appointment_day_end_time[]" class="form-control">
+                                            <input type="time" id="end_time" name="appointment_day_end_time[]" class="form-control" value="{{ $appointments->end_time }}">
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
                                 <div class="appointmentIncrement"></div>
                                 <div class="row">
                                     <div class="col-12">
@@ -385,7 +382,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12">
+                   {{-- <div class="col-12">
                         <div class="card">
                             <div class="body">
                                 <h6>Petaint Visit Schedule</h6>
@@ -429,7 +426,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
