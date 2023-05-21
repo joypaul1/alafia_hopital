@@ -74,7 +74,7 @@
 
                                     <tr>
                                         <td class="text-center">{{ count($appointment) }}</td>
-                                        <td class="text-right font-weight-bold"> {{ number_format($withdrawData->amount, 2) ?? ' ' }}</td>
+                                        <td class="text-right font-weight-bold"> {{ number_format(optional($doctor->ledger)->debit??0, 2) }}</td>
                                     </tr>
 
                             </tbody>
@@ -82,7 +82,7 @@
                                 <tr>
                                     <td colspan="2" class="text-right font-weight-bold">Balance : </td>
                                     <td class="text-right font-weight-bold">
-                                        {{ number_format($doctor->ledger->balance, 2) }}</td>
+                                        {{ number_format(optional($doctor->ledger)->balance??0, 2) }}</td>
                                 </tr>
                             </tfoot>
                         </table>

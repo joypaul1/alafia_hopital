@@ -72,7 +72,7 @@
                         <div class="d-flex justify-content-between">
                             <div></div>
                             <h5>Doctor Income Ledger</h5>
-
+                        <a href="{{ route('backend.paymentdoctor.show',$history->id ) }}"><button class="btn btn-warning">Doctor Ledger History</button></a>
 
 
                         </div>
