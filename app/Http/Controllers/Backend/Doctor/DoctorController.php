@@ -137,7 +137,6 @@ class DoctorController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        // dd($request->storeRequest());
         $returnData = $request->storeData($request);
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('Doctor Created');
@@ -152,8 +151,10 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        // dd($request->checkReport);
+
         if (request()->slot) {
             $timeSlot = [];
             $data = Doctor::whereId($id)->select('id')
@@ -171,10 +172,12 @@ class DoctorController extends Controller
             return response()->json(['data' => $timeSlot]);
         }
         // get ajax request for single data show
-        if (request()->ajax()) {
-            $data = Doctor::whereId($id)->select('id')->with('consultations:id,doctor_id,consultation_day,consultation_fee')
-                ->first();
+        if (request()->ajax() && $request->checkReport) {
+            $data = Doctor::whereId($id)->select('id')->with('consultations:id,doctor_id,consultation_day,consultation_fee')->first();
             $consultation_fee = $data->consultations->first()->consultation_fee;
+            if ($request->checkReport == "true") {
+                $consultation_fee = $data->consultations()->orderBy('id', 'DESC')->first()->consultation_fee;
+            }
             return response()->json($consultation_fee);
         }
     }
@@ -194,7 +197,7 @@ class DoctorController extends Controller
         $designations   = Designation::select('id', 'name')->get();
         $roles          = Role::select('id', 'name')->get();
         $shifts         = Shift::select('id', 'name')->get();
-        $admin         = Admin::where('mobile',$doctor->mobile)->first();
+        $admin         = Admin::where('mobile', $doctor->mobile)->first();
 
         return view('backend.doctor.home.edit', compact(
             'admin',

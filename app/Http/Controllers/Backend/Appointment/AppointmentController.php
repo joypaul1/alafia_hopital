@@ -51,10 +51,8 @@ class AppointmentController extends Controller
         } else {
             $appointmentData = $appointmentData->whereDate('date', '>=', date('Y-m-d'));
         }
-        $appointmentData= $appointmentData->select('id', 'invoice_number', 'appointment_date', 'patient_id', 'doctor_id', 'doctor_fee', 'appointment_status')
-            ->with('patient:id,name,patientId', 'doctor:id,first_name,last_name')
-
-            ->latest()->get();
+        $appointmentData = $appointmentData->select('id', 'invoice_number', 'appointment_date', 'patient_id', 'doctor_id', 'doctor_fee', 'appointment_status')
+            ->with('patient:id,name,patientId', 'doctor:id,first_name,last_name')->latest()->get();
 
         if (request()->ajax()) {
             return DataTables::of($appointmentData)

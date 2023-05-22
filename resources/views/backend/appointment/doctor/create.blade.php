@@ -32,6 +32,15 @@
         <div class="modal-body">
             <div class="form-validation">
                 <div class="row">
+                    <div class="d-flex justify-content-center col-12">
+                        <div>
+                            @include('components.backend.forms.input.input-type', [
+                                'value' => 'off',
+                                'name' => 'checkReport',
+                                'inType' => 'checkbox'
+                            ])
+                        </div>
+                    </div>
                     <div class="col-4">
                         @include('components.backend.forms.select2.option', [
                             'label' => 'department',

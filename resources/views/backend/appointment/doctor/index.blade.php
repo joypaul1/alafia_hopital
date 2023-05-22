@@ -399,14 +399,29 @@
         getDocFee();
         slot();
     });
+    $(document).on('click', '.appointment_modal #appointment_add_form .modal-body #checkReport', function() {
+        if($(this).is(":checked")){
+            $(this).val('on')
+        }else{
+            $(this).val('off')
+        }
+    })
 
     function getDocFee() {
+        let checkReport = false
+        if ($('.appointment_modal #appointment_add_form .modal-body #checkReport').is(":checked")) {
+            checkReport = true
+        }
+        // console.log($("").val())
         var doctor_id = $('#doctorID').val();
         var url = "{{ route('backend.doctor.show', ':id') }}";
         url = url.replace(':id', doctor_id);
         $.ajax({
             url: url,
             type: 'GET',
+            data: {
+                checkReport: checkReport
+            },
             dataType: "json",
             success: function(response) {
                 $('.appointment_modal #appointment_add_form .modal-body .col-4 #doctor_fees').val(Number(
@@ -449,7 +464,7 @@
                     response.data.forEach(element => {
                         $('#appointment_schedule').append('<option value="' + element.id + '" >' +
                             element.start_time + ' -- ' + element.end_time + '</option>')
-                    }).trigger('change');
+                    });
                     $("#appointment_schedule").val($("#appointment_schedule option:first").val()).trigger(
                         'change');
                 } else {

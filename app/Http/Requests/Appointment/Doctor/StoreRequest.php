@@ -32,7 +32,6 @@ class StoreRequest extends FormRequest
      */
     public function rules()
     {
-        // return [];
         return [
             'patient_Id' => 'required|exists:patients,id',
             'doctorID' => 'required|exists:doctors,id',
@@ -46,6 +45,7 @@ class StoreRequest extends FormRequest
             'payable_amount' => 'required',
             // 'due_amount' => 'required',
             'subtotal' => 'required',
+            'checkReport' => 'required',
         ];
     }
 
@@ -60,13 +60,12 @@ class StoreRequest extends FormRequest
 
     public function storeData()
     {
-        // dd($this->all());
         try {
             DB::beginTransaction();
-            // $data = $this->all();
             $data['invoice_number']                 = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
             $data['doctor_appointment_schedule_id'] = $this->appointment_schedule;
             $data['patient_id']             = $this->patient_Id;
+            $data['visitType']              = $this->checkReport == 'on' ? 'regular' : 'report';
             $data['doctor_id']              = $this->doctorID;
             $data['doctor_fee']             = $this->doctor_fees;
             $data['appointment_date']       = $this->appointment_date;
@@ -79,7 +78,7 @@ class StoreRequest extends FormRequest
             $data['serial_number']          = $this->serial_number();
             $data['discount_type']          = $this->discount_type;
             $data['discount']               =  Str::replace(',', '', $this->discount);
-            $data['paid_amount']            =  Str::replace(',', '', $this->payable_amount??0);
+            $data['paid_amount']            =  Str::replace(',', '', $this->payable_amount ?? 0);
             $data['subtotal_amount']        = Str::replace(',', '', $this->subtotal);
             $data['total_amount']           = Str::replace(',', '', $this->subtotal);
             $data['due_amount']             =  0.00;

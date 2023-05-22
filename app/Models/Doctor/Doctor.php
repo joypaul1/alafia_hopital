@@ -73,4 +73,9 @@ class Doctor extends Model
     {
         return $this->hasMany(DoctorWithDrawHistory::class, 'doctor_id', 'id');
     }
+
+    protected function getReportVisitAttribute()
+    {
+        return $this->consultations()->orderBy('id', 'DESC')->first();
+    }
 }
