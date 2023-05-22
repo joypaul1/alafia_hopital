@@ -136,39 +136,6 @@
                         <div id="chief_complaints" style="width:100%"></div>
                     </div>
                 </div>
-
-                <div class="card">
-                    <div class="body">
-                        <h4>
-                            Any Test Required ?
-                        </h4>
-                        <hr>
-                        <div class="row">
-                            <div class="col-5">
-                                @include('components.backend.forms.input.input-type2', [
-                                    'name' => 'test_name',
-                                    'placeholder' => 'Test Name',
-                                ])
-                            </div>
-                            <div class="col-5">
-                                @include('components.backend.forms.input.input-type2', [
-                                    'name' => 'spacifications',
-                                    'placeholder' => 'Any Spacifications ?',
-                                ])
-                            </div>
-                            <div class="col-2">
-                                <button type="button"  class="btn btn-info">
-                                    +
-                                </button>
-                                <button type="button"  class="btn btn-danger">
-                                    -
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
                 <div class="card">
                     <div class="body">
                         <h4>
@@ -221,6 +188,40 @@
 
                     </div>
                 </div>
+
+                <div class="card">
+                    <div class="body">
+                        <h4>
+                            Any Test Required ?
+                        </h4>
+                        <hr>
+                        <div class="row">
+                            <div class="col-5">
+                                @include('components.backend.forms.input.input-type2', [
+                                    'name' => 'test_name',
+                                    'placeholder' => 'Test Name',
+                                ])
+                            </div>
+                            <div class="col-5">
+                                @include('components.backend.forms.input.input-type2', [
+                                    'name' => 'spacifications',
+                                    'placeholder' => 'Any Spacifications ?',
+                                ])
+                            </div>
+                            <div class="col-2">
+                                <button type="button"  class="btn btn-info">
+                                    +
+                                </button>
+                                <button type="button"  class="btn btn-danger">
+                                    -
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                
 
                 <div class="card">
                     <div class="body">
