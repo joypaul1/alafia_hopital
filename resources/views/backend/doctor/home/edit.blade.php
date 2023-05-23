@@ -54,7 +54,7 @@
                         <div class="rounded-circle mx-auto position-relative mb-3 user-profile" style="">
                             <img id="userProfile-image"  style="object-fit: cover;"
 
-                                src="https://i.ibb.co/1nHdqjf/813844-people-512x512.png" class="rounded-circle" alt="">
+                                src="{{ asset($doctor->image)}}" class="rounded-circle" alt="">
                             <label for="userProfile"
                                 class="position-absolute profile-upload display-4 h-100 w-100 d-flex justify-content-center align-items-center"
                                 style="">
