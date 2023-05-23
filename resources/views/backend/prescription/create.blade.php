@@ -52,7 +52,6 @@
                                     'readonly' => true,
 
                                     'value' => $appointment->patient->name,
-
                                 ])
                             </div>
                             <div class="col-4">
@@ -63,7 +62,6 @@
                                     'required' => true,
                                     'readonly' => true,
                                     'value' => $appointment->patient->mobile,
-
                                 ])
                             </div>
                             {{-- <div class="col-2">
@@ -82,7 +80,6 @@
                                             'placeholder' => 'Additional informarion (eg. Blood Pressure)',
                                             'required' => true,
                                             'value' => '',
-
                                         ])
                                     </div>
                                     <div class="col-5">
@@ -94,7 +91,7 @@
                                         ])
                                     </div>
                                     <div class="col-2">
-                                        <button type="button"  class="btn btn-info p_infoAdd">
+                                        <button type="button" class="btn btn-info p_infoAdd">
                                             +
                                         </button>
                                         <button type="button" class="btn btn-danger p_infoRemove">
@@ -125,10 +122,10 @@
                             </div>
                             <input type="hidden" id="symptoms_id" name="symptoms_id[]">
                             <div class="col-2">
-                                <button type="button"  class="btn btn-info chief_add">
+                                <button type="button" class="btn btn-info chief_add">
                                     +
                                 </button>
-                                <button type="button"  class="btn btn-danger chief_remove">
+                                <button type="button" class="btn btn-danger chief_remove">
                                     -
                                 </button>
                             </div>
@@ -209,10 +206,10 @@
                                 ])
                             </div>
                             <div class="col-2">
-                                <button type="button"  class="btn btn-info">
+                                <button type="button" class="btn btn-info">
                                     +
                                 </button>
-                                <button type="button"  class="btn btn-danger">
+                                <button type="button" class="btn btn-danger">
                                     -
                                 </button>
                             </div>
@@ -221,7 +218,7 @@
                     </div>
                 </div>
 
-                
+
 
                 <div class="card">
                     <div class="body">
@@ -250,7 +247,7 @@
                 </div>
 
                 <p class="text-right">
-                    <button type="submit"  class="btn btn-info">
+                    <button type="submit" class="btn btn-info">
                         Submit
                     </button>
                 </p>
@@ -275,7 +272,6 @@
                                         'placeholder' => 'Additional informarion (eg. Blood Pressure)',
                                         'required' => true,
                                         'value' => '',
-
                                     ])
                                 </div>
                                 <div class="col-5">
@@ -284,7 +280,6 @@
                                         'placeholder' => 'Enter Value (eg. 120/80)',
                                         'required' => true,
                                         'value' => '',
-
                                     ])
                                 </div>
                                 <div class="col-2">
@@ -497,7 +492,8 @@
                             return {
                                 data: obj,
                                 value: obj.name, //Fillable in input field
-                                label: obj.name + '|' + obj.generic_name.name + '|' + obj.strength.name + '|' + obj.type.name //Show as label of input fieldname: obj.name, sku: obj.sku
+                                label: obj.name,
+                                // label: obj.name + '|' + obj.generic_name != null ? obj.generic_name.name: '-' ,  //Show as label of input fieldname: obj.name, sku: obj.sku
                             }
                         })
                         response(resArray);
@@ -517,18 +513,12 @@
 
                                 <tbody>
                                     <tr>
-                                        <td colspan='2'><h6 class="text-info">${ui.item.data.name}</h6></td>
+                                        <td colspan='2'><h6 class="text-info">${ui.item.data.name} (${ui.item.data.strength?ui.item.data.strength.name: ' '}, ${ui.item.data.type? ui.item.data.type.name: ' '})</h6></td>
                                         <td colspan='2' class="text-right"> <button class="btn btn-sm btn-danger">
                                         <i class="fa fa-trash"></i></button></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            @include('components.backend.forms.input.input-type2', [
-                                                'name' => 'how_many_times[${ui.item.data.id}][]',
-                                                'placeholder' => 'How many times a day ?',
-                                                'required' => true,
-                                            ])
-                                        </td>
+
                                         <td>
                                             @include('components.backend.forms.input.input-type2', [
                                                 'name' => 'how_many_quantity[${ui.item.data.id}][]',
@@ -551,7 +541,7 @@
                                                 </label>
                                             </p>
                                             <p class="m-0">
-                                                <input type="radio" value="between_meal" name="before_after_meal[${ui.item.data.id}][]" id="after_meal">
+                                                <input type="radio" value="between_meal" name="before_after_meal[${ui.item.data.id}][]" id="between_meal">
                                                 <label for="between_meal">
                                                     Between Meal
                                                 </label>

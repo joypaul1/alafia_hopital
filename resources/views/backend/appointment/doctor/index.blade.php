@@ -117,7 +117,7 @@
                                 <th class="text-center">App. Date</th>
                                 <th class="text-center">Patient</th>
                                 <th class="text-center">Doctor</th>
-                                <th class="text-center">Status</th>
+                                <th class="text-center">Visit Type</th>
                                 <th class="text-center">Doctor Fee</th>
                                 <th class="text-center">Payment Method</th>
                                 <th class="text-center">Action</th>
@@ -244,10 +244,8 @@
                 },
 
                 {
-                    data: 'appointment_status',
-                    name: 'appointment_status',
-                    orderable: false,
-                    searchable: false
+                    data: 'visitType',
+                    name: 'visitType',
                 },
                 {
                     data: 'doctor_fee',

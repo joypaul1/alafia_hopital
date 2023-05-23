@@ -120,7 +120,7 @@ class PrescriptionController extends Controller
                     $prescription->medicines()->create(
                         [
                             'item_id' => $medicine,
-                            'how_many_times' => implode($request->how_many_times[$medicine]),
+                            // 'how_many_times' => implode($request->how_many_times[$medicine]),
                             'how_many_days' => implode($request->how_many_days[$medicine]),
                             'how_many_quantity' => implode($request->how_many_quantity[$medicine]),
                             'before_after_meal' => implode($request->before_after_meal[$medicine]),

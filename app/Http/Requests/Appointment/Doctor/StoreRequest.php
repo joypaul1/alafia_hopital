@@ -45,7 +45,7 @@ class StoreRequest extends FormRequest
             'payable_amount' => 'required',
             // 'due_amount' => 'required',
             'subtotal' => 'required',
-            'checkReport' => 'required',
+            // 'checkReport' => 'required',
         ];
     }
 
