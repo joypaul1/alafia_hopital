@@ -251,7 +251,7 @@ class DoctorController extends Controller
                 ->addColumn('action', function ($row) {
                     $action = '
                     <a href="' . route('backend.doctor.edit', $row->id) . '"
-                            data-toggle="tooltip" data-original-title="Edit" class="btn  btn-warning"><i class="fa fa-pencil mr-2" aria-hidden="true"></i>
+                            data-toggle="tooltip" data-original-title="Edit" class="btn  btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
                         </a>
 
                     ';

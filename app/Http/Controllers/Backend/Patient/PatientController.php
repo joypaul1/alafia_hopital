@@ -92,6 +92,8 @@ class PatientController extends Controller
             $data['guardian_name']      = $request->guardian_name;
             $data['gender']             = $request->gender;
             $data['dob']                = $request->dob;
+            $data['age']                = $request->age;
+
             $data['blood_group']        = $request->blood_group;
             $data['marital_status']     = $request->marital_status;
             $data['address']            = $request->address;
@@ -127,7 +129,31 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-        //
+        $patient=Patient::whereId($id)->first();
+        //gender option create
+        $genders = (object)[
+            ['name' => 'male', 'id' => 'male'],
+            ['name' => 'female', 'id' => 'female'],
+            ['name' => 'others', 'id' => 'others'],
+        ];
+        //marital_status option create
+        $marital_status = (object)[
+            ['name' => 'single', 'id' => 'single'],
+
+            ['name' => 'married', 'id' => 'married'],
+            ['name' => 'divorced', 'id' => 'divorced'],
+            ['name' => 'widowed', 'id' => 'widowed'],
+
+        ];
+
+        //blood group
+        $blood_group = BloodBank::where('type_id', 1)->get();
+        return view('backend.patient.edit',compact(
+            'patient',
+            'blood_group',
+            'genders',
+            'marital_status'
+        ));
     }
 
     /**
@@ -139,7 +165,32 @@ class PatientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            // dd($request->all());
+            DB::beginTransaction();
+            $patient = Patient::whereId($id)->first();
+
+            $patient->name           = $request->name;
+            $patient->email              = $request->email;
+            $patient->mobile            = $request->mobile;
+             $patient->emergency_contact  = $request->emergency_contact;
+             $patient->guardian_name      = $request->guardian_name;
+             $patient->gender             = $request->gender;
+             $patient->dob                = $request->dob;
+             $patient->age               = $request->age;
+
+             $patient->blood_group        = $request->blood_group;
+             $patient->marital_status     = $request->marital_status;
+             $patient->address           = $request->address;
+             $patient->save();
+            DB::commit();
+        } catch (\Exception $ex) {
+            DB::rollback();
+            return back()->with(['status' => false, 'error' => 'Patient Not Updated Successfully']);
+        }
+
+        return back()->with(['status' => true, 'success' => 'Patient Updated Successfully']);
+
     }
 
     /**
@@ -165,7 +216,7 @@ class PatientController extends Controller
                 ->addColumn('action', function ($row) {
                     $action = '
                     <a href="' . route('backend.patient.edit', $row->id) . '"
-                            data-toggle="tooltip" data-original-title="Edit" class="btn  btn-warning"><i class="fa fa-pencil mr-2" aria-hidden="true"></i>
+                            data-toggle="tooltip" data-original-title="Edit" class="btn  btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
                         </a>
 
                     ';
