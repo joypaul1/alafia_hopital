@@ -23,5 +23,9 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], f
 // patient
 Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], function(){
     Route::resource('patient', PatientController::class);
+    Route::get('patientlist', [PatientController::class,'patientList'])->name('patientlist');;
+    Route::get('addpatient', [PatientController::class,'addPatient'])->name('addpatient');;
+    Route::post('savepatient', [PatientController::class,'savepatient'])->name('savepatient');;
+
 });
 
