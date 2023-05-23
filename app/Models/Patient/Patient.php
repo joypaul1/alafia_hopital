@@ -12,10 +12,11 @@ use App\Traits\AutoTimeStamp;
 use App\Traits\GlobalScope;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Patient extends Model
 {
-    use AuthScopes,AutoTimeStamp,GlobalScope;
+    use AuthScopes,AutoTimeStamp,GlobalScope,SoftDeletes;
 
     protected $guarded =['id'];
 

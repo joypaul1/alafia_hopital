@@ -236,7 +236,9 @@ class DoctorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Doctor::whereId($id)->delete();
+        return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
+
     }
 
     public function doctorList()
@@ -252,6 +254,9 @@ class DoctorController extends Controller
                     $action = '
                     <a href="' . route('backend.doctor.edit', $row->id) . '"
                             data-toggle="tooltip" data-original-title="Edit" class="btn  btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                        <a data-href="'.route('backend.doctor.destroy', $row->id).'" class="btn btn-danger delete_check" data-toggle="tooltip" data-original-title="Delete" aria-describedby="tooltip64483">
+                            <i class="fa fa-trash " aria-hidden="true"></i> 
                         </a>
 
                     ';
