@@ -38,11 +38,11 @@ class StoreRequest extends FormRequest
         return [
             'patient_id' => 'required|exists:patients,id',
             'date' => 'required',
-            'service_id' => 'required|array',
-            'service_id.*' => 'required|exists:lab_tests,id',
+            // 'service_id' => 'required|array',
+            // 'service_id.*' => 'required|exists:lab_tests,id',
             'doctor_id' => 'nullable|exists:doctors,id',
-            'test_price' => 'required|array',
-            'test_price.*' => 'required|numeric',
+            // 'test_price' => 'required|array',
+            // 'test_price.*' => 'required|numeric',
             'testSubTotal' => 'required',
 
         ];

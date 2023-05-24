@@ -171,17 +171,20 @@ class LabTestController extends Controller
         });
         $labTestDetails = $mapData->merge($labTestTube);
         $otherService   = json_decode($labInvoice->other_service);
-        foreach ($otherService as $key => $value) {
-            $labTestDetails->push([
-                'name' => 'Needle',
-                'price' => $value->needle,
-                'discount_amount' => 0,
-                'discount' => 0,
-                'discount_type' => 0,
-                'subtotal' => 0,
-                'delivery_time' => 0,
-            ]);
+        if($otherService){
+            foreach ($otherService as $key => $value) {
+                $labTestDetails->push([
+                    'name' => 'Needle',
+                    'price' => $value->needle,
+                    'discount_amount' => 0,
+                    'discount' => 0,
+                    'discount_type' => 0,
+                    'subtotal' => 0,
+                    'delivery_time' => 0,
+                ]);
+            }
         }
+
 
         if (count($labTestDetails) > 20) {
             $labTestDetails = $labTestDetails->chunk(25);
