@@ -16,7 +16,6 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "livewire/livewire": "^2.10",
-        "maatwebsite/excel": "*",
         "milon/barcode": "^9.0",
         "yajra/laravel-datatables-oracle": "^10.1"
     },
