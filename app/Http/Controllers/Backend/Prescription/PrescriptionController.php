@@ -77,8 +77,6 @@ class PrescriptionController extends Controller
 
         if ($request->optionData) {
 
-            $collection = new Collection();
-
             $testData = LabTest::select('id', 'name')->get()->map(function ($query) {
                 $data['type'] = 'lab';
                 $data['id'] = $query->id;
@@ -111,12 +109,6 @@ class PrescriptionController extends Controller
             return response()->json(['data' => $result]);
         }
 
-        // return response()->json($result);
-
-
-
-        // dd($testData);
-        // dd($request->all());
     }
 
     /**
@@ -127,7 +119,6 @@ class PrescriptionController extends Controller
     public function create(Request $request)
     {
         $appointment = Appointment::where('id', $request->prescription)->with('patient')->first();
-        // dd(Prescription::find(1), $request->all(), $request->prescription);
         return view('backend.prescription.create', compact('appointment'));
     }
 

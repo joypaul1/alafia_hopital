@@ -37,10 +37,9 @@ class Prescription extends Model
         return $this->hasMany(PrescriptionDiseaseSymptom::class, 'prescription_id', 'id');
     }
 
-
+    // prescription_other_specifications
     public function otherSpecifications()
     {
-        // prescription_other_specifications
         return $this->hasMany(PrescriptionOtherSpecification::class, 'prescription_id', 'id');
     }
 
