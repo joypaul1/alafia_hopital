@@ -147,32 +147,7 @@
                                 ])
                             </div>
                         </div>
-                        {{-- <table class="table table-bordered text-center">
-                            <thead>
-                                <tr>
-                                    <th>Sl.</th>
-                                    <th>Name</th>
-                                    <th>MG</th>
-                                    <th>Group</th>
-                                    <th>Type</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Paracetamol</td>
-                                    <td>500</td>
-                                    <td>Analgesic</td>
-                                    <td>Tablet</td>
-                                    <td>
-                                        <button class="btn btn-info">
-                                            Add
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table> --}}
+
 
                         <hr>
                         <h5 class="text-center">
@@ -195,7 +170,9 @@
                         <div class="row">
                             <div class="col-5">
                                 @include('components.backend.forms.input.input-type2', [
-                                    'name' => 'test_name',
+                                    'id' => 'test_name',
+                                    'name' => 'test_name[]',
+                                    'class' => 'test_name',
                                     'placeholder' => 'Test Name',
                                 ])
                             </div>
@@ -206,14 +183,16 @@
                                 ])
                             </div>
                             <div class="col-2">
-                                <button type="button" class="btn btn-info">
+                                <button type="button" class="btn btn-info add_test">
                                     +
                                 </button>
-                                <button type="button" class="btn btn-danger">
+                                <button type="button" class="btn btn-danger remove_test">
                                     -
                                 </button>
                             </div>
                         </div>
+                        <div id="dynamicTest" style="width:100%"></div>
+
 
                     </div>
                 </div>
@@ -298,6 +277,73 @@
             $(this).parent().parent().remove();
         });
 
+        // test add and remove
+        $(document).on('click', '.add_test', function() {
+            var html = `<div class="row">
+                            <div class="col-5">
+                                @include('components.backend.forms.input.input-type2', [
+                                    'name' => 'test_name',
+                                    'placeholder' => 'Test Name',
+                                ])
+                            </div>
+                            <div class="col-5">
+                                @include('components.backend.forms.input.input-type2', [
+                                    'name' => 'spacifications',
+                                    'placeholder' => 'Any Spacifications ?',
+                                ])
+                            </div>
+                            <div class="col-2">
+                                <button type="button" class="btn btn-info add_test">
+                                    +
+                                </button>
+                                <button type="button" class="btn btn-danger remove_test">
+                                    -
+                                </button>
+                            </div>
+                        </div>`;
+
+            $('#dynamicTest').append(html);
+        });
+        // chief_remove remove
+        $(document).on('click', '.chief_remove', function() {
+            $(this).parent().parent().remove();
+        });
+
+        // test name every class call for autocomplete suggestion
+        $(document).on('input', '.test_name', function() {
+            // console.log(1232123);
+            $(this).autocomplete({
+                source: function(request, response) {
+                    var optionData = request.term;
+                    $.ajax({
+                        method: 'GET',
+                        url: "{{ route('backend.doctor.searchTest') }}",
+                        data: {
+                            'optionData': optionData
+                        },
+                        success: function(res) {
+                            var resArray = $.map(res.data, function(obj) {
+                                console.log(obj.id)
+                                return {
+                                    value_id: obj.id, //Show as label of input fieldname: obj.name,
+                                    value: obj.name, //Show as label of input fieldname: obj.name,
+                                    label: obj.name, //Show as label of input fieldname: obj.name,
+                                }
+                            })
+                            response(resArray);
+                        }
+                    });
+                },
+                minLength: 1,
+                select: function(event, ui) {
+                    $(this).val(ui.item.value);
+                    // $(this).parents('.row').find('#test_name').val(ui.item.value_id);
+                    // return false;
+                }
+            });
+        })
+
+
         // symptoms_name add and remove
         $(document).on('click', '.chief_add', function() {
             var html = `<div class="row my-2">
@@ -325,8 +371,6 @@
         $(document).on('click', '.chief_remove', function() {
             $(this).parent().parent().remove();
         });
-
-
         // symptoms_name every id call for autocomplete suggestion
         $(document).on('input', '.symptoms_name', function() {
             $(this).autocomplete({

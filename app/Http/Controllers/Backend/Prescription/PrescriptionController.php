@@ -5,11 +5,15 @@ namespace App\Http\Controllers\Backend\Prescription;
 use App\Helpers\InvoiceNumber;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment\Appointment;
+use App\Models\Item\Item;
+use App\Models\lab\LabTest;
 use App\Models\Patient\Patient;
 use App\Models\Prescription\Prescription;
+use App\Models\Radiology\RadiologyServiceName;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Collection;
 
 class PrescriptionController extends Controller
 {
@@ -23,50 +27,96 @@ class PrescriptionController extends Controller
         if ($request->optionData) {
             return response()->json(['data' => Prescription::all()]);
         }
-         $prescription = Prescription::with('diseasesSymptoms:prescription_id,symptom_id','diseasesSymptoms.symptom:id,name', 'patient:id,name')->latest()->get();
+        $prescription = Prescription::with('diseasesSymptoms:prescription_id,symptom_id', 'diseasesSymptoms.symptom:id,name', 'patient:id,name')->latest()->get();
 
         if (request()->ajax()) {
             return DataTables::of($prescription)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $action ='<div class="dropdown">
+                    $action = '<div class="dropdown">
                     <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                         <div class="dropdown-menu" >
-                        <a href="'.route('backend.prescription.show', $row).'" class="dropdown-item edit_check"
+                        <a href="' . route('backend.prescription.show', $row) . '" class="dropdown-item edit_check"
                             data-toggle="tooltip" data-original-title="Show"><i class="fa fa-eye mr-2" aria-hidden="true"></i> Show
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a data-href="'.route('backend.prescription.destroy', $row).'"class="dropdown-item delete_check"  data-toggle="tooltip"
+                        <a data-href="' . route('backend.prescription.destroy', $row) . '"class="dropdown-item delete_check"  data-toggle="tooltip"
                             data-original-title="Delete" aria-describedby="tooltip64483"><i class="fa fa-trash mr-2" aria-hidden="true"></i> Delete
                         </a>
                     </div></div>';
                     return $action;
                 })
-                ->addColumn('symptoms', function($row) {
+                ->addColumn('symptoms', function ($row) {
                     $symptoms = '';
                     foreach ($row->diseasesSymptoms as $key => $value) {
                         $symptoms .= $value->symptom->name . ', ';
                     }
                     return $symptoms;
                 })
-                ->editColumn('patient_id', function($row) {
+                ->editColumn('patient_id', function ($row) {
                     return $row->patient->name;
                 })
-                ->editColumn('appointment_id', function($row) {
+                ->editColumn('appointment_id', function ($row) {
                     return $row->appointment->name;
                 })
-                ->editColumn('date', function($row) {
+                ->editColumn('date', function ($row) {
                     return date('d-m-Y', strtotime($row->date));
                 })
 
                 ->removeColumn(['id'])
                 ->rawColumns(['action', 'symptoms'])
                 ->make(true);
-
         }
 
         return view('backend.prescription.index');
         // return view('backend.prescription.index', compact('appointments'));
+    }
+
+    public function searchTest(Request $request)
+    {
+
+        if ($request->optionData) {
+
+            $collection = new Collection();
+
+            $testData = LabTest::select('id', 'name')->get()->map(function ($query) {
+                $data['type'] = 'lab';
+                $data['id'] = $query->id;
+                $data['name'] = $query->name;
+                return $data;
+            });
+
+            $radiologyData = RadiologyServiceName::select('id', 'name')->get()->map(function ($query) {
+                $data['type'] = 'radio';
+                $data['id'] = $query->id;
+                $data['name'] = $query->name;
+                return $data;
+            });
+            $collection1 = new Collection($testData);
+            $collection2 = new Collection($radiologyData);
+
+            $allTest = $collection1->merge($collection2);
+
+
+            // The letter to search for
+            $search_letter = $request->optionData;
+            $result = [];
+
+            foreach ($allTest as $key => $value) {
+                // Check if the key contains the search letter
+                if (strpos($value['name'], $search_letter) !== false) {
+                    array_push($result, $value);
+                }
+            }
+            return response()->json(['data' => $result]);
+        }
+
+        // return response()->json($result);
+
+
+
+        // dd($testData);
+        // dd($request->all());
     }
 
     /**
@@ -76,7 +126,7 @@ class PrescriptionController extends Controller
      */
     public function create(Request $request)
     {
-        $appointment=Appointment::where('id', $request->prescription)->with('patient')->first();
+        $appointment = Appointment::where('id', $request->prescription)->with('patient')->first();
         // dd(Prescription::find(1), $request->all(), $request->prescription);
         return view('backend.prescription.create', compact('appointment'));
     }
@@ -129,11 +179,13 @@ class PrescriptionController extends Controller
                     );
                 }
             }
-            if($request->p_info){
+            if ($request->p_info) {
                 foreach ($request->p_info as $key => $info) {
-                   $others= $prescription->otherSpecifications()
-                    ->create(['name' => $info,
-                    'value' => $request->p_info_value[$key]]);
+                    $others = $prescription->otherSpecifications()
+                        ->create([
+                            'name' => $info,
+                            'value' => $request->p_info_value[$key]
+                        ]);
                     // dd($others);
                 }
             }
@@ -156,9 +208,8 @@ class PrescriptionController extends Controller
      */
     public function show(Prescription $prescription)
     {
-        $prescription= $prescription->with('patient','doctor:id,first_name,last_name', 'appointment', 'diseasesSymptoms.symptom', 'medicines.item.strength', 'otherSpecifications')->first();
+        $prescription = $prescription->with('patient', 'doctor:id,first_name,last_name', 'appointment', 'diseasesSymptoms.symptom', 'medicines.item.strength', 'otherSpecifications')->first();
         return view('backend.prescription.show', compact('prescription'));
-
     }
 
     /**
