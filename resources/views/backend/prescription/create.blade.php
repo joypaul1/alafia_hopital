@@ -637,10 +637,7 @@
             || event.keyCode === 54
             || event.keyCode === 55
             || event.keyCode === 56
-            || event.keyCode === 57
-
-
-            ) {
+            || event.keyCode === 57) {
                 // added plusicone in input box when text input
                 $(this).val( $(this).val() + "+");
             }
