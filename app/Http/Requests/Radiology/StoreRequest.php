@@ -158,7 +158,7 @@ class StoreRequest extends FormRequest
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            dd($e->getMessage(), $e->getLine());
+            // dd($e->getMessage(), $e->getLine());
             return response()->json(['msg' => $e->getMessage(), $e->getLine(), 'status' => false], 400);
         }
         return response()->json(['data' => $serviceInvoice->id, 'status' => true], 200);

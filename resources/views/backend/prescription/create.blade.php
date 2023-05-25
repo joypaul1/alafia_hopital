@@ -178,8 +178,8 @@
                         </div>
                         <div class="col-5">
                             @include('components.backend.forms.input.input-type2', [
-                            'name' => 'spacifications',
-                            'placeholder' => 'Any Spacifications ?',
+                            'name' => 'specifications',
+                            'placeholder' => 'Any specifications ?',
                             ])
                         </div>
                         <div class="col-2">
@@ -280,17 +280,18 @@
 
         // test add and remove
         $(document).on('click', '.add_test', function() {
-            var html = `<div class="row">
+            var html = `<div class="row mt-2">
                             <div class="col-5">
                                 @include('components.backend.forms.input.input-type2', [
                                     'name' => 'test_name',
+                                    'class' => 'test_name',
                                     'placeholder' => 'Test Name',
                                 ])
                             </div>
                             <div class="col-5">
                                 @include('components.backend.forms.input.input-type2', [
-                                    'name' => 'spacifications',
-                                    'placeholder' => 'Any Spacifications ?',
+                                    'name' => 'specifications',
+                                    'placeholder' => 'Any Specifications ?',
                                 ])
                             </div>
                             <div class="col-2">
