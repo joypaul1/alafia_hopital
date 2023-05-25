@@ -226,7 +226,6 @@ class ReportController extends Controller
             $data['department'] = $doctor->department->name;
             return $data;
         });
-        // dd($request->doctor_id);
         if ($request->doctor_id) {
             $startDate = date('Y-m-d', strtotime($request->start_date));
             $endDate = date('Y-m-d', strtotime($request->end_date));
@@ -235,13 +234,7 @@ class ReportController extends Controller
                 ->select('id', 'doctor_id', 'patient_id', 'appointment_date', 'paid_amount', 'visitType')
                 ->whereBetween('appointment_date', [$startDate, $endDate])
                 ->with('patient:id,name,patientId');
-            // $data2 = $data;
-            // $secondVisit    = count($data->where('visitType', 'report')->get());
             $history        = $data->get();
-            // $regularVisit   = count($data->where('visitType', 'regular')->get());
-            // $secondVisit    = count($data->where('visitType', '!=', 'regular')->get());
-            // dd($data->where('visitType', '!=', 'regular')->get(), $history,  $regularVisit, $secondVisit);
-
         }
         $department = Department::get()->map(function ($doctor) {
             $data['id'] = $doctor->id;
