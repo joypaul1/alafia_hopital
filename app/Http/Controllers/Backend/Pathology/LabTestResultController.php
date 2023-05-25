@@ -30,7 +30,9 @@ class LabTestResultController extends Controller
         ];
         $data = $request->all();
         $labTest = LabTest::whereId($request->labTest_id)->first();
-
+        if ($labTest->category == 'Micro Biology' &&  $labTest->name == 'Blood - C/S') {
+            dd($labTest);
+        }
         // start Biochemistry
         if ($labTest->category == 'Biochemistry' && $labTest->name == 'Electrolytes') {
             return view('backend.pathology.makeResult.electrolytes', compact('data', 'labTest'));
@@ -379,7 +381,6 @@ class LabTestResultController extends Controller
             return view('backend.pathology.viewResult.blood.blood_cs_no_growth', compact('labTestReport'));
         }
         // end urine
-        // dd($labTestReport);
         // start stool
         if ($labTestReport->testName->category == 'Stool' && $labTestReport->testName->name == 'Stool-RE') {
             return view('backend.pathology.viewResult.stool.stool_re', compact('labTestReport'));
@@ -477,5 +478,48 @@ class LabTestResultController extends Controller
             }
         }
         return view('backend.pathology.labTest.printBarCode', compact('labInvoice', 'printData'));
+    }
+    public function edit(Request $request)
+    {
+        $units = (object)[
+            ['id' => 'mg/dl', 'name' => 'mg/dl'],
+            ['id' => 'mmol/l', 'name' => 'mmol/l'],
+            ['id' => 'Nil', 'name' => 'Nil'],
+            ['id' => 'µg/dl', 'name' => 'µg/dl'],
+            ['id' => 'U/L', 'name' => 'U/L'],
+            ['id' => 'g/dl', 'name' => 'g/dl'],
+            ['id' => 'mmol/l', 'name' => 'mmol/l'],
+            ['id' => '%', 'name' => '%'],
+        ];
+        $data = $request->all();
+        $labTest = LabTest::whereId($request->labTest_id)->first();
+        $labTestReport = LabTestReport::whereId($request->id)->with('labInvoiceTestDetails.labInvoice', 'patient', 'testName')->first();
+
+        if ($labTestReport->testName->category == 'Hematology' && $labTestReport->testName->name == 'CBC') {
+            return view('backend.pathology.makeResult.hematology.cbc', compact('data', 'labTest', 'units', 'labTestReport'));
+        }
+    }
+
+
+    public function update(Request $request)
+    {
+
+        $labTestReport = LabTestReport::whereId($request->id)->first();
+        if ($labTestReport->testName->category == 'Hematology' && $labTestReport->testName->name == 'CBC') {
+            $multidimensionalArray = array();
+            for ($i = 0; $i < count($request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['name']); $i++) {
+                $multidimensionalArray[$i] = array(
+                    'name' => $request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['name'][$i] ?? '',
+                    'result' => $request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['result'][$i] ?? '',
+                    'unit' => $request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['unit'][$i] ?? '',
+                    'reference_value' => $request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['reference_value'][$i] ?? '',
+                );
+            }
+            $result = json_encode($multidimensionalArray);
+            $labTestReport->update([
+                'result' => $result,
+            ]);
+            return view('backend.pathology.viewResult.fbs', compact('labTestReport'));
+        }
     }
 }

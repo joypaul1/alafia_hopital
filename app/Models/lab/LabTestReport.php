@@ -13,11 +13,6 @@ class LabTestReport extends Model
 
     protected $guarded =['id'];
 
-    // public function details()
-    // {
-    //     return $this->hasMany(LabTestReportDetails::class, 'lab_test_report_id', 'id');
-    // }
-
     public function testName()
     {
         return $this->belongsTo(LabTest::class, 'lab_test_id', 'id');
