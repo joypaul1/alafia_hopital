@@ -434,7 +434,6 @@ class LabTestResultController extends Controller
     }
     public function printBarCode(LabInvoice $labInvoice)
     {
-        //    return $labTest = LabTest::whereName('CUS')->first();
         $printData = [];
         $labInvoice         = LabInvoice::whereId($labInvoice->id)->with('patient')->with('labTestDetails.testName')->first();
         $categoryWiseData   = $labInvoice->labTestDetails->groupBy('testName.category');
@@ -456,8 +455,6 @@ class LabTestResultController extends Controller
                         //check if tube exist
                         if (array_key_exists($details->testName->tube->name, $printData[$details->testName->category])) {
                             //check if test exist
-                            // dd($details->testName->name);
-                            // if ($details->testName->name != 'CUS (F)' || $details->testName->name != 'CUS (2Hours)') {
                             if (array_key_exists($details->testName->short_name, $printData[$details->testName->category][$details->testName->tube->name])) {
                                 //if exist then do nothing
                             } else {
@@ -479,7 +476,6 @@ class LabTestResultController extends Controller
                 }
             }
         }
-        // dd($printData);
         return view('backend.pathology.labTest.printBarCode', compact('labInvoice', 'printData'));
     }
 }
