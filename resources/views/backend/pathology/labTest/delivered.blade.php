@@ -207,7 +207,7 @@
                                         <td>{{ optional($labInvoice->patient)->name??' ' }}
                                             <br>
                                             <a target="_blank"
-                                                href="{{ route('backend.patient.show', optional($labInvoice->patient)->id?' ') }}"
+                                                href="{{ route('backend.patient.show', optional($labInvoice->patient)->id??' ') }}"
                                                 target="_blank">
                                                 <button class="btn btn-success"><i class="fa fa-eye"
                                                         aria-hidden="true"></i></button>
