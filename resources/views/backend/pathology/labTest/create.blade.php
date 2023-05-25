@@ -35,7 +35,7 @@
     <div class="row">
         <div class="col-12">
             @if ($errors->any())
-                {{ implode('', $errors->all('<div>:message</div>')) }}
+                <p class="text-danger">{{ implode('', $errors->all('<div>:message</div>')) }}</p>
             @endif
             <form action="{{ route('backend.pathology.labTest.store') }}" method="post">
                 @csrf
