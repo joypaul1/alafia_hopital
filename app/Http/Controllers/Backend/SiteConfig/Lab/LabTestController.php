@@ -197,8 +197,6 @@ class LabTestController extends Controller
 
         }
         return redirect()->back()->with('error', $returnData->getData()->msg);
-
-        // return response()->json(['error' => $returnData->getData()->msg, 'status' => false], 400);
     }
 
     /**

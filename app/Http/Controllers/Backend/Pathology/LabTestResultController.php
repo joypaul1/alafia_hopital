@@ -439,37 +439,47 @@ class LabTestResultController extends Controller
         $labInvoice         = LabInvoice::whereId($labInvoice->id)->with('patient')->with('labTestDetails.testName')->first();
         $categoryWiseData   = $labInvoice->labTestDetails->groupBy('testName.category');
         foreach ($labInvoice->labTestDetails as $key => $details) {
-            if ($key == 0) {
-                $printData[$details->testName->category] = [$details->testName->tube->name => [
+            // dd($details->testName->name);
+            if ($details->testName->name == 'CUS (2Hours)' || $details->testName->name == 'CUS (F)' || $details->testName->name == 'Fasting Blood Sugar (FBS)' || $details->testName->name == 'Blood Glucose 2 Hrs. AFB' || $details->testName->name == 'Blood Glucose 2 Hrs. After 75gm Glucose') {
+                $printData[$details->testName->name] = [$details->testName->tube->name => [
                     $details->testName->short_name => $details->testName->short_name,
                 ]];
             } else {
-                //check if category exist
-                if (array_key_exists($details->testName->category, $printData)) {
-                    //check if tube exist
-                    if (array_key_exists($details->testName->tube->name, $printData[$details->testName->category])) {
-                        //check if test exist
-                        if ($details->testName->name != 'CUS') {
+
+                if ($key == 0) {
+                    $printData[$details->testName->category] = [$details->testName->tube->name => [
+                        $details->testName->short_name => $details->testName->short_name,
+                    ]];
+                } else {
+                    //check if category exist
+                    if (array_key_exists($details->testName->category, $printData)) {
+                        //check if tube exist
+                        if (array_key_exists($details->testName->tube->name, $printData[$details->testName->category])) {
+                            //check if test exist
+                            // dd($details->testName->name);
+                            // if ($details->testName->name != 'CUS (F)' || $details->testName->name != 'CUS (2Hours)') {
                             if (array_key_exists($details->testName->short_name, $printData[$details->testName->category][$details->testName->tube->name])) {
                                 //if exist then do nothing
                             } else {
                                 //if not exist then add
                                 $printData[$details->testName->category][$details->testName->tube->name][$details->testName->short_name] = $details->testName->short_name;
                             }
+                            // }
+                        } else {
+                            //if tube not exist then add
+                            $printData[$details->testName->category][$details->testName->tube->name] = [
+                                $details->testName->short_name => $details->testName->short_name,
+                            ];
                         }
                     } else {
-                        //if tube not exist then add
-                        $printData[$details->testName->category][$details->testName->tube->name] = [
+                        $printData[$details->testName->category] = [$details->testName->tube->name => [
                             $details->testName->short_name => $details->testName->short_name,
-                        ];
+                        ]];
                     }
-                } else {
-                    $printData[$details->testName->category] = [$details->testName->tube->name => [
-                        $details->testName->short_name => $details->testName->short_name,
-                    ]];
                 }
             }
         }
+        // dd($printData);
         return view('backend.pathology.labTest.printBarCode', compact('labInvoice', 'printData'));
     }
 }

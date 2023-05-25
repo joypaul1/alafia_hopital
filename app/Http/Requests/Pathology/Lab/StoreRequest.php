@@ -73,7 +73,7 @@ class StoreRequest extends FormRequest
             }else{
                 $payment_status = 'due';
             }
-
+            // dd($payment_status);
             DB::beginTransaction();
             $data['invoice_no']         = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
             $data['patient_id']         = $this->patient_id;
@@ -85,7 +85,7 @@ class StoreRequest extends FormRequest
             $data['doctor_id']          = $this->doctor_id;
             $data['status']             = 'collection';
             $labInvoice                 = LabInvoice::create($data);
-            // dd($labInvoice );
+            // dd($data );
             if ($this->needle_id) {
                 $multidimensionalArray = array();
                 //push needle_id array in array_name
