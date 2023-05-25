@@ -1389,6 +1389,9 @@
 </head>
 
 <body class="c46 doc-content">
+<a href="{{ route('backend.pathology.make-test-result-edit', ['id' => $labTestReport->id]) }}">
+    <button class="btn btn-info">Edit</button>
+</a>
     <div class="content">
         <div>
             <img src="{{ asset('assets/moneyReceipt/hpathology.png') }}" style="width: 100%;" alt="header">

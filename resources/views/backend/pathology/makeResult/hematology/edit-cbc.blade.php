@@ -6,48 +6,51 @@
 @stop
 
 @section('content')
-<form action="{{ route('backend.pathology.make-test-result-store') }}" method="post">
-    @csrf
-    @method('POST')
-    <input type="hidden" name="lab_invoice_test_detail_id" value="{{ $data['labDetails_id'] }}">
-    <input type="hidden" name="test_id" value="{{ $data['labTest_id'] }}">
-    <div class="card">
-        <div class="body">
-            <h3 class="text-center mb-5">
-                <i class="fa fa-flask"></i> Biochemistry Report
-            </h3>
-            <div class="row mb-2 align-items-center">
-                <div class="col-3">
-                    @include('components.backend.forms.input.input-type', [
+    <form action="{{ route('backend.pathology.make-test-result-update',['id' => $labTestReport->id] ) }}" method="post">
+        @csrf
+        @method('POST')
+        {{-- <input type="hidden" name="lab_invoice_test_detail_id" value="{{ $data['labDetails_id'] }}">
+    <input type="hidden" name="test_id" value="{{ $data['labTest_id'] }}"> --}}
+        <div class="card">
+            <div class="body">
+                <h3 class="text-center mb-5">
+                    <i class="fa fa-flask"></i> Biochemistry Report
+                </h3>
+                <div class="row mb-2 align-items-center">
+                    {{-- @dd(json_decode($labTestReport->result)) --}}
+                    @forelse (json_decode($labTestReport->result) as $key=>$result)
+                    {{-- @dd($key,$result) --}}
+                        <div class="col-3">
+                            @include('components.backend.forms.input.input-type', [
+                                'name' => 'name[]',
+                                'value' => $result->name,
+                            ])
+                        </div>
+                        <div class="col-2">
+                            @include('components.backend.forms.input.input-type', [
+                                'name' => 'result[]',
+                                'value' => $result->result,
+                                'placeholder' => 'Enter result here...',
+                            ])
+                        </div>
+                        <div class="col-1">
+                            @include('components.backend.forms.input.input-type', [
+                                'name' => 'unit[]',
+                                'value' => $result->unit,
+                            ])
+                        </div>
 
-                        'name' => 'name[]',
-                        'value' => 'Hemoglobin (Hb)',
-                    ])
-                </div>
-                <div class="col-2">
-                    @include('components.backend.forms.input.input-type', [
-                        'name' => 'result[]',
-                        'placeholder' => 'Enter result here...',
-                    ])
-                </div>
-                <div class="col-1">
-                    @include('components.backend.forms.input.input-type', [
-                        'name' => 'unit[]',
-                        'value' => 'g/dl',
-                    ])
-                </div>
+                        <div class="col-6">
+                            @include('components.backend.forms.texteditor.editor', [
+                                'name' => 'reference_value[]',
+                                'value' => $result->reference_value,
+                            ])
+                        </div>
+                    @empty
+                    @endforelse
 
-                <div class="col-6">
-                    @include('components.backend.forms.texteditor.editor', [
-                        'name' => 'reference_value[]',
-                        'value' => 'Male: 13-17
-                        Female: 12.0-16.5
-                        1 Month: 11-17, 2-6 Month:9.5-13.5
-                        2-6 Years: 11-14, 6-12 Years:11.5-15.5',
-                    ])
                 </div>
-            </div>
-            <div class="row mb-2 align-items-center">
+                {{-- <div class="row mb-2 align-items-center">
                 <div class="col-3">
                     @include('components.backend.forms.input.input-type', [
                         'name' => 'name[]',
@@ -565,18 +568,18 @@
                         'value' => '0.1-0.2',
                     ])
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="row text-right">
-                <div class="col-12">
-                    <button class="btn btn-primary btn-md" type="submit">Save</button>
+                <div class="row text-right">
+                    <div class="col-12">
+                        <button class="btn btn-primary btn-md" type="submit">Save</button>
+                    </div>
+
                 </div>
-
             </div>
         </div>
-    </div>
 
-</form>
+    </form>
 
 @endsection
 

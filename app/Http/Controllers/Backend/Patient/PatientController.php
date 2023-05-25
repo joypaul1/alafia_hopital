@@ -220,9 +220,7 @@ class PatientController extends Controller
                     <a href="' . route('backend.patient.edit', $row->id) . '"
                             data-toggle="tooltip" data-original-title="Edit" class="btn  btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
                         </a>
-                        <a data-href="'.route('backend.patient.destroy', $row->id).'" class="btn btn-danger delete_check" data-toggle="tooltip" data-original-title="Delete" aria-describedby="tooltip64483">
-                            <i class="fa fa-trash " aria-hidden="true"></i> 
-                        </a>
+                        
 
                     ';
                     // $action ='<div class="dropdown">
