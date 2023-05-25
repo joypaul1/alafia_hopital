@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Receipt</title>
+    <title>Prescription Pad</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <style>
@@ -91,26 +91,26 @@
                             <Strong>
                                 Name :
                             </Strong>
-                            Abdul Hai
+                            {{ optional($appointment->patient)->name}}
                         </td>
-                        {{-- <td rowspan="5">
-                            <div class="d-flex justify-content-center align-items-center">
-                                <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center#'.112233, 'QRCODE')}}" alt="barcode"style="width: 100px;" />
-        </div>
-        </td> --}}
                         <td style="text-align: right; width: 50%;">
-                            <strong>Serial No.</strong> : 1221
+                            <strong>Serial No.</strong> : {{ ($appointment->serial_number) }}
                         </td>
                     </tr>
+                    @php
+                    $bday = new DateTime( optional($appointment->patient)->dob); // Your date of birth
+                    $today = new Datetime(date('m.d.y'));
+                    $diff = $today->diff($bday);
+                    @endphp
                     <tr>
                         <td>
                             <Strong>
                                 Age
                             </Strong>
-                            : 26 Years 2 Months 12 Days
+                            : {{ $diff->y }} Years {{ $diff->m }} Months {{ $diff->d }} Days
                         </td>
                         <td style="text-align: right;">
-                            <strong>Date </strong> : 12-12-2023
+                            <strong>Date </strong> : {{ date('d-m-Y', strtotime($appointment->appointment_date)) }}
                         </td>
                     </tr>
                     <tr>
@@ -118,7 +118,11 @@
                             <Strong>
                                 Department
                             </Strong>
-                            : Demo Department
+                            : {{ optional(optional($appointment->doctor)->department)->name}}
+                        </td>
+                        <td style="text-align: right;">
+                            <strong>Contact Number </strong>
+                            : {{ optional($appointment->patient)->mobile}}
                         </td>
                     </tr>
                     <tr>
@@ -126,14 +130,14 @@
                             <Strong>
                                 Consultant
                             </Strong>
-                            : Nabila Yeasmin
+                            : {{ optional($appointment->doctor)->first_name.' '.
+                            optional($appointment->doctor)->last_name}} ({{
+                            optional(optional($appointment->doctor)->designation)->name}})
+
                         </td>
                     </tr>
                 </tbody>
             </table>
-
-
-
         </div>
         <div style="padding: 0 0.25in; margin-bottom:0.2in;">
             <div style="border: 1px dashed #ccc;">
@@ -146,23 +150,119 @@
                         <p style="text-decoration: underline;">
                             <strong>C/C</strong>
                         </p>
+                        <div class="px-2">
+                            <p>
+                                Cold & Cough , Fever , Headache , Bodyache , Joint Pain , Vomiting , Diarrhoea ,
+                                Dysentery
+                            </p>
+                        </div>
                     </div>
                     <div style="height: 320px">
                         <p style="text-decoration: underline;">
                             <strong>O/E</strong>
                         </p>
                         <div class="px-2">
-                            <p>BP</p>
+                            <p>
+                                BP : 120/80 mmHg
+                            </p>
+                            <p>
+                                Pulse : 72/min
+                            </p>
+                            <p>
+                                Temp : 98.4 F
+                            </p>
+                            <p>
+                                Resp : 18/min
+                            </p>
                         </div>
                     </div>
                     <div style="height: 320px">
                         <p style="text-decoration: underline;">
-                            <strong>Inv</strong>
+                            <strong>
+                                Investigation
+                            </strong>
                         </p>
+
+                        <div class="pl-4">
+                            <ul class="p-0">
+                                <li>Blood Sugar</li>
+                                <li>HBsAg</li>
+                                <li>Urine R/E</li>
+                                <li>Stool R/E</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="col-8">
                     <img src="{{ asset('assets/moneyReceipt/rx.png') }}" style="width: 80px" alt="">
+
+                    <div class="p-3">
+                        <ol>
+                            <li class="mb-4">
+                                <div>
+                                    <p>
+                                        <strong>
+                                            {{-- {{ $medicine->item->name }} {{ $medicine->item->strength->name }} --}}
+                                            Paracetamol 500mg (Tablet)
+                                        </strong>
+                                    </p>
+                                    <div class="d-flex justify-content-between my-1">
+                                        <p>
+                                            {{-- {{ $medicine->how_many_quantity }} --}}
+                                            1+0+1
+                                        </p>
+                                        <p class="mx-2">
+                                            {{-- {{ ucfirst(Str::replaceFirst('_', ' ', $medicine->before_after_meal))
+                                            }} --}}
+                                            Before Meal
+                                        </p>
+                                        <p>
+                                            5 Days
+                                        </p>
+                                        {{-- <br> --}}
+
+
+                                    </div>
+                                    <small style="text-align:center;display:block"> [ Note:
+                                        Don' t take any medicine without consulting your doctor.
+                                        ]</small>
+                                </div>
+                            </li>
+                            <li class="mb-4">
+                                <div>
+                                    <p>
+                                        <strong>
+                                            {{-- {{ $medicine->item->name }} {{ $medicine->item->strength->name }} --}}
+                                            Paracetamol 500mg (Tablet)
+                                        </strong>
+                                    </p>
+                                    <div class="d-flex justify-content-between my-1">
+                                        <p>
+                                            {{-- {{ $medicine->how_many_quantity }} --}}
+                                            1+0+1
+                                        </p>
+                                        <p class="mx-2">
+                                            {{-- {{ ucfirst(Str::replaceFirst('_', ' ', $medicine->before_after_meal))
+                                            }} --}}
+                                            Before Meal
+                                        </p>
+                                        <p>
+                                            5 Days
+                                        </p>
+                                        {{-- <br> --}}
+
+
+                                    </div>
+                                    <small style="text-align:center;display:block"> [ Note:
+                                        Don' t take any medicine without consulting your doctor.
+                                        ]</small>
+                                </div>
+                            </li>
+
+
+
+                        </ol>
+                    </div>
                 </div>
             </div>
         </div>
@@ -180,9 +280,9 @@
                     </div>
                     <div class="text-right">
                         Prepared By : {{ auth('admin')->user()->name }}
-        </div>
-        </div>
-        </div> --}}
+                    </div>
+                </div>
+            </div> --}}
             <img src="{{ asset('assets/moneyReceipt/fdoctor.png') }}" style="width: 100%;" alt="">
         </footer>
 
@@ -190,5 +290,9 @@
 
     </div>
 </body>
+<script>
+    window.print();
+
+</script>
 
 </html>
