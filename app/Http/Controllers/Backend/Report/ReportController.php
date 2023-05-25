@@ -216,30 +216,32 @@ class ReportController extends Controller
 
     public function patientVisit(Request $request)
     {
+        $data2 = [];
         $history = [];
-        $firstVisit = 0;
-        $secondVisit = 0;
+        $regularVisit = 0;
+        $reportVisit = 0;
         $doctor = Doctor::get()->map(function ($doctor) {
             $data['id'] = $doctor->id;
             $data['name'] = $doctor->first_name . ' ' . $doctor->last_name;
             $data['department'] = $doctor->department->name;
             return $data;
         });
+        // dd($request->doctor_id);
         if ($request->doctor_id) {
             $startDate = date('Y-m-d', strtotime($request->start_date));
             $endDate = date('Y-m-d', strtotime($request->end_date));
-             $history = Appointment::where('doctor_id', $request->doctor_id)
-                ->select('id', 'doctor_id', 'patient_id', 'appointment_date', 'paid_amount')
+            $data = Appointment::query()
+                ->where('doctor_id', $request->doctor_id)
+                ->select('id', 'doctor_id', 'patient_id', 'appointment_date', 'paid_amount', 'visitType')
                 ->whereBetween('appointment_date', [$startDate, $endDate])
-                ->with('patient:id,name,patientId')->get();
-            $patientVisit = $history->groupBy('patient_id');
-            foreach ($patientVisit as $key => $value) {
-                if (count($value) == 1) {
-                    $firstVisit++;
-                } else {
-                    $secondVisit++;
-                }
-            }
+                ->with('patient:id,name,patientId');
+            // $data2 = $data;
+            // $secondVisit    = count($data->where('visitType', 'report')->get());
+            $history        = $data->get();
+            // $regularVisit   = count($data->where('visitType', 'regular')->get());
+            // $secondVisit    = count($data->where('visitType', '!=', 'regular')->get());
+            // dd($data->where('visitType', '!=', 'regular')->get(), $history,  $regularVisit, $secondVisit);
+
         }
         $department = Department::get()->map(function ($doctor) {
             $data['id'] = $doctor->id;
@@ -247,6 +249,6 @@ class ReportController extends Controller
             return $data;
         });
 
-        return view('backend.report.patientVisit', compact('doctor', 'department', 'history', 'firstVisit', 'secondVisit'));
+        return view('backend.report.patientVisit', compact('doctor', 'department', 'history', 'regularVisit', 'reportVisit'));
     }
 }

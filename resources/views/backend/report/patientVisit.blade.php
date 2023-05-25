@@ -1,15 +1,16 @@
 @extends('backend.layout.app')
 @include('backend._partials.datatable__delete')
 @push('css')
-    <link rel="stylesheet" href="{{ asset('assets/backend/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}">
+<link rel="stylesheet"
+    href="{{ asset('assets/backend/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}">
 @endpush
 
 @section('page-header')
-    <i class="fa fa-list"></i> Patient Visit Report
+<i class="fa fa-list"></i> Patient Visit Report
 @stop
 
 @section('table_header')
-    {{-- @include('backend._partials.page_header', [
+{{-- @include('backend._partials.page_header', [
 'fa' => 'fa fa-list',
 // 'name' => 'Create Order',
 // 'modelName' => 'create_data',
@@ -20,154 +21,174 @@
 @section('content')
 
 
-    <div class="row">
-        <div class="col-lg-12">
+<div class="row">
+    <div class="col-lg-12">
 
-            <div class="card">
-                <div class="body">
-                    <h4 class="pointer text-info" id="toggleFilter">
-                        <i class="fa fa-filter"></i> Filter
-                    </h4>
-                    <form action="{{ route('backend.report.doctorWisePatientVisit') }}" method="get">
-                        @method('GET')
-                        <div id="filterContainer">
-                            <hr>
-                            <div class="row align-items-center">
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        @include('components.backend.forms.select2.option', [
-                                            'label' => 'Select Department',
-                                            'name' => 'department_id',
-                                            'optionData' => $department,
-                                            'selectedKey' => request()->get('department_id'),
-                                            // 'required' => true
-                                        ])
-                                    </div>
+        <div class="card">
+            <div class="body">
+                <h4 class="pointer text-info" id="toggleFilter">
+                    <i class="fa fa-filter"></i> Filter
+                </h4>
+                <form action="{{ route('backend.report.doctorWisePatientVisit') }}" method="get">
+                    @method('GET')
+                    <div id="filterContainer">
+                        <hr>
+                        <div class="row align-items-center">
+                            <div class="col-lg-3 col-md-6">
+                                <div class="form-group">
+                                    @include('components.backend.forms.select2.option', [
+                                    'label' => 'Select Department',
+                                    'name' => 'department_id',
+                                    'optionData' => $department,
+                                    'selectedKey' => request()->get('department_id'),
+                                    // 'required' => true
+                                    ])
                                 </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group">
-                                        @include('components.backend.forms.select2.option', [
-                                            'label' => 'Select Doctor',
-                                            'name' => 'doctor_id',
-                                            'optionData' => $doctor,
-                                            'selectedKey' => request()->get('doctor_id'),
-                                            'required' => true,
-                                        ])
-                                    </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6">
+                                <div class="form-group">
+                                    @include('components.backend.forms.select2.option', [
+                                    'label' => 'Select Doctor',
+                                    'name' => 'doctor_id',
+                                    'optionData' => $doctor,
+                                    'selectedKey' => request()->get('doctor_id'),
+                                    'required' => true,
+                                    ])
                                 </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <label>Start Date <span class="text-danger">*</span></label>
-                                    <div class="input-group mb-3">
-                                        <input value="{{ date('y-m-d') }}" autocomplete="off" data-provide="datepicker"
-                                            data-date-autoclose="true" id="start_date" name="start_date"
-                                            class="form-control" required>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <label>Start Date <span class="text-danger">*</span></label>
+                                <div class="input-group mb-3">
+                                    <input value="{{ date('y-m-d') }}" autocomplete="off" data-provide="datepicker"
+                                        data-date-autoclose="true" id="start_date" name="start_date"
+                                        class="form-control" required>
 
-                                    </div>
                                 </div>
+                            </div>
 
-                                <div class="col-lg-3 col-sm-6">
-                                    <label>End Date <span class="text-danger">*</span></label>
-                                    <div class="input-group mb-3">
-                                        <input value="{{ date('y-m-d') }}" autocomplete="off" data-provide="datepicker"
-                                            required data-date-autoclose="true" id="end_date" name="end_date"
-                                            class="form-control">
+                            <div class="col-lg-3 col-sm-6">
+                                <label>End Date <span class="text-danger">*</span></label>
+                                <div class="input-group mb-3">
+                                    <input value="{{ date('y-m-d') }}" autocomplete="off" data-provide="datepicker"
+                                        required data-date-autoclose="true" id="end_date" name="end_date"
+                                        class="form-control">
 
-                                    </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        @include('components.backend.forms.input.submit-button', [
-                                            'name' => 'submit',
-                                        ])
-                                    </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    @include('components.backend.forms.input.submit-button', [
+                                    'name' => 'submit',
+                                    ])
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                </form>
+            </div>
+        </div>
+        @foreach ($history as $key=> $data)
+        @php
+        if( $data->visitType == 'report'){
+        $reportVisit += 1;
+        }else{
+        $regularVisit += 1;
+        }
+
+        @endphp
+        @endforeach
+        <div class="row">
+            <div class="card top_counter col-3">
+                <div class="body">
+                    <div class="icon"><i class="fa fa-wheelchair"></i> </div>
+                    <div class="content">
+                        <div class="text font-weight-bold">Patient</div>
+                        <h5 class="number"> <span class="badge badge-info">{{ count($history->groupBy('patient_id'))}}</span></h5>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="card top_counter col-3">
-                    <div class="body">
-                        <div class="icon"><i class="fa fa-wheelchair"></i> </div>
-                        <div class="content">
-                            <div class="text font-weight-bold">First Time Visit</div>
-                            <h5 class="number">{{ $firstVisit }}</h5>
-                        </div>
+            <div class="card top_counter col-3">
+                <div class="body">
+                    <div class="icon"><i class="fa fa-wheelchair"></i> </div>
+                    <div class="content">
+                        <div class="text font-weight-bold">Regular Visit</div>
+                        <h5 class="number"> <span class="badge badge-info">{{ $regularVisit }}</span></h5>
                     </div>
                 </div>
-                <div class="card top_counter col-3">
-                    <div class="body">
-                        <div class="icon"><i class="fa fa-wheelchair"></i> </div>
-                        <div class="content">
-                            <div class="text font-weight-bold ">2nd Time Visit</div>
-                            <h5 class="number">{{ $secondVisit }}</h5>
-                        </div>
+            </div>
+            <div class="card top_counter col-3">
+                <div class="body">
+                    <div class="icon"><i class="fa fa-wheelchair"></i> </div>
+                    <div class="content">
+                        <div class="text font-weight-bold ">Report Visit</div>
+                        <h5 class="number"><span class="badge badge-info">{{ $reportVisit }}</span>
+                        </h5>
                     </div>
                 </div>
-                <div class="card top_counter col-3">
-                    <div class="body">
-                        <div class="icon"><i class="fa fa-wheelchair"></i> </div>
-                        <div class="content">
-                            <div class="text font-weight-bold">Total Patient</div>
-                            <h5 class="number">{{ $firstVisit + $secondVisit }}</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="card top_counter col-3">
-                    <div class="body">
-                        <div class="icon"> <i class="fa fa-user-md" aria-hidden="true"></i> </div>
-                        <div class="content">
-                            <div class="text font-weight-bold">Total Appointment</div>
-                            <h5 class="number">{{ count($history) }}</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header text-center" ><h5>Patient Visiting List </h5></div>
-                    <div class="body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered text-center dataTable" id="appointment_table">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">SI.</th>
-                                        <th class="text-center">PID</th>
-                                        <th class="text-center">Name</th>
-                                        <th class="text-center">Visit Type</th>
-                                    </tr>
-                                </thead>
+            </div>
 
-                                <tbody>
-                                    @foreach ($history as $key=> $data)
-                                        <tr>
-                                            <td>{{ $key+1 }}</td>
-                                            <td>{{ $data->patient->patientId }}</td>
-                                            <td>{{ $data->patient->name }}</td>
-                                            <td>{{ 'Regular Visit' }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+            <div class="card top_counter col-3">
+                <div class="body">
+                    <div class="icon"> <i class="fa fa-user-md" aria-hidden="true"></i> </div>
+                    <div class="content">
+                        <div class="text font-weight-bold">Total Appointment</div>
+                        <h5 class="number">  <span class="badge badge-info">{{ $regularVisit + $reportVisit}}</span></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header text-center">
+                    <h5>Patient Visiting List </h5>
+                </div>
+                <div class="body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center dataTable" id="appointment_table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">SI.</th>
+                                    <th class="text-center">PID</th>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center">Visit Type</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach ($history as $key=> $data)
+
+                                <tr>
+                                    <td>{{ $key+1 }}</td>
+                                    <td>{{ $data->patient->patientId }}</td>
+                                    <td>{{ $data->patient->name }}</td>
+                                    <td>{{ $data->visitType }}
+
+                                        <button type="button" class="btn btn-primary">
+                                            {{ ucfirst($data->visitType) }}
+                                        </button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Modal HTML -->
+<!-- Modal HTML -->
 
-    <div class="modal fade Order_modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg"" role=" document">
+<div class="modal fade Order_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg"" role=" document">
 
-        </div>
     </div>
+</div>
 @endsection
 
 @push('js')
-    <script src="{{ asset('assets/backend/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
-    <script>
-        $('#start_date').datepicker({
+<script src="{{ asset('assets/backend/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+<script>
+    $('#start_date').datepicker({
             format: 'mm-dd-yyyy',
             startDate: '-5y'
 
@@ -218,5 +239,5 @@
                 },
             });
         });
-    </script>
+</script>
 @endpush
