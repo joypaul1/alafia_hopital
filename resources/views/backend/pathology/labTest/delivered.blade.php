@@ -204,10 +204,10 @@
                                     <tr class="text-center">
                                         <td>{{ $labInvoice['invoice_no'] }}</td>
                                         <td> {{ date('d-m-y', strtotime($labInvoice['date'])) }}</td>
-                                        <td>{{ $labInvoice->patient->name }}
+                                        <td>{{ optional($labInvoice->patient)->name??' ' }}
                                             <br>
                                             <a target="_blank"
-                                                href="{{ route('backend.patient.show', $labInvoice->patient->id) }}"
+                                                href="{{ route('backend.patient.show', optional($labInvoice->patient)->id?' ') }}"
                                                 target="_blank">
                                                 <button class="btn btn-success"><i class="fa fa-eye"
                                                         aria-hidden="true"></i></button>

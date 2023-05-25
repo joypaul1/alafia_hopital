@@ -55,7 +55,7 @@
         p {
             font-size: 10px;
             /* font-weight: 900; */
-            width: max-content; 
+            width: max-content;
             margin: auto;
         }
 
@@ -97,7 +97,7 @@
     </div>
 
     @php
-        $bday = new DateTime(optional($labInvoice->patient)->dob); // Your date of birth
+        $bday = new DateTime(optional($labInvoice->patient)->dob??''); // Your date of birth
         $today = new Datetime(date('m.d.y'));
         $diff = $today->diff($bday);
     @endphp
@@ -111,12 +111,12 @@
                             echo DNS1D::getBarcodeHTML(strval($labInvoice->id), 'C128');
                         @endphp
                         <p style="font-size: 13px; text-align:center;font-weight:bolder;">
-                            {{ $labInvoice->patient->patientId }}
+                            {{ optional($labInvoice->patient)->patientId??' ' }}
                         </p>
                         <div>
                             <div class="text" style=" text-align:center; ">
                                 <p>
-                                    {{ $labInvoice->patient->name }} <span style="margin-left: 8px;">{{ $diff->y }}
+                                    {{ optional($labInvoice->patient)->name??' ' }} <span style="margin-left: 8px;">{{ $diff->y }}
                                         Y / {{ substr(optional($labInvoice->patient)->gender ?? '-', 0, 1) }} </span>
                                 </p>
                                 <p style="width:100%; margin:auto; font-size:8px !important;">

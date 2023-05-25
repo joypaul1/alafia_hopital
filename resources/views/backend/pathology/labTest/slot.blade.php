@@ -149,9 +149,8 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td class="text-center">{{ $labInvoice->invoice_no }}</td>
-                            <td class="text-center">{{ $labInvoice->patient->patientId }}</td>
-                            <td class="text-center">{{ $labInvoice->patient->name }}</td>
-                            {{-- @dd($labInvoice->labTestDetails->pluck('testName')) --}}
+                            <td class="text-center">{{ optional($labInvoice->patient)->patientId??' ' }}</td>
+                            <td class="text-center">{{ optional($labInvoice->patient)->name??' ' }}</td>
                             <td class="text-center">
                                 @foreach ($labInvoice->labTestDetails->pluck('testName') as $item)
                                     {{ $item->name }} ,

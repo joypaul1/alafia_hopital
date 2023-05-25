@@ -115,7 +115,7 @@
                         </td>
                     </tr>
                     @php
-                        $bday = new DateTime(optional($labInvoice->patient)->dob); // Your date of birth
+                        $bday = new DateTime(optional($labInvoice->patient)->dob??''); // Your date of birth
                         $today = new Datetime(date('m.d.y'));
                         $diff = $today->diff($bday);
                     @endphp
@@ -124,12 +124,11 @@
                             <Strong>
                                 PID
                             </Strong>
-                            : {{ optional($labInvoice->patient)->patientId }}
+                            : {{ optional($labInvoice->patient)->patientId??"" }}
                         </td>
                         <td style="display: flex;text-align: right; justify-content:flex-end;gap:4px;">
                             <p>
                                 <strong>Age </strong> :
-                                {{-- {{ dd($diff) }} --}}
                                 {{ $diff->y }} Years {{ $diff->m }} Months
                                 {{ $diff->d }}
                                 Days
@@ -139,7 +138,7 @@
                                     Sex
                                 </Strong>
                                 : <span
-                                    style="text-transform: capitalize;">{{ optional($labInvoice->patient)->gender ? optional($labInvoice->patient)->gender[0] : '' }}</span>
+                                    style="text-transform: capitalize;">{{ optional($labInvoice->patient)->gender??' ' }}</span>
                             </p>
                         </td>
                     </tr>
@@ -149,21 +148,20 @@
                             <Strong>
                                 Name
                             </Strong>
-                            : {{ optional($labInvoice->patient)->name }}
+                            : {{ optional($labInvoice->patient)->name??' ' }}
                         </td>
                         <td style="text-align: right;">
                             <strong>Mobile </strong> :
-                            {{ optional($labInvoice->patient)->mobile }}
+                            {{ optional($labInvoice->patient)->mobile??' ' }}
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <strong>Emergency Contact </strong> :
-                            {{ optional($labInvoice->patient)->emergency_contact }}
+                            {{ optional($labInvoice->patient)->emergency_contact??"" }}
                         </td>
                         <td style="text-align: right;">
-                            {{-- <strong>Emergency Contact </strong> :
-                            {{ optional($labInvoice->patient)->emergency_contact }} --}}
+
                         </td>
                     </tr>
                     <tr>

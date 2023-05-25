@@ -116,12 +116,12 @@
                             <Strong>
                                 PID
                             </Strong>
-                            : {{ optional($labInvoice->patient)->patientId }}
+                            : {{ optional($labInvoice->patient)->patientId??'' }}
                         </td>
                         <td style="text-align: right;">
                             <strong>Sex </strong> :
                             <span
-                                style="text-transform: capitalize;">{{ optional($labInvoice->patient)->gender }}</span>
+                                style="text-transform: capitalize;">{{ optional($labInvoice->patient)->gender??' ' }}</span>
                         </td>
                     </tr>
                     @php

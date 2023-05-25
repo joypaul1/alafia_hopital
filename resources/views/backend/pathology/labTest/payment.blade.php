@@ -26,7 +26,7 @@
                     <div class="card text-center">
                         <h3>
                             <span class="badge badge-info">Invoice No: {{ $labInvoice->invoice_no }}</span>
-                            <span class="badge badge-info">Patient Name: {{ $labInvoice->patient->name }}</span>
+                            <span class="badge badge-info">Patient Name: {{ optional($labInvoice->patient)->name??'' }}</span>
 
                         </h3>
                         <form action="{{ route('backend.pathology.payment.store', $labInvoice) }}" method="post">
