@@ -103,7 +103,7 @@
                     <div class="icon"><i class="fa fa-wheelchair"></i> </div>
                     <div class="content">
                         <div class="text font-weight-bold">Patient</div>
-                        <h5 class="number"> <span class="badge badge-info">{{ count($history->groupBy('patient_id'))}}</span></h5>
+                        <h5 class="number"> <span class="badge badge-info">{{ count($history??$history->groupBy('patient_id'))}}</span></h5>
                     </div>
                 </div>
             </div>
