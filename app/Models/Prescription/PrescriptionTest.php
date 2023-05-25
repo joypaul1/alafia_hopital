@@ -12,4 +12,10 @@ class PrescriptionTest extends Model
 {
     use AutoTimeStamp, GlobalScope;
     protected $guarded = ['id'];
+
+
+    public function prescription()
+    {
+        return $this->belongsTo(Prescription::class, 'prescription_id', 'id');
+    }
 }

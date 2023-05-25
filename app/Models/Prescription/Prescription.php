@@ -58,5 +58,13 @@ class Prescription extends Model
         return $this->belongsTo(Doctor::class, 'doctor_id', 'id');
     }
 
-
+    /**
+     * Get all of the labTest for the Prescription
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function labTest(): HasMany
+    {
+        return $this->hasMany(PrescriptionTest::class, 'prescription_id', 'id');
+    }
 }

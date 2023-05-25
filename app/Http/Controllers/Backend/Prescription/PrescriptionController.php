@@ -78,37 +78,30 @@ class PrescriptionController extends Controller
         if ($request->optionData) {
 
             $testData = LabTest::select('id', 'name')->get()->map(function ($query) {
-                $data['type'] = 'lab';
-                $data['id'] = $query->id;
                 $data['name'] = $query->name;
                 return $data;
             });
 
             $radiologyData = RadiologyServiceName::select('id', 'name')->get()->map(function ($query) {
-                $data['type'] = 'radio';
-                $data['id'] = $query->id;
                 $data['name'] = $query->name;
                 return $data;
             });
             $collection1 = new Collection($testData);
             $collection2 = new Collection($radiologyData);
-
             $allTest = $collection1->merge($collection2);
-
 
             // The letter to search for
             $search_letter = $request->optionData;
             $result = [];
 
+            // Check if the key contains the search letter
             foreach ($allTest as $key => $value) {
-                // Check if the key contains the search letter
-                if (strpos($value['name'], $search_letter) !== false) {
+                if (strpos(strtolower($value['name']), strtolower($search_letter)) !== false) {
                     array_push($result, $value);
                 }
             }
             return response()->json(['data' => $result]);
         }
-
     }
 
     /**
@@ -118,7 +111,7 @@ class PrescriptionController extends Controller
      */
     public function create(Request $request)
     {
-        $appointment = Appointment::where('id', $request->prescription)->with('patient')->first();
+        $appointment = Appointment::where('id', $request->appointment)->with('patient')->first();
         return view('backend.prescription.create', compact('appointment'));
     }
 
@@ -144,12 +137,12 @@ class PrescriptionController extends Controller
             $data['invoice_number']          = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
             $data['patient_id']              = Patient::where('patientId', $request->p_id)->first()->id;
             $data['date']                    =  date('Y-m-d h:i:s');
-            // $data['doctor_id']               = auth('admin')->user()->id;
-            $data['doctor_id']               = 26;
+            $data['doctor_id']               = Appointment::where('id', $request->appointment_id)->first()->doctor_id;
             $data['appointment_id']          = $request->appointment_id;
             $data['advice']                  = $request->advice;
             $data['next_visit']              = $request->next_visit;
             $prescription                    = Prescription::create($data);
+            // dd($prescription);
             if ($request->symptoms_id) {
                 foreach ($request->symptoms_id as $key => $symptom) {
                     $prescription->diseasesSymptoms()->create(['symptom_id' => $symptom]);
@@ -180,7 +173,16 @@ class PrescriptionController extends Controller
                     // dd($others);
                 }
             }
-
+            if($request->test_name){
+                foreach ($request->test_name as $key => $test) {
+                    $labTests =$prescription->labTest()->create([
+                        'test_name' => $test,
+                        'note' => $request->specifications[$key]??null
+                    ]);
+                    // dd($labTests);
+                }
+            }
+            // dd($request->all());
             // dd($prescription);
             DB::commit();
         } catch (\Exception $ex) {
@@ -199,7 +201,7 @@ class PrescriptionController extends Controller
      */
     public function show(Prescription $prescription)
     {
-        $prescription = $prescription->with('patient', 'doctor:id,first_name,last_name', 'appointment', 'diseasesSymptoms.symptom', 'medicines.item.strength', 'otherSpecifications')->first();
+        $prescription = Prescription::whereId($prescription->id)->with('patient','labTest', 'doctor', 'appointment', 'diseasesSymptoms.symptom', 'medicines.item.strength', 'otherSpecifications')->first();
         return view('backend.prescription.show', compact('prescription'));
     }
 

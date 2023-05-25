@@ -100,7 +100,7 @@
                                 </div>
 
                             </div>
-                            <div id="addination_info" style="width:100%"></div>
+                            <div id="addinational_info" style="width:100%"></div>
                         </div>
                     </div>
 
@@ -154,7 +154,7 @@
                         Selected Medicine
                     </h5>
                     <hr>
-                    <div id="medicineSeciton"></div>
+                    <div id="medicineSection"></div>
 
 
 
@@ -178,7 +178,7 @@
                         </div>
                         <div class="col-5">
                             @include('components.backend.forms.input.input-type2', [
-                            'name' => 'specifications',
+                            'name' => 'specifications[]',
                             'placeholder' => 'Any specifications ?',
                             ])
                         </div>
@@ -271,7 +271,7 @@
                                     </button>
                                 </div></div>`;
 
-            $('#addination_info').append(html);
+            $('#addinational_info').append(html);
         });
         // p_remove remove
         $(document).on('click', '.p_infoRemove', function() {
@@ -283,14 +283,14 @@
             var html = `<div class="row mt-2">
                             <div class="col-5">
                                 @include('components.backend.forms.input.input-type2', [
-                                    'name' => 'test_name',
+                                    'name' => 'test_name[]',
                                     'class' => 'test_name',
                                     'placeholder' => 'Test Name',
                                 ])
                             </div>
                             <div class="col-5">
                                 @include('components.backend.forms.input.input-type2', [
-                                    'name' => 'specifications',
+                                    'name' => 'specifications[]',
                                     'placeholder' => 'Any Specifications ?',
                                 ])
                             </div>
@@ -325,11 +325,9 @@
                         },
                         success: function(res) {
                             var resArray = $.map(res.data, function(obj) {
-                                console.log(obj.id)
                                 return {
-                                    value_id: obj.id, //Show as label of input fieldname: obj.name,
-                                    value: obj.name, //Show as label of input fieldname: obj.name,
-                                    label: obj.name, //Show as label of input fieldname: obj.name,
+                                    value: obj.name,
+                                    label: obj.name,
                                 }
                             })
                             response(resArray);
@@ -338,7 +336,7 @@
                 },
                 minLength: 1,
                 select: function(event, ui) {
-                    $(this).val(ui.item.value);
+                    $(this).val(ui.item.label);
                     // $(this).parents('.row').find('#test_name').val(ui.item.value_id);
                     // return false;
                 }
@@ -613,7 +611,7 @@
                             </table>
 
                            `;
-                $('#medicineSeciton').after(html);
+                $('#medicineSection').after(html);
 
             }
         });

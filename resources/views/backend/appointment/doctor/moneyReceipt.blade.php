@@ -211,7 +211,6 @@
                         </div>
                     </div>
                 </div>
-                {{-- @dd($appointment->discount) --}}
                 <div class="col-6">
                     <table class="table table-bordered t" style="font-size: 12pt;">
                         <tbody>

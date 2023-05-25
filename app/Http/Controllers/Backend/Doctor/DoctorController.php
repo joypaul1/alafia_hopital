@@ -57,7 +57,7 @@ class DoctorController extends Controller
             return DataTables::of($appointmentData)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $action = '<a href="' . route('backend.prescription.create', ['prescription' => $row]) . '"  ><button class="btn btn-sm btn-info">Prescription</button> </a>';
+                    $action = '<a href="' . route('backend.prescription.create', ['appointment' => $row]) . '"  ><button class="btn btn-sm btn-info">Prescription</button> </a>';
                     // $action ='<div class="dropdown">
                     // <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false" ><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                     //     <div class="dropdown-menu" >
@@ -256,7 +256,7 @@ class DoctorController extends Controller
                             data-toggle="tooltip" data-original-title="Edit" class="btn  btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
                         </a>
                         <a data-href="'.route('backend.doctor.destroy', $row->id).'" class="btn btn-danger delete_check" data-toggle="tooltip" data-original-title="Delete" aria-describedby="tooltip64483">
-                            <i class="fa fa-trash " aria-hidden="true"></i> 
+                            <i class="fa fa-trash " aria-hidden="true"></i>
                         </a>
 
                     ';
