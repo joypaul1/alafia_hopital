@@ -531,7 +531,7 @@ class LabTestResultController extends Controller
         if ($labTestReport->testName->category == 'Serology') {
             return view('backend.pathology.makeResult.edit', compact('data', 'labTest','labTestReport'));
         }
-        if ($labTestReport->testName->category == 'Serology') {
+        if ($labTestReport->testName->category == 'Immunology') {
             return view('backend.pathology.makeResult.edit', compact('data', 'labTest','labTestReport'));
         }
 
@@ -728,6 +728,23 @@ class LabTestResultController extends Controller
             return view('backend.pathology.viewResult.show', compact('labTestReport'));
         }
         if ($labTestReport->testName->category == 'Serology') {
+            $multidimensionalArray = array();
+            for ($i = 0; $i < count($request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['name']); $i++) {
+                $multidimensionalArray[$i] = array(
+                    'name' => $request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['name'][$i] ?? '',
+                    'result' => $request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['result'][$i] ?? '',
+                    'unit' => $request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['unit'][$i] ?? '',
+                    'reference_value' => $request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['reference_value'][$i] ?? '',
+                );
+            }
+            $result = json_encode($multidimensionalArray);
+            $labTestReport->update([
+                'result' => $result,
+            ]);
+            return view('backend.pathology.viewResult.show', compact('labTestReport'));
+        }
+
+        if ($labTestReport->testName->category == 'Immunology') {
             $multidimensionalArray = array();
             for ($i = 0; $i < count($request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['name']); $i++) {
                 $multidimensionalArray[$i] = array(
