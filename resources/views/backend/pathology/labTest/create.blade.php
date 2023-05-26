@@ -42,7 +42,7 @@
                 @method('POST')
                 <div class="card">
                     <div class="body">
-                        <div class="row">
+                        <div class="row justify-content-center">
                             <div class="col-md-4">
                                 <input type="hidden" name="patient_id" id="patient_Id">
 
@@ -68,7 +68,7 @@
                                     'message' => $errors->first('name'),
                                 ])
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 @include('components.backend.forms.input.input-type', [
                                     'name' => 'date',
                                     'value' => date('Y-m-d'),
@@ -80,24 +80,48 @@
                                     'message' => $errors->first('name'),
                                 ])
                             </div>
-                            <div class="col-md-3 input-group">
+                            {{-- <div class="col-md-3 ">
                                 @include('components.backend.forms.select2.option', [
                                     'name' => 'doctor_id',
                                     'label' => 'Referred By',
                                     'optionData' => $doctors,
                                 ])
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="create_patient"
-                                        data-href="{{ route('backend.patient.create') }}">
-                                        <i class="fa fa-plus" style="cursor: pointer;"></i>
-                                    </span>
-                                </div>
+
                                 @include('components.backend.forms.input.errorMessage', [
                                     'message' => $errors->first('doctor_id'),
                                 ])
                             </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-md btn-info">
+                                    <i class="fa fa-plus" style="cursor: pointer;"></i>
+                                </button>
+                            </div> --}}
+                            <div class="col-md-4">
+                                <input type="hidden" name="doctor_id" id="doctor_Id">
+
+                                <label class="col-form-label" for="date">
+                                    Doctor
+                                    <span class="text-danger">* </span>
+                                </label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                                    </div>
+                                    <input type="text" name="doctor" id="doctor" class="form-control"
+                                        placeholder="Doctor Name/Email/Mobile num.." autocomplete="off" required="">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="create_doctor">
+                                            <i class="fa fa-plus" style="cursor: pointer;"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                @include('components.backend.forms.input.errorMessage', [
+                                    'message' => $errors->first('name'),
+                                ])
+                            </div>
                         </div>
-                        <div class="body justify-content-center">
+                        <div class="body ">
                             {{-- <h3 class="mb-1 text-center">Test Items</h3>
                             <hr> --}}
                             <div class="row justify-content-center">
@@ -180,7 +204,7 @@
                             @include('components.backend.forms.input.input-type', [
                                 'name' => 'paid_amount',
                                 'value' => 0.0,
-                                'number' => true
+                                'number' => true,
                             ])
                         </div>
                         <div class="col-4">
@@ -206,6 +230,120 @@
 
         </div>
     </div>
+
+    {{-- Doctor modal --}}
+    <div class="modal fade" id="doctor_modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role=" document">
+            <div class="modal-content">
+                <form class="needs-validation" id="doctor_add_form" enctype="multipart/form-data">
+                    @csrf
+                    @method('POST')
+                    <div class="modal-header">
+                        <h4 class="title" id="">New Doctor</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-validation">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group">
+
+                                        <label class="col-form-label" for="name">
+
+                                            Name
+                                            <span class="text-danger">*</span>
+                                        </label>
+
+                                        <input type="text" name="first_name" class="form-control" id="name"
+                                            placeholder="Enter Name" value="" autocomplete="off" required="">
+                                    </div>
+
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="form-group">
+
+                                        <label class="col-form-label" for="mobile">
+
+                                            Mobile
+                                            <span class="text-danger">*</span>
+                                        </label>
+
+                                        <input type="text" name="mobile" class="form-control" id="mobile"
+                                            min="0" step="0.01" title="amount" pattern="^\d+(?:\.\d{1,2})?$"
+                                            onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57"
+                                            placeholder="Enter Mobile" value="" autocomplete="off" required="">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+
+                                        <label class="col-form-label" for="email">
+
+                                            Email
+                                        </label>
+
+                                        <input type="text" name="email" class="form-control" id="email"
+                                            placeholder="Enter Email" value="" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+
+                                        <label class="col-form-label" for="emargency_contact">
+
+                                            Emargency contact
+                                        </label>
+
+                                        <input type="text" name="emargency_contact" class="form-control"
+                                            id="emargency_contact" placeholder="Enter Emargency Contact" value=""
+                                            autocomplete="off">
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <label class="col-form-label for=" gender"="">
+                                        Gender
+                                    </label>
+
+
+
+
+                                    <select class="form-control show-tick ms select2" id="gender" name="gender">
+                                        <option value="">- select gender -</option>
+                                        <option value="male">
+                                            male
+                                        </option>
+                                        <option value="female">
+                                            female
+                                        </option>
+                                        <option value="others">
+                                            others
+                                        </option>
+                                    </select>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
+                        <button type="submit" class="btn btn-primary">SAVE</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
 
 @endsection
 
@@ -244,6 +382,12 @@
         });
 
         //get patient info
+        $(document).on('click', '#create_doctor', function(e) {
+            e.preventDefault();
+            var modal = "#doctor_modal";
+            $(modal).modal('show');
+        });
+        //get patient info
         $(document).on('click', '#create_patient', function(e) {
             e.preventDefault();
             var modal = "#patient_modal";
@@ -261,6 +405,69 @@
             });
         });
 
+        //store doctor info
+        $(document).on('submit', '#doctor_add_form', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var url = "{{ route('backend.ajaxStore.doctor') }}";
+            var method = "POST";
+            var data = {
+                first_name: form.find('#name').val(),
+                mobile: form.find('#mobile').val(),
+                email: form.find('#email').val(),
+            };
+            $.ajax({
+                url: url,
+                type: method,
+                data: data,
+                success: function(res) {
+                    console.log(res.data.name)
+                    if (res.status_code == 200) {
+                        $('#doctor').val(res.data.first_name);
+                        $('#doctor_Id').val(res.data.id);
+                        $("#doctor_modal").modal('hide');
+                        let $message = res.success;
+                        let $context = 'success';
+                        let $positionClass = 'toast-top-right';
+                        toastr.remove();
+                        toastr[$context]($message, '', {
+                            positionClass: $positionClass
+                        });
+                    } else {
+                        let $message = res.errors??'Something went wrong!';
+                        let $context = 'error';
+                        let $positionClass = 'toast-top-right';
+                        toastr.remove();
+                        toastr[$context]($message, '', {
+                            positionClass: $positionClass
+                        });
+                    }
+                },
+                error: function(response) {
+                    var errors = response;
+                    console.log(errors.responseJSON.errors, 'errors');
+                    var myObject = errors.responseJSON.errors;
+                    for (var key in myObject) {
+                        if (myObject.hasOwnProperty(key)) {
+                            console.log(key + "/" + myObject[key]);
+                            $("form#doctor_add_form input[name='" + key + "']").after(
+                                "<div class='text-danger'><strong>" + ' ' + " </strong></div>");
+                            $("form#doctor_add_form input[name='" + key + "']").after(
+                                "<div class='text-danger'><strong>" + myObject[key] +
+                                " </strong></div>");
+                            let $message = myObject[key];
+                            let $context = 'error';
+                            let $positionClass = 'toast-top-right';
+                            toastr.remove();
+                            toastr[$context]($message, '', {
+                                positionClass: $positionClass
+                            });
+                        }
+
+                    }
+                }
+            });
+        });
         //store patient info
         $(document).on('submit', '#patient_add_form', function(e) {
             e.preventDefault();
@@ -297,6 +504,37 @@
         });
 
 
+        //doctor autocomplete
+        $("#doctor").autocomplete({
+            source: function(request, response) {
+                var optionData = request.term;
+                $.ajax({
+                    method: 'GET',
+                    url: "{{ route('backend.doctor.index') }}",
+                    data: {
+                        'optionData': optionData
+                    },
+                    success: function(res) {
+                        var resArray = $.map(res.data, function(obj) {
+                            return {
+                                value: obj.name, //Fillable in input field
+                                value_id: obj.id, //Fillable in input field
+                                label: 'Name:' + obj.name + ' mobile:' + obj
+                                    .mobile, //Show as label of input fieldname: obj.name, mobile: obj.mobile
+                            }
+                        })
+                        response(resArray);
+                    }
+                });
+            },
+
+            select: function(event, ui) {
+                // patient_Id data
+                $('#doctor_Id').val(ui.item.value_id);
+
+
+            }
+        });
         //patient autocomplete
         $("#patient").autocomplete({
             source: function(request, response) {

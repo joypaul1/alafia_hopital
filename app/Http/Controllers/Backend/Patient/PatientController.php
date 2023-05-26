@@ -82,7 +82,6 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         try {
-            // dd($request->all());
             DB::beginTransaction();
             $data['patientId']          = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
             $data['name']               = $request->name;
@@ -220,7 +219,7 @@ class PatientController extends Controller
                     <a href="' . route('backend.patient.edit', $row->id) . '"
                             data-toggle="tooltip" data-original-title="Edit" class="btn  btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
                         </a>
-                        
+
 
                     ';
                     // $action ='<div class="dropdown">
@@ -249,7 +248,7 @@ class PatientController extends Controller
                 ->addColumn('name', function ($row) {
                     return $row->name;
                 })
-              
+
 
 
                 ->removeColumn(['id'])

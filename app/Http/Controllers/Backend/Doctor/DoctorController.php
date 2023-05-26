@@ -17,6 +17,7 @@ use App\Http\Requests\Doctor\UpdateRequest;
 
 use App\Models\Appointment\Appointment;
 use App\Models\Doctor\DoctorAppointmentSchedule;
+use PhpParser\Comment\Doc;
 use Yajra\DataTables\Facades\DataTables;
 
 class DoctorController extends Controller
@@ -31,7 +32,15 @@ class DoctorController extends Controller
         $status =  (object)[['name' => 'Active', 'id' => 1], ['name' => 'Inactive', 'id' => 0]];
 
         if ($request->optionData) {
-            $data = Doctor::latest()->get();
+            $data = Doctor::whereLike($request->optionData, 'first_name')
+            ->whereLike($request->optionData, 'mobile')
+            ->whereLike($request->optionData, 'email')
+            ->latest()->get()->map(function ($doctor) {
+                $data['id'] = $doctor->id;
+                $data['name'] = $doctor->first_name . ' ' . $doctor->last_name;
+                $data['mobile'] = $doctor->mobile;
+                return $data;
+            });
             return response()->json(['data' => $data]);
         }
         if ($request->designation_id) {
@@ -143,6 +152,17 @@ class DoctorController extends Controller
             return back()->with('success', $returnData->getData()->msg);
         }
         return back()->with('error', $returnData->getData()->msg);
+    }
+    public function ajaxStore(Request $request)
+    {
+        try {
+            $data=Doctor::create($request->all());
+            return response()->json(['success' => 'Data is successfully added','data'=>$data, 'status_code' => 200]);
+        } catch (\Exception $ex) {
+            return response()->json(['error' => $ex->getMessage(), 'status_code' => 500]);
+        }
+
+
     }
 
     /**
