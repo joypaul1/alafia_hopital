@@ -1510,34 +1510,21 @@
                         </td>
 
                         <td class="c61" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c24 c39">A</span></p>
-                        </td>
-                        <td class="c61" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c24 c39">B</span></p>
-                        </td>
-                        <td class="c61" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c24 c39">C</span></p>
+                            <p class="c4"><span class="c24 c39">Comment</span></p>
                         </td>
                     </tr>
                     @php
                     $data = json_decode($labTestReport->result);
                     @endphp
 
-                        <strong style="display: block; text-align:center">S=Sensitive, R=Resistant, I=Intermediate Sensitive</strong>
-                    @foreach ($data as $key=>$item)
+                    @foreach ($data as $item)
                     <tr class="c5">
                         <td class="c14" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{{ $item->name }}</span></p>
+                            <p class="c1"><span class="c0">{{ "Blood CS No Growth" }}</span></p>
                         </td>
 
                         <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{{ $item->a }}</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{{ $item->b }}</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{{ $item->c }}</span></p>
+                            <p class="c1"><span class="c0">{!! $data[0] !!}</span></p>
                         </td>
                     </tr>
                     @endforeach

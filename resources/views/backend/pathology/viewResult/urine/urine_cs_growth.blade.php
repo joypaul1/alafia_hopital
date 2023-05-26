@@ -1524,6 +1524,7 @@
 
                     @endphp
 
+                    <strong style="display: block; text-align:center">S=Sensitive, R=Resistant, I=Intermediate Sensitive</strong>
 
                     @foreach ($data as $item)
                     <tr class="c5">
