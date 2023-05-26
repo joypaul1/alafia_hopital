@@ -1383,12 +1383,17 @@
                 margin: 0 auto;
                 padding: 0pt;
             }
+            .noprint{
+                display:none;
+            }
         }
 
     </style>
 </head>
 
 <body class="c46 doc-content">
+<a href="{{ route('backend.pathology.make-test-result-edit', ['id' => $labTestReport->id]) }}">
+    <button class="btn btn-info noprint">Edit</button>
     <div class="content">
         <div>
             <img src="{{ asset('assets/moneyReceipt/hpathology.png') }}" style="width: 100%;" alt="header">

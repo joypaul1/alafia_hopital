@@ -1383,6 +1383,9 @@
                 margin: 0 auto;
                 padding: 0pt;
             }
+            .noprint{
+                display:none;
+            }
         }
 
     </style>
@@ -1391,7 +1394,7 @@
 {{-- @dd($labTestReport->patient); --}}
 <body class="c46 doc-content">
     <a href="{{ route('backend.pathology.make-test-result-edit', ['id' => $labTestReport->id]) }}">
-    <button class="btn btn-info">Edit</button>
+    <button class="btn btn-info noprint">Edit</button>
 </a>
 
     <div class="content">
