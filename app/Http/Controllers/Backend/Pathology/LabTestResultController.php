@@ -31,7 +31,7 @@ class LabTestResultController extends Controller
         $data = $request->all();
         $labTest = LabTest::whereId($request->labTest_id)->first();
         if ($labTest->category == 'Micro Biology' &&  $labTest->name == 'Blood - C/S') {
-            dd($labTest);
+            return view('backend.pathology.makeResult.checkGrowthOrNot', compact('data', 'labTest'));
         }
         // start Biochemistry
         if ($labTest->category == 'Biochemistry' && $labTest->name == 'Electrolytes') {
@@ -73,13 +73,13 @@ class LabTestResultController extends Controller
         // end Serology
 
         // Micro Biology
-        if ($labTest->category == 'Micro Biology' &&  $labTest->name == 'Blood CS Growth') {
-            return view('backend.pathology.makeResult.blood.blood_cs_growth', compact('data', 'labTest'));
-        }
+        // if ($labTest->category == 'Micro Biology' &&  $labTest->name == 'Blood CS Growth') {
+        //     return view('backend.pathology.makeResult.blood.blood_cs_growth', compact('data', 'labTest'));
+        // }
 
-        if ($labTest->category == 'Micro Biology' &&  $labTest->name == 'Blood CS No Growth') {
-            return view('backend.pathology.makeResult.blood.blood_cs_no_growth', compact('data', 'labTest'));
-        }
+        // if ($labTest->category == 'Micro Biology' &&  $labTest->name == 'Blood CS No Growth') {
+        //     return view('backend.pathology.makeResult.blood.blood_cs_no_growth', compact('data', 'labTest'));
+        // }
         // Micro Biolo
         // Hematology
         if ($labTest->category == 'Hematology' && $labTest->name == 'CBC') {
@@ -166,7 +166,7 @@ class LabTestResultController extends Controller
                 $labTestReport                          = LabTestReport::create($data);
                 LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
             }
-            if (($testName->category == 'Blood' && $testName->name == 'Blood CS Growth')) {
+            if (($testName->category == 'Micro Biology' && $testName->name == 'Blood - C/S' && $request->growth == 'Yes')) {
                 $data['lab_test_id']                    = $request->test_id;
                 $data['lab_invoice_test_detail_id']     = $request->lab_invoice_test_detail_id;
                 $data['created_by']                     = auth('admin')->user()->id;
@@ -183,6 +183,7 @@ class LabTestResultController extends Controller
                     );
                 }
                 $data['result'] = json_encode($multidimensionalArray);
+                $data['growth_or_not'] = $request->growth == "Yes"? true: false;
                 $labTestReport                          = LabTestReport::create($data);
                 LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
             }
@@ -347,9 +348,11 @@ class LabTestResultController extends Controller
         if ($labTestReport->testName->category == 'Immunology') {
             return view('backend.pathology.viewResult.show', compact('labTestReport'));
         }
+        // dd($labTestReport);
         // end Hematology
         // start Blood
-        if ($labTestReport->testName->category == 'Micro Biology' && $labTestReport->testName->name == 'Blood CS No Growth') {
+        if ($labTestReport->testName->category == 'Micro Biology' && $labTestReport->testName->name == 'Blood - C/S' && $labTestReport->growth_or_not == true) {
+            // dd($labTestReport->testName);
             return view('backend.pathology.viewResult.blood.blood_cs_no_growth', compact('labTestReport'));
         }
         if ($labTestReport->testName->category == 'Micro Biology' && $labTestReport->testName->name == 'Blood CS Growth') {

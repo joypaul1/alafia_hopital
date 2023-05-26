@@ -241,7 +241,7 @@
                                                                 @foreach ($labInvoice->labTestDetails->where('status', '!=', 'completed') as $labTestDetails)
                                                                     <li><a target="_blank"
                                                                             href="{{ route('backend.pathology.make-test-result', ['labTest_id' => $labTestDetails->lab_test_id, 'labDetails_id' => $labTestDetails->id]) }}">
-                                                                            {{ $labTestDetails->testName->name }}</a>
+                                                                            {{ optional($labTestDetails->testName)->name }}</a>
                                                                     </li>
                                                                 @endforeach
 
@@ -262,7 +262,7 @@
                                                                     <li>
                                                                         <a target="_blank"
                                                                             href="{{ route('backend.pathology.make-test-result-show', ['labTest_id' => $labTestDetails->lab_test_id, 'labDetails_id' => $labTestDetails->id]) }}">
-                                                                            {{ $labTestDetails->testName->name }}</a>
+                                                                            {{ optional($labTestDetails->testName)->name }}</a>
                                                                     </li>
                                                                 @endforeach
 
