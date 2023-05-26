@@ -3,6 +3,7 @@
 namespace App\Models\Radiology;
 
 use App\Models\DailyAccountTransaction;
+use App\Models\Doctor\Doctor;
 use App\Models\Patient\Patient;
 use App\Models\Transaction\CashFlow;
 use App\Traits\AutoTimeStamp;
@@ -50,6 +51,10 @@ class RadiologyServiceInvoice extends Model
     public function itemDetails(): HasMany
     {
         return $this->hasMany(RadiologyServiceInvoiceItem::class, 'service_invoice_id', 'id');
+    }
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class, 'doctor_id', 'id');
     }
 
 }

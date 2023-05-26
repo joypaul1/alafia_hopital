@@ -3,6 +3,8 @@
     <i class="fa fa-list"></i> Lab Test Create
 @stop
 @push('css')
+    <link rel="stylesheet" href="{{ asset('assets/backend/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
     <style>
         .ui-autocomplete {
@@ -74,28 +76,12 @@
                                     'value' => date('Y-m-d'),
                                     'placeholder' => 'Enter Name Here ... ',
                                     'required' => true,
-                                    'inType' => 'date',
                                 ])
                                 @include('components.backend.forms.input.errorMessage', [
                                     'message' => $errors->first('name'),
                                 ])
                             </div>
-                            {{-- <div class="col-md-3 ">
-                                @include('components.backend.forms.select2.option', [
-                                    'name' => 'doctor_id',
-                                    'label' => 'Referred By',
-                                    'optionData' => $doctors,
-                                ])
 
-                                @include('components.backend.forms.input.errorMessage', [
-                                    'message' => $errors->first('doctor_id'),
-                                ])
-                            </div>
-                            <div class="col-md-1">
-                                <button type="button" class="btn btn-md btn-info">
-                                    <i class="fa fa-plus" style="cursor: pointer;"></i>
-                                </button>
-                            </div> --}}
                             <div class="col-md-4">
                                 <input type="hidden" name="doctor_id" id="doctor_Id">
 
@@ -349,8 +335,13 @@
 
 @push('js')
     @include('backend.pathology.labTest.labTestJs')
-
+    <script src="{{ asset('assets/backend/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script>
+        $('#date').datepicker({
+            format: 'mm-dd-yyyy',
+            startDate: '-5y'
+
+        });
         // date_of_birth
         $(document).on('change', '#date_of_birth', function(e) {
             var today = new Date();
@@ -434,7 +425,7 @@
                             positionClass: $positionClass
                         });
                     } else {
-                        let $message = res.errors??'Something went wrong!';
+                        let $message = res.errors ?? 'Something went wrong!';
                         let $context = 'error';
                         let $positionClass = 'toast-top-right';
                         toastr.remove();

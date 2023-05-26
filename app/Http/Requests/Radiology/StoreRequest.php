@@ -84,7 +84,7 @@ class StoreRequest extends FormRequest
             $data['total_amount']       = Str::replace(',', '', ($this->payable_amount));
             $data['doctor_id']          = $this->doctor_id;
             $serviceInvoice             = RadiologyServiceInvoice::create($data);
-            // dd($this->discount);
+            // dd($serviceInvoice );
             foreach ($this->service_id as $key => $serviceId) {
                 $v = $serviceInvoice->itemDetails()->create([
                     'service_name_id'   => $serviceId,
