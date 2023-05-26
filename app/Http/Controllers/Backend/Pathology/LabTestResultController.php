@@ -534,6 +534,27 @@ class LabTestResultController extends Controller
         if ($labTestReport->testName->category == 'Immunology') {
             return view('backend.pathology.makeResult.edit', compact('data', 'labTest','labTestReport'));
         }
+         //Start Urine
+         if ($labTestReport->testName->category == 'Urine' &&  $labTestReport->testName->name == 'Urine - C/S') {
+            return view('backend.pathology.makeResult.urine.edit-checkGrowthOrNot', compact('data', 'labTest','labTestReport'));
+            
+        }
+         if ($labTestReport->testName->category == 'Urine' && $labTestReport->testName->name == 'Pregnancy Test (PT)') {
+            return view('backend.pathology.makeResult.urine.edit-urine_pt', compact('data', 'labTest','labTestReport'));
+        }
+
+        if ($labTestReport->testName->category == 'Urine' && $labTestReport->testName->name == 'Urine RE') {
+            return view('backend.pathology.makeResult.urine.edit-urine_re', compact('data', 'labTest','labTestReport'));
+        }
+        if ($labTestReport->testName->category == 'Urine' &&  $labTestReport->testName->name == 'Urine CS Growth') {
+            return view('backend.pathology.makeResult.urine.edit-urine_cs_growth', compact('data', 'labTest','labTestReport'));
+        }
+
+        if ($labTestReport->testName->category == 'Urine' &&  $labTestReport->testName->name == 'Urine CS NO Growth') {
+            return view('backend.pathology.makeResult.urine.edit-urine_cs_no_growth', compact('data', 'labTest','labTestReport'));
+        }
+        //End Urine
+
 
 
 
@@ -760,5 +781,26 @@ class LabTestResultController extends Controller
             ]);
             return view('backend.pathology.viewResult.show', compact('labTestReport'));
         }
+       /* if ($labTestReport->testName->category == 'Urine' && $labTestReport->testName->name == 'Urine - C/S' && $request->growth == 'Yes') {
+            
+            $multidimensionalArray = array();
+            for ($i = 0; $i < count($request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['name']); $i++) {
+                $multidimensionalArray[$i] = array(
+                    'name' => $request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['name'][$i] ?? '',
+                    'a' => $request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['a'][$i] ?? '',
+                    'b' => $request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['b'][$i] ?? '',
+                    'c' => $request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['c'][$i] ?? '',
+                );
+            }
+            $result = json_encode($multidimensionalArray);
+
+            $data['growth_or_not'] = $request->growth == "Yes" ? true : false;
+            $labTestReport->update([
+                'data' => $result,
+            ]);
+            LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
+            return view('backend.pathology.viewResult.urine.urine_re', compact('labTestReport'));
+
+        }*/
     }
 }
