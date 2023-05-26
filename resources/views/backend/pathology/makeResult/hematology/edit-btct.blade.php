@@ -13,7 +13,7 @@
         <div class="card">
             <div class="body">
                 <h5 class="mb-3">
-                    <i class="fa fa-flask"></i> {{ $labTest->category ?? 'BT,CT' }} Report
+                    <i class="fa fa-flask"></i> {{ $labTestReport->testName->category ?? 'BT,CT' }} Report
                 </h5>
                 <div class="row mb-2 align-items-center">
                 @forelse (json_decode($labTestReport->result) as $key=>$result)

@@ -6,14 +6,19 @@
 @stop
 
 @section('content')
-<form action="{{ route('backend.pathology.make-test-result-update',['id' => $labTestReport->id] ) }}" method="post">
+    {{-- @include('backend._partials.page_header', [
+        'fa' => 'fa fa-list',
+        'name' => 'Report Pages',
+        'route' => route('backend.siteConfig.slider.index'),
+    ]) --}}
+    <form action="{{ route('backend.pathology.make-test-result-update',['id' => $labTestReport->id] ) }}" method="post">
         @csrf
         @method('POST')
-       
+        
         <div class="card">
             <div class="body">
                 <h5 class="mb-3">
-                    <i class="fa fa-flask"></i> {{ $labTestReport->testName->category ?? 'Blood Group Rh (D) Factor' }} Report
+                    <i class="fa fa-flask"></i> {{ $labTestReport->testName->category ?? '-'}} Report
                 </h5>
                 <div class="row mb-2 align-items-center">
                 @forelse (json_decode($labTestReport->result) as $key=>$result)
@@ -22,15 +27,12 @@
                         @include('components.backend.forms.input.input-type', [
                             'name' => 'name[]',
                             'value' => $result->name,
-                            'required' => true,
-                            'readonly' => true,
                         ])
                     </div>
                     <div class="col-4">
                         @include('components.backend.forms.input.input-type', [
-                            'label' => 'blood Group',
                             'name' => 'result[]',
-                            'required' => true,
+                            'placeholder' => 'Enter result here...',
                             'value' => $result->result,
                         ])
                     </div>
@@ -40,8 +42,6 @@
                             'value' => $result->unit,
                         ])
                     </div>
-                    
-@if($result->reference_value)
                     <div class="col-12 mt-3">
                         @include('components.backend.forms.texteditor.editor', [
                             'name' => 'reference_value[]',
@@ -53,18 +53,18 @@
                             'message' => $errors->first('reference'),
                         ])
                     </div>
-                    @endif
+                   
                     @empty
-                    @endforelse
+@endforelse
 
                 </div>
                 <div class="row text-right">
                     <div class="col-12">
                         <button class="btn btn-primary btn-md" type="submit">Save</button>
                     </div>
+
                 </div>
             </div>
-        </div>
     </form>
 
 
