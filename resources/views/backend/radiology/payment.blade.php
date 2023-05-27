@@ -102,7 +102,7 @@
 
     <script>
         $('#start_date').datepicker({
-            format: 'mm-dd-yyyy',
+            format: 'dd-mm-yyyy',
             startDate: '-5y'
 
         });

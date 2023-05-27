@@ -418,7 +418,7 @@
     <script src="{{ asset('assets/backend/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script>
         $('#date').datepicker({
-            format: 'mm-dd-yyyy',
+            format: 'dd-mm-yyyy',
             startDate: '-5y'
 
         });

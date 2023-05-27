@@ -24,10 +24,41 @@ class PrescriptionController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->optionData) {
-            return response()->json(['data' => Prescription::all()]);
+       
+        $prescription = Prescription::with(
+            'doctor:id,first_name,last_name',
+            'diseasesSymptoms:prescription_id,symptom_id',
+            'diseasesSymptoms.symptom:id,name',
+            'patient:id,name'
+        )->latest();
+        if($request->invoice_no){
+            $prescription->where('invoice_number', $request->invoice_no);
         }
-        $prescription = Prescription::with('diseasesSymptoms:prescription_id,symptom_id', 'diseasesSymptoms.symptom:id,name', 'patient:id,name')->latest()->get();
+        if($request->patient_name){
+            $prescription->whereHas('patient', function($query) use($request){
+                $query->where('name', $request->patient_name);
+            });
+        }
+        if($request->mobile_number){
+            $prescription->whereHas('patient', function($query) use($request){
+                $query->where('mobile', $request->mobile_number);
+            });
+        }
+        if($request->start_date){
+            $prescription = $prescription->whereHas('appointment', function($query) use($request){
+                $query->whereDate('appointment_date', '>=', date('Y-m-d', strtotime($request->start_date)));
+            });
+        }
+        if($request->end_date){
+            $prescription = $prescription->whereHas('appointment', function($query) use($request){
+                $query->whereDate('appointment_date', '<=', date('Y-m-d', strtotime($request->end_date)));
+            });
+
+        }
+        if($request->doctor_id){
+            $prescription = $prescription->where('doctor_id', $request->doctor_id);
+        }
+        $prescription = $prescription->get();
 
         if (request()->ajax()) {
             return DataTables::of($prescription)
@@ -56,11 +87,16 @@ class PrescriptionController extends Controller
                 ->editColumn('patient_id', function ($row) {
                     return $row->patient->name;
                 })
+                ->editColumn('doctor_id', function ($row) {
+                    return optional($row->doctor)->first_name . optional($row->doctor)->last_name;
+                })
                 ->editColumn('appointment_id', function ($row) {
-                    return $row->appointment->name;
+                    // return optional($row->appointment)->id??' ';
+                    return "<a href='" . route('backend.appointment.show', $row->appointment_id) . "'>" . '<button class="btn btn-sm btn-info"> Appointment </button>' . "</a>";
                 })
                 ->editColumn('date', function ($row) {
-                    return date('d-m-Y', strtotime($row->date));
+                    return date('d-m-Y', strtotime(optional($row->appointment)->appointment_date) ?? ' ');
+                    // return $row->appointment->appointment_date;
                 })
 
                 ->removeColumn(['id'])
@@ -120,7 +156,7 @@ class PrescriptionController extends Controller
         if (!Prescription::latest()->first()) {
             return 1;
         } else {
-            return Prescription::latest()->first()->patientId + 1;
+            return Prescription::latest()->first()->invoice_number + 1;
         }
     }
 
@@ -136,7 +172,7 @@ class PrescriptionController extends Controller
             DB::beginTransaction();
             $data['invoice_number']          = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
             $data['patient_id']              = Patient::where('patientId', $request->p_id)->first()->id;
-            $data['date']                    =  date('Y-m-d h:i:s');
+            $data['date']                    = date('Y-m-d h:i:s');
             $data['doctor_id']               = Appointment::where('id', $request->appointment_id)->first()->doctor_id;
             $data['appointment_id']          = $request->appointment_id;
             $data['advice']                  = $request->advice;
@@ -173,11 +209,11 @@ class PrescriptionController extends Controller
                     // dd($others);
                 }
             }
-            if($request->test_name){
+            if ($request->test_name) {
                 foreach ($request->test_name as $key => $test) {
-                    $labTests =$prescription->labTest()->create([
+                    $labTests = $prescription->labTest()->create([
                         'test_name' => $test,
-                        'note' => $request->specifications[$key]??null
+                        'note' => $request->specifications[$key] ?? null
                     ]);
                     // dd($labTests);
                 }
@@ -201,7 +237,7 @@ class PrescriptionController extends Controller
      */
     public function show(Prescription $prescription)
     {
-        $prescription = Prescription::whereId($prescription->id)->with('patient','labTest', 'doctor', 'appointment', 'diseasesSymptoms.symptom', 'medicines.item.strength', 'otherSpecifications')->first();
+        $prescription = Prescription::whereId($prescription->id)->with('patient', 'labTest', 'doctor', 'appointment', 'diseasesSymptoms.symptom', 'medicines.item.strength', 'otherSpecifications')->first();
         return view('backend.prescription.show', compact('prescription'));
     }
 

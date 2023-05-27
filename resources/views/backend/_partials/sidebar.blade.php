@@ -222,20 +222,18 @@
                         </li>
                         {{-- End Pathology Panel --}}
 
-                        {{-- prescription Panel --}}
-                        {{-- <li class="{{ strpos($strpos, 'backend.prescription') === 0 ? 'active' : ' ' }}">
+                        {{-- Prescription Panel --}}
+                        <li class="{{ strpos($strpos, 'backend.prescription') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
                                 <i class="icon-user-following"></i>
                                 <span>Prescription Panel</span>
                             </a>
                             <ul>
-                                <x-backend.side-bar
-                                    class="{{ request()->segment(2) == 'prescription' ? 'active' : ' ' }}"
-                                    name="Prescription" link='backend.prescription.index' icon='#' />
-
+                                <x-backend.side-bar class="{{ request()->segment(2) == 'prescription' ? 'active' : ' ' }}"
+                                    name="All List" link='backend.prescription.index' icon='#' />
                             </ul>
-                        </li> --}}
-                        {{-- End prescription Panel --}}
+                        </li>
+                        {{-- End Prescription Panel --}}
 
                         {{-- patient Panel --}}
                         <li class="{{ strpos($strpos, 'backend.patient') === 0 ? 'active' : ' ' }}">
@@ -262,7 +260,7 @@
                             <ul>
 
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'doctor' ? 'active' : ' ' }}"
-                                    name="Appointment" link='backend.doctor.index' icon='#' />
+                                    name="Appointment" link='backend.prescription.index' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'doctor' ? 'active' : ' ' }}"
                                     name="List" link='backend.doctorlist' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'doctor' ? 'active' : ' ' }}"
@@ -270,6 +268,7 @@
                             </ul>
                         </li>
                         {{-- End Doctor Panel --}}
+
                         {{-- Employee Panel --}}
                         <li class="{{ strpos($strpos, 'backend.employee') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">

@@ -113,10 +113,10 @@
                             <div class="row justify-content-center">
 
                                 <div class="col-md-6 input-group mb-3">
-                                    <div class="input-group-prepend">
+                                    {{-- <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fa fa-search-plus"
                                                 aria-hidden="true"></i></span>
-                                    </div>
+                                    </div> --}}
                                     <input type="text" name="testItem" id="testItem"
                                         class="form-control ui-autocomplete-input" placeholder="Enter Test Name Here ..."
                                         autocomplete="off">
@@ -338,7 +338,7 @@
     <script src="{{ asset('assets/backend/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script>
         $('#date').datepicker({
-            format: 'mm-dd-yyyy',
+            format: 'dd-mm-yyyy',
             startDate: '-5y'
 
         });

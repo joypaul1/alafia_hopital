@@ -21,7 +21,7 @@ class AppointmentController extends Controller
      */
     public function index(Request $request)
     {
-
+        
         $appointmentData = Appointment::query();
         if ($request->patient_id) {
             $appointmentData = $appointmentData->whereHas('patient', function ($query) use ($request) {

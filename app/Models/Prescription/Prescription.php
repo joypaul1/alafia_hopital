@@ -50,7 +50,7 @@ class Prescription extends Model
 
     public function appointment()
     {
-        return $this->belongsTo(Appointment::class);
+        return $this->belongsTo(Appointment::class, 'appointment_id', 'id');
     }
 
     public function doctor()

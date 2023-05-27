@@ -165,13 +165,14 @@
                             <strong>O/E</strong>
                         </p>
                         <div class="px-2">
-                            <p>
 
-                                @forelse ($prescription->labTest as $labTest)
-                                    {{ $labTest->test_name }}
+                            <ul class="p-0">
+
+                                @forelse ($prescription->otherSpecifications as $specification)
+                                    <li>{{ $specification->name }} : {{ $specification->value }}</li>
                                 @empty
                                 @endforelse
-                            </p>
+                            </ul>
 
                         </div>
                     </div>
@@ -184,8 +185,12 @@
 
                         <div class="pl-4">
                             <ul class="p-0">
-                                @forelse ($prescription->otherSpecifications as $specification)
-                                    <li>Blood Sugar</li>
+                                {{-- @forelse ($prescription->otherSpecifications as $specification)
+                                    <li>{{ $specification->name }}</li>
+                                @empty
+                                @endforelse --}}
+                                @forelse ($prescription->labTest as $labTest)
+                                    <li>{{ $labTest->test_name }}</li>
                                 @empty
                                 @endforelse
                             </ul>
@@ -198,36 +203,37 @@
                     <div class="p-3">
                         <ol>
                             @forelse ($prescription->medicines as $medicine)
+                                {{-- @dd($medicine) --}}
                                 <li class="mb-4">
-                                <div>
-                                    <p>
-                                        <strong>
-                                            {{ $medicine->item->name }} {{ $medicine->item->strength->name }}
-                                        </strong>
-                                    </p>
-                                    <div class="d-flex justify-content-between my-1">
+                                    <div>
                                         <p>
-                                            {{ $medicine->how_many_quantity }}
-
+                                            <strong>
+                                                {{ $medicine->item->name }} {{ $medicine->item->strength->name }}
+                                            </strong>
                                         </p>
-                                        <p class="mx-2">
-                                           {{ ucfirst(Str::replaceFirst('_', ' ', $medicine->before_after_meal))}}
+                                        <div class="d-flex justify-content-between my-1">
+                                            <p>
+                                                {{ $medicine->how_many_quantity }}
 
-                                        </p>
-                                        <p>
-                                            5 Days
-                                        </p>
-                                        <br>
+                                            </p>
+                                            <p class="mx-2">
+                                                {{ ucfirst(Str::replaceFirst('_', ' ', $medicine->before_after_meal)) }}
+
+                                            </p>
+                                            <p>
+                                                {{ $medicine->how_many_days }} Days
+                                            </p>
+                                            <br>
 
 
+                                        </div>
+                                        @if ($medicine->medicine_note)
+                                            <small style="text-align:center;display:block"> [ Note:
+                                                {{ $medicine->medicine_note }}
+                                                ]</small>
+                                        @endif
                                     </div>
-                                    @if($medicine->medicine_note)
-                                    <small style="text-align:center;display:block"> [ Note:
-                                       {{ $medicine->medicine_note }}
-                                        ]</small>
-                                    @endif
-                                </div>
-                            </li>
+                                </li>
                             @empty
                             @endforelse
 

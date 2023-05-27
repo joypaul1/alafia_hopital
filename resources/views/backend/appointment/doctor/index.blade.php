@@ -154,12 +154,12 @@
 <script src="{{ asset('assets/backend/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
 <script>
     $('#start_date').datepicker({
-        format: 'mm-dd-yyyy',
+        format: 'dd-mm-yyyy',
         startDate: '-5y'
 
     });
     $('#end_date').datepicker({
-        format: 'mm-dd-yyyy',
+        format: 'dd-mm-yyyy',
         startDate: '-5y'
 
     });
@@ -398,9 +398,9 @@
         slot();
     });
     $(document).on('click', '.appointment_modal #appointment_add_form .modal-body #checkReport', function() {
-        if($(this).is(":checked")){
+        if ($(this).is(":checked")) {
             $(this).val('on')
-        }else{
+        } else {
             $(this).val('off')
         }
     })
