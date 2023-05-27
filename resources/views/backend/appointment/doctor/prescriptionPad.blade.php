@@ -148,10 +148,27 @@
                         <p style="text-decoration: underline;">
                             <strong>C/C</strong>
                         </p>
-                        <div class="px-2">
-                            <p>
-                                Cold & Cough , Fever , Headache , Bodyache , Joint Pain , Vomiting , Diarrhoea , Dysentery
-                            </p>
+                        <div class="pl-4">
+                            <ul class="p-0">
+                                <li>
+                                    Cold & Cough
+                                </li>
+                                <li>
+                                    Fever
+                                </li>
+                                <li>
+                                    Headache
+                                </li>
+                                <li>
+                                    Bodyache
+                                </li>
+                                <li>
+                                    Joint Pain
+                                </li>
+                                <li>
+                                    Vomiting
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <div style="height: 340px">
