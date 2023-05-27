@@ -35,30 +35,31 @@
     @include('backend._partials.page_header', [
         'fa' => 'fa fa-list',
         'name' => 'Patient List',
-        'route' => route('backend.patientlist'),
+        'route' => route('backend.patient.list'),
     ])
 
-<form action="{{ route('backend.savepatient') }}" method="post" enctype="multipart/form-data">
-    @csrf
-    @method('POST')
-    <div class="row clearfix">
-        {{-- laravel error message --}}
-        @foreach ($errors->all() as $error)
-        @dd($error);
-        @endforeach
+    <form action="{{ route('backend.patient.save') }}" method="post" enctype="multipart/form-data">
+        @csrf
+        @method('POST')
+        <div class="row clearfix">
+            {{-- laravel error message --}}
+            @foreach ($errors->all() as $error)
+                @dd($error);
+            @endforeach
 
 
             <div class="col-lg-8 col-md-12">
                 <div class="card profile-header">
-                    
+
                     <div class="body">
                         <h6>Basic Information</h6>
                         <div class="row clearfix">
                             <div class="col-lg-12 col-md-12">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="name" placeholder="Enter Name" required>
+                                    <input type="text" class="form-control" name="name" placeholder="Enter Name"
+                                        required>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <div>
                                         <label class="fancy-radio">
@@ -66,24 +67,24 @@
                                             <span><i></i>Male</span>
                                         </label>
                                         <label class="fancy-radio">
-                                            <input name="gender" value="female" type="radio" >
+                                            <input name="gender" value="female" type="radio">
                                             <span><i></i>Female</span>
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                @include('components.backend.forms.input.input-type', [
-                        'name' => 'mobile',
-                        'required' => 'true',
-                        'number' => true,
-                        'placeholder' => 'Enter Mobile'
-                        ])
+                                    @include('components.backend.forms.input.input-type', [
+                                        'name' => 'mobile',
+                                        'required' => 'true',
+                                        'number' => true,
+                                        'placeholder' => 'Enter Mobile',
+                                    ])
                                 </div>
                                 <div class="form-group">
-                                @include('components.backend.forms.input.input-type', [
-                        'name' => 'email',
-                        'placeholder' => 'Enter Email'
-                        ])
+                                    @include('components.backend.forms.input.input-type', [
+                                        'name' => 'email',
+                                        'placeholder' => 'Enter Email',
+                                    ])
                                 </div>
                                 <div class="form-group">
                                     <label for="dob">
@@ -97,39 +98,38 @@
                                             data-date-autoclose="true" class="form-control" placeholder="Birthdate">
                                     </div>
                                 </div>
-                                
+
 
                                 <div class="form-group">
-                                @include('components.backend.forms.input.input-type', [
-                        'name' => 'emergency_contact',
-                        'placeholder' => 'Enter Emargency Contact'
-                        ])
+                                    @include('components.backend.forms.input.input-type', [
+                                        'name' => 'emergency_contact',
+                                        'placeholder' => 'Enter Emargency Contact',
+                                    ])
                                 </div>
                                 <div class="form-group">
-                                @include('components.backend.forms.input.input-type', [
-                        'name' => 'guardian_name',
-                        'placeholder' => 'Enter Guardian Name'
+                                    @include('components.backend.forms.input.input-type', [
+                                        'name' => 'guardian_name',
+                                        'placeholder' => 'Enter Guardian Name',
+                                    ])
+                                </div>
 
-                        ])
-                                </div>
-                               
-                                
+
                                 <div class="form-group">
-                                @include('components.backend.forms.select2.option', [
-                        'name' => 'marital_status',
-                        'optionData' => $marital_status,
-                        ])
+                                    @include('components.backend.forms.select2.option', [
+                                        'name' => 'marital_status',
+                                        'optionData' => $marital_status,
+                                    ])
                                 </div>
                                 <div class="form-group">
-                                @include('components.backend.forms.input.input-type', [
-                            'name' => 'age',
-                        ])
+                                    @include('components.backend.forms.input.input-type', [
+                                        'name' => 'age',
+                                    ])
                                 </div>
                                 <div class="form-group">
-                                @include('components.backend.forms.select2.option', [
-                        'name' => 'blood_group',
-                        'optionData' => $blood_group,
-                        ])
+                                    @include('components.backend.forms.select2.option', [
+                                        'name' => 'blood_group',
+                                        'optionData' => $blood_group,
+                                    ])
                                 </div>
                             </div>
                         </div>
@@ -139,27 +139,27 @@
 
                             <div class="col-lg-12 col-md-12">
                                 <div class="form-group">
-                                @include('components.backend.forms.input.input-type', [
-                        'name' => 'address',
-                        'placeholder' => 'Enter Address'
-                        ])
+                                    @include('components.backend.forms.input.input-type', [
+                                        'name' => 'address',
+                                        'placeholder' => 'Enter Address',
+                                    ])
                                 </div>
-                               
+
                             </div>
                         </div>
 
-                        
 
-                         <div class="col-12 text-center">
+
+                        <div class="col-12 text-center">
                             <button type="submit" class="btn btn-primary">Save</button>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
-           
 
-                    
-                  
+
+
+
         </div>
     </form>
 
@@ -211,13 +211,15 @@
                 html += '<div class="col-lg-4 col-md-12">';
                 html += '<div class="form-group">';
                 html += '<label for="start_time">Start Time</label>';
-                html += '<input type="time" id="start_time" name="appointment_day_start_time[]" class="form-control">';
+                html +=
+                    '<input type="time" id="start_time" name="appointment_day_start_time[]" class="form-control">';
                 html += '</div>';
                 html += '</div>';
                 html += '<div class="col-lg-4 col-md-12">';
                 html += '<div class="form-group">';
                 html += '<label for="end_time">End Time</label>';
-                html += '<input type="time" id="end_time" name="appointment_day_end_time[]" class="form-control">';
+                html +=
+                    '<input type="time" id="end_time" name="appointment_day_end_time[]" class="form-control">';
                 html += '</div>';
                 html += '</div>';
                 html += '</div>';
@@ -248,13 +250,15 @@
                 html += '<div class="col-lg-4 col-md-12">';
                 html += '<div class="form-group">';
                 html += '<label for="start_time">Start Time</label>';
-                html += '<input type="time" id="start_time" name="visit_schedule_day_start_time[]" class="form-control">';
+                html +=
+                    '<input type="time" id="start_time" name="visit_schedule_day_start_time[]" class="form-control">';
                 html += '</div>';
                 html += '</div>';
                 html += '<div class="col-lg-4 col-md-12">';
                 html += '<div class="form-group">';
                 html += '<label for="end_time">End Time</label>';
-                html += '<input type="time" id="end_time" name="visit_schedule_day_end_time[]" class="form-control">';
+                html +=
+                    '<input type="time" id="end_time" name="visit_schedule_day_end_time[]" class="form-control">';
                 html += '</div>';
                 html += '</div>';
                 html += '</div>';
@@ -266,6 +270,4 @@
             });
         });
     </script>
-
-
 @endpush

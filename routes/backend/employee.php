@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\Backend\Appointment\AppointmentController;
 use App\Http\Controllers\Backend\Employee\DepartmentController;
 use App\Http\Controllers\Backend\Employee\DesignationController;
 use App\Http\Controllers\Backend\Employee\EmployeeController;
-// use App\Http\Controllers\Backend\Employee\Employee\EmployeeController;
 use App\Http\Controllers\Backend\Employee\ShiftController;
 use App\Http\Controllers\Backend\Patient\PatientController;
 use Illuminate\Support\Facades\Route;
@@ -23,9 +21,9 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], f
 // patient
 Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], function(){
     Route::resource('patient', PatientController::class);
-    Route::get('patientlist', [PatientController::class,'patientList'])->name('patientlist');;
-    Route::get('addpatient', [PatientController::class,'addPatient'])->name('addpatient');;
-    Route::post('savepatient', [PatientController::class,'savepatient'])->name('savepatient');;
-
+    Route::get('patient-history/{id}',[PatientController::class, 'history'])->name('patient.history');
+    Route::get('patient-list', [PatientController::class,'patientList'])->name('patient.list');;
+    Route::get('add-patient', [PatientController::class,'addPatient'])->name('patient.add');;
+    Route::post('save-patient', [PatientController::class,'savePatient'])->name('patient.save');
 });
 

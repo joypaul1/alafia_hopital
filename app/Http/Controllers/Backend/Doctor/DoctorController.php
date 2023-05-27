@@ -14,10 +14,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests\Doctor\StoreRequest;
 use App\Http\Requests\Doctor\UpdateRequest;
-
 use App\Models\Appointment\Appointment;
-use App\Models\Doctor\DoctorAppointmentSchedule;
-use PhpParser\Comment\Doc;
 use Yajra\DataTables\Facades\DataTables;
 
 class DoctorController extends Controller

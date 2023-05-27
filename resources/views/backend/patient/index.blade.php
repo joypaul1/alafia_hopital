@@ -1,97 +1,130 @@
 @extends('backend.layout.app')
-@push('css')
-
-
-@endpush
+@include('backend._partials.datatable__delete')
 
 @section('page-header')
-<i class="fa fa-list"></i> Patient List
+    <i class="fa fa-list"></i>Patient List
 @stop
+@push('css')
+@endpush
 @section('content')
 
-@include('backend._partials.page_header', [
-'fa' => 'fa fa-plus-circle',
-'name' => 'Create Patient',
-'route' => route('backend.patient.create')
-])
+    @include('backend._partials.page_header', [
+        'fa' => 'fa fa-plus-circle',
+        'name' => 'Create Patient',
+        'route' => route('backend.patient.add'),
+    ])
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="body">
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="text-center">Sl.</th>
-                                <th class="text-center">Name</th>
-                                <th class="text-center">PatientId</th>
-                                <th class="text-center">Email</th>
-                                <th class="text-center">Mobile</th>
-                                <th class="text-center">Address</th> 
-                                {{-- <th class="text-center">Action</th>  --}}
-                            </tr>
-                        </thead>
 
-                        <tbody>
-                            @foreach ($patients as $key=>$patient)
-                            <tr class="text-center"> 
-                                <td>{{ $key+1 }}</td>
-                                <td>{{ $patient->name}}</td>
-                                <td>{{ $patient->patientId}}</td>
-                                <td>{{ $patient->email}}</td>
-                                <td>{{ $patient->mobile}}</td>
-                                <td>{{ $patient->address}}</td>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center dataTable" id="appointment_table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Sl.</th>
+                                    <th class="text-center">Patient ID </th>
 
-                            </tr>
-                            @endforeach
+                                    <th class="text-center">Patient Name</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Mobile</th>
+
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
 
 
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
 
 @endsection
 
 @push('js')
+    <script>
+        $(function() {
+            table_name = $("#appointment_table").DataTable({
+                dom: "Bfrtip",
+                buttons: ["colvis", "copy", "csv", "excel", "pdf", "print",
+                    {
+                        text: 'Reload',
+                        action: function(e, dt, node, config) {
+                            dataBaseCall();
+                        }
+                    }
+                ],
+                processing: true,
+                serverSide: true,
+                destroy: true,
+                pagingType: 'numbers',
+                pageLength: 10,
+                ajax: "{{ route('backend.patient.list') }}",
+                ajax: {
+                    method: 'GET',
+                    url: "{{ route('backend.patient.list') }}",
+                    data: function(d) {
+                        d.status = $('select#status').val() || true;
+                    },
+                },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'patientId',
+                        name: 'patientId'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        data: 'mobile',
+                        name: 'mobile'
+                    },
 
 
-<script>
-    function changeStatus(here) {
-
-        var $id = $(here).data('id');
-        // console.log($(here).data('id'),"{{ route('backend.employee.department.show',"+id+") }}" );
-        $.get('{{ route("backend.employee.department.show",' + $id + ') }}'
-            , function(data, textStatus, jqXHR) {
-                console.log(data, textStatus, jqXHR);
-            }, 'dataType');
-    }
-
-    function delete_check(id) {
-        Swal.fire({
-            title: 'Are you sure?'
-            , html: "<b>You will delete it permanently!</b>"
-            , type: 'warning'
-            , showCancelButton: true
-            , confirmButtonColor: '#3085d6'
-            , cancelButtonColor: '#d33'
-            , confirmButtonText: 'Yes, delete it!'
-            , width: 400
-        , }).then((result) => {
-            if (result.value) {
-                $('#deleteCheck_' + id).submit();
-            }
-        })
-    }
-
-</script>
 
 
+
+                    // {
+                    //     data: 'appointment_status',
+                    //     name: 'appointment_status',
+                    //     orderable: false,
+                    //     searchable: false
+                    // },
+                    // {
+                    //     data: 'doctor_fee',
+                    //     name: 'doctor_fee'
+                    // },
+                    // {
+                    //     data: 'paymentHistories',
+                    //     name: 'paymentHistories'
+                    // },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ],
+            });
+
+
+        });
+    </script>
 @endpush

@@ -242,11 +242,13 @@
                                 <span>Patient Panel</span>
                             </a>
                             <ul>
-                                {{--
+
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'patient' ? 'active' : ' ' }}"
-                                    name="Patient" link='backend.patient.index' icon='#' /> --}}
+                                    name="Create" link='backend.patient.add' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'patient' ? 'active' : ' ' }}"
-                                    name="List" link='backend.patientlist' icon='#' />
+                                    name="List" link='backend.patient.index' icon='#' />
+                                {{-- <x-backend.side-bar class="{{ request()->segment(2) == 'patient' ? 'active' : ' ' }}"
+                                    name="List" link='backend.patientlist' icon='#' /> --}}
                             </ul>
                         </li>
                         {{-- End patient Panel --}}

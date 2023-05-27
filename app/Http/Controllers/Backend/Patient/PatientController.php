@@ -22,15 +22,56 @@ class PatientController extends Controller
     public function index(Request $request)
     {
         if ($request->optionData) {
-            return response()->json(['data' => Patient::
-                whereLike($request->optionData, 'mobile')
+            return response()->json(['data' => Patient::whereLike($request->optionData, 'mobile')
                 ->whereLike($request->optionData, 'name')
                 ->whereLike($request->optionData, 'patientId')
                 ->whereLike($request->optionData, 'email')
                 ->take(15)
                 ->get()]);
         }
-        $patients =Patient::latest()->get();
+        $status =  (object)[['name' => 'Active', 'id' => 1], ['name' => 'Inactive', 'id' => 0]];
+
+        $patient = Patient::select('*')
+            ->latest()->get();
+        if (request()->ajax()) {
+            return DataTables::of($patient)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    return '
+                    <a href="' . route('backend.patient.edit', $row->id) . '"
+                            data-toggle="tooltip" data-original-title="Edit" class="btn  btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>';
+                })
+                ->addColumn('action', function ($row) {
+                    return '
+                    <a href="' . route('backend.patient.edit', $row->id) . '"
+                            data-toggle="tooltip" data-original-title="Edit" class="btn btn-sm  btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>';
+                })
+                ->addColumn('history', function ($row) {
+                    return '
+                    <a href="' . route('backend.patient.history', $row->id) . '"
+                            data-toggle="tooltip" data-original-title="Edit" class="btn btn-sm  btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>';
+                })
+                // ->editColumn('image', function($row){
+                //     return  asset($row->image);
+                // })
+                // ->editColumn('status', function($row){
+                //     return view('components.backend.forms.input.input-switch', ['status' => $row->status ]);
+
+                // })
+                ->addColumn('patientId', function ($row) {
+                    return $row->patientId;
+                })
+                ->addColumn('name', function ($row) {
+                    return $row->name;
+                })
+                ->removeColumn(['id'])
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        $patients = Patient::latest()->get();
 
         return view('backend.patient.index', compact('patients'));
     }
@@ -57,7 +98,7 @@ class PatientController extends Controller
 
         //blood group
         $blood_group = BloodBank::where('type_id', 1)->get();
-        return view('backend.patient.create',compact(
+        return view('backend.patient.create', compact(
             'blood_group',
             'genders',
             'marital_status'
@@ -115,7 +156,7 @@ class PatientController extends Controller
     public function show(Patient $patient)
     {
         // dd($patient);
-        return view('backend.patient.show',compact(
+        return view('backend.patient.show', compact(
             'patient',
         ));
     }
@@ -128,7 +169,7 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-        $patient=Patient::whereId($id)->first();
+        $patient = Patient::whereId($id)->first();
         //gender option create
         $genders = (object)[
             ['name' => 'male', 'id' => 'male'],
@@ -147,7 +188,7 @@ class PatientController extends Controller
 
         //blood group
         $blood_group = BloodBank::where('type_id', 1)->get();
-        return view('backend.patient.edit',compact(
+        return view('backend.patient.edit', compact(
             'patient',
             'blood_group',
             'genders',
@@ -172,16 +213,16 @@ class PatientController extends Controller
             $patient->name           = $request->name;
             $patient->email              = $request->email;
             $patient->mobile            = $request->mobile;
-             $patient->emergency_contact  = $request->emergency_contact;
-             $patient->guardian_name      = $request->guardian_name;
-             $patient->gender             = $request->gender;
-             $patient->dob                = $request->dob;
-             $patient->age               = $request->age;
+            $patient->emergency_contact  = $request->emergency_contact;
+            $patient->guardian_name      = $request->guardian_name;
+            $patient->gender             = $request->gender;
+            $patient->dob                = $request->dob;
+            $patient->age               = $request->age;
 
-             $patient->blood_group        = $request->blood_group;
-             $patient->marital_status     = $request->marital_status;
-             $patient->address           = $request->address;
-             $patient->save();
+            $patient->blood_group        = $request->blood_group;
+            $patient->marital_status     = $request->marital_status;
+            $patient->address           = $request->address;
+            $patient->save();
             DB::commit();
         } catch (\Exception $ex) {
             DB::rollback();
@@ -189,7 +230,6 @@ class PatientController extends Controller
         }
 
         return back()->with(['status' => true, 'success' => 'Patient Updated Successfully']);
-
     }
 
     /**
@@ -202,17 +242,16 @@ class PatientController extends Controller
     {
         Patient::whereId($id)->delete();
         return  response()->json(['status' => true, 'mes' => 'Data Deleted Successfully']);
-
     }
 
     public function patientList()
     {
         $status =  (object)[['name' => 'Active', 'id' => 1], ['name' => 'Inactive', 'id' => 0]];
 
-        $appointmentData = Patient::select('*')
+        $patient = Patient::select('*')
             ->latest()->get();
         if (request()->ajax()) {
-            return DataTables::of($appointmentData)
+            return DataTables::of($patient)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $action = '
@@ -275,14 +314,14 @@ class PatientController extends Controller
 
         //blood group
         $blood_group = BloodBank::where('type_id', 1)->get();
-        return view('backend.patient.add',compact(
+        return view('backend.patient.add', compact(
             'blood_group',
             'genders',
             'marital_status'
         ));
     }
 
-    public function savepatient(Request $request)
+    public function savePatient(Request $request)
     {
         try {
             // dd($request->all());
