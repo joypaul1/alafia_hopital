@@ -144,7 +144,7 @@
         <div style="padding: 0 0.5in; font-size: 12pt;">
             <div class="row" style="">
                 <div class="col-4" style="border-right: 2px solid #333;">
-                    <div style="height: 320px">
+                    <div style="height: 340px">
                         <p style="text-decoration: underline;">
                             <strong>C/C</strong>
                         </p>
@@ -154,7 +154,7 @@
                             </p>
                         </div>
                     </div>
-                    <div style="height: 320px">
+                    <div style="height: 340px">
                         <p style="text-decoration: underline;">
                             <strong>O/E</strong>
                         </p>
@@ -173,7 +173,7 @@
                             </p>
                         </div>
                     </div>
-                    <div style="height: 320px">
+                    <div style="height: 340px">
                         <p style="text-decoration: underline;">
                             <strong>
                                 Investigation
@@ -284,7 +284,7 @@
     </div>
     </div>
     </div> --}}
-    <img src="{{ asset('assets/moneyReceipt/fdoctor.png') }}" style="width: 100%;" alt="">
+    <img src="{{ asset('assets/moneyReceipt/fdoctor-short.png') }}" style="width: 100%;" alt="">
     </footer>
 
     </div>
