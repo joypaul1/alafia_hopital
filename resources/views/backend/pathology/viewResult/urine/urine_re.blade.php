@@ -1502,7 +1502,7 @@
                 </h2>
                 @php
                 $data = json_decode($labTestReport->result);
-                // dd($data);
+                 dd($data);
                 $array1 = array_slice($data, 0, 4);
                 $array2 = array_slice($data, 5, 8);
                 $array3 = array_slice($data, 13, 20);
