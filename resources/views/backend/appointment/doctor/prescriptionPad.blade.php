@@ -260,6 +260,12 @@
                     </div>
                 </div>
             </div>
+            <p class="text-center mt-4">
+                <i><strong>Advice:</strong></i> Do not take any medicine without consulting your doctor. Do not take bath with cold water. Take rest and take liquid food.
+            </p>
+            <p class="text-center">
+                <i><strong>Next Visit:</strong></i> After 5 days with investigation report. If you feel any problem, contact with your doctor. Thank you.
+            </p>
         </div>
         <footer>
             {{-- <div class="pt-5" style="padding:0 0.5in;">
