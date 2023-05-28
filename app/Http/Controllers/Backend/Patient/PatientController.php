@@ -31,8 +31,7 @@ class PatientController extends Controller
         }
         $status =  (object)[['name' => 'Active', 'id' => 1], ['name' => 'Inactive', 'id' => 0]];
 
-        $patient = Patient::select('*')
-            ->latest()->get();
+        $patient = Patient::select('*')->latest()->get();
         if (request()->ajax()) {
             return DataTables::of($patient)
                 ->addIndexColumn()
@@ -42,16 +41,11 @@ class PatientController extends Controller
                             data-toggle="tooltip" data-original-title="Edit" class="btn  btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
                         </a>';
                 })
-                ->addColumn('action', function ($row) {
-                    return '
-                    <a href="' . route('backend.patient.edit', $row->id) . '"
-                            data-toggle="tooltip" data-original-title="Edit" class="btn btn-sm  btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
-                        </a>';
-                })
+
                 ->addColumn('history', function ($row) {
                     return '
                     <a href="' . route('backend.patient.history', $row->id) . '"
-                            data-toggle="tooltip" data-original-title="Edit" class="btn btn-sm  btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>
+                            data-toggle="tooltip" data-original-title="History" class="btn btn-sm btn-info"><i class="fa fa-history" aria-hidden="true"></i>
                         </a>';
                 })
                 // ->editColumn('image', function($row){
@@ -68,7 +62,8 @@ class PatientController extends Controller
                     return $row->name;
                 })
                 ->removeColumn(['id'])
-                ->rawColumns(['action'])
+                ->rawColumns(['action', 'history'])
+                // ->rawColumns(['history'])
                 ->make(true);
         }
         $patients = Patient::latest()->get();
@@ -350,6 +345,6 @@ class PatientController extends Controller
 
     public function history($id)
     {
-        Patient::whereId($id)->first();
+       return  Patient::whereId($id)->first();
     }
 }

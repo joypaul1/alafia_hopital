@@ -30,6 +30,7 @@
                                     <th class="text-center">Email</th>
                                     <th class="text-center">Mobile</th>
 
+                                    <th class="text-center">History</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -68,10 +69,10 @@
                 destroy: true,
                 pagingType: 'numbers',
                 pageLength: 10,
-                ajax: "{{ route('backend.patient.list') }}",
+                ajax: "{{ route('backend.patient.index') }}",
                 ajax: {
                     method: 'GET',
-                    url: "{{ route('backend.patient.list') }}",
+                    url: "{{ route('backend.patient.index') }}",
                     data: function(d) {
                         d.status = $('select#status').val() || true;
                     },
@@ -111,10 +112,10 @@
                     //     data: 'doctor_fee',
                     //     name: 'doctor_fee'
                     // },
-                    // {
-                    //     data: 'paymentHistories',
-                    //     name: 'paymentHistories'
-                    // },
+                    {
+                        data: 'history',
+                        name: 'history'
+                    },
                     {
                         data: 'action',
                         name: 'action',
