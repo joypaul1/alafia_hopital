@@ -345,6 +345,10 @@ class PatientController extends Controller
 
     public function history($id)
     {
-       return  Patient::whereId($id)->first();
+        $history =Patient::whereId($id)->with('doctorAppointment.doctor:id,first_name,last_name',
+         'doctorAppointment.prescription:id,appointment_id',
+          'doctorAppointment.prescription.diseasesSymptoms.symptom:id,name')->first();
+        // dd($history);
+        return view('backend.patient.history', compact('history'));
     }
 }

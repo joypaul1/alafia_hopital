@@ -6,12 +6,14 @@ use App\Models\DailyAccountTransaction;
 use App\Models\Doctor\Doctor;
 use App\Models\Doctor\DoctorAppointmentSchedule;
 use App\Models\Patient\Patient;
+use App\Models\Prescription\Prescription;
 use App\Models\Transaction\CashFlow;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\AuthScopes;
 use App\Traits\AutoTimeStamp;
 use App\Traits\GlobalScope;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Appointment extends Model
 {
@@ -52,7 +54,6 @@ class Appointment extends Model
         return $this->hasOne(DoctorAppointmentSchedule::class, 'doctor_appointment_schedule_id', 'id');
     }
 
-
     /**
      * Get all of the paymentHistories for the appointment
      *
@@ -77,5 +78,16 @@ class Appointment extends Model
     public function cashflowTransactions()
     {
         return $this->morphMany(CashFlow::class, 'cashflowable');
+    }
+
+
+    /**
+     * Get the prescription associated with the Appointment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function prescription(): HasOne
+    {
+        return $this->hasOne(Prescription::class, 'appointment_id', 'id');
     }
 }

@@ -25,9 +25,9 @@ class Patient extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function appoints(): HasMany
+    public function doctorAppointment(): HasMany
     {
-        return $this->hasMany(Appointment::class, 'patient_id', 'id');
+        return $this->hasMany(Appointment::class, 'patient_id', 'id')->latest();
     }
 
    /**
