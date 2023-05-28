@@ -346,4 +346,10 @@ class PatientController extends Controller
 
         return back()->with(['status' => true, 'success' => 'Patient Added Successfully']);
     }
+
+
+    public function history($id)
+    {
+        Patient::whereId($id)->first();
+    }
 }

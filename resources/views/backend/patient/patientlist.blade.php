@@ -11,7 +11,7 @@
     @include('backend._partials.page_header', [
         'fa' => 'fa fa-plus-circle',
         'name' => 'Create Patient',
-        'route' => route('backend.addpatient'),
+        'route' => route('backend.patient.add'),
     ])
 
 
@@ -97,7 +97,7 @@
                         name: 'mobile'
                     },
 
-                   
+
 
 
 

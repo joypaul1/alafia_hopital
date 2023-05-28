@@ -96,7 +96,7 @@
         <i class="fa fa-user"></i> Doctor Create
      </button></a>
 
-     <a href="{{ route('backend.addpatient') }}"> <button type="button" class="btn btn-info btn-lg">
+     <a href="{{ route('backend.patient.add') }}"> <button type="button" class="btn btn-info btn-lg">
         <i class="fa fa-user"></i> Patient Create
      </button></a>
 
