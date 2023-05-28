@@ -558,7 +558,12 @@ class LabTestResultController extends Controller
             return view('backend.pathology.makeResult.urine.edit-urine_cs_no_growth', compact('data', 'labTest','labTestReport'));
         }
         //End Urine
-
+        if ($labTestReport->testName->category == 'Micro Biology' &&  $labTestReport->testName->name == 'Blood - C/S'  && $labTestReport->growth_or_not == true) {
+            return view('backend.pathology.makeResult.blood.edit-blood_cs_growth', compact('data', 'labTest','labTestReport'));
+        }
+        if ($labTestReport->testName->category == 'Micro Biology' &&  $labTestReport->testName->name == 'Blood - C/S'  && $labTestReport->growth_or_not == false) {
+            return view('backend.pathology.makeResult.blood.edit-blood_cs_no_growth', compact('data', 'labTest','labTestReport'));
+        }
 
 
 
@@ -801,6 +806,39 @@ class LabTestResultController extends Controller
             // dd( $labTestReport  );
             LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
             return view('backend.pathology.viewResult.stool.stool_re', compact('labTestReport'));
+
+        }
+        if ($labTestReport->testName->category == 'Micro Biology' && $labTestReport->testName->name == 'Blood - C/S' && $request->growth == 'Yes') {
+
+            $multidimensionalArray = array();
+            for ($i = 0; $i < count($request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['name']); $i++) {
+                $multidimensionalArray[$i] = array(
+                    'name' => $request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['name'][$i] ?? '',
+                    'a' => $request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['a'][$i] ?? '',
+                    'b' => $request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['b'][$i] ?? '',
+                    'c' => $request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['c'][$i] ?? '',
+                );
+            }
+            $result = json_encode($multidimensionalArray);
+            
+            $labTestReport->update([
+                'result' => $result,
+            ]);
+            LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
+            return view('backend.pathology.viewResult.blood.blood_cs_growth', compact('labTestReport'));
+
+        }
+        if ($labTestReport->testName->category == 'Micro Biology' && $labTestReport->testName->name == 'Blood - C/S' && $request->growth == 'No') {
+
+            
+            $result= json_encode($request->reference_value);
+
+            
+            $labTestReport->update([
+                'result' => $result,
+            ]);
+            LabInvoiceTestDetails::where('id', $request->lab_invoice_test_detail_id)->update(['status' => 'completed']);
+            return view('backend.pathology.viewResult.blood.blood_cs_no_growth', compact('labTestReport'));
 
         }
      
