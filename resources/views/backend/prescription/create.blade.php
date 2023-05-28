@@ -16,9 +16,11 @@
 @section('content')
 
 @include('backend._partials.page_header', [
-'fa' => 'fa fa-list',
-'name' => 'Prescription list',
-'route' => route('backend.prescription.index'),
+'fa' => 'fa fa-history',
+'name' => 'Patient History',
+'target' => '_blank',
+'route' => route('backend.patient.history', $appointment->patient->id),
+
 ])
 
 <div class="row">

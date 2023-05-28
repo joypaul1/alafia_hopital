@@ -6,7 +6,7 @@
             @yield('page-header')
         </span>
         @isset($name)
-        <a  href="@isset($route){{ $route }}@else # @endisset" class="btn btn-info btn-md pull-right">
+        <a  href="@isset($route){{ $route }}@else # @endisset" @isset($target) target="_blank"  @endisset class="btn btn-info btn-md pull-right">
             <i class="@isset($fa){{ $fa }}@endisset me-2"></i> {{ $name }}
         </a>
         @endisset
