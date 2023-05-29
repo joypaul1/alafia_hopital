@@ -80,6 +80,7 @@ class RadiologyController extends Controller
     {
         $departments = (object)[
             ['name' => 'X-Ray', 'id' => 'X-ray'],
+            ['name' => 'Echo', 'id' => 'Echo'],
             ['name' => 'Ultrasonography', 'id' => 'Ultrasonography'],
             ['name' => 'ECG', 'id' => 'ECG'],
             ['name' => 'Hematology', 'id' => 'Hematology'],
@@ -140,6 +141,7 @@ class RadiologyController extends Controller
 
         $departments = (object)[
             ['name' => 'X-Ray', 'id' => 'X-ray'],
+            ['name' => 'Echo', 'id' => 'Echo'],
             ['name' => 'Ultrasonography', 'id' => 'Ultrasonography'],
             ['name' => 'ECG', 'id' => 'ECG'],
             ['name' => 'Hematology', 'id' => 'Hematology'],
