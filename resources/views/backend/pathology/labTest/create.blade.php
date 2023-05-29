@@ -87,14 +87,14 @@
 
                                 <label class="col-form-label" for="date">
                                     Doctor
-                                    <span class="text-danger">* </span>
+                                   
                                 </label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
                                     </div>
                                     <input type="text" name="doctor" id="doctor" class="form-control"
-                                        placeholder="Doctor Name/Email/Mobile num.." autocomplete="off" required="">
+                                        placeholder="Doctor Name/Email/Mobile num.." autocomplete="off">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="create_doctor">
                                             <i class="fa fa-plus" style="cursor: pointer;"></i>
