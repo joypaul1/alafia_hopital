@@ -179,7 +179,6 @@ class PrescriptionController extends Controller
             $data['advice']                  = $request->advice;
             $data['next_visit']              = $request->next_visit;
             $prescription                    = Prescription::create($data);
-            // dd($prescription);
             if ($request->symptoms_name) {
                 foreach ($request->symptoms_name as $symptomKey => $symptomData) {
                     $symptom = Symptom::firstOrCreate(['name' => $symptomData]);

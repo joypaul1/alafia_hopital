@@ -94,7 +94,7 @@
                             {{ optional($prescription->patient)->name }}
                         </td>
                         <td style="text-align: right; width: 50%;">
-                            <strong>Serial No.</strong> : {{ $prescription->serial_number }}
+                            <strong>Serial No.</strong> : {{ optional($prescription->appointment)->serial_number }}
                         </td>
                     </tr>
                     @php
@@ -110,7 +110,7 @@
                             : {{ $diff->y }} Years {{ $diff->m }} Months {{ $diff->d }} Days
                         </td>
                         <td style="text-align: right;">
-                            <strong>Date </strong> : {{ date('d-m-Y', strtotime($prescription->appointment_date)) }}
+                            <strong>Date </strong> : {{ date('d-m-Y', strtotime(optional($prescription->appointment)->appointment_date)) }}
                         </td>
                     </tr>
                     <tr>
