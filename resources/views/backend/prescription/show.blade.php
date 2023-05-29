@@ -6,8 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receipt</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <style>
         p {
             margin: 0;
@@ -77,6 +76,7 @@
                 margin: 0 auto;
             }
         }
+
     </style>
 </head>
 
@@ -98,76 +98,80 @@
                                 <img src="data:image/png;base64,{{ DNS2D::getBarcodePNG('#Al-Afiyah-Dialysis-Center#'.112233, 'QRCODE')}}" alt="barcode"style="width: 100px;" />
         </div>
         </td> --}}
-                        <td style="text-align: right; width: 50%;">
-                            <strong>Serial No.</strong> : 1221
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <Strong>
-                                Age
-                            </Strong>
-                            : 26 Years 2 Months 12 Days
-                        </td>
-                        <td style="text-align: right;">
-                            <strong>Date </strong> : 12-12-2023
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <Strong>
-                                Department
-                            </Strong>
-                            : Demo Department
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <Strong>
-                                Consultant
-                            </Strong>
-                            : Nabila Yeasmin
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <td style="text-align: right; width: 50%;">
+            <strong>Serial No.</strong> : 1221
+        </td>
+        </tr>
+        <tr>
+            <td>
+                <Strong>
+                    Age
+                </Strong>
+                : 26 Years 2 Months 12 Days
+            </td>
+            <td style="text-align: right;">
+                <strong>Date </strong> : 12-12-2023
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <Strong>
+                    Department
+                </Strong>
+                : Demo Department
+            </td>
+            <td style="text-align: right;">
+                <strong>Contact Number </strong> : 0124567889
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <Strong>
+                    Consultant
+                </Strong>
+                : Nabila Yeasmin
+            </td>
+        </tr>
+        </tbody>
+        </table>
 
 
 
+    </div>
+    <div style="padding: 0 0.25in; margin-bottom:0.2in;">
+        <div style="border: 1px dashed #ccc;">
         </div>
-        <div style="padding: 0 0.25in; margin-bottom:0.2in;">
-            <div style="border: 1px dashed #ccc;">
-            </div>
-        </div>
-        <div style="padding: 0 0.5in; font-size: 12pt;">
-            <div class="row" style="">
-                <div class="col-4" style="border-right: 2px solid #333;">
-                    <div style="height: 320px">
-                        <p style="text-decoration: underline;">
-                            <strong>C/C</strong>
-                        </p>
-                    </div>
-                    <div style="height: 320px">
-                        <p style="text-decoration: underline;">
-                            <strong>O/E</strong>
-                        </p>
-                        <div class="px-2">
-                            <p>BP</p>
-                        </div>
-                    </div>
-                    <div style="height: 320px">
-                        <p style="text-decoration: underline;">
-                            <strong>Inv</strong>
-                        </p>
+    </div>
+    <div style="padding: 0 0.5in; font-size: 12pt;">
+        <div class="row" style="">
+            <div class="col-4" style="border-right: 2px solid #333;">
+                <div style="height: 320px">
+                    <p style="text-decoration: underline;">
+                        <strong>C/C</strong>
+                        Cold & Cough , Fever - 104F , Headache
+                    </p>
+                </div>
+                <div style="height: 320px">
+                    <p style="text-decoration: underline;">
+                        <strong>O/E</strong>
+                    </p>
+                    <div class="px-2">
+                        <p>BP</p>
                     </div>
                 </div>
-                <div class="col-8">
-                    <img src="{{ asset('assets/moneyReceipt/rx.png') }}" style="width: 80px" alt="">
+                <div style="height: 320px">
+                    <p style="text-decoration: underline;">
+                        <strong>Inv</strong>
+                    </p>
                 </div>
             </div>
+            <div class="col-8">
+                <img src="{{ asset('assets/moneyReceipt/rx.png') }}" style="width: 80px" alt="">
+            </div>
         </div>
-        <footer>
-            {{-- <div class="pt-5" style="padding:0 0.5in;">
+    </div>
+    <footer>
+        {{-- <div class="pt-5" style="padding:0 0.5in;">
                 <div class="col-3 p-0 ml-auto">
                     <div class="d-flex">
                         <p>
@@ -183,8 +187,8 @@
         </div>
         </div>
         </div> --}}
-            <img src="{{ asset('assets/moneyReceipt/fdoctor.png') }}" style="width: 100%;" alt="">
-        </footer>
+        <img src="{{ asset('assets/moneyReceipt/fdoctor.png') }}" style="width: 100%;" alt="">
+    </footer>
 
     </div>
 
