@@ -10,6 +10,7 @@ use App\Models\lab\LabTest;
 use App\Models\Patient\Patient;
 use App\Models\Prescription\Prescription;
 use App\Models\Radiology\RadiologyServiceName;
+use App\Models\Symptom\Symptom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -24,38 +25,37 @@ class PrescriptionController extends Controller
      */
     public function index(Request $request)
     {
-       
+
         $prescription = Prescription::with(
             'doctor:id,first_name,last_name',
             'diseasesSymptoms:prescription_id,symptom_id',
             'diseasesSymptoms.symptom:id,name',
             'patient:id,name'
         )->latest();
-        if($request->invoice_no){
+        if ($request->invoice_no) {
             $prescription->where('invoice_number', $request->invoice_no);
         }
-        if($request->patient_name){
-            $prescription->whereHas('patient', function($query) use($request){
+        if ($request->patient_name) {
+            $prescription->whereHas('patient', function ($query) use ($request) {
                 $query->where('name', $request->patient_name);
             });
         }
-        if($request->mobile_number){
-            $prescription->whereHas('patient', function($query) use($request){
+        if ($request->mobile_number) {
+            $prescription->whereHas('patient', function ($query) use ($request) {
                 $query->where('mobile', $request->mobile_number);
             });
         }
-        if($request->start_date){
-            $prescription = $prescription->whereHas('appointment', function($query) use($request){
+        if ($request->start_date) {
+            $prescription = $prescription->whereHas('appointment', function ($query) use ($request) {
                 $query->whereDate('appointment_date', '>=', date('Y-m-d', strtotime($request->start_date)));
             });
         }
-        if($request->end_date){
-            $prescription = $prescription->whereHas('appointment', function($query) use($request){
+        if ($request->end_date) {
+            $prescription = $prescription->whereHas('appointment', function ($query) use ($request) {
                 $query->whereDate('appointment_date', '<=', date('Y-m-d', strtotime($request->end_date)));
             });
-
         }
-        if($request->doctor_id){
+        if ($request->doctor_id) {
             $prescription = $prescription->where('doctor_id', $request->doctor_id);
         }
         $prescription = $prescription->get();
@@ -169,6 +169,7 @@ class PrescriptionController extends Controller
     public function store(Request $request)
     {
         try {
+            // dd($request->all());
             DB::beginTransaction();
             $data['invoice_number']          = (new InvoiceNumber)->invoice_num($this->getInvoiceNumber());
             $data['patient_id']              = Patient::where('patientId', $request->p_id)->first()->id;
@@ -179,17 +180,19 @@ class PrescriptionController extends Controller
             $data['next_visit']              = $request->next_visit;
             $prescription                    = Prescription::create($data);
             // dd($prescription);
-            if ($request->symptoms_id) {
-                foreach ($request->symptoms_id as $key => $symptom) {
-                    $prescription->diseasesSymptoms()->create(['symptom_id' => $symptom]);
+            if ($request->symptoms_name) {
+                foreach ($request->symptoms_name as $symptomKey => $symptomData) {
+                    $symptom = Symptom::firstOrCreate(['name' => $symptomData]);
+                    $prescription->diseasesSymptoms()->create(['symptom_id' => $symptom->id, 'note' => $request->symptoms_value[$symptomKey]??'']);
+
                 }
             }
 
-            if ($request->item_id) {
-                foreach ($request->item_id as $key => $medicine) {
+            if ($request->medicine_name) {
+                foreach ($request->medicine_name as $key => $medicine) {
                     $prescription->medicines()->create(
                         [
-                            'item_id' => $medicine,
+                            'name' => $medicine,
                             // 'how_many_times' => implode($request->how_many_times[$medicine]),
                             'how_many_days' => implode($request->how_many_days[$medicine]),
                             'how_many_quantity' => implode($request->how_many_quantity[$medicine]),
@@ -237,7 +240,8 @@ class PrescriptionController extends Controller
      */
     public function show(Prescription $prescription)
     {
-        $prescription = Prescription::whereId($prescription->id)->with('patient', 'labTest', 'doctor', 'appointment', 'diseasesSymptoms.symptom', 'medicines.item.strength', 'otherSpecifications')->first();
+        // dd($prescription);
+         $prescription = Prescription::whereId($prescription->id)->with('patient', 'labTest', 'doctor', 'appointment', 'diseasesSymptoms.symptom', 'medicines.item.strength', 'otherSpecifications')->first();
         return view('backend.prescription.show', compact('prescription'));
     }
 

@@ -146,37 +146,32 @@
         <div style="padding: 0 0.5in; font-size: 12pt;">
             <div class="row" style="">
                 <div class="col-4" style="border-right: 2px solid #333;">
-                    <div style="height: 320px">
+                    <div style="height: 340px">
                         <p style="text-decoration: underline;">
                             <strong>C/C</strong>
                         </p>
-                        <div class="px-2">
-                            <p>
-
+                        <div class="pl-4">
+                            <ul class="p-0">
                                 @forelse ($prescription->diseasesSymptoms as $diseases)
-                                    {{ optional($diseases->symptom)->name }},
+                                    <li> {{ optional($diseases->symptom)->name }} : {{ $diseases->note }} </li>
                                 @empty
                                 @endforelse
-                            </p>
+                            </ul>
                         </div>
                     </div>
-                    <div style="height: 320px">
+                    <div style="height: 340px">
                         <p style="text-decoration: underline;">
                             <strong>O/E</strong>
                         </p>
                         <div class="px-2">
-
-                            <ul class="p-0">
-
-                                @forelse ($prescription->otherSpecifications as $specification)
-                                    <li>{{ $specification->name }} : {{ $specification->value }}</li>
-                                @empty
-                                @endforelse
-                            </ul>
+                            @forelse ($prescription->otherSpecifications as $specification)
+                                <p>{{ $specification->name }} : {{ $specification->value }}</p>
+                            @empty
+                            @endforelse
 
                         </div>
                     </div>
-                    <div style="height: 320px">
+                    <div style="height: 340px">
                         <p style="text-decoration: underline;">
                             <strong>
                                 Investigation
@@ -185,30 +180,27 @@
 
                         <div class="pl-4">
                             <ul class="p-0">
-                                {{-- @forelse ($prescription->otherSpecifications as $specification)
-                                    <li>{{ $specification->name }}</li>
-                                @empty
-                                @endforelse --}}
                                 @forelse ($prescription->labTest as $labTest)
                                     <li>{{ $labTest->test_name }}</li>
                                 @empty
                                 @endforelse
+
                             </ul>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-8">
                     <img src="{{ asset('assets/moneyReceipt/rx.png') }}" style="width: 80px" alt="">
 
                     <div class="p-3">
                         <ol>
                             @forelse ($prescription->medicines as $medicine)
-                                {{-- @dd($medicine) --}}
                                 <li class="mb-4">
                                     <div>
                                         <p>
                                             <strong>
-                                                {{ $medicine->item->name }} {{ $medicine->item->strength->name }}
+                                                {{ $medicine->name }}
                                             </strong>
                                         </p>
                                         <div class="d-flex justify-content-between my-1">
@@ -242,9 +234,19 @@
                     </div>
                 </div>
             </div>
+            <p class="text-center mt-4">
+                <i><strong>Advice:</strong></i> {{ $prescription->advice }}
+            </p>
+            <p class="text-center">
+                <i><strong>Next Visit:</strong></i> {{ $prescription->next_visit }}
+            </p>
+            {{-- <img src="{{ asset('assets/moneyReceipt/fdoctor.png') }}" style="width: 100%;" alt=""> --}}
+
+
         </div>
         <footer>
             <img src="{{ asset('assets/moneyReceipt/fdoctor.png') }}" style="width: 100%;" alt="">
+
         </footer>
 
     </div>
@@ -252,7 +254,7 @@
     </div>
 </body>
 <script>
-    // window.print();
+    window.print();
 </script>
 
 </html>
