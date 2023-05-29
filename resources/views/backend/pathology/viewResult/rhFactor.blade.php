@@ -1390,9 +1390,7 @@
 
     </style>
 </head>
-{{-- @dd($labTestReport->testName->category); --}}
-{{-- @dd($labTestReport->test->name
-{{-- @dd($labTestReport->patient); --}}
+
 <body class="c46 doc-content">
 <a href="{{ route('backend.pathology.make-test-result-edit', ['id' => $labTestReport->id]) }}">
     <button class="btn btn-info noprint">Edit</button>

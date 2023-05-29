@@ -6,11 +6,10 @@
 @stop
 
 @section('content')
-    <form action="{{ route('backend.pathology.make-test-result-store') }}" method="post">
+<form action="{{ route('backend.pathology.make-test-result-update',['id' => $labTestReport->id] ) }}" method="post">
         @csrf
         @method('POST')
-        <input type="hidden" name="lab_invoice_test_detail_id" value="{{ $data['labDetails_id'] }}">
-        <input type="hidden" name="test_id" value="{{ $data['labTest_id'] }}">
+        <input type="hidden" name="growth"  value="Yes">
         <div class="card">
             <div class="body">
                 <h5 class="mb-3">
@@ -18,33 +17,44 @@
                 </h5>
 
                 <p class="text-center"> S=Sensitive, R=Resistant, I=Intermediate Sensitive</p>
+                @forelse (json_decode($labTestReport->result) as $key=>$result)
 
                 <div class="row mb-2 align-items-center">
                     <div class="col-6">
                         @include('components.backend.forms.input.input-type2', [
                         'name' => 'name[]',
-                        'value' => 'Amikacin',
+                        'value' => $result->name,
+
                         ])
                     </div>
                     <div class="col-2">
                         @include('components.backend.forms.input.input-type2', [
                         'name' => 'a[]',
                         'placeholder' => 'Enter result A',
+                        'value' => $result->a,
+
                         ])
                     </div>
                     <div class="col-2">
                         @include('components.backend.forms.input.input-type2', [
                         'name' => 'b[]',
                         'placeholder' => 'Enter result B',
+                        'value' => $result->b,
+
                         ])
                     </div>
                     <div class="col-2">
                         @include('components.backend.forms.input.input-type2', [
                         'name' => 'c[]',
                         'placeholder' => 'Enter result C',
+                        'value' => $result->c,
+
                         ])
                     </div>
                 </div>
+                @empty
+@endforelse
+                {{--
                 <div class="row mb-2 align-items-center">
                     <div class="col-6">
                         @include('components.backend.forms.input.input-type2', [
@@ -1136,7 +1146,7 @@
                         'placeholder' => 'Enter result C',
                         ])
                     </div>
-                </div>
+                </div> --}}
                 <div class="d-block text-right mb-5">
                     <button class="btn btn-lg btn-info">Save</button>
                 </div>

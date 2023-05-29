@@ -6,11 +6,10 @@
 @stop
 
 @section('content')
-    <form action="{{ route('backend.pathology.make-test-result-store') }}" method="post">
+<form action="{{ route('backend.pathology.make-test-result-update',['id' => $labTestReport->id] ) }}" method="post">
         @csrf
         @method('POST')
-        <input type="hidden" name="lab_invoice_test_detail_id" value="{{ $data['labDetails_id'] }}">
-        <input type="hidden" name="test_id" value="{{ $data['labTest_id'] }}">
+        <input type="hidden" name="growth"  value="No">
         <div class="card">
             <div class="body">
                 <h5 class="mb-3">
@@ -18,11 +17,15 @@
                 </h5>
                 <div class="row mb-2 align-items-center">
 
+                @php 
+$result=json_decode($labTestReport->result)
 
+@endphp
                     <div class="col-12 mt-3">
                         @include('components.backend.forms.texteditor.editor', [
                             'name' => 'reference_value[]',
                             'placeholder' => 'reference  here...',
+                            'value' =>$result[0],
 
 
                         ])

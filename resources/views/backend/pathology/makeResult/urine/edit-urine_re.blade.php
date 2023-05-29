@@ -6,11 +6,9 @@
 @stop
 
 @section('content')
-    <form action="{{ route('backend.pathology.make-test-result-store') }}" method="post">
+<form action="{{ route('backend.pathology.make-test-result-update',['id' => $labTestReport->id] ) }}" method="post">
         @csrf
         @method('POST')
-        <input type="hidden" name="lab_invoice_test_detail_id" value="{{ $data['labDetails_id'] }}">
-        <input type="hidden" name="test_id" value="{{ $data['labTest_id'] }}">
         <div class="card">
             <div class="body">
                 <h5 class="mb-3">
@@ -19,21 +17,28 @@
                 <h6 class="mt-4 mb-3">
                     PHYSICAL EXAMINATION
                 </h6>
+                @forelse (json_decode($labTestReport->result) as $key=>$result)
+
                 <div class="row mb-2 align-items-center">
                     <div class="col-6">
                         @include('components.backend.forms.input.input-type2', [
                         'name' => 'name[]',
-                        'value' => 'Quantity',
+                        'value' => $result->name,
+
                         ])
                     </div>
                     <div class="col-6">
                         @include('components.backend.forms.input.input-type2', [
                         'name' => 'result[]',
                         'placeholder' => 'Enter result here...',
+                        'value' => $result->result,
+
                         ])
                     </div>
                 </div>
-                <div class="row mb-2 align-items-center">
+                @empty
+@endforelse
+              {{--  <div class="row mb-2 align-items-center">
                     <div class="col-6">
                         @include('components.backend.forms.input.input-type2', [
                         'name' => 'name[]',
@@ -374,7 +379,7 @@
                         'placeholder' => 'Enter result here...',
                         ])
                     </div>
-                </div>
+                </div> --}}
                 <div class="row text-right">
                     <div class="col-12">
                         <button class="btn btn-primary btn-md" type="submit">Save</button>
