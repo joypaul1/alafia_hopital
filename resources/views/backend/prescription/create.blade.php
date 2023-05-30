@@ -266,7 +266,7 @@
                                 <tbody>
                                     <tr>
                                         <td colspan='2'><h6 class="text-info">${medicine.val().trim()}</h6></td>
-                                        <td colspan='2' class="text-right"> <button class="btn btn-sm btn-danger">
+                                        <td colspan='2' class="text-right"> <button type="button" class="btn btn-sm btn-danger medicine_remove">
                                         <i class="fa fa-trash"></i></button></td>
                                     </tr>
                                     <tr>
@@ -321,6 +321,9 @@
                            `;
             $('#medicineSection').after(html);
         });
+        $(document).on('click', '.medicine_remove', function(){
+            console.log($(this).parent().parent().parent().remove());
+        })
         //additional info add and remove
         $(document).on('click', '.p_infoAdd', function() {
             var html = `<div class="row  my-2">  <div class="col-5 ">
