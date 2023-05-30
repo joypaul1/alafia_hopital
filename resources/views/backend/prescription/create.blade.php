@@ -323,10 +323,14 @@
         });
         $(document).on('click', '.medicine_remove', function(){
             console.log($(this).parent().parent().parent().remove());
-        })
+        });
+        $(document).on('click', '.remove_test', function(){
+            console.log($(this).parent().parent().remove());
+        });
+
         //additional info add and remove
         $(document).on('click', '.p_infoAdd', function() {
-            var html = `<div class="row  my-2">  <div class="col-5 ">
+            var html = `<div class="row  my-2">  <div class="col-5">
                                     @include('components.backend.forms.input.input-type2', [
                                         'name' => 'p_info[]',
                                         'placeholder' => 'Additional informarion (eg. Blood Pressure)',
