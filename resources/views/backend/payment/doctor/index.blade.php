@@ -244,12 +244,12 @@
     <script src="{{ asset('assets/backend/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script>
         $('#start_date').datepicker({
-            format: 'mm/dd/yyyy',
+            format: 'mm-dd-yyyy',
             startDate: '-5y'
 
         });
         $('#end_date').datepicker({
-            format: 'mm/dd/yyyy',
+            format: 'mm-dd-yyyy',
             startDate: '-5y'
 
         });

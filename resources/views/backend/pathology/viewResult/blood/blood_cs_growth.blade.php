@@ -1365,6 +1365,16 @@
             opacity: 0.3;
         }
 
+        table#report {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #report tr td {
+            border: 1px solid #000;
+            padding: 4px;
+        }
+
     </style>
 
     <style>
@@ -1387,8 +1397,7 @@
 
     </style>
 </head>
-{{-- @dd($labTestReport->testName->category); --}}
-{{-- @dd($labTestReport->test->name
+{{-- @dd($labTestReport->details); --}}
 {{-- @dd($labTestReport->patient); --}}
 <body class="c46 doc-content">
     <div class="content">
@@ -1413,23 +1422,21 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c45" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">{{ date('dm-Y H:i', strtotime(optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->date)) }}</span></p>
+                            <p class="c23"><span class="c0">
+                                </span></p>
                         </td>
                     </tr>
                     <tr class="c5">
                         <td class="c32" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c11">Name of Patient</span></p>
+                            <p class="c23"><span class="c11">Patient</span></p>
                         </td>
                         <td class="c12" colspan="1" rowspan="1">
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
-                        @php
-                        $bday = new DateTime(optional($labTestReport->patient)->dob); // Your date of birth
-                        $today = new Datetime(date('m.d.y'));
-                        $diff = $today->diff($bday);
-                        @endphp
                         <td class="c36" colspan="1" rowspan="1">
-                            <p class="c23 c10"><span class="c13">{{ $labTestReport->patient->name }}</span></p>
+                            <p class="c23 c10"><span class="c13">
+                                    Nabila Yeasmin
+                                </span></p>
                         </td>
                         <td class="c42" colspan="1" rowspan="1">
                             <p class="c50"><span class="c11">Prepare &nbsp;Time</span></p>
@@ -1438,7 +1445,9 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c15" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">{{ date('d-m-Y H:i', strtotime($labTestReport->created_at)) }}</span></p>
+                            <p class="c23"><span class="c0">
+                                    12:00:00 AM
+                                </span></p>
                         </td>
                     </tr>
                     <tr class="c5">
@@ -1449,7 +1458,9 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c36" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0"> {{ $diff->y }} Years {{ $diff->m }} Months {{ $diff->d }}</span></p>
+                            <p class="c23"><span class="c0">
+                                    25 Years 10 Months 10 Days
+                                </span></p>
                         </td>
                         <td class="c42" colspan="1" rowspan="1">
                             <p class="c50"><span class="c11">Print Time </span></p>
@@ -1469,7 +1480,9 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c36" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">{{ optional($labTestReport->patient)->gender }}</span></p>
+                            <p class="c23"><span class="c0">
+                                    Female
+                                </span></p>
                         </td>
                         <td class="c42" colspan="1" rowspan="1">
                             <p class="c50"><span class="c11">Specimen</span></p>
@@ -1478,7 +1491,9 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c15" colspan="1" rowspan="1">
-                            <p class="c23"><span class="c0">{{ optional($labTestReport->testName)->specimen }} </span></p>
+                            <p class="c23"><span class="c0">
+
+                                </span></p>
 
                         </td>
                     </tr>
@@ -1491,61 +1506,646 @@
                         </td>
                         <td class="c57" colspan="4" rowspan="1">
                             <p class="c23 c10"><span class="c13">
-                                    {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
-                                    ( {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }})
-
-                                </span></p>
+                                    Dr. Abdul Mannan
+                                </span>
+                            </p>
 
                         </td>
                     </tr>
                 </table>
                 <h2 style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
-                    {{ $labTestReport->testName->category }} Report
+                    Culture of Blood
                 </h2>
 
-                <table class="c68">
+                <p style="text-align: center; margin-bottom:10px;">
+                    Culture incubated FAN-aerobically at 370C has yielded.
+                </p>
+                <p style="text-align: center; margin-bottom:10px;">
+                    <u>
+                        <strong>
+                            Klebsiella spp.
+                        </strong>
+                    </u>
+                </p>
+
+                <table id="report" class="c68" style="border:1px solid #000;">
                     <tr class="c7">
                         <td class="c40" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c39 c24">Name of Test</span></p>
+                            <p class="c4"><span class="c39 c24">Sensitivity to</span></p>
                         </td>
-
-                        <td class="c61" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c24 c39">A</span></p>
+                        <td>
+                            A
                         </td>
-                        <td class="c61" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c24 c39">B</span></p>
+                        <td>
+                            B
                         </td>
-                        <td class="c61" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c24 c39">C</span></p>
+                        <td>
+                            C
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            <p class="c4"><span class="c39 c24">Sensitivity to</span></p>
+                        </td>
+                        <td>
+                            A
+                        </td>
+                        <td>
+                            B
+                        </td>
+                        <td>
+                            C
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            <p class="c4"><span class="c39 c24">Sensitivity to</span></p>
+                        </td>
+                        <td>
+                            A
+                        </td>
+                        <td>
+                            B
+                        </td>
+                        <td>
+                            C
                         </td>
                     </tr>
-                    @php
-                    $data = json_decode($labTestReport->result);
-                    // dd($data);
-                    @endphp
-
-
-                    @foreach ($data as $item)
-                    <tr class="c5">
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{{ $item->name}}</span></p>
+                    <tr class="c7">
+                        <td class="c40" colspan="1" rowspan="1">
+                            Amikacin
                         </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{{ $item->a}}</span></p>
+                        <td>
+                            S
                         </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{{ $item->b}}</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{{ $item->c}}</span></p>
-                        </td>
+                        <td>
 
+                        </td>
+                        <td>
 
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Amoxycillin
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Ampicillin
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr class="c7">
+                        <td class="c40" colspan="1" rowspan="1">
+                            Amoxyclav
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Aztreonam
+                        </td>
+                        <td>
+                            S
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Azithromycin
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr class="c7">
+                        <td class="c40" colspan="1" rowspan="1">
+                            Cefepime
+                        </td>
+                        <td>
+                            S
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Cefixime
+                        </td>
+                        <td>
+                            S
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Cefotaxime
+                        </td>
+                        <td>
+                            S
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr class="c7">
+                        <td class="c40" colspan="1" rowspan="1">
+                            Cefpirome
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Ceftazidime
+                        </td>
+                        <td>
+                            S
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Cefuroxime
+                        </td>
+                        <td>
+                            S
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr class="c7">
+                        <td class="c40" colspan="1" rowspan="1">
+                            Ceftriaxone
+                        </td>
+                        <td>
+                            S
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Cephalexin
+                        </td>
+                        <td>
+                            I
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Cephradine
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr class="c7">
+                        <td class="c40" colspan="1" rowspan="1">
+                            Chloramphenicol
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Ciprofloxacin
+                        </td>
+                        <td>
+                            S
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Cloxacillin
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr class="c7">
+                        <td class="c40" colspan="1" rowspan="1">
+                            Levofloxacin
+                        </td>
+                        <td>
+                            S
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Clindamycin
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Cotrimoxazole
+                        </td>
+                        <td>
+                            S
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr class="c7">
+                        <td class="c40" colspan="1" rowspan="1">
+                            Colistin
+                        </td>
+                        <td>
+                            S
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Doxycycline
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Erythromycin
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr class="c7">
+                        <td class="c40" colspan="1" rowspan="1">
+                            Nalidexic acid
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Gatifloxacin
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Gentamycin
+                        </td>
+                        <td>
+                            S
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr class="c7">
+                        <td class="c40" colspan="1" rowspan="1">
+                            Imipenem
+                        </td>
+                        <td>
+                            S
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Mecillinum
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Meropenem
+                        </td>
+                        <td>
+                            S
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr class="c7">
+                        <td class="c40" colspan="1" rowspan="1">
+                            Neomycin
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Netilmicin
+                        </td>
+                        <td>
+                            S
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Nitrofurantoin
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr class="c7">
+                        <td class="c40" colspan="1" rowspan="1">
+                            Tazobacpiperacillin
+                        </td>
+                        <td>
+                            I
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Penicillin
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Linezolid
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr class="c7">
+                        <td class="c40" colspan="1" rowspan="1">
+                            Tetracycline
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Tigecycline
+                        </td>
+                        <td>
+                            I
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Fusidic acid
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr class="c7">
+                        <td class="c40" colspan="1" rowspan="1">
+                            Cefoxitin
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Cefaclor
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr class="c7">
+                        <td class="c40" colspan="1" rowspan="1">
+                            Ceftibuten
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Ofloxacin
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            Vancomycin
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
                     </tr>
 
-                    </tr>
-                    @endforeach
+                </table>
 
+                <table style="width: 100%; margin-top:10px;">
+                    <tr>
+                        <td style="text-align: center;">S=Sensitive</td>
+                        <td style="text-align: center;">R=Resistant</td>
+                        <td style="text-align: center;">I=Intermediate Sensitive</td>
+                    </tr>
                 </table>
             </div>
         </div>
@@ -1585,7 +2185,6 @@
 </body>
 
 </html>
-<script>
+{{-- <script>
     window.print();
-
-</script>
+</script> --}}
