@@ -54,6 +54,9 @@ class LabTestController extends Controller
         } else {
             $labInvoices = $labInvoices->whereDate('date', '>=', date('Y-m-d'));
         }
+        if($request->status){
+            $labInvoices = $labInvoices->where('status', $request->status);
+        }
 
         $labInvoices =  $labInvoices->with('labTestDetails.testName:id,name,category', 'labTestDetails.viewResult', 'patient:id,name')->latest()->get();
 
