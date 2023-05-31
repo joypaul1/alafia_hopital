@@ -15,11 +15,16 @@
                 </div>
                 <div class="form-group">
                     @include('components.backend.forms.input.input-type',[ 'name' => 'mobile', 'placeholder' => 'mobile will be here...', 'number'=>true ])
-                    @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
+                    @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('mobile')])
                 </div>
+
                 <div class="form-group">
                     @include('components.backend.forms.input.input-type',[ 'name' => 'email', 'placeholder' => 'email will be here...' ])
-                    @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('name')])
+                    @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('email')])
+                </div>
+                <div class="form-group">
+                    @include('components.backend.forms.input.input-type',[ 'name' => 'commision', 'placeholder' => 'commision will be percent(%) amount (10)', 'number'=>true ])
+                    @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('commision')])
                 </div>
 
 

@@ -128,15 +128,10 @@
                     data: 'email',
                     name: 'email'
                 },
-
-                // {
-                //     data: "image",
-                //     render: function(img) {
-                //         return '<img src="' + img + '" alt="no-image" height="100px" width="100" >';
-                //     },
-                //     orderable: false,
-                //     searchable: false
-                // },
+                {
+                    data: 'commission',
+                    name: 'commission'
+                },
                 {
                     data: 'status',
                     name: 'status',
