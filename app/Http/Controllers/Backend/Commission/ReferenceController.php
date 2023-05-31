@@ -21,8 +21,8 @@ class ReferenceController extends Controller
      */
     public function index(Request $request)
     {
-        // $references = Reference::paginate(10);
-        $data = Reference::select(['id', 'name', 'mobile', 'email', 'status', 'commission'])->latest();
+        $data = Reference::select(['id', 'name', 'mobile', 'email', 'status', 'commission'])
+        ->with('history:id,reference_id,commission')->latest();
         if($request->status){
             $data = $data->active();
         }elseif($request->status == '0'){
@@ -57,13 +57,20 @@ class ReferenceController extends Controller
                     return view('components.backend.forms.input.input-switch', ['status' => $row->status ]);
 
                 })
+                ->addColumn('view_history', function ($row) {
+                return "<a target='_blank' href='".route('backend.reference-history.show', $row)."'  data-toggle='tooltip' data-original-title='Commission History'> <button class='btn btn-sm btn-info'>
+                <i class='fa fa-eye' aria-hidden='true'></i> View</button> </a>";
+                })
+                ->addColumn('balance', function ($row) {
+                    return  optional($row->history)->sum('commission')??0;
+                })
                 ->removeColumn(['id'])
-                ->rawColumns(['action'])
+                ->rawColumns(['action', 'view_history'])
                 ->make(true);
 
         }
         $status=  (object)[['name' =>'Active', 'id' =>1 ],['name' =>'Inactive', 'id' => 0 ]];
-        return view('backend.reference.index', compact('references'));
+        return view('backend.reference.index', compact('status'));
     }
 
 
@@ -92,7 +99,6 @@ class ReferenceController extends Controller
             return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
         }
         return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
-
     }
 
     /**
@@ -129,7 +135,6 @@ class ReferenceController extends Controller
         $returnData = $request->updateData($request, $reference);
         if($returnData->getData()->status){
             (new LogActivity)::addToLog('Reference Data Updated');
-            $this->catSession();
             return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
         }
         return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;

@@ -50,12 +50,14 @@
                         <thead>
                             <tr>
                                 <th class="text-center">Sl.</th>
+                                <th class="text-center">Action</th>
                                 <th class="text-center">Name</th>
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Mobile</th>
                                 <th class="text-center">Commission</th>
+                                <th class="text-center">History</th>
+                                <th class="text-center">Balance</th>
                                 <th class="text-center">Status</th>
-                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
 
@@ -105,7 +107,6 @@
             destroy: true,
             pagingType: 'numbers',
             pageLength: 10,
-            ajax: "{{ route('backend.reference.index') }}",
             ajax: {
                 method:'GET',
                 url : "{{ route('backend.reference.index') }}",
@@ -116,30 +117,41 @@
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
-                }, {
-                    data: 'name',
-                    name: 'name'
                 },
                 {
-                    data: 'mobile',
-                    name: 'mobile'
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                }, {
+                    data: 'name',
+                    name: 'name',
                 },
                 {
                     data: 'email',
-                    name: 'email'
+                    name: 'email',
+                },
+                {
+                    data: 'mobile',
+                    name: 'mobile',
                 },
                 {
                     data: 'commission',
-                    name: 'commission'
+                    name: 'commission',
+                },
+                {
+                    data: 'view_history',
+                    name: 'view_history',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'balance',
+                    name: 'balance',
                 },
                 {
                     data: 'status',
                     name: 'status',
-                    orderable: false,
-                    searchable: false
-                }, {
-                    data: 'action',
-                    name: 'action',
                     orderable: false,
                     searchable: false
                 },

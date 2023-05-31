@@ -2,16 +2,15 @@
 
 namespace App\Models;
 
-use App\Traits\AuthScopes;
 use App\Traits\AutoTimeStamp;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\GlobalScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Reference extends Model
 {
-   use AuthScopes,AutoTimeStamp,SoftDeletes;
+   use AutoTimeStamp,SoftDeletes,GlobalScope;
 
    protected $guarded = ['id'];
 

@@ -229,7 +229,8 @@
                                 <span>Prescription Panel</span>
                             </a>
                             <ul>
-                                <x-backend.side-bar class="{{ request()->segment(2) == 'prescription' ? 'active' : ' ' }}"
+                                <x-backend.side-bar
+                                    class="{{ request()->segment(2) == 'prescription' ? 'active' : ' ' }}"
                                     name="All List" link='backend.prescription.index' icon='#' />
                             </ul>
                         </li>
@@ -247,7 +248,8 @@
                                     name="Create" link='backend.patient.add' icon='#' />
                                 <x-backend.side-bar class="{{ request()->segment(2) == 'patient' ? 'active' : ' ' }}"
                                     name="List" link='backend.patient.index' icon='#' />
-                                {{-- <x-backend.side-bar class="{{ request()->segment(2) == 'patient' ? 'active' : ' ' }}"
+                                {{--
+                                <x-backend.side-bar class="{{ request()->segment(2) == 'patient' ? 'active' : ' ' }}"
                                     name="List" link='backend.patientlist' icon='#' /> --}}
                             </ul>
                         </li>
@@ -322,18 +324,7 @@
                         </li>
                         {{-- End Admin Panel --}}
 
-                        {{-- user Panel --}}
-                        {{-- <li class="{{ strpos($strpos, 'backend.user') === 0 ? 'active' : ' ' }}">
-                            <a href="javascript:void(0)" class="has-arrow">
-                                <i class="icon-user-following"></i>
-                                <span>Customer Panel</span>
-                            </a>
-                            <ul>
-                                <x-backend.side-bar class="{{ request()->segment(2) == 'user' ? 'active' : ' ' }}"
-                                    name="Customer" link='backend.user.index' icon='#' />
-                            </ul>
-                        </li> --}}
-                        {{-- End user Panel --}}
+
                         {{-- Item Config --}}
                         <li class="{{ strpos($strpos, 'backend.itemconfig') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
@@ -369,6 +360,18 @@
                             </ul>
                         </li>
                         {{-- End Item Config --}}
+                        {{-- user Panel --}}
+                        <li class="{{ strpos($strpos, 'backend.user') === 0 ? 'active' : ' ' }}">
+                            <a href="javascript:void(0)" class="has-arrow">
+                                <i class="icon-user-following"></i>
+                                <span>Commission Panel</span>
+                            </a>
+                            <ul>
+                                <x-backend.side-bar class="{{ request()->segment(2) == 'user' ? 'active' : ' ' }}"
+                                    name="List" link='backend.reference.index' icon='#' />
+                            </ul>
+                        </li>
+                        {{-- End user Panel --}}
                         {{-- Account Panel --}}
                         <li class="{{ strpos($strpos, 'backend.account') === 0 ? 'active' : ' ' }}">
                             <a href="javascript:void(0)" class="has-arrow">
@@ -400,14 +403,6 @@
                                 <x-backend.side-bar
                                     class="{{ request()->segment(2) == 'doctor-payment' ? 'active' : ' ' }}"
                                     name="Doctor Payment" link='backend.paymentdoctor.index' icon='#' />
-                                {{--
-                                <x-backend.side-bar
-                                    class="{{ request()->segment(2) == 'accountledger' ? 'active' : ' ' }}"
-                                    name="Account Ledger" link='backend.account.accountledger.index' icon='#' /> --}}
-                                {{--
-                                <x-backend.side-bar
-                                    class="{{ request()->segment(2) == 'transaction' ? 'active' : ' ' }}"
-                                    name="Transaction" link='backend.account.transaction.index' icon='#' /> --}}
                             </ul>
                         </li>
                         {{-- End Admin Panel --}}

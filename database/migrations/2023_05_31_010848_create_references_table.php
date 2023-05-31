@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('references', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('phone')->nullable();
+            $table->string('mobile')->nullable();
             $table->string('email')->nullable();
             $table->string('comments')->nullable();
             $table->boolean('status')->default(1);
