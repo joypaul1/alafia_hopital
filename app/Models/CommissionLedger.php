@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\AutoTimeStamp;
+use App\Traits\GlobalScope;
 use Illuminate\Database\Eloquent\Model;
 
 class CommissionLedger extends Model
 {
-    use HasFactory;
+    use AutoTimeStamp,GlobalScope;
+
+    protected $guarded = ['id'];
 }
