@@ -9,6 +9,5 @@ use Illuminate\Database\Eloquent\Model;
 class CommissionLedger extends Model
 {
     use AutoTimeStamp,GlobalScope;
-
     protected $guarded = ['id'];
 }

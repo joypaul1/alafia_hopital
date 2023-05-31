@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('comments')->nullable();
+            $table->boolean('status')->default(1);
             $table->decimal('commission', 15,4)->nullable()->default(0);
             $table->timestamps();
         });

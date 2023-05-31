@@ -1,78 +1,65 @@
 @extends('backend.layout.app')
+@include('backend._partials.datatable__delete')
 @push('css')
 
-
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 @endpush
 
 @section('page-header')
-    <i class="fa fa-list"></i> Admin List
+<i class="fa fa-list"></i> Reference List
+@stop
+
+@section('table_header')
+@include('backend._partials.modal_page_header', [
+'fa' => 'fa fa-plus-circle',
+'name' => 'Create Reference',
+'modelName' => 'create_data',
+'route' => route('backend.reference.create')
+])
+
 @stop
 @section('content')
-
-@include('backend._partials.page_header', [
-    'fa' => 'fa fa-plus-circle',
-    'name' => 'Create Admin',
-    'route' => route('backend.admin.create')
- ])
 
 
 <div class="row">
     <div class="col-lg-12">
+
         <div class="card">
             <div class="body">
+                <h4 class="pointer text-info" id="toggleFilter">
+                    <i class="fa fa-filter"></i> Filter
+                </h4>
+                <div id="filterContainer">
+                    <hr>
+
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="form-group">
+                                @include('components.backend.forms.select2.option',[ 'label'=> 'status', 'name' => 'status','onchange'=>true,  'optionData' => $status ])
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card border-top">
+            @yield('table_header')
+            <div class="body">
                 <div class="table-responsive">
-                    <table
-                        class="table table-bordered">
+                    <table class="table table-bordered text-center dataTable" id="reference_table">
                         <thead>
                             <tr>
                                 <th class="text-center">Sl.</th>
                                 <th class="text-center">Name</th>
-                                <th class="text-center">Email</th>
-                                <th class="text-center">Mobile</th>
-                                <th class="text-center">Image</th>
-                                <th class="text-center">Active/Not</th>
-                                <th class="text-center">Last Seen</th>
+                                {{-- <th class="text-center">Slug</th> --}}
+                                {{-- <th class="text-center">Image</th> --}}
+                                <th class="text-center">Status</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
-                    
+
                         <tbody>
-                            @forelse ($admins as $key=>$item)
-                           
-                                <tr>
-                                    <td  class="text-center" >{{ $key +1 }}</td>
-                                    <td  class="text-center" >{{ $item->name??'-' }}</td>
-                                    <td  class="text-center" >{{ $item->email??'-' }}</td>
-                                    <td  class="text-center" >{{ $item->mobile??'-' }}</td>
-                                    <td  class="text-center" ><img src="{{ asset($item->image) }}" alt="{{ $item->image }}" srcset="" width="100%" height="100"></td>
-                                   
-                                    <td class="text-center">
-                                        @if ($item->isOnline())
-                                            <i class="fa fa-check-circle-o" aria-hidden="true" style="color: green"></i>
-                                            @else
-                                            <i class="fa fa-times-circle-o" aria-hidden="true" style="color: red"></i>
-                                            @endif
-                                        </td>
-                                    <td>  {{ Carbon\Carbon::parse($item->last_seen??' ')->diffForHumans() }}</td>
-                                    <td  class="text-center">
-                                        <a href="{{ route('backend.admin.edit', $item) }}" class="btn btn-sm btn-icon btn-warning  m-r-5" data-toggle="tooltip" data-original-title="Edit"><i class="icon-pencil" aria-hidden="true"></i>
-                                        </a>
-                                        <button   type="button"  onclick="delete_check({{$item->id}})"
-                                        class="btn btn-sm btn-icon btn-danger  button-remove" data-toggle="tooltip" data-original-title="Remove" aria-describedby="tooltip64483"><i class="icon-trash" aria-hidden="true"></i>
-                                        </button >
-                                        <form action="{{ route('backend.admin.destroy', $item)}}"
-                                            id="deleteCheck_{{ $item->id }}" method="POST">
-                                            @method('delete')
-                                          @csrf
-                                      </form>
-                                    </td>
-                                </tr>
-                            @empty
-                                
-                            @endforelse
-                       
-                        
+
+
                         </tbody>
                     </table>
                 </div>
@@ -83,32 +70,248 @@
 
 
 
+
+<!-- Modal HTML -->
+
+<div class="modal fade reference_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg"" role=" document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('js')
 
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
-
-    <script>
-        function delete_check(id) {
-            Swal.fire({
-                title: 'Are you sure?',
-                html: "<b>You will delete it permanently!</b>",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!',
-                width: 400,
-            }).then((result) => {
-                if (result.value) {
-                    $('#deleteCheck_' + id).submit();
+<script>
+    let table_name ;
+    var modal = ".reference_modal";
+    $(function() {
+        table_name =$("#reference_table").DataTable({
+            dom: "Bfrtip",
+            buttons: ["colvis","copy", "csv", "excel", "pdf", "print",
+                {
+                    text: 'Reload',
+                    action: function ( e, dt, node, config ) {
+                        dataBaseCall();
+                    }
                 }
-            })
-        }
+            ],
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            pagingType: 'numbers',
+            pageLength: 10,
+            ajax: "{{ route('backend.reference.index') }}",
+            ajax: {
+                method:'GET',
+                url : "{{ route('backend.reference.index') }}",
+                data : function ( d ) {
+                    d.status = $('select#status').val()||true;
+                },
+            },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                }, {
+                    data: 'name',
+                    name: 'name'
+                },
+                // {
+                //     data: 'slug',
+                //     name: 'slug'
+                // },
 
-    </script>
+                // {
+                //     data: "image",
+                //     render: function(img) {
+                //         return '<img src="' + img + '" alt="no-image" height="100px" width="100" >';
+                //     },
+                //     orderable: false,
+                //     searchable: false
+                // },
+                {
+                    data: 'status',
+                    name: 'status',
+                    orderable: false,
+                    searchable: false
+                }, {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ],
+        });
+    });
 
-    
+    $('#create_data').click(function(e) {
+        e.preventDefault();
+        var modal = ".reference_modal";
+        var href = $(this).data('href');
+        // AJAX request
+        $.ajax({
+            url: href,
+            type: 'GET',
+            dataType: "html",
+            success: function(response) {
+                $(modal).modal('show');
+                $(modal).find('.modal-dialog').html('');
+                $(modal).find('.modal-dialog').html(response); // Add response in Modal body
+            }
+        });
+    });
+    $(document).on('click', '.edit_check', function(){
+
+        var href = $(this).data('href');
+        $.ajax({
+            url: href,
+            type: 'GET',
+            dataType: "html",
+            success: function(response) {
+                $(modal).modal('show');
+                $(modal).find('.modal-dialog').html('');
+                $(modal).find('.modal-dialog').html(response); // Add response in Modal body
+            }
+        });
+    });
+
+
+    $('#toggleFilter').click(() => {
+        $('#filterContainer').slideToggle();
+    })
+    function dataBaseCall(){
+        table_name.ajax.reload();
+    }
+
+    $(document).on('submit', 'form#reference_edit_form', function(e) {
+        e.preventDefault();
+        var registerForm = $("form#reference_edit_form");
+        var formData = registerForm.serialize();
+        $('.edit_reference_button').attr('disabled',true);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            enctype: 'multipart/form-data',
+            url: $(this).attr('action'),
+            type: 'PUT',
+            data: formData,
+            success: function(res) {
+                console.log(res);
+                if(res.status){
+                    $(modal).modal('hide');
+                    dataBaseCall();
+                    let $message = res.success;
+                    let $context = 'success';
+                    let $positionClass= 'toast-top-right';
+                    toastr.remove();
+                    toastr[$context]($message, '', {
+                        positionClass: $positionClass
+                    });
+                }else{
+                    let $message = res.errors ;
+                    let $context = 'error';
+                    let $positionClass= 'toast-top-right';
+                    toastr.remove();
+                    toastr[$context]($message, '', {
+                        positionClass: $positionClass
+                    });
+                }
+
+            },error:function(res){
+                var errors =res;
+                console.log(errors.responseJSON.errors, 'errors');
+                var myObject = errors.responseJSON.errors;
+                for (var key in myObject) {
+                if (myObject.hasOwnProperty(key)) {
+                    console.log(key + "/" + myObject[key]);
+                    $("form#outlet_add_form input[name='" + key + "']").after("<div class='text-danger'><strong>" + ' ' + " </strong></div>");
+                    $("form#outlet_add_form input[name='" + key + "']").after("<div class='text-danger'><strong>" + myObject[key] + " </strong></div>");
+                        let $message = myObject[key] ;
+                        let $context = 'error';
+                        let $positionClass= 'toast-top-right';
+                        toastr.remove();
+                        toastr[$context]($message, '', {
+                            positionClass: $positionClass
+                        });
+                    }
+
+                }
+
+            }
+        });
+    });
+
+
+    $(document).on('submit', 'form#reference_add_form', function(e) {
+        e.preventDefault();
+        var registerForm = $("form#reference_add_form");
+        var formData = registerForm.serialize();
+        $('.save_reference_button').attr('disabled',true);
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            enctype: 'multipart/form-data',
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: formData,
+            success: function(res) {
+                console.log(res);
+                if(res.status){
+                    $(modal).modal('hide');
+                    dataBaseCall();
+                    let $message = res.success;
+                    let $context = 'success';
+                    let $positionClass= 'toast-top-right';
+                    toastr.remove();
+                    toastr[$context]($message, '', {
+                        positionClass: $positionClass
+                    });
+                }else{
+                    let $message = res.errors ;
+                    let $context = 'error';
+                    let $positionClass= 'toast-top-right';
+                    toastr.remove();
+                    toastr[$context]($message, '', {
+                        positionClass: $positionClass
+                    });
+                }
+
+            },error:function(res){
+                var errors =res;
+                console.log(errors.responseJSON.errors, 'errors');
+                var myObject = errors.responseJSON.errors;
+                for (var key in myObject) {
+                if (myObject.hasOwnProperty(key)) {
+                    console.log(key + "/" + myObject[key]);
+                    $("form#outlet_add_form input[name='" + key + "']").after("<div class='text-danger'><strong>" + ' ' + " </strong></div>");
+                    $("form#outlet_add_form input[name='" + key + "']").after("<div class='text-danger'><strong>" + myObject[key] + " </strong></div>");
+                        let $message = myObject[key] ;
+                        let $context = 'error';
+                        let $positionClass= 'toast-top-right';
+                        toastr.remove();
+                        toastr[$context]($message, '', {
+                            positionClass: $positionClass
+                        });
+                    }
+
+                }
+
+
+            }
+        });
+    });
+
+</script>
+
+
 @endpush
