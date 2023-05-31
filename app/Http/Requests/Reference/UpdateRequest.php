@@ -5,7 +5,7 @@ namespace App\Http\Requests\Reference;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-
+use Illuminate\Support\Str;
 class UpdateRequest extends FormRequest
 {
 
@@ -28,8 +28,8 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'email' => ['nullable', Rule::unique('admins')->ignore($this->admin->id)],
-            'mobile' => ['nullable', Rule::unique('admins')->ignore($this->admin->id)],
+            'email' => ['nullable', Rule::unique('email')->ignore($this->reference->id)],
+            'mobile' => ['nullable', Rule::unique('mobile')->ignore($this->reference->id)],
             'commission' => 'nullable',
         ];
     }
@@ -38,6 +38,7 @@ class UpdateRequest extends FormRequest
     {
         try {
             $data = $request->validated();
+            $data['commission'] = Str::replace(',', '', ($this->commission));
             $reference->update($data);
         } catch (\Exception $ex) {
             return response()->json(['status' => false, 'msg' =>$ex->getMessage()]);

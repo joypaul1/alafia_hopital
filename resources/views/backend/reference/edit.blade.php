@@ -22,7 +22,7 @@
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('email')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.input.input-type',[ 'name' => 'commission',  'value' => $reference->commision, 'placeholder' => 'commision will be percent(%) amount (10)', 'number'=>true ])
+                    @include('components.backend.forms.input.input-type',[ 'name' => 'commission',  'value' => number_format($reference->commission, 2), 'placeholder' => 'commision will be percent(%) amount (10)', 'number'=>true ])
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('commission')])
                 </div>
                 <div class="form-group form-check">
