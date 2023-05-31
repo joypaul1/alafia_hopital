@@ -39,10 +39,10 @@ class StoreRequest extends FormRequest
 
         try {
             $data = $request->validated();
-            Reference::create($data);
+            $id =Reference::create($data)->id;
         } catch (\Exception $ex) {
             return response()->json(['status' => false, 'msg' =>$ex->getMessage()]);
         }
-        return response()->json(['status' => true, 'msg' => 'Data Updated Successfully']);
+        return response()->json(['status' => true, 'msg' => 'Data Updated Successfully', 'reference_id' => $id]);
     }
 }

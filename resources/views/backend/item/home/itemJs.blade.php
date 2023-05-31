@@ -66,7 +66,7 @@ $(function() {
             $.map(res.data, function(val, i) {
                 var newOption = new Option(val.name, val.id, false, false);
                 $('#brand_id').append(newOption).trigger('change');
-                $('#brand_id').val("{{$brand_id}}").trigger('change');;
+                $('#brand_id').val("{{$brand_id}}").trigger('change');
 
             });
         }

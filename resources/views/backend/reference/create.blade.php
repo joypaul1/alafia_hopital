@@ -23,8 +23,8 @@
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('email')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.input.input-type',[ 'name' => 'commision', 'placeholder' => 'commision will be percent(%) amount (10)', 'number'=>true ])
-                    @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('commision')])
+                    @include('components.backend.forms.input.input-type',[ 'name' => 'commission', 'placeholder' => 'commision will be percent(%) amount (10)', 'number'=>true ])
+                    @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('commission')])
                 </div>
 
 

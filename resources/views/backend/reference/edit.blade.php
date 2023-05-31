@@ -22,8 +22,8 @@
                     @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('email')])
                 </div>
                 <div class="form-group">
-                    @include('components.backend.forms.input.input-type',[ 'name' => 'commision',  'value' => $reference->commision, 'placeholder' => 'commision will be percent(%) amount (10)', 'number'=>true ])
-                    @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('commision')])
+                    @include('components.backend.forms.input.input-type',[ 'name' => 'commission',  'value' => $reference->commision, 'placeholder' => 'commision will be percent(%) amount (10)', 'number'=>true ])
+                    @include('components.backend.forms.input.errorMessage', ['message' => $errors->first('commission')])
                 </div>
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" name="status" {{$reference->status == true ? 'Checked': ' '}} id="active_check">

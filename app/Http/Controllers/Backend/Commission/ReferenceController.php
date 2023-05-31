@@ -96,7 +96,8 @@ class ReferenceController extends Controller
         $returnData = $request->storeData($request);
         if($returnData->getData()->status){
             (new LogActivity)::addToLog('Reference Data Created');
-            return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true], 200) ;
+            return response()->json(['success' =>$returnData->getData()->msg, 'status' =>true,
+            'reference_id' => $returnData->getData()->reference_id], 200) ;
         }
         return response()->json(['error' =>$returnData->getData()->msg,'status' =>false], 400) ;
     }

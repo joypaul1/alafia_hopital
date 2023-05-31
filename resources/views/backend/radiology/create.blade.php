@@ -102,19 +102,22 @@
                                 </div>
                             </div> --}}
                             @include('components.backend.forms.select2.option', [
-                                'label' => 'Raference',
-                                'name' => 'reference_id',
-                                'optionData' => [],
+                            'label' => 'Raference',
+                            'name' => 'reference_id',
+                            'optionData' => [],
                             ])
 
                             @include('components.backend.forms.input.errorMessage', [
                             'message' => $errors->first('reference_id'),
                             ])
                         </div>
+                        <div class="col-1">
+                            <label for=""> Add Ref. </label>
+                            <button type="button" class="btn btn-md btn-info add_ref">+</button>
+                        </div>
                     </div>
                     <div class="body justify-content-center">
-                        {{-- <h3 class="mb-1 text-center">Test Items</h3>
-                        <hr> --}}
+
                         <div class="row justify-content-center">
 
                             <div class="col-md-6 input-group mb-3">
@@ -161,32 +164,6 @@
             </div>
 
 
-            {{-- <div class="card text-right">
-                <div class="body row">
-                    <div class="col-4">
-                        @include('components.backend.forms.input.input-type', [
-                        'name' => 'payable_amount',
-                        'readonly' => 'true',
-                        'value' => 0.0,
-                        ])
-                    </div>
-
-                    <div class="col-4">
-                        @include('components.backend.forms.input.input-type', [
-                        'name' => 'paid_amount',
-                        'value' => 0.0,
-                        ])
-                    </div>
-                    <div class="col-4">
-                        @include('components.backend.forms.input.input-type', [
-                        'name' => 'due_amount',
-                        'readonly' => true,
-                        'value' => 0.0,
-                        ])
-                    </div>
-
-                </div>
-            </div> --}}
             <div class="card border-top">
                 <div class="card-body">
                     <h5>
@@ -415,7 +392,14 @@
 
     </div>
 </div>
+{{-- reference_modal --}}
+<div class="modal fade reference_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg"" role=" document">
+        <div class="modal-content">
 
+        </div>
+    </div>
+</div>
 
 @endsection
 
@@ -430,44 +414,133 @@
 
         });
 
-
-        $(function() {
-            // category data
+        $('.add_ref').click(function(e) {
+            e.preventDefault();
+            var modal = ".reference_modal";
+            var href = "{{ route('backend.reference.create') }}";
+            // AJAX request
             $.ajax({
-                type: "GET",
-                url:"{{ route('backend.reference.index') }}",
-                dataType: 'JSON',
-                data: {
-                    optionData: true
-                },
+                url: href,
+                type: 'GET',
+                dataType: "html",
+                success: function(response) {
+                    $(modal).modal('show');
+                    $(modal).find('.modal-dialog').html('');
+                    $(modal).find('.modal-dialog').html(response); // Add response in Modal body
 
-                success: function(res) {
-                    $.map(res.data, function(val, i) {
-                        var newOption = new Option(val.name, val.id, false, false);
-                        $('#reference_id').append(newOption).trigger('change');
-                    });
-                }
-                , error: function(jqXHR, exception) {
-                    var msg = '';
-                    if (jqXHR.status === 0) {
-                        msg = 'Not connect.\n Verify Network.';
-                    } else if (jqXHR.status == 404) {
-                        msg = 'Requested page not found. [404]';
-                    } else if (jqXHR.status == 500) {
-                        msg = 'Internal Server Error [500].';
-                    } else if (exception === 'parsererror') {
-                        msg = 'Requested JSON parse failed.';
-                    } else if (exception === 'timeout') {
-                        msg = 'Time out error.';
-                    } else if (exception === 'abort') {
-                        msg = 'Ajax request aborted.';
-                    } else {
-                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
-                    }
-                    console.log(msg);
                 }
             });
-        })
+        });
+
+        $(function() {
+            // reference data
+            referenceData();
+            let reference_id= null ;
+            $(document).on('submit', 'form#reference_add_form', function(e) {
+                e.preventDefault();
+                var registerForm = $("form#reference_add_form");
+                var formData = registerForm.serialize();
+                $('.save_reference_button').attr('disabled',true);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    enctype: 'multipart/form-data',
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    success: function(res) {
+                        console.log(res);
+                        if(res.status){
+                            reference_id = res.reference_id;
+                            referenceData();
+                            $(".reference_modal").modal('hide');
+                            let $message = res.success;
+                            let $context = 'success';
+                            let $positionClass= 'toast-top-right';
+                            toastr.remove();
+                            toastr[$context]($message, '', {
+                                positionClass: $positionClass
+                            });
+                        }else{
+                            let $message = res.errors ;
+                            let $context = 'error';
+                            let $positionClass= 'toast-top-right';
+                            toastr.remove();
+                            toastr[$context]($message, '', {
+                                positionClass: $positionClass
+                            });
+                        }
+
+                    },error:function(res){
+                        var errors =res;
+                        console.log(errors.responseJSON.errors, 'errors');
+                        var myObject = errors.responseJSON.errors;
+                        for (var key in myObject) {
+                        if (myObject.hasOwnProperty(key)) {
+                            console.log(key + "/" + myObject[key]);
+                            $("form#referenceadd_form input[name='" + key + "']").after("<div class='text-danger'><strong>" + ' ' + " </strong></div>");
+                            $("form#referenceadd_form input[name='" + key + "']").after("<div class='text-danger'><strong>" + myObject[key] + " </strong></div>");
+                                let $message = myObject[key] ;
+                                let $context = 'error';
+                                let $positionClass= 'toast-top-right';
+                                toastr.remove();
+                                toastr[$context]($message, '', {
+                                    positionClass: $positionClass
+                                });
+                            }
+
+                        }
+
+
+                    }
+                });
+            });
+
+            function referenceData(){
+                $.ajax({
+                    type: "GET",
+                    url:"{{ route('backend.reference.index') }}",
+                    dataType: 'JSON',
+                    data: {
+                        optionData: true
+                    },
+
+                    success: function(res) {
+                        $.map(res.data, function(val, i) {
+                            var newOption = new Option(val.name, val.id, false, false);
+                            $('#reference_id').append(newOption).trigger('change');
+                            $('#reference_id').val(reference_id).trigger('change');
+                        });
+                    }
+                    , error: function(jqXHR, exception) {
+                        var msg = '';
+                        if (jqXHR.status === 0) {
+                            msg = 'Not connect.\n Verify Network.';
+                        } else if (jqXHR.status == 404) {
+                            msg = 'Requested page not found. [404]';
+                        } else if (jqXHR.status == 500) {
+                            msg = 'Internal Server Error [500].';
+                        } else if (exception === 'parsererror') {
+                            msg = 'Requested JSON parse failed.';
+                        } else if (exception === 'timeout') {
+                            msg = 'Time out error.';
+                        } else if (exception === 'abort') {
+                            msg = 'Ajax request aborted.';
+                        } else {
+                            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                        }
+                        console.log(msg);
+                    }
+                });
+            }
+        });
+
+
+
         // date_of_birth
         $(document).on('change', '#date_of_birth', function(e) {
             var today = new Date();

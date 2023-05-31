@@ -4,6 +4,8 @@ namespace App\Http\Requests\Radiology;
 
 use App\Helpers\InvoiceNumber;
 use App\Models\Account\AccountLedger;
+use App\Models\CommissionHistory;
+use App\Models\CommissionLedger;
 use App\Models\FinancialYearHistory;
 use App\Models\lab\LabInvoice;
 use App\Models\lab\LabInvoiceTestDetails;
@@ -11,6 +13,7 @@ use App\Models\lab\LabTest;
 use App\Models\LedgerTransition;
 use App\Models\PaymentSystem;
 use App\Models\Radiology\RadiologyServiceInvoice;
+use App\Models\Reference;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
@@ -41,6 +44,7 @@ class StoreRequest extends FormRequest
             // 'service_id' => 'required|array',
             // 'service_id.*' => 'required|exists:lab_tests,id',
             'doctor_id' => 'nullable|exists:doctors,id',
+            'reference_id' => 'nullable|exists:references,id',
             // 'test_price' => 'required|array',
             // 'test_price.*' => 'required|numeric',
             'testSubTotal' => 'required',
@@ -83,6 +87,7 @@ class StoreRequest extends FormRequest
             $data['payment_status']     = $payment_status;
             $data['total_amount']       = Str::replace(',', '', ($this->payable_amount));
             $data['doctor_id']          = $this->doctor_id;
+            $data['reference_id']       = $this->reference_id;
             $serviceInvoice             = RadiologyServiceInvoice::create($data);
             // dd($serviceInvoice );
             foreach ($this->service_id as $key => $serviceId) {
@@ -146,19 +151,35 @@ class StoreRequest extends FormRequest
 
 
                 // LedgerTransition --->increment costing
-                $leg = LedgerTransition::updateOrCreate([
+                LedgerTransition::updateOrCreate([
                     'ledger_id' => $this->payment_account,
                     'date'     => FinancialYearHistory::latest()->first()->start_date
                 ], [
                     'debit' => DB::raw('debit +' . Str::replace(',', '',  $serviceInvoice->paid_amount))
                 ]);
             }
-
+            //commission system Transaction
+            if($this->reference_id){
+                $reference = Reference::whereId($this->reference_id)->first();
+                if($reference->commission > 0){
+                    $commissionTk = ($reference->commission/100) * $this->payable_amount;
+                    CommissionHistory::create([
+                        'radiology_service_invoice_id' => $serviceInvoice->id,
+                        'reference_id' => $reference->id,
+                        'commission' =>$commissionTk
+                    ]);
+                     CommissionLedger::updateOrCreate([
+                        'reference_id' => $this->reference_id,
+                    ], [
+                        'credit' => DB::raw('credit +' . Str::replace(',', '',  $commissionTk))
+                    ]);
+                }
+            }
+            //end commission system Transaction
 
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            // dd($e->getMessage(), $e->getLine());
             return response()->json(['msg' => $e->getMessage(), $e->getLine(), 'status' => false], 400);
         }
         return response()->json(['data' => $serviceInvoice->id, 'status' => true], 200);

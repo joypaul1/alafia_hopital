@@ -4,12 +4,15 @@ namespace App\Http\Requests\Pathology\Lab;
 
 use App\Helpers\InvoiceNumber;
 use App\Models\Account\AccountLedger;
+use App\Models\CommissionHistory;
+use App\Models\CommissionLedger;
 use App\Models\FinancialYearHistory;
 use App\Models\lab\LabInvoice;
 use App\Models\lab\LabInvoiceTestDetails;
 use App\Models\lab\LabTest;
 use App\Models\LedgerTransition;
 use App\Models\PaymentSystem;
+use App\Models\Reference;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
@@ -40,6 +43,7 @@ class StoreRequest extends FormRequest
             'labTest_id' => 'required|array',
             'labTest_id.*' => 'required|exists:lab_tests,id',
             'doctor_id' => 'nullable|exists:doctors,id',
+            'reference_id' => 'nullable|exists:references,id',
             'test_price' => 'required|array',
             'test_price.*' => 'required|numeric',
             'testTube_id' => 'nullable|array',
@@ -83,6 +87,7 @@ class StoreRequest extends FormRequest
             $data['subtotal_amount']    = Str::replace(',', '', ($this->payable_amount));
             $data['total_amount']       = Str::replace(',', '', ($this->payable_amount));
             $data['doctor_id']          = $this->doctor_id;
+            $data['reference_id']       = $this->reference_id;
             $data['status']             = 'collection';
             $labInvoice                 = LabInvoice::create($data);
             // dd($data );
@@ -216,6 +221,24 @@ class StoreRequest extends FormRequest
                     'debit' => DB::raw('debit +' . Str::replace(',', '',  $labInvoice->paid_amount))
                 ]);
             }
+              //commission system Transaction
+              if($this->reference_id){
+                $reference = Reference::whereId($this->reference_id)->first();
+                if($reference->commission > 0){
+                    $commissionTk = ($reference->commission/100) * $this->payable_amount;
+                    CommissionHistory::create([
+                        'lab_invoice_id' => $labInvoice->id,
+                        'reference_id' => $reference->id,
+                        'commission' => $commissionTk
+                    ]);
+                     CommissionLedger::updateOrCreate([
+                        'reference_id' => $this->reference_id,
+                    ], [
+                        'credit' => DB::raw('credit +' . Str::replace(',', '',  $commissionTk))
+                    ]);
+                }
+            }
+            //end commission system Transaction
 
             // dd($data);
             DB::commit();
