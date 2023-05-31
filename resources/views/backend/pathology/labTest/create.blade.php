@@ -1,347 +1,486 @@
 @extends('backend.layout.app')
 @section('page-header')
-    <i class="fa fa-list"></i> Lab Test Create
+<i class="fa fa-list"></i> Lab Test Create
 @stop
 @push('css')
-    <link rel="stylesheet" href="{{ asset('assets/backend/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}">
+<link rel="stylesheet"
+    href="{{ asset('assets/backend/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
-    <style>
-        .ui-autocomplete {
-            position: absolute;
-            cursor: default;
-            z-index: 99999999999999 !important
-        }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+<style>
+    .ui-autocomplete {
+        position: absolute;
+        cursor: default;
+        z-index: 99999999999999 !important
+    }
 
+    .product-grid-container {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 768px) {
         .product-grid-container {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
         }
-
-        @media (min-width: 768px) {
-            .product-grid-container {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 15px;
-            }
-        }
-    </style>
+    }
+</style>
 @endpush
 @section('content')
-    @include('backend._partials.modal_page_header', [
-        'fa' => 'fa fa-plus-circle',
-        'name' => 'LabTest Invoice list',
-        'route' => route('backend.pathology.labTest.create'),
-    ])
+@include('backend._partials.modal_page_header', [
+'fa' => 'fa fa-plus-circle',
+'name' => 'LabTest Invoice list',
+'route' => route('backend.pathology.labTest.create'),
+])
 
-    <div class="row">
-        <div class="col-12">
-            @if ($errors->any())
-                <p class="text-danger">{{ implode('', $errors->all('<div>:message</div>')) }}</p>
-            @endif
-            <form action="{{ route('backend.pathology.labTest.store') }}" method="post">
-                @csrf
-                @method('POST')
-                <div class="card">
-                    <div class="body">
+<div class="row">
+    <div class="col-12">
+        @if ($errors->any())
+        <p class="text-danger">{{ implode('', $errors->all('
+        <div>:message</div>')) }}</p>
+        @endif
+        <form action="{{ route('backend.pathology.labTest.store') }}" method="post">
+            @csrf
+            @method('POST')
+            <div class="card">
+                <div class="body">
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <input type="hidden" name="patient_id" id="patient_Id">
+
+                            <label class="col-form-label" for="date">
+                                Patient
+                                <span class="text-danger">* </span>
+                            </label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                                </div>
+                                <input type="text" name="patient" id="patient" class="form-control"
+                                    placeholder="Patient Name/Id/Mobile num.." autocomplete="off" required="">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="create_patient"
+                                        data-href="{{ route('backend.patient.create') }}">
+                                        <i class="fa fa-plus" style="cursor: pointer;"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            @include('components.backend.forms.input.errorMessage', [
+                            'message' => $errors->first('name'),
+                            ])
+                        </div>
+                        <div class="col-md-2">
+                            @include('components.backend.forms.input.input-type', [
+                            'name' => 'date',
+                            'value' => date('Y-m-d'),
+                            'placeholder' => 'Enter Name Here ... ',
+                            'required' => true,
+                            ])
+                            @include('components.backend.forms.input.errorMessage', [
+                            'message' => $errors->first('name'),
+                            ])
+                        </div>
+
+                        <div class="col-md-4">
+                            {{-- <input type="hidden" name="doctor_id" id="doctor_Id">
+
+                            <label class="col-form-label" for="date">
+                                Doctor
+                                <span class="text-danger">* </span>
+                            </label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
+                                </div>
+                                <input type="text" name="doctor" id="doctor" class="form-control"
+                                    placeholder="Doctor Name/Email/Mobile num.." autocomplete="off" required="">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="create_doctor">
+                                        <i class="fa fa-plus" style="cursor: pointer;"></i>
+                                    </span>
+                                </div>
+                            </div> --}}
+                            @include('components.backend.forms.select2.option', [
+                            'label' => 'Raference',
+                            'name' => 'reference_id',
+                            'optionData' => [],
+                            ])
+
+                            @include('components.backend.forms.input.errorMessage', [
+                            'message' => $errors->first('reference_id'),
+                            ])
+                        </div>
+                        <div class="col-1">
+                            <label for=""> Add Ref. </label>
+                            <button type="button" class="btn btn-md btn-info add_ref">+</button>
+                        </div>
+                    </div>
+                    <div class="body ">
+                        {{-- <h3 class="mb-1 text-center">Test Items</h3>
+                        <hr> --}}
                         <div class="row justify-content-center">
-                            <div class="col-md-4">
-                                <input type="hidden" name="patient_id" id="patient_Id">
 
-                                <label class="col-form-label" for="date">
-                                    Patient
-                                    <span class="text-danger">* </span>
-                                </label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
-                                    </div>
-                                    <input type="text" name="patient" id="patient" class="form-control"
-                                        placeholder="Patient Name/Id/Mobile num.." autocomplete="off" required="">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="create_patient"
-                                            data-href="{{ route('backend.patient.create') }}">
-                                            <i class="fa fa-plus" style="cursor: pointer;"></i>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                @include('components.backend.forms.input.errorMessage', [
-                                    'message' => $errors->first('name'),
-                                ])
-                            </div>
-                            <div class="col-md-2">
-                                @include('components.backend.forms.input.input-type', [
-                                    'name' => 'date',
-                                    'value' => date('Y-m-d'),
-                                    'placeholder' => 'Enter Name Here ... ',
-                                    'required' => true,
-                                ])
-                                @include('components.backend.forms.input.errorMessage', [
-                                    'message' => $errors->first('name'),
-                                ])
-                            </div>
-
-                            <div class="col-md-4">
-                                <input type="hidden" name="doctor_id" id="doctor_Id">
-
-                                <label class="col-form-label" for="date">
-                                    Doctor
-                                   
-                                </label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
-                                    </div>
-                                    <input type="text" name="doctor" id="doctor" class="form-control"
-                                        placeholder="Doctor Name/Email/Mobile num.." autocomplete="off">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="create_doctor">
-                                            <i class="fa fa-plus" style="cursor: pointer;"></i>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                @include('components.backend.forms.input.errorMessage', [
-                                    'message' => $errors->first('name'),
-                                ])
+                            <div class="col-md-6 input-group mb-3">
+                                {{-- <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-search-plus"
+                                            aria-hidden="true"></i></span>
+                                </div> --}}
+                                <input type="text" name="testItem" id="testItem"
+                                    class="form-control ui-autocomplete-input" placeholder="Enter Test Name Here ..."
+                                    autocomplete="off">
                             </div>
                         </div>
-                        <div class="body ">
-                            {{-- <h3 class="mb-1 text-center">Test Items</h3>
-                            <hr> --}}
-                            <div class="row justify-content-center">
 
-                                <div class="col-md-6 input-group mb-3">
-                                    {{-- <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-search-plus"
-                                                aria-hidden="true"></i></span>
-                                    </div> --}}
-                                    <input type="text" name="testItem" id="testItem"
-                                        class="form-control ui-autocomplete-input" placeholder="Enter Test Name Here ..."
+                        <div class="table-responsive">
+                            <table ellspacing='0' class="table table-bordered text-center testTable">
+                                <thead>
+                                    <tr>
+                                        <th> Test Name </th>
+                                        <th> Price </th>
+                                        <th> Discount Type </th>
+                                        <th> Discount </th>
+                                        <th> Discount Amount </th>
+                                        <th> SubTotal </th>
+                                        <th> Action </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="labTestAppend"></tr>
+
+                                </tbody>
+                            </table>
+                            <div class=" form-inline d-flex justify-content-end">
+                                <div class="form-group">
+                                    <label> Sub-Total:</label>
+                                    <input type="text" readonly name="testSubTotal" class="form-control text-right"
+                                        id="testSubTotal">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table ellspacing='0' class="table table-bordered text-center testTubeTable">
+                                <thead>
+                                    <tr>
+                                        <th> Tube Name </th>
+                                        <th> Price </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="testTubeAppend"></tr>
+
+                                </tbody>
+                            </table>
+                            <div class=" form-inline d-flex justify-content-end">
+                                <div class="form-group">
+                                    <label> Sub-Total:</label>
+                                    <input type="text" readonly name="tubeSubTotal" class="form-control text-right"
+                                        id="tubeSubTotal">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card text-right">
+                <div class="body row">
+                    <div class="col-4">
+                        @include('components.backend.forms.input.input-type', [
+                        'name' => 'payable_amount',
+                        'readonly' => 'true',
+                        'value' => 0.0,
+                        ])
+                    </div>
+
+                    <div class="col-4">
+                        @include('components.backend.forms.input.input-type', [
+                        'name' => 'paid_amount',
+                        'value' => 0.0,
+                        'number' => true,
+                        ])
+                    </div>
+                    <div class="col-4">
+                        @include('components.backend.forms.input.input-type', [
+                        'name' => 'due_amount',
+                        'readonly' => true,
+                        'value' => 0.0,
+                        ])
+                    </div>
+                    {{-- <strong>Total : <span id="totalPrice">0.00</span>Tk </strong> --}}
+                </div>
+            </div>
+            <div class="d-block text-right mb-5">
+                <button class="btn btn-lg btn-info">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{-- Patient modal --}}
+<div class="modal fade" id="patient_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role=" document">
+
+    </div>
+</div>
+
+{{-- Doctor modal --}}
+<div class="modal fade" id="doctor_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role=" document">
+        <div class="modal-content">
+            <form class="needs-validation" id="doctor_add_form" enctype="multipart/form-data">
+                @csrf
+                @method('POST')
+                <div class="modal-header">
+                    <h4 class="title" id="">New Doctor</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-validation">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+
+                                    <label class="col-form-label" for="name">
+
+                                        Name
+                                        <span class="text-danger">*</span>
+                                    </label>
+
+                                    <input type="text" name="first_name" class="form-control" id="name"
+                                        placeholder="Enter Name" value="" autocomplete="off" required="">
+                                </div>
+
+                            </div>
+
+                            <div class="col-4">
+                                <div class="form-group">
+
+                                    <label class="col-form-label" for="mobile">
+
+                                        Mobile
+                                        <span class="text-danger">*</span>
+                                    </label>
+
+                                    <input type="text" name="mobile" class="form-control" id="mobile" min="0"
+                                        step="0.01" title="amount" pattern="^\d+(?:\.\d{1,2})?$"
+                                        onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57"
+                                        placeholder="Enter Mobile" value="" autocomplete="off" required="">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+
+                                    <label class="col-form-label" for="email">
+
+                                        Email
+                                    </label>
+
+                                    <input type="text" name="email" class="form-control" id="email"
+                                        placeholder="Enter Email" value="" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+
+                                    <label class="col-form-label" for="emargency_contact">
+
+                                        Emargency contact
+                                    </label>
+
+                                    <input type="text" name="emargency_contact" class="form-control"
+                                        id="emargency_contact" placeholder="Enter Emargency Contact" value=""
                                         autocomplete="off">
                                 </div>
                             </div>
 
-                            <div class="table-responsive">
-                                <table ellspacing='0' class="table table-bordered text-center testTable">
-                                    <thead>
-                                        <tr>
-                                            <th> Test Name </th>
-                                            <th> Price </th>
-                                            <th> Discount Type </th>
-                                            <th> Discount </th>
-                                            <th> Discount Amount </th>
-                                            <th> SubTotal </th>
-                                            <th> Action </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr id="labTestAppend"></tr>
+                            <div class="col-4">
+                                <label class="col-form-label for=" gender"="">
+                                    Gender
+                                </label>
 
-                                    </tbody>
-                                </table>
-                                <div class=" form-inline d-flex justify-content-end">
-                                    <div class="form-group">
-                                        <label> Sub-Total:</label>
-                                        <input type="text" readonly name="testSubTotal" class="form-control text-right"
-                                            id="testSubTotal">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="table-responsive">
-                                <table ellspacing='0' class="table table-bordered text-center testTubeTable">
-                                    <thead>
-                                        <tr>
-                                            <th> Tube Name </th>
-                                            <th> Price </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr id="testTubeAppend"></tr>
 
-                                    </tbody>
-                                </table>
-                                <div class=" form-inline d-flex justify-content-end">
-                                    <div class="form-group">
-                                        <label> Sub-Total:</label>
-                                        <input type="text" readonly name="tubeSubTotal" class="form-control text-right"
-                                            id="tubeSubTotal">
-                                    </div>
-                                </div>
+
+
+                                <select class="form-control show-tick ms select2" id="gender" name="gender">
+                                    <option value="">- select gender -</option>
+                                    <option value="male">
+                                        male
+                                    </option>
+                                    <option value="female">
+                                        female
+                                    </option>
+                                    <option value="others">
+                                        others
+                                    </option>
+                                </select>
+
                             </div>
 
                         </div>
+
+
                     </div>
                 </div>
-
-
-                <div class="card text-right">
-                    <div class="body row">
-                        <div class="col-4">
-                            @include('components.backend.forms.input.input-type', [
-                                'name' => 'payable_amount',
-                                'readonly' => 'true',
-                                'value' => 0.0,
-                            ])
-                        </div>
-
-                        <div class="col-4">
-                            @include('components.backend.forms.input.input-type', [
-                                'name' => 'paid_amount',
-                                'value' => 0.0,
-                                'number' => true,
-                            ])
-                        </div>
-                        <div class="col-4">
-                            @include('components.backend.forms.input.input-type', [
-                                'name' => 'due_amount',
-                                'readonly' => true,
-                                'value' => 0.0,
-                            ])
-                        </div>
-                        {{-- <strong>Total : <span id="totalPrice">0.00</span>Tk </strong> --}}
-                    </div>
-                </div>
-                <div class="d-block text-right mb-5">
-                    <button class="btn btn-lg btn-info">Save</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
+                    <button type="submit" class="btn btn-primary">SAVE</button>
                 </div>
             </form>
         </div>
-    </div>
 
-    {{-- Patient modal --}}
-    <div class="modal fade" id="patient_modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role=" document">
+    </div>
+</div>
+{{-- reference_modal --}}
+<div class="modal fade reference_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg"" role=" document">
+        <div class="modal-content">
 
         </div>
     </div>
-
-    {{-- Doctor modal --}}
-    <div class="modal fade" id="doctor_modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role=" document">
-            <div class="modal-content">
-                <form class="needs-validation" id="doctor_add_form" enctype="multipart/form-data">
-                    @csrf
-                    @method('POST')
-                    <div class="modal-header">
-                        <h4 class="title" id="">New Doctor</h4>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="form-validation">
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="form-group">
-
-                                        <label class="col-form-label" for="name">
-
-                                            Name
-                                            <span class="text-danger">*</span>
-                                        </label>
-
-                                        <input type="text" name="first_name" class="form-control" id="name"
-                                            placeholder="Enter Name" value="" autocomplete="off" required="">
-                                    </div>
-
-                                </div>
-
-                                <div class="col-4">
-                                    <div class="form-group">
-
-                                        <label class="col-form-label" for="mobile">
-
-                                            Mobile
-                                            <span class="text-danger">*</span>
-                                        </label>
-
-                                        <input type="text" name="mobile" class="form-control" id="mobile"
-                                            min="0" step="0.01" title="amount" pattern="^\d+(?:\.\d{1,2})?$"
-                                            onkeypress="return event.charCode >= 48 &amp;&amp; event.charCode <= 57"
-                                            placeholder="Enter Mobile" value="" autocomplete="off" required="">
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-
-                                        <label class="col-form-label" for="email">
-
-                                            Email
-                                        </label>
-
-                                        <input type="text" name="email" class="form-control" id="email"
-                                            placeholder="Enter Email" value="" autocomplete="off">
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-
-                                        <label class="col-form-label" for="emargency_contact">
-
-                                            Emargency contact
-                                        </label>
-
-                                        <input type="text" name="emargency_contact" class="form-control"
-                                            id="emargency_contact" placeholder="Enter Emargency Contact" value=""
-                                            autocomplete="off">
-                                    </div>
-                                </div>
-
-                                <div class="col-4">
-                                    <label class="col-form-label for=" gender"="">
-                                        Gender
-                                    </label>
-
-
-
-
-                                    <select class="form-control show-tick ms select2" id="gender" name="gender">
-                                        <option value="">- select gender -</option>
-                                        <option value="male">
-                                            male
-                                        </option>
-                                        <option value="female">
-                                            female
-                                        </option>
-                                        <option value="others">
-                                            others
-                                        </option>
-                                    </select>
-
-                                </div>
-
-
-
-
-
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
-                        <button type="submit" class="btn btn-primary">SAVE</button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-
-
+</div>
 
 @endsection
 
 @push('js')
-    @include('backend.pathology.labTest.labTestJs')
-    <script src="{{ asset('assets/backend/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
-    <script>
-        $('#date').datepicker({
+@include('backend.pathology.labTest.labTestJs')
+<script src="{{ asset('assets/backend/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+<script>
+    $('#date').datepicker({
             format: 'dd-mm-yyyy',
             startDate: '-5y'
 
         });
+
+        $('.add_ref').click(function(e) {
+            e.preventDefault();
+            var modal = ".reference_modal";
+            var href = "{{ route('backend.reference.create') }}";
+            // AJAX request
+            $.ajax({
+                url: href,
+                type: 'GET',
+                dataType: "html",
+                success: function(response) {
+                    $(modal).modal('show');
+                    $(modal).find('.modal-dialog').html('');
+                    $(modal).find('.modal-dialog').html(response); // Add response in Modal body
+
+                }
+            });
+        });
+
+        $(function() {
+            // reference data
+            referenceData();
+            let reference_id= null ;
+            $(document).on('submit', 'form#reference_add_form', function(e) {
+                e.preventDefault();
+                var registerForm = $("form#reference_add_form");
+                var formData = registerForm.serialize();
+                $('.save_reference_button').attr('disabled',true);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    enctype: 'multipart/form-data',
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    success: function(res) {
+                        console.log(res);
+                        if(res.status){
+                            reference_id = res.reference_id;
+                            referenceData();
+                            $(".reference_modal").modal('hide');
+                            let $message = res.success;
+                            let $context = 'success';
+                            let $positionClass= 'toast-top-right';
+                            toastr.remove();
+                            toastr[$context]($message, '', {
+                                positionClass: $positionClass
+                            });
+                        }else{
+                            let $message = res.errors ;
+                            let $context = 'error';
+                            let $positionClass= 'toast-top-right';
+                            toastr.remove();
+                            toastr[$context]($message, '', {
+                                positionClass: $positionClass
+                            });
+                        }
+
+                    },error:function(res){
+                        var errors =res;
+                        console.log(errors.responseJSON.errors, 'errors');
+                        var myObject = errors.responseJSON.errors;
+                        for (var key in myObject) {
+                        if (myObject.hasOwnProperty(key)) {
+                            console.log(key + "/" + myObject[key]);
+                            $("form#referenceadd_form input[name='" + key + "']").after("<div class='text-danger'><strong>" + ' ' + " </strong></div>");
+                            $("form#referenceadd_form input[name='" + key + "']").after("<div class='text-danger'><strong>" + myObject[key] + " </strong></div>");
+                                let $message = myObject[key] ;
+                                let $context = 'error';
+                                let $positionClass= 'toast-top-right';
+                                toastr.remove();
+                                toastr[$context]($message, '', {
+                                    positionClass: $positionClass
+                                });
+                            }
+
+                        }
+
+
+                    }
+                });
+            });
+
+            function referenceData(){
+                $.ajax({
+                    type: "GET",
+                    url:"{{ route('backend.reference.index') }}",
+                    dataType: 'JSON',
+                    data: {
+                        optionData: true
+                    },
+
+                    success: function(res) {
+                        $.map(res.data, function(val, i) {
+                            var newOption = new Option(val.name, val.id, false, false);
+                            $('#reference_id').append(newOption).trigger('change');
+                            $('#reference_id').val(reference_id).trigger('change');
+                        });
+                    }
+                    , error: function(jqXHR, exception) {
+                        var msg = '';
+                        if (jqXHR.status === 0) {
+                            msg = 'Not connect.\n Verify Network.';
+                        } else if (jqXHR.status == 404) {
+                            msg = 'Requested page not found. [404]';
+                        } else if (jqXHR.status == 500) {
+                            msg = 'Internal Server Error [500].';
+                        } else if (exception === 'parsererror') {
+                            msg = 'Requested JSON parse failed.';
+                        } else if (exception === 'timeout') {
+                            msg = 'Time out error.';
+                        } else if (exception === 'abort') {
+                            msg = 'Ajax request aborted.';
+                        } else {
+                            msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                        }
+                        console.log(msg);
+                    }
+                });
+            }
+        });
+
         // date_of_birth
         $(document).on('change', '#date_of_birth', function(e) {
             var today = new Date();
@@ -652,5 +791,5 @@
                 due_amount.val((Number(payable_amount) - Number(paid_amount)).toFixed(2));
             }
         });
-    </script>
+</script>
 @endpush
