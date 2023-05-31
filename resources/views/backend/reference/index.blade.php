@@ -34,7 +34,8 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group">
-                                @include('components.backend.forms.select2.option',[ 'label'=> 'status', 'name' => 'status','onchange'=>true,  'optionData' => $status ])
+                                @include('components.backend.forms.select2.option',[ 'label'=> 'status', 'name' =>
+                                'status','onchange'=>true, 'optionData' => $status ])
                             </div>
                         </div>
                     </div>
@@ -50,8 +51,9 @@
                             <tr>
                                 <th class="text-center">Sl.</th>
                                 <th class="text-center">Name</th>
-                                {{-- <th class="text-center">Slug</th> --}}
-                                {{-- <th class="text-center">Image</th> --}}
+                                <th class="text-center">Email</th>
+                                <th class="text-center">Mobile</th>
+                                <th class="text-center">Commission</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Action</th>
                             </tr>
@@ -118,10 +120,14 @@
                     data: 'name',
                     name: 'name'
                 },
-                // {
-                //     data: 'slug',
-                //     name: 'slug'
-                // },
+                {
+                    data: 'mobile',
+                    name: 'mobile'
+                },
+                {
+                    data: 'email',
+                    name: 'email'
+                },
 
                 // {
                 //     data: "image",
@@ -230,8 +236,8 @@
                 for (var key in myObject) {
                 if (myObject.hasOwnProperty(key)) {
                     console.log(key + "/" + myObject[key]);
-                    $("form#outlet_add_form input[name='" + key + "']").after("<div class='text-danger'><strong>" + ' ' + " </strong></div>");
-                    $("form#outlet_add_form input[name='" + key + "']").after("<div class='text-danger'><strong>" + myObject[key] + " </strong></div>");
+                    $("form#referenceadd_form input[name='" + key + "']").after("<div class='text-danger'><strong>" + ' ' + " </strong></div>");
+                    $("form#referenceadd_form input[name='" + key + "']").after("<div class='text-danger'><strong>" + myObject[key] + " </strong></div>");
                         let $message = myObject[key] ;
                         let $context = 'error';
                         let $positionClass= 'toast-top-right';
@@ -293,8 +299,8 @@
                 for (var key in myObject) {
                 if (myObject.hasOwnProperty(key)) {
                     console.log(key + "/" + myObject[key]);
-                    $("form#outlet_add_form input[name='" + key + "']").after("<div class='text-danger'><strong>" + ' ' + " </strong></div>");
-                    $("form#outlet_add_form input[name='" + key + "']").after("<div class='text-danger'><strong>" + myObject[key] + " </strong></div>");
+                    $("form#referenceadd_form input[name='" + key + "']").after("<div class='text-danger'><strong>" + ' ' + " </strong></div>");
+                    $("form#referenceadd_form input[name='" + key + "']").after("<div class='text-danger'><strong>" + myObject[key] + " </strong></div>");
                         let $message = myObject[key] ;
                         let $context = 'error';
                         let $positionClass= 'toast-top-right';

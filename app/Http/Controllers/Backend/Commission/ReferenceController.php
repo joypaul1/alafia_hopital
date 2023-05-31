@@ -22,7 +22,7 @@ class ReferenceController extends Controller
     public function index(Request $request)
     {
         // $references = Reference::paginate(10);
-        $data = Reference::select(['id', 'name', 'mobile', 'email', 'status'])->latest();
+        $data = Reference::select(['id', 'name', 'mobile', 'email', 'status', 'commission'])->latest();
         if($request->status){
             $data = $data->active();
         }elseif($request->status == '0'){
@@ -50,9 +50,9 @@ class ReferenceController extends Controller
                     </div></div>';
                     return $action;
                 })
-                // ->editColumn('image', function($row){
-                //     return  asset($row->image);
-                // })
+                ->editColumn('commission', function($row){
+                    return  number_format($row->commission,2);
+                })
                 ->editColumn('status', function($row){
                     return view('components.backend.forms.input.input-switch', ['status' => $row->status ]);
 
