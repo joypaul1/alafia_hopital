@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Backend\Commission\HistoryController;
+use App\Http\Controllers\Backend\Commission\ReferenceController;
 use App\Http\Controllers\Backend\Employee\DepartmentController;
 use App\Http\Controllers\Backend\Employee\DesignationController;
 use App\Http\Controllers\Backend\Employee\EmployeeController;
@@ -25,5 +27,11 @@ Route::group(['middleware' => 'admin', 'prefix' =>'admin' , 'as'=>'backend.'], f
     Route::get('patient-list', [PatientController::class,'patientList'])->name('patient.list');;
     Route::get('add-patient', [PatientController::class,'addPatient'])->name('patient.add');;
     Route::post('save-patient', [PatientController::class,'savePatient'])->name('patient.save');
+
+    // reference
+    Route::resource('reference', ReferenceController::class);
+    Route::resource('reference-history', HistoryController::class);
+
 });
+
 

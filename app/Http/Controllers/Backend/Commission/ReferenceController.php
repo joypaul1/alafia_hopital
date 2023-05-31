@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Admin;
+namespace App\Http\Controllers\Backend\Commission;
 
-use App\Helpers\Image;
+
+
 use App\Helpers\LogActivity;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreRequest;
-use App\Http\Requests\Admin\UpdateRequest;
-use App\Models\Admin;
-use App\Models\LogActivity as BackendLogActivity;
+use App\Http\Requests\Reference\StoreRequest;
+use App\Http\Requests\Reference\UpdateRequest;
+use App\Models\Reference;
 
 
-class AdminController extends Controller
+class ReferenceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,15 +20,11 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = Admin::paginate(10);
-        return view('backend.admin.index', compact('admins'));
+        $references = Reference::paginate(10);
+        return view('backend.reference.index', compact('references'));
     }
 
-    public function logIndex()
-    {
-        $activities = BackendLogActivity::with('admin')->paginate(50);
-        return view('backend.admin.logIndex', compact('activities'));
-    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -37,7 +33,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('backend.admin.create');
+        return view('backend.reference.create');
     }
 
     /**
@@ -50,7 +46,7 @@ class AdminController extends Controller
     {
         $returnData = $request->storeData($request);
         if($returnData->getData()->status){
-            (new LogActivity)::addToLog('Admin Created');
+            (new LogActivity)::addToLog('Reference Data Created');
             return back()->with(['success' => $returnData->getData()->msg  ]);
         }
         return back()->with(['error' =>$returnData->getData()->msg ]);
@@ -74,10 +70,9 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Admin $admin )
+    public function edit(Reference $reference )
     {
-        // dd($admin);
-        return view('backend.admin.edit',compact('admin'));
+        return view('backend.reference.edit',compact('reference'));
     }
 
     /**
@@ -87,12 +82,12 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, Admin $admin)
+    public function update(UpdateRequest $request, Reference $reference)
     {
 
-        $returnData = $request->updateData($request, $admin);
+        $returnData = $request->updateData($request, $reference);
         if($returnData->getData()->status){
-            (new LogActivity)::addToLog('Admin Updated');
+            (new LogActivity)::addToLog('Reference data Updated');
             return back()->with(['success' => $returnData->getData()->msg  ]);
 
         }
@@ -105,15 +100,14 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy(Reference $reference)
     {
         try {
-            (new Image)->deleteIfExists($admin->image);
-            $admin->delete();
+            $reference->delete();
         } catch (\Exception $ex) {
             return back()->with(['status' => false, 'error' =>$ex->getMessage()]);
         }
-        (new LogActivity)::addToLog('Admin Deleted');
+        (new LogActivity)::addToLog('Reference Deleted');
 
         return back()->with(['status' => true, 'success' => 'Data Deleted Successfully']);
     }

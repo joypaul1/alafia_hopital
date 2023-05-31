@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Item\Item;
 use App\Traits\AutoTimeStamp;
 use App\Traits\GlobalScope;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 

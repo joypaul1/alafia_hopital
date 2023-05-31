@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 require_once __DIR__ . '/dashboard.php';
 require_once __DIR__ . '/siteConfig.php';
 require_once __DIR__ . '/itemConfig.php';
-require_once __DIR__ . '/employee.php';
+require_once __DIR__ . '/hr.php';
 require_once __DIR__ . '/contact.php';
 require_once __DIR__ . '/pos.php';
 require_once __DIR__ . '/inventory.php';
