@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('comments')->nullable();
             $table->boolean('status')->default(1);
             $table->decimal('commission', 15,4)->nullable()->default(0);
+            $table->foreignId('created_by')->constrained('admins');
+            $table->foreignId('updated_by')->nullable()->constrained('admins');
+            $table->foreignId('deleted_by')->nullable()->constrained('admins');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
