@@ -91,8 +91,7 @@ class RadiologyServiceInvoiceController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        // dd($request->all());
-        return $returnData = $request->storeData();
+        $returnData = $request->storeData();
         if ($returnData->getData()->status) {
             (new LogActivity)::addToLog('Pathology Lab Test Invoice Created');
             return redirect()->route('backend.radiologyServiceInvoice.show', $returnData->getData()->data);
