@@ -438,7 +438,7 @@ class LabTestResultController extends Controller
         foreach ($labInvoice->labTestDetails as $key => $details) {
             // dd($details->testName->name);
             if ($details->testName->name == 'CUS (2Hours)' || $details->testName->name == 'CUS (F)' || $details->testName->name == 'Fasting Blood Sugar (FBS)' || $details->testName->name == 'Blood Glucose 2 Hrs. AFB' || $details->testName->name == 'Blood Glucose 2 Hrs. After 75gm Glucose') {
-                $printData[$details->testName->name] = [$details->testName->tube->name => [
+                $printData[$details->testName->category.'('.substr($details->testName->name,0,1).')'] = [$details->testName->tube->name => [
                     $details->testName->short_name => $details->testName->short_name,
                 ]];
             } else {
@@ -691,7 +691,7 @@ class LabTestResultController extends Controller
             return view('backend.pathology.viewResult.lipid_profile', compact('labTestReport'));
         }
 
-        
+
         if ($labTestReport->testName->category == 'Biochemistry' && $labTestReport->testName->name == 'Blood Glucose 2 Hrs. After 75gm Glucose') {
             $multidimensionalArray = array();
             for ($i = 0; $i < count($request->except('_token', '_method', 'lab_invoice_test_detail_id', 'test_id')['name']); $i++) {
@@ -819,7 +819,7 @@ class LabTestResultController extends Controller
                 );
             }
             $result = json_encode($multidimensionalArray);
-            
+
             $labTestReport->update([
                 'result' => $result,
             ]);
@@ -829,10 +829,10 @@ class LabTestResultController extends Controller
         }
         if ($labTestReport->testName->category == 'Micro Biology' && $labTestReport->testName->name == 'Blood - C/S' && $request->growth == 'No') {
 
-            
+
             $result= json_encode($request->reference_value);
 
-            
+
             $labTestReport->update([
                 'result' => $result,
             ]);
@@ -852,7 +852,7 @@ class LabTestResultController extends Controller
                 );
             }
             $result = json_encode($multidimensionalArray);
-            
+
             $labTestReport->update([
                 'result' => $result,
             ]);
@@ -862,10 +862,10 @@ class LabTestResultController extends Controller
         }
         if ($labTestReport->testName->category == 'Urine' && $labTestReport->testName->name == 'Urine - C/S' && $request->growth == 'No') {
 
-            
+
             $result= json_encode($request->reference_value);
 
-            
+
             $labTestReport->update([
                 'result' => $result,
             ]);
@@ -889,6 +889,6 @@ class LabTestResultController extends Controller
             return view('backend.pathology.viewResult.urine.urine_re', compact('labTestReport'));
 
         }
-     
+
     }
 }
