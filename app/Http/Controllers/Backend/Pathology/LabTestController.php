@@ -149,6 +149,7 @@ class LabTestController extends Controller
         $labInvoice = LabInvoice::whereId($id)
             ->with('labTestDetails.testName:id,name,category', 'patient')
             ->with('labTestTube.tubeName:id,name')
+            ->with('reference')
             ->first();
         $mapData = $labInvoice->labTestDetails->map(function ($query) {
             return [

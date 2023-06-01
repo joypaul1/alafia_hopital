@@ -170,8 +170,7 @@
                                 Referred By
                             </Strong>
                             :
-                            {{ optional($radiologyServiceInvoice->doctor)->first_name . ' ' . optional($radiologyServiceInvoice->doctor)->last_name }}
-                            ({{ optional(optional($radiologyServiceInvoice->doctor)->designation)->name }})
+                            {{ optional($radiologyServiceInvoice->reference)->name }}
                         </td>
                     </tr>
                 </tbody>

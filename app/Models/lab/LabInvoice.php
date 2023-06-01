@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\lab\LabInvoiceTestDetails;
 use App\Models\lab\LabInvoiceTestTubeDetails;
+use App\Models\Reference;
 
 class LabInvoice extends Model
 {
@@ -61,5 +62,9 @@ class LabInvoice extends Model
     public function doctor()
     {
         return $this->belongsTo(Doctor::class, 'doctor_id', 'id');
+    }
+    public function reference()
+    {
+        return $this->belongsTo(Reference::class, 'reference_id', 'id');
     }
 }

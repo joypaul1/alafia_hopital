@@ -170,8 +170,8 @@
                                 Referred By
                             </Strong>
                             :
-                            {{ optional($labInvoice->doctor)->first_name . ' ' . optional($labInvoice->doctor)->last_name }}
-                            ({{ optional(optional($labInvoice->doctor)->designation)->name }})
+                            {{ optional($labInvoice->reference)->name}}
+
                         </td>
                     </tr>
                 </tbody>
