@@ -130,15 +130,18 @@
                                     <strong style="margin-left: 8px; font-size:13px;">IN:{{ $labInvoice->invoice_no }}</strong>
                                 </p>
                                 <p>
-                                   DEP: {{ $key }}
+                                    @php
+                                        $dep = str_replace('(', '', $key);
+                                        $dep = str_replace(')', '', $key);
+                                        $dep = preg_replace("/[0-9]+/", '', $dep);
+                                    @endphp
+                                   DEP: {{ $dep }}
                                 </p>
 
                             </div>
                         </div>
                     </div>
-                    {{-- <p style=" width:10%; text-align:center;">
-                        {{ $key }}
-                    </p> --}}
+
                     <!--End Table-->
                 </div>
                 <!--End InvoiceBot-->
