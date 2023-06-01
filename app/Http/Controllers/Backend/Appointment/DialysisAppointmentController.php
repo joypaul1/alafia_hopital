@@ -171,7 +171,7 @@ class DialysisAppointmentController extends Controller
      */
     public function show($id)
     {
-        $appointment = DialysisAppointment::whereId($id)->with('asignEmp', 'patient', 'paymentHistories')->first();
+        $appointment = DialysisAppointment::whereId($id)->with('assignEmp', 'patient', 'paymentHistories')->first();
         return view('backend.appointment.dialysis.moneyReceipt', compact('appointment'));
     }
 

@@ -23,7 +23,7 @@ class DialysisAppointment extends Model
         return $this->belongsTo(Patient::class, 'patient_id', 'id');
     }
 
-    public function asignEmp()
+    public function assignEmp()
     {
         return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
