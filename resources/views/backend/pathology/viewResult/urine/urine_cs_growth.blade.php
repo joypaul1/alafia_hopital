@@ -1365,6 +1365,16 @@
             opacity: 0.3;
         }
 
+        table#report {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #report tr td {
+            border: 1px solid #000;
+            padding: 4px;
+        }
+
     </style>
 
     <style>
@@ -1383,20 +1393,12 @@
                 margin: 0 auto;
                 padding: 0pt;
             }
-            .noprint{
-                display:none;
-            }
         }
 
     </style>
 </head>
-{{-- @dd($labTestReport->testName->category); --}}
-{{-- @dd($labTestReport->test->name
-{{-- @dd($labTestReport->patient); --}}
+
 <body class="c46 doc-content">
-<a href="{{ route('backend.pathology.make-test-result-edit', ['id' => $labTestReport->id]) }}">
-    <button class="btn btn-info noprint">Edit</button>
-</a>
     <div class="content">
         <div>
             <img src="{{ asset('assets/moneyReceipt/hpathology.png') }}" style="width: 100%;" alt="header">
@@ -1410,7 +1412,7 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c43" colspan="1" rowspan="1">
-                            <p class="c23 c10"><span class="c13">5546</span></p>
+                            <p class="c23 c10"><span class="c13">{{  optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->invoice_no  }}</span></p>
                         </td>
                         <td class="c25" colspan="1" rowspan="1">
                             <p class="c50"><span class="c11">Collection Time</span></p>
@@ -1496,63 +1498,106 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c57" colspan="4" rowspan="1">
-                            <p class="c23 c10"><span class="c13">
-                                    {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->first_name ?? '' }} {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->last_name ?? '' }}
-                                    ( {{ optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->doctor->designation->name ?? '' }})
+                            <p class="c23 c10">
+                                <span class="c13">
+                                     {{ optional(optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->reference)->name ?? '' }}
 
-                                </span></p>
+                                </span>
+                            </p>
 
                         </td>
                     </tr>
                 </table>
                 <h2 style="overflow: hidden; display: block; margin: 10px auto; border: 1px solid #aaaaaa; transform: rotate(0.00rad) translateZ(0px); text-align: center; -webkit-transform: rotate(0.00rad) translateZ(0px); width: 300.00px; padding:5pt; min-width: max-content;padding:5pt 10pt;">
-                    {{ $labTestReport->testName->category }} Report
+                    MICROBIOLOGY ROUTINE C/S
                 </h2>
 
-                <table class="c68">
+                <p style="text-align: center; margin-bottom:10px;">
+                    Culture incubated FAN-aerobically at 37°C has yielded.
+                </p>
+                <p style="text-align: center; margin-bottom:10px;">
+                    <u>
+                        <strong>
+                            Klebsiella spp.
+                        </strong>
+                    </u>
+                </p>
+                @php
+                $data = json_decode($labTestReport->result);
+                // dd($data);
+                $chunkData =(array_chunk($data,3))
+                @endphp
+                <table id="report" class="c68" style="border:1px solid #000;">
                     <tr class="c7">
                         <td class="c40" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c39 c24">Name of Test</span></p>
+                            <p class="c4"><span class="c39 c24">Sensitivity to</span></p>
                         </td>
-
-                        <td class="c61" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c24 c39">A</span></p>
+                        <td>
+                            A
                         </td>
-                        <td class="c61" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c24 c39">B</span></p>
+                        <td>
+                            B
                         </td>
-                        <td class="c61" colspan="1" rowspan="1">
-                            <p class="c4"><span class="c24 c39">C</span></p>
+                        <td>
+                            C
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            <p class="c4"><span class="c39 c24">Sensitivity to</span></p>
+                        </td>
+                        <td>
+                            A
+                        </td>
+                        <td>
+                            B
+                        </td>
+                        <td>
+                            C
+                        </td>
+                        <td class="c40" colspan="1" rowspan="1">
+                            <p class="c4"><span class="c39 c24">Sensitivity to</span></p>
+                        </td>
+                        <td>
+                            A
+                        </td>
+                        <td>
+                            B
+                        </td>
+                        <td>
+                            C
                         </td>
                     </tr>
-                    @php
-                    $data = json_decode($labTestReport->result);
+                    @foreach ($chunkData as $data)
+                    <tr class="c7">
+                        @foreach ($data as $item)
+                        {{-- @dd($item) --}}
 
-                    @endphp
+                        <td class="c40" colspan="1" rowspan="1">
+                            {{ $item->name }}
+                        </td>
+                        <td>
+                            {{ $item->a }}
+                        </td>
+                        <td>
+                            {{ $item->b }}
 
-                    <strong style="display: block; text-align:center">S=Sensitive, R=Resistant, I=Intermediate Sensitive</strong>
+                        </td>
+                        <td>
+                            {{ $item->c }}
 
-                    @foreach ($data as $item)
-                    <tr class="c5">
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{{ $item->name}}</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{{ $item->a}}</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{{ $item->b}}</span></p>
-                        </td>
-                        <td class="c2" colspan="1" rowspan="1">
-                            <p class="c1"><span class="c0">{{ $item->c}}</span></p>
                         </td>
 
-
+                        @endforeach
                     </tr>
 
-                    </tr>
                     @endforeach
+                </table>
 
+                <table style="width: 100%; margin-top:10px;">
+                    <tr>
+                        <td style="text-align: center;">S=Sensitive</td>
+                        <td style="text-align: center;">R=Resistant</td>
+                        <td style="text-align: center;">I=Intermediate Sensitive</td>
+                    </tr>
                 </table>
             </div>
         </div>
@@ -1592,7 +1637,6 @@
 </body>
 
 </html>
-<script>
+{{-- <script>
     window.print();
-
-</script>
+</script> --}}

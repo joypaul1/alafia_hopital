@@ -83,6 +83,7 @@
                                     @include('components.backend.forms.select2.option', [
                                         'name' => 'specimen',
                                         'optionData' => $specimen,
+                                        'required' => true,
                                     ])
                                     @include('components.backend.forms.input.errorMessage', [
                                         'message' => $errors->first('specimen'),

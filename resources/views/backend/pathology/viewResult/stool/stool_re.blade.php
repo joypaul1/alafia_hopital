@@ -1402,7 +1402,7 @@
                             <p class="c23"><span class="c0">:</span></p>
                         </td>
                         <td class="c43" colspan="1" rowspan="1">
-                            <p class="c23 c10"><span class="c13">5546</span></p>
+                            <p class="c23 c10"><span class="c13">{{  optional(optional($labTestReport->labInvoiceTestDetails)->labInvoice)->invoice_no  }}</span></p>
                         </td>
                         <td class="c25" colspan="1" rowspan="1">
                             <p class="c50"><span class="c11">Collection Time</span></p>
