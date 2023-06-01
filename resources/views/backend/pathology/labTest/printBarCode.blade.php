@@ -131,11 +131,11 @@
                                 </p>
                                 <p>
                                     @php
-                                        $dep = str_replace('(', '', $key);
-                                        $dep = str_replace(')', '', $key);
+                                        $dep = str_replace('(', ' ', $key);
+                                        $dep = str_replace(')', ' ', $key);
                                         $dep = preg_replace("/[0-9]+/", '', $dep);
                                     @endphp
-                                   DEP: {{ $dep }}
+                                   DEP: {{ trim($dep) }}
                                 </p>
 
                             </div>
