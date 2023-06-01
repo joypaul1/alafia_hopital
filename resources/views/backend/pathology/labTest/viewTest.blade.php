@@ -266,7 +266,7 @@
             </table>
             <footer>
 
-                <img src="{{ asset('assets/moneyReceipt/fpathology.png') }}" style="width: 100%;" alt="">
+                <img src="{{ asset('assets/moneyReceipt/f.png') }}" style="width: 100%;" alt="">
             </footer>
 
 

@@ -369,7 +369,7 @@
                     </div>
                 </div>
             </div>
-            <img src="{{ asset('assets/moneyReceipt/roomF.png') }}" style="width: 100%;" alt="">
+            <img src="{{ asset('assets/moneyReceipt/F.png') }}" style="width: 100%;" alt="">
         </footer>
 
     </div>
