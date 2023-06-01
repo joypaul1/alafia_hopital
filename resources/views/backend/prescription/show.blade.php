@@ -245,7 +245,7 @@
 
         </div>
         <footer>
-            <img src="{{ asset('assets/moneyReceipt/fdoctor.png') }}" style="width: 100%;" alt="">
+            <img src="{{ asset('assets/moneyReceipt/fdoctor-short.png') }}" style="width: 100%;" alt="">
 
         </footer>
 
