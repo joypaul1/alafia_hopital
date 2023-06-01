@@ -131,8 +131,9 @@
                                 </p>
                                 <p>
                                     @php
-                                        $dep = str_replace('(', ' ', $key);
-                                        $dep = str_replace(')', ' ', $key);
+                                        // $dep = str_replace('(', ' ', $key);
+                                        // $dep = str_replace(')', ' ', $key);
+                                        $dep = str_replace(array( '(', ')' ), '', $dep);
                                         $dep = preg_replace("/[0-9]+/", '', $dep);
                                     @endphp
                                    DEP: {{ trim($dep) }}
