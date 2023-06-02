@@ -30,6 +30,7 @@
         },
 
         select: function(event, ui) {
+            console.log(ui.item.tube)
             event.preventDefault();
             $("#testItem").val(null);
 
@@ -44,13 +45,14 @@
             // console.log((ui.item.category).toString().trim(), labTestCatName, 'labTestCatName');
             let tubeAppendFlag = false;
             // labTest data append in table also added table row discount_type dropdown & discount & discount_amount with html event attribute
-            let labTestRow = `<tr>
+            // if (ui.item.tube) {
+                let labTestRow = `<tr>
                                 <td>
                                     <input type="hidden" class="labTest_id"  name="labTest_id[]" value="${ui.item.value_id}">
                                     <br>
                                     <input type="hidden" class="labTestCatName"  value="${ui.item.category}">
                                     <br>
-                                    <input type="hidden"  value="${ui.item.tube.name}">
+                                    <input type="hidden"  value="${ui.item.tube == null?null:ui.item.tube.name}">
                                     ${ui.item.label}
                                 </td>
                                 <td>
@@ -80,7 +82,9 @@
                                 </td>
                             </tr>`;
 
-            $('#labTestAppend').last().after(labTestRow);
+                $('#labTestAppend').last().after(labTestRow);
+            // }
+
             // end test name added
 
             //cus added
@@ -155,35 +159,18 @@
                 $('#labTestAppend').last().after(row);
             }
             //end labTestAppend
-            console.log(labTestCatName, $.inArray((ui.item.category).toString().trim(), labTestCatName) != -
-                1);
+            // console.log(labTestCatName, $.inArray((ui.item.category).toString().trim(), labTestCatName) != -
+            //     1);
             // tubeAppend start here (all tube + urine pot + stool pot)
+            if (ui.item.tube || ui.item.pot|| ui.item.needle) {
             if (labTestCatName.length > 0) {
-                //check if category is already exist or not in table row by labTestCatName class name
-                // labTestCatName.forEach(catName => {
-                //     if ((catName) == (ui.item.category).toString().trim()) {
-                //         tubeAppendFlag = false;
-                //         //check if testTube_id is already exist or not in table row by testTube_id class name
-                //         if (testTube_id.length > 0) {
-                //             testTube_id.forEach(testTube => {
-                //                 if ((testTube) == (ui.item.tube.id).toString()) {
-                //                     tubeAppendFlag = false;
-                //                 } else {
-                //                     tubeAppendFlag = true;
-                //                 }
-                //             });
-                //         } else {
-                //             tubeAppendFlag = true;
-                //         }
-                //     }
-                // });
 
-
-            // category is  exist or not in table row
-            if ($.inArray((ui.item.category).toString().trim(), labTestCatName) != -1) {
+                // category is  exist or not in table row
+                if ($.inArray((ui.item.category).toString().trim(), labTestCatName) != -1) {
                     tubeAppendFlag = false;
                     if (testTube_id.length > 0) {
-                        if ((ui.item.tube.id).toString().trim(),testTube_id != -1 && $.inArray((ui.item.category).toString().trim(), labTestCatName) != -1) {
+                        if ((ui.item.tube.id).toString().trim(), testTube_id != -1 && $.inArray((ui.item
+                                .category).toString().trim(), labTestCatName) != -1) {
                             tubeAppendFlag = false;
                         } else {
                             tubeAppendFlag = true;
@@ -191,18 +178,19 @@
                     } else {
                         tubeAppendFlag = true;
                     }
-                }else if($.inArray((ui.item.category).toString().trim(), labTestCatName) == -1 && $.inArray((ui.item.category).toString().trim(), labTestCatName) != -1){
+                } else if ($.inArray((ui.item.category).toString().trim(), labTestCatName) == -1 && $
+                    .inArray((ui.item.category).toString().trim(), labTestCatName) != -1) {
                     tubeAppendFlag = true;
-                }else{
+                } else {
                     tubeAppendFlag = true;
                 }
 
             } else if (labTestCatName.length == 0) {
                 tubeAppendFlag = true;
             }
+        }
 
-
-            console.log(tubeAppendFlag);
+            // console.log(tubeAppendFlag);
             if (tubeAppendFlag == true) {
                 let tube = `<tr>
                         <td>
