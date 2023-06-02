@@ -229,7 +229,6 @@ class AppointmentController extends Controller
             ->where('appointment_date', $request->appointment_date)
             ->where('doctor_appointment_schedule_id', $request->appointment_schedule)
             ->max('serial_number');
-        // ->count();
         return $lastSerialNumber ? $lastSerialNumber + 1 : 1;
     }
 }

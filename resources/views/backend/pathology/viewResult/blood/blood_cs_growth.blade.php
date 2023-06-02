@@ -1568,7 +1568,7 @@
                     @foreach ($chunkData as $data)
                     <tr class="c7">
                         @foreach ($data as $item)
-                        {{-- @dd($item) --}}
+
 
                         <td class="c40" colspan="1" rowspan="1">
                             {{ $item->name }}

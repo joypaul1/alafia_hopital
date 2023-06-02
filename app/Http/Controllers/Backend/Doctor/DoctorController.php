@@ -45,7 +45,7 @@ class DoctorController extends Controller
                 $data['id'] = $doctor->id;
                 $data['name'] = $doctor->first_name . ' ' . $doctor->last_name;
                 return $data;
-            });;
+            });
             return response()->json(['data' => $data]);
         }
         if ($request->department_id) {
@@ -170,7 +170,6 @@ class DoctorController extends Controller
      */
     public function show(Request $request, $id)
     {
-        // dd($request->checkReport);
 
         if (request()->slot) {
             $timeSlot = [];
@@ -188,6 +187,7 @@ class DoctorController extends Controller
             });
             return response()->json(['data' => $timeSlot]);
         }
+
         // get ajax request for single data show
         if (request()->ajax() && $request->checkReport) {
             $data = Doctor::whereId($id)->select('id')->with('consultations:id,doctor_id,consultation_day,consultation_fee')->first();
