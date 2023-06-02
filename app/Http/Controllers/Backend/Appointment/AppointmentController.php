@@ -23,6 +23,7 @@ class AppointmentController extends Controller
     {
 
         $appointmentData = Appointment::query();
+        if($request){
         if ($request->patient_id) {
             $appointmentData = $appointmentData->whereHas('patient', function ($query) use ($request) {
                 return $query->Where('patientId', 'like', "%{$request->patient_id}%");
@@ -44,20 +45,17 @@ class AppointmentController extends Controller
         if ($request->start_date) {
             $appointmentData = $appointmentData->whereDate('date', '>=', date('Y-m-d', strtotime($request->start_date)));
         } else {
-           // $appointmentData = $appointmentData->whereDate('date', '>=', date('Y-m-d'));
-           $appointmentData = $appointmentData->select('id', 'invoice_number', 'appointment_date', 'patient_id', 'doctor_id', 'doctor_fee', 'appointment_status', 'visitType')
-            ->with('patient:id,name,patientId', 'doctor:id,first_name,last_name')->latest()->get();
+            $appointmentData = $appointmentData->whereDate('date', '>=', date('Y-m-d'));
         }
         if ($request->end_date) {
             $appointmentData = $appointmentData->whereDate('date', '<=',  date('Y-m-d', strtotime($request->end_date)));
         } else {
-           // $appointmentData = $appointmentData->whereDate('date', '>=', date('Y-m-d'));
-           $appointmentData = $appointmentData->select('id', 'invoice_number', 'appointment_date', 'patient_id', 'doctor_id', 'doctor_fee', 'appointment_status', 'visitType')
-            ->with('patient:id,name,patientId', 'doctor:id,first_name,last_name')->latest()->get();
+            $appointmentData = $appointmentData->whereDate('date', '>=', date('Y-m-d'));
         }
-       /* $appointmentData = $appointmentData->select('id', 'invoice_number', 'appointment_date', 'patient_id', 'doctor_id', 'doctor_fee', 'appointment_status', 'visitType')
-            ->with('patient:id,name,patientId', 'doctor:id,first_name,last_name')->latest()->get(); */
-
+    }else{
+        $appointmentData = $appointmentData->select('id', 'invoice_number', 'appointment_date', 'patient_id', 'doctor_id', 'doctor_fee', 'appointment_status', 'visitType')
+            ->with('patient:id,name,patientId', 'doctor:id,first_name,last_name')->latest()->get();
+    }
         if (request()->ajax()) {
             return DataTables::of($appointmentData)
                 ->addIndexColumn()
