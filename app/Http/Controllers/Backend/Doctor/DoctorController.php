@@ -187,7 +187,6 @@ class DoctorController extends Controller
             });
             return response()->json(['data' => $timeSlot]);
         }
-
         // get ajax request for single data show
         if (request()->ajax() && $request->checkReport) {
             $data = Doctor::whereId($id)->select('id')->with('consultations:id,doctor_id,consultation_day,consultation_fee')->first();
