@@ -35,7 +35,7 @@
     @include('backend._partials.page_header', [
         'fa' => 'fa fa-list',
         'name' => 'Patient List',
-        'route' => route('backend.patient.list'),
+        'route' => route('backend.patient.index'),
     ])
 
     <form action="{{ route('backend.patient.save') }}" method="post" enctype="multipart/form-data">
