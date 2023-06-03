@@ -195,7 +195,7 @@
                                     @include('components.backend.forms.input.input-type', [
                                         'name' => 'fee',
                                         'readonly' => 'true',
-                                        'value' => 5000,
+                                        'value' => 6000,
                                         'required' => true,
                                     ])
                                 </div>
@@ -258,7 +258,7 @@
                                     @include('components.backend.forms.input.input-type', [
                                         'name' => 'subtotal',
                                         'readonly' => 'true',
-                                        'value' => 5000,
+                                        'value' => 6000,
                                     ])
                                 </div>
                                 <div class="col-4">
@@ -286,7 +286,7 @@
                                     @include('components.backend.forms.input.input-type', [
                                         'name' => 'payable_amount',
                                         'readonly' => 'true',
-                                        'value' => 5000,
+                                        'value' => 6000,
                                     ])
                                 </div>
 
