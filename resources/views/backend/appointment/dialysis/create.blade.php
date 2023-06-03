@@ -24,7 +24,7 @@
                     @include('components.backend.forms.input.input-type', [
                         'name' => 'Doctor Fees',
                         'readonly' => 'true',
-                        'value' => 5000,
+                        'value' => 6000,
                     ])
                 </div>
                 <div class="col-3">
