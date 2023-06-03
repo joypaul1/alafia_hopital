@@ -37,7 +37,7 @@ class AppointmentController extends Controller
     {
         return response()->json([
             'status' => 'success',
-            'data' => Doctor::where('department_id', $request->department_id)->select('id', 'first_name', 'last_name')->get()->map(function ($doctor) {
+            'data' => Doctor::where('department_id', $request->department_id)->where('name', 'LIKE', "%{$request->name}%")->select('id', 'first_name', 'last_name')->get()->map(function ($doctor) {
                 return [
                     'id' => $doctor->id,
                     'name' => $doctor->first_name . ' ' . $doctor->last_name
@@ -48,6 +48,11 @@ class AppointmentController extends Controller
 
     public function slot(Request $request)
     {
+        $request->validate([
+            'date'         => 'required|date',
+            'doctor_id'   => 'required',
+
+        ]);
 
         $timeSlot = [];
         $data = Doctor::whereId($request->doctor_id)->select('id')
@@ -67,6 +72,13 @@ class AppointmentController extends Controller
 
     public function getSerialNumber($request)
     {
+        $request->validate([
+            'date'         => 'required|date',
+            'doctor_id'   => 'required',
+            'slot'         => 'required',
+
+
+        ]);
         $lastSerialNumber = Appointment::where('doctor_id', $request->doctor_id)
             ->where('appointment_date', $request->date)
             ->where('doctor_appointment_schedule_id', $request->slot)
