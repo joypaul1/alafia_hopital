@@ -55,7 +55,7 @@ class AppointmentController extends Controller
         ]);
 
         $timeSlot = [];
-        $data = Doctor::whereId($request->doctor_id)->select('id')
+        $data = Doctor::whereId($request->doctor_id)->select('id','consultation_duration')
             ->with('doctorAppointmentSchedules')
             ->first();
         //php date wise day show
@@ -67,13 +67,14 @@ class AppointmentController extends Controller
                 'id'    => $query->id,
             ];
         });
+               
         $lastSerialNumber = Appointment::where('doctor_id', $request->doctor_id)
             ->where('appointment_date', $request->date)
-            ->where('doctor_appointment_schedule_id', $timeSlot['id'])
+            ->where('doctor_appointment_schedule_id', $timeSlot[0]['id'])
             ->max('serial_number');
         $lastSerialNumber ? $lastSerialNumber + 1 : 1;
 
-        return response()->json(['data' => $timeSlot ,'last_serial' => $lastSerialNumber]);
+        return response()->json(['data' => $timeSlot ,'last_serial' => $lastSerialNumber ,'duration' => $data->consultation_duration]);
     }
 
     public function getSerialNumber($request)
