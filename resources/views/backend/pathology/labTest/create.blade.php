@@ -724,10 +724,10 @@
             let discountPrice = 0;
             let discount_type = $(this).parent('td').prev('td').find('.discount_type').val();
             let discount_amount = $(this).parent('td').next('td').find('.discount_amount');
-            if (Number($(this).val() || 0) > 25 && discount_type == 'percentage') {
-                $(this).val(25);
+            if (Number($(this).val() || 0) > 100 && discount_type == 'percentage') {
+                $(this).val(100);
                 $(this).css('border', '1px solid red');
-                let $message = "Not More Than 25% Discount! &#128528; ";
+                let $message = "Not More Than 100% Discount! &#128528; ";
                 let $context = 'error';
                 let $positionClass = 'toast-top-right';
                 toastr.remove();
