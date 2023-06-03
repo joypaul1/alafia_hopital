@@ -67,7 +67,13 @@ class AppointmentController extends Controller
                 'id'    => $query->id,
             ];
         });
-        return response()->json(['data' => $timeSlot]);
+        $lastSerialNumber = Appointment::where('doctor_id', $request->doctor_id)
+            ->where('appointment_date', $request->date)
+            ->where('doctor_appointment_schedule_id', $timeSlot)
+            ->max('serial_number');
+        $lastSerialNumber ? $lastSerialNumber + 1 : 1;
+
+        return response()->json(['data' => $timeSlot ,'last_serial' => $lastSerialNumber]);
     }
 
     public function getSerialNumber($request)
