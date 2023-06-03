@@ -69,7 +69,7 @@ class AppointmentController extends Controller
         });
         $lastSerialNumber = Appointment::where('doctor_id', $request->doctor_id)
             ->where('appointment_date', $request->date)
-            ->where('doctor_appointment_schedule_id', $timeSlot['id'])
+            ->where('doctor_appointment_schedule_id', $timeSlot->id)
             ->max('serial_number');
         $lastSerialNumber ? $lastSerialNumber + 1 : 1;
 
