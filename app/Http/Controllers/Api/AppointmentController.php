@@ -37,7 +37,7 @@ class AppointmentController extends Controller
     {
         return response()->json([
             'status' => 'success',
-            'data' => Doctor::where('department_id', $request->department_id)->where('name', 'LIKE', "%{$request->name}%")->select('id', 'first_name', 'last_name')->get()->map(function ($doctor) {
+            'data' => Doctor::where('department_id', $request->department_id)->where('first_name', 'LIKE', "%{$request->name}%")->orWhere('last_name', 'LIKE', "%{$request->name}%")->select('id', 'first_name', 'last_name')->get()->map(function ($doctor) {
                 return [
                     'id' => $doctor->id,
                     'name' => $doctor->first_name . ' ' . $doctor->last_name
